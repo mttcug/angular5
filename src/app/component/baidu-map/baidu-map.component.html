@@ -1,0 +1,6 @@
+
+<div>
+  <baidu-map [options]="opts">
+    <marker *ngFor="let marker of markers" [point]="marker.point" [options]="marker.options" (clicked)="showWindow($event)"></marker>
+  </baidu-map>
+</div>
