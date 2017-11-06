@@ -479,12 +479,15 @@
     </button>
   </div>
 
+
+
+
   <div class="modal-body">
     <div class="block">
       <label class="line-name" for=""><span class="input-label-name">店铺租金:</span></label>
-      <input class="form-control rent-input" type="text" placeholder="6位整数+2位小数">
-      <select class="form-control  select-style" name="" id="popupRentMeasure" [(ngModel)]="rentMeasure">
-        <option value="item.code" *ngFor="let item of rentMeasureList">{{item.name}}</option>
+      <input class="form-control rent-input" type="text" placeholder="6位整数+2位小数" [(ngModel)]="rent">
+      <select class="form-control  select-style" name="" id="" [(ngModel)]="rentMeasure">
+        <option value="{{item.code}}" *ngFor="let item of rentMeasureList">{{item.name}}</option>
       </select>
     </div>
 
@@ -492,8 +495,7 @@
       <label for=""  class="line-name"><span class="input-label-name">支付方式:</span></label>
       <div class="pay-way-list">
         <span *ngFor="let item of payWayList" class="select-span"><input   [(ngModel)]="item.name" [value]="item.name" name="item.name"  (click)="selectThisPayWay(item)" class="week-checkbox" type="radio" data-code="item.code">{{item.name}}</span>
-
-        <input class="form-control time-imput inline-input" type="text" placeholder="请填写" [(ngModel)]="payWay">
+        <input class="form-control time-imput inline-input" type="text" placeholder="请填写" [(ngModel)]="popupPayWay">
       </div>
     </div>
 
@@ -505,7 +507,7 @@
     <div class="block">
       <label for=""  class="line-name"><span class="input-label-name">押金:</span></label>
       <div class="pay-way-list">
-        <span *ngFor="let item of payWayList" class="select-span"><input   [(ngModel)]="item.name" [value]="item.name" name="item.name"  (click)="selectThisPayWay(item)" class="week-checkbox" type="radio" data-code="item.code">{{item.name}}</span>
+        <span *ngFor="let item of deposit" class="select-span"><input   [(ngModel)]="item.name" [value]="item.name" name="item.name"  (click)="selectThisPayWay(item)" class="week-checkbox" type="radio" data-code="item.code">{{item.name}}</span>
 
         <input class="form-control time-imput inline-input" type="text" placeholder="请填写" [(ngModel)]="payWay">
       </div>

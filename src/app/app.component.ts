@@ -93,6 +93,45 @@ export class AppComponent {
     this.endOpenDate = date;
   }
 
+
+  /*店铺图片*/
+
+  closeResult: string;
+
+  open(content) {
+    this.modalService.open(content, {size: 'lg'}).result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+      console.log("弹出框结果：",result);
+    }, (reason) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    });
+  }
+
+
+  private getDismissReason(reason: any): string {
+    if (reason === ModalDismissReasons.ESC) {
+      return 'by pressing ESC';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      return 'by clicking on a backdrop';
+    } else {
+      return `with: ${reason}`;
+    }
+  }
+
+  /*门面*/
+  shopImages = [];
+  multiShops = true;
+  /*环境*/
+  images = [
+    {id: "123", url: "./app/public/images/1.png"},
+    {id: "123", url: "./app/public/images/2.jpg"}
+  ];
+  multiEnvironment = true;
+
+  addImages(newInamges) {
+    console.log("newInamges:", newInamges);
+  }
+
   /*前台电话*/
   shopPhoneNumber = '';
 
@@ -197,7 +236,7 @@ export class AppComponent {
   rentMeasureList = [{code:1,name:"元/月"},{code:2,name:"万元/月"},{code:3,name:"千元/月"}];
 
 
-  /*支付方式*/
+  /*支付方式&&编辑更多支付方式*/
   payWayList = [
     {code: 1, name: "一月一付"},
     {code: 2, name: "两月一付"},
@@ -209,11 +248,29 @@ export class AppComponent {
   ];
 
   payWay = '';
+  popupPayWay=this.payWay;
 
   selectThisPayWay(item) {
     console.log("payWay:", item.code, this.payWayList);
     item.code == 0 ? '' : this.payWay = item.name;
   }
+
+  deposit= [
+    {code: 1, name: "一月租金"},
+    {code: 2, name: "两月租金"},
+    {code: 3, name: "三月租金"},
+    {code: 4, name: "四月租金"},
+    {code: 5, name: "五月租金"},
+    {code: 6, name: "六月租金"},
+    {code: 0, name: "自定义"}
+  ];
+
+
+
+
+
+
+
 
 
   /*转让状态*/
@@ -367,41 +424,16 @@ export class AppComponent {
 
   /*弹出框问题*/
 
-  /*弹出框--店铺图片*/
-  closeResult: string;
-
-  open(content) {
-    this.modalService.open(content, {size: 'lg'}).result.then((result) => {
-      this.closeResult = `Closed with: ${result}`;
-      console.log("弹出框结果：",result);
-    }, (reason) => {
-      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-    });
-  }
+  /*弹出框--店铺图片*///////////////////////////////////////////////////////////////////////////////
 
 
-  private getDismissReason(reason: any): string {
-    if (reason === ModalDismissReasons.ESC) {
-      return 'by pressing ESC';
-    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
-      return 'by clicking on a backdrop';
-    } else {
-      return `with: ${reason}`;
-    }
-  }
 
-  /*门面*/
-  shopImages = [];
-  multiShops = true;
-  /*环境*/
-  images = [
-    {id: "123", url: "./app/public/images/1.png"},
-    {id: "123", url: "./app/public/images/2.jpg"}
-  ];
-  multiEnvironment = true;
 
-  addImages(newInamges) {
-    console.log("newInamges:", newInamges);
-  }
+  /*弹出框--更多租金*///////////////////////////////////////////////////////////////////////////
+  /*是否递增*/
+
+
+
+
 
 }
