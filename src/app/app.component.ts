@@ -93,43 +93,11 @@ export class AppComponent {
     this.endOpenDate = date;
   }
 
+  /*前台电话*/
+  shopPhoneNumber = '';
 
-  /*弹出框--店铺图片*/
-  closeResult: string;
-
-  open(content) {
-    this.modalService.open(content, {size: 'lg'}).result.then((result) => {
-      this.closeResult = `Closed with: ${result}`;
-    }, (reason) => {
-      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-    });
-  }
-
-
-  private getDismissReason(reason: any): string {
-    if (reason === ModalDismissReasons.ESC) {
-      return 'by pressing ESC';
-    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
-      return 'by clicking on a backdrop';
-    } else {
-      return `with: ${reason}`;
-    }
-  }
-
-
-  /*门面*/
-  shopImages = [];
-  multiShops = true;
-  /*环境*/
-  images = [
-    {id: "123", url: "./app/public/images/1.png"},
-    {id: "123", url: "./app/public/images/2.jpg"}
-  ];
-  multiEnvironment = true;
-
-  addImages(newInamges) {
-    console.log("newInamges:", newInamges);
-  }
+  /*外卖电话*/
+  takeOutPhone = '';
 
 
   /*营业时间*/
@@ -148,20 +116,20 @@ export class AppComponent {
   selectedWeek = [];
 
   selectAllWeek() {
-    this.wholeWeek == false ? this.vaildTime.map((item, index) => {
+    this.wholeWeek === false ? this.vaildTime.map((item, index) => {
       item.checked = true;
     }) : this.vaildTime.map((item, index) => {
-      item.checked = false
+      item.checked = false;
     });
   }
 
   selectThisDay(item) {
-    if (item.checked == true) {
+    if (item.checked === true) {
       this.selectedWeek.push(item);
     } else {
       this.selectedWeek.forEach((value, index) => {
         value.code = item.code ? this.selectedWeek.splice(index, 1) : "";
-      })
+      });
     }
   }
 
@@ -170,7 +138,7 @@ export class AppComponent {
   endTime = '';
 
   selectAllDay() {
-    if (this.allDay == false) {
+    if (this.allDay === false) {
       this.startTime = "00:00";
       this.endTime = "24:00";
     } else {
@@ -179,9 +147,25 @@ export class AppComponent {
     }
   }
 
+
+
+
+
+
+
+
   /*装修档次*/
-  fitMentLevelStatus = 0;
-  fitMentLevelList = [];
+  fitmentLevelStatus = '';
+  fitmentLevelList = [
+    {code: 1, name: "精装修"},
+    {code: 2, name: "普通装修"},
+    {code: 3, name: "简单装修"},
+    {code: 4, name: "支付宝"},
+    {code: 5, name: "wifi"},
+    {code: 6, name: "微信"},
+    {code: 7, name: "停车位"},
+    {code: 8, name: "可刷卡"},
+  ];
 
 
   /*提供服务*/
@@ -198,18 +182,20 @@ export class AppComponent {
   ];
 
   selectThisService(item) {
-    if (item.checked == false) {
+    if (item.checked === false) {
       this.serviceSelected.push(item);
     } else {
       this.serviceSelected.forEach((value, index) => {
-        value.code == item.code ? this.serviceSelected.splice(index, 1) : '';
+        value.code.toString() === item.code.toString() ? this.serviceSelected.splice(index, 1) : '';
       });
     }
   }
 
   /*店铺租金*/
-  rentMeasure = 0;
-  rentMeasureList = [];
+  rent = '';
+  rentMeasure = 1;
+  rentMeasureList = [{code:1,name:"元/月"},{code:2,name:"万元/月"},{code:3,name:"千元/月"}];
+
 
   /*支付方式*/
   payWayList = [
@@ -221,6 +207,7 @@ export class AppComponent {
     {code: 6, name: "六月一付"},
     {code: 0, name: "自定义"}
   ];
+
   payWay = '';
 
   selectThisPayWay(item) {
@@ -261,7 +248,7 @@ export class AppComponent {
   deleteCertification(item) {
     this.certifications.forEach((value, index) => {
       value.id == item.id ? this.certifications.splice(index, 1) : '';
-    })
+    });
   }
 
   /*店铺证件弹出框*/
@@ -324,7 +311,7 @@ export class AppComponent {
   deleteSelectedIndustry(dataList, item) {
     dataList.forEach((value, index) => {
       value.code == item.code ? dataList.splice(index, 1) : '';
-    })
+    });
   }
 
   /*推荐经营的行业*/
@@ -376,6 +363,45 @@ export class AppComponent {
   }
 
 
-  /*百度地图*/
+
+
+  /*弹出框问题*/
+
+  /*弹出框--店铺图片*/
+  closeResult: string;
+
+  open(content) {
+    this.modalService.open(content, {size: 'lg'}).result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+      console.log("弹出框结果：",result);
+    }, (reason) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    });
+  }
+
+
+  private getDismissReason(reason: any): string {
+    if (reason === ModalDismissReasons.ESC) {
+      return 'by pressing ESC';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      return 'by clicking on a backdrop';
+    } else {
+      return `with: ${reason}`;
+    }
+  }
+
+  /*门面*/
+  shopImages = [];
+  multiShops = true;
+  /*环境*/
+  images = [
+    {id: "123", url: "./app/public/images/1.png"},
+    {id: "123", url: "./app/public/images/2.jpg"}
+  ];
+  multiEnvironment = true;
+
+  addImages(newInamges) {
+    console.log("newInamges:", newInamges);
+  }
 
 }

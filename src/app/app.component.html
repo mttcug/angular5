@@ -65,13 +65,13 @@
   <!--前台电话-->
   <div class="block">
     <label for=""  class="line-name"><span class="input-label-name">前台电话:</span></label>
-    <input class="form-control inline-input" type="text" placeholder="请填写">
+    <input class="form-control inline-input" type="text" placeholder="请填写" [(ngModel)]="shopPhoneNumber">
   </div>
 
   <!--外卖电话-->
   <div class="block">
     <label for=""  class="line-name"><span class="input-label-name">外卖电话:</span></label>
-    <input class="form-control inline-input" type="text" placeholder="请填写">
+    <input class="form-control inline-input" type="text" placeholder="请填写" [(ngModel)]="takeOutPhone">
   </div>
 
   <!--营业时间-->
@@ -90,7 +90,7 @@
         <ng-template ngbTabContent>
           <p class="week-list">
             <span><input type="checkbox" [(ngModel)]="allDay" (click)="selectAllDay()" >24小时</span><span class="divider">|</span>
-            <input class="time-imput" type="text" placeholder="8:00" [(ngModel)]="startTime">—<input class="time-imput" type="text" placeholder="24:00" [(ngModel)]="endTime">
+            <input class="form-control time-input inline-input" type="text" placeholder="8:00" [(ngModel)]="startTime">—<input class="form-control time-input inline-input" type="text" placeholder="24:00" [(ngModel)]="endTime">
           </p>
         </ng-template>
       </ngb-tab>
@@ -100,8 +100,9 @@
   <!--装修档次-->
   <div class="block">
     <label for=""  class="line-name"><span class="input-label-name">装修档次:</span></label>
-    <select class="form-control  select-style" name="" id="fitMentLevel" [(ngModel)]="fitMentLevelStatus">
-      <option value="item.code" *ngFor="let item of fitMentLevelList">{{item.name}}</option>
+    <select class="form-control  select-style" name="" id="fitMentLevel" [(ngModel)]="fitmentLevelStatus">
+      <option value="">请选择</option>
+      <option value="{{item.code}}" *ngFor="let item of fitmentLevelList">{{item.name}}</option>
     </select>
   </div>
 
@@ -116,9 +117,9 @@
   <!--店铺租金-->
   <div class="block">
     <label for=""  class="line-name"><span class="input-label-name">店铺租金:</span></label>
-    <input class="form-control rent-input" type="text" placeholder="6位整数+2位小数">
+    <input class="form-control rent-input" type="text" placeholder="6位整数+2位小数" [(ngModel)]="rent">
     <select class="form-control  select-style" name="" id="rentMeasure" [(ngModel)]="rentMeasure">
-      <option value="item.code" *ngFor="let item of rentMeasureList">{{item.name}}</option>
+      <option value="{{item.code}}" *ngFor="let item of rentMeasureList">{{item.name}}</option>
     </select>
   </div>
 
