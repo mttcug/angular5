@@ -28,32 +28,32 @@
       class="input-label-name">经营行业:</span></label>
     <select class="form-control select-style" name="" id="big-industry" [(ngModel)]="bigIndustry">
       <option value="">请选择</option>
-      <option value="item.code" *ngFor="let item of bigIndustryList">{{item.name}}</option>
+      <option value="{{item.code}}" *ngFor="let item of bigIndustryList">{{item.name}}</option>
     </select>
     <select class="form-control select-style" name="" id="small-industry" [(ngModel)]="smallIndustry">
       <option value="">请选择</option>
-      <option value="item.code" *ngFor="let item of smallIndustryList">{{item.name}}</option>
+      <option value="{{item.code}}" *ngFor="let item of smallIndustryList">{{item.name}}</option>
     </select>
   </div>
 
   <!--开业时间-->
   <div class="block">
     <label for=""  class="line-name"><span class="input-label-name">开业日期:</span></label>
-    <app-date-picker [date]="startOpenDate" (dateChange)="getStartTime($event)"></app-date-picker>
+    <app-date-picker [date]="endOpenDate" (dateChange)="getEndTime($event)"></app-date-picker>
   </div>
 
   <!--经营状态-->
   <div class="block">
     <label for=""  class="line-name"><span class="input-label-name">经营状态:</span></label>
     <select class="form-control  select-style" name="" id="operateStatus" [(ngModel)]="operateStatus">
-      <option value="item.code" *ngFor="let item of operateStatusList">{{item.name}}</option>
+      <option value="{{item.code}}" *ngFor="let item of operateStatusList">{{item.name}}</option>
     </select>
   </div>
 
   <!--停业日期-->
   <div class="block">
     <label for=""  class="line-name"><span class="input-label-name">停业日期:</span></label>
-    <app-date-picker></app-date-picker>
+    <app-date-picker  [date]="startOpenDate" (dateChange)="getStartTime($event)"></app-date-picker>
   </div>
 
   <!--店铺图片-->

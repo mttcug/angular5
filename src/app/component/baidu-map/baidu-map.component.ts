@@ -36,13 +36,7 @@ export class BaiduMapComponent implements OnInit {
     };
   }
 
-
-
-
   ngOnInit() {
-
   }
-
-
 
 }
