@@ -248,13 +248,25 @@ export class AppComponent {
   ];
 
   payWay = '';
-  popupPayWay=this.payWay;
+  definedPayWay=''
 
   selectThisPayWay(item) {
     console.log("payWay:", item.code, this.payWayList);
-    item.code == 0 ? '' : this.payWay = item.name;
+    this.payWay = item.code == 0 ? this.definedPayWay :  item.name;
+  }
+  rateWay = '';
+  definedRateWay = '';
+  rateChoice= [
+    {code: 1, name: "递增"},
+    {code: 2, name: "两月租金"}
+  ];
+
+  selectThisRate(item){
+    this.rateWay = item.name;
   }
 
+  depositWay = '';
+  definedDepositWay = '';
   deposit= [
     {code: 1, name: "一月租金"},
     {code: 2, name: "两月租金"},
@@ -264,16 +276,39 @@ export class AppComponent {
     {code: 6, name: "六月租金"},
     {code: 0, name: "自定义"}
   ];
+  selectThisDepositWay(item){
+    this.depositWay = item.code == 0 ? this.definedDepositWay :  item.name;
+  }
 
+  rentDate='';           //租期
+  getRentDate(date){
+    this.rentDate=date;
+  }
+  rentTime='';           //租约
+  leftContractTime='';  //剩余合同期
 
+  /*客单价*/
+  personProfit='';  //客单价
 
+  /*日均营业额*/
+  dayProfit='';       //日均营业额
 
+  consumePersonType='';  //消费人群
 
+  consumeTime='';    //消费时间
 
+  foodAmount='';    //堂食量
+
+  takeOutAmount='';  //外卖量
+
+  memberAmount=''; //会员数
+
+  memberType='';  //会员类型
 
 
 
   /*转让状态*/
+  transferStatus=''          //转让状态
   transferStatusList = [
     {code: 1, name: "不转让"},
     {code: 2, name: "转让中"},
@@ -282,18 +317,25 @@ export class AppComponent {
   ]
 
   selectTransferStatus(item) {
-
+    this.transferStatus=item;
+    console.log("1");
   }
 
+  /*转让费*/
+  transferFee='';              //转让费
+
   /*可否空转*/
+  emptyTransfer='';           //可否空转
   emptyTransferList = [
     {code: 1, name: "可空转"},
     {code: 2, name: "不可空转"}
   ];
 
   selectEmptyTransfer(item) {
-
+    this.emptyTransfer=item;
+    console.log("2");
   }
+  emptyTransferFee='';          //空转转让费
 
   /*店铺证件*/
   certifications = [
