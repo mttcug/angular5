@@ -33,6 +33,10 @@ export class AppComponent {
       name: "123"
     }];
 
+  updateShopName(){
+    this.shopName= this.subShopName == '' ? this.shopName : this.shopName + "(" + this.subShopName + ")";
+  }
+
 
   /* 经营行业*/
   bigIndustry = '';
@@ -122,7 +126,7 @@ export class AppComponent {
   shopImages = [];
   multiShops = true;
   /*环境*/
-  images = [
+  environment = [
     {id: "123", url: "./app/public/images/1.png"},
     {id: "123", url: "./app/public/images/2.jpg"}
   ];
@@ -153,7 +157,8 @@ export class AppComponent {
     {code: 7, name: "周日", checked: false}
   ];
 
-  selectedWeek = [];
+
+  operateDate=[];
 
   selectAllWeek() {
     this.wholeWeek === false ? this.vaildTime.map((item, index) => {
@@ -165,25 +170,25 @@ export class AppComponent {
 
   selectThisDay(item) {
     if (item.checked === true) {
-      this.selectedWeek.push(item);
+      this.operateDate.push(item);
     } else {
-      this.selectedWeek.forEach((value, index) => {
-        value.code = item.code ? this.selectedWeek.splice(index, 1) : "";
+      this.operateDate.forEach((value, index) => {
+        value.code = item.code ? this.operateDate.splice(index, 1) : "";
       });
     }
   }
 
   allDay = false;
-  startTime = '';
-  endTime = '';
+  operateStartTime = '';
+  operateEndTime = '';
 
   selectAllDay() {
     if (this.allDay === false) {
-      this.startTime = "00:00";
-      this.endTime = "24:00";
+      this.operateStartTime = "00:00";
+      this.operateEndTime = "24:00";
     } else {
-      this.startTime = "";
-      this.endTime = "";
+      this.operateStartTime = "";
+      this.operateEndTime = "";
     }
   }
 
@@ -209,7 +214,7 @@ export class AppComponent {
 
 
   /*提供服务*/
-  serviceSelected = [];
+  serviceProvided = [];
   serviceList = [
     {code: 1, name: "可刷卡", checked: false},
     {code: 2, name: "摆件", checked: false},
@@ -223,10 +228,10 @@ export class AppComponent {
 
   selectThisService(item) {
     if (item.checked === false) {
-      this.serviceSelected.push(item);
+      this.serviceProvided.push(item);
     } else {
-      this.serviceSelected.forEach((value, index) => {
-        value.code.toString() === item.code.toString() ? this.serviceSelected.splice(index, 1) : '';
+      this.serviceProvided.forEach((value, index) => {
+        value.code.toString() === item.code.toString() ? this.serviceProvided.splice(index, 1) : '';
       });
     }
   }
@@ -377,9 +382,11 @@ export class AppComponent {
 
 
   /*店铺老板 && 个人信息弹出框*/
-  shopOwner = "战三";
+  shopBoss = {name:'',phoneList:[],realName:'',sex:'',birthdayDate:'',contactAddress:'',email:'',qq:'',wx:'',personInfoDetail:''};
 
   phoneList = [""];
+  name='';                       //名称
+  realName=''                   //真实名字
 
   addPhoneNumbers() {
     this.phoneList.push("");          //增加输入框个数
@@ -390,8 +397,7 @@ export class AppComponent {
     {code: 2, name: "女"},
     {code: 3, name: "其他"}
   ];
-  sexSelected = '';
-
+  sexSelected = '';            //性别
   selectSexStatus(item) {
     this.sexSelected = item;
     console.log("已选性别：", this.sexSelected);
@@ -399,26 +405,86 @@ export class AppComponent {
 
 
 
+  birthdayDate='';
+  getbirthTime(date){
+    this.birthdayDate=date;
+  }
+
+  contactAddress='';            //联系地址
+
+  email='';                     //电子邮件
+  qq='';                        //qq
+  wx='';                        //微信
+  personInfoDetail='';          //详细描述
+
+
+
+
+
+
 
   /*合伙人*/
-  partner = "里欧";
-  partnerPhone = "18977765655";
+  partner=[
+    {name:"里欧1",phone:'18977765655',phoneList:[],realName:'',sex:'',birthdayDate:'',contactAddress:'',email:'',qq:'',wx:'',personInfoDetail:''},
+    {name:"里欧2",phone:'18977765655',phoneList:[],realName:'',sex:'',birthdayDate:'',contactAddress:'',email:'',qq:'',wx:'',personInfoDetail:''},
+  ];
+  addPartner(){
+    var obj={name:"",phone:'',phoneList:[],realName:'',sex:'',birthdayDate:'',contactAddress:'',email:'',qq:'',wx:'',personInfoDetail:''};
+    this.partner.push(obj);
+  }
 
   /*店铺员工*/
-  employees = [{
-    position: ''
+  employee = [{
+    position: '',entryDate:'',workContent:'',leaveDate:''
   }];
-  personClass = {
-    position: ''
-  }
+
 
   addEmployee() {
+    var obj={position: '',entryDate:'',workContent:'',leaveDate:'',phoneList:[],realName:'',sex:'',birthdayDate:'',contactAddress:'',email:'',qq:'',wx:'',personInfoDetail:''};
+    this.employee.push(obj);
   }
 
 
-  /*行业列表弹出框*/
-  /*打开行业列表弹出框的时候确定默认选择列表(三个按钮打开同一个行业列表弹出框)*/
 
+  /*所在位置*/
+  citySelected='';           //城市
+  districtSelected='';       //区域
+  cityList=[];
+  districtList=[];
+  cityChange(code){
+
+  }
+  districtChange(code){
+
+  }
+  lng='';                       //经度
+  lat='';                       //纬度
+
+  /*位置描述*/
+  positionDescription='';       //位置描述
+  positionDescriptionList=[];
+
+  /*是否临街*/
+  isNearStreet='';                //是否临街
+  positionList=[];
+
+  /*上级物业*/
+  superFacility='';                //上级物业
+  superFacilityList=[];
+  shopCityName='';                 //商城名称
+
+  buildingArea='';                //建筑面积
+  roomArea='';                     //开间
+  doorWidth='';                    //门宽
+  floor='';                         //所处楼层
+  validArea='';                    //使用面积
+  depth='';                        //进深
+  floorHeight='';                   //层高
+  floorAmount='';                  //总层数
+
+
+  /*适合经营*/
+  /*打开行业列表弹出框的时候确定默认选择列表(三个按钮打开同一个行业列表弹出框)*/
   industrySelectedList = [];  //用来记录适合经营，推荐经营和不宜经营点击的是哪一个
   openModel(content, selectedList) {
     this.industrySelectedList = selectedList;
@@ -431,7 +497,7 @@ export class AppComponent {
 
 
   /*适合经营*/
-  fitIndustryList = [
+  fitIndustry = [                   //适合经营
     {code: 1, name: "餐馆1"},
     {code: 2, name: "娱乐1"},
     {code: 3, name: "养生1"},
@@ -446,7 +512,7 @@ export class AppComponent {
         this.industrySelectedList.push(item);
       }
     })
-    console.log("default:", this.industrySelectedList, this.fitIndustryList);
+    console.log("default:", this.industrySelectedList, this.fitIndustry);
   }
 
   deleteSelectedIndustry(dataList, item) {
@@ -456,7 +522,7 @@ export class AppComponent {
   }
 
   /*推荐经营的行业*/
-  recommendableIndustryList = [
+  recommendableIndustry = [             //推荐经营
     {code: 1, name: "餐馆2"},
     {code: 2, name: "娱乐2"},
     {code: 3, name: "养生2"},
@@ -464,7 +530,7 @@ export class AppComponent {
   ];
 
   /*不推荐经营的行业*/
-  unRecommendableIndustryList = [
+  unRecommendableIndustry = [               //不推荐经营
     {code: 1, name: "餐馆3"},
     {code: 2, name: "娱乐3"},
     {code: 3, name: "养生3"},
@@ -472,6 +538,7 @@ export class AppComponent {
   ];
 
   /*物业配套*/
+  facilities=[];                                   //物业配套
   facilitiesList = [
     {code: 1, name: "可明火", checked: false},
     {code: 2, name: "380V电压", checked: false},
@@ -483,22 +550,46 @@ export class AppComponent {
     {code: 8, name: "天然气", checked: false},
     {code: 9, name: "外边去", checked: false}
   ];
+  selectThisFacility(item){
+    this.facilities.forEach((v,i)=>{
+      console.log("123",item.code,v.code,v.code.toString() === item.code.toString());
+      v.code.toString() === item.code.toString() ? this.facilities.splice(i,1) : i==this.facilities.length ? this.facilities.push(item) : '';
+    })
 
-  /*个人信息弹出框*/
+    console.log("fa:",this.facilities);
+  }
+
+  /*费用*/
+  waterFee='';                //水费
+  facilityFee='';             ////物业
+  gasFee='';                   //燃气
+  elecFee='';                  //电费
+
+  warmFee='';                    //暖气
+
+  /*建筑形状*/
+  buildingShape='';
+  buildingShapeList=[];
+
+  /*产权类型*/
+  propertyRightType='';
+  propertyRightTypeList=[];
+
+  /*拆迁风险*/
+  destroyedRatio='';
+  destroyedRatioList=[];
+  destroyedRatioDetail='';
+
+  /*房东*/
+  houseOwner={};
 
 
 
 
 
-  /*弹出框问题*/
-
-  /*弹出框--店铺图片*///////////////////////////////////////////////////////////////////////////////
 
 
 
-
-  /*弹出框--更多租金*///////////////////////////////////////////////////////////////////////////
-  /*是否递增*/
 
 
 

@@ -5,7 +5,7 @@
     <div class="block">
       <label for="" class="line-name"><span class="required-tag">*</span><span
         class="input-label-name ">店名:</span></label>
-      <input class="form-control  inline-input" type="text" required [disabled]="isBrandName" maxlength="50"
+      <input class="form-control  inline-input" type="text" required [disabled]="isBrandName" maxlength="5"
              placeholder="请输入"
              [(ngModel)]="shopName" name="shopName">
       <input class="checkbox-style" type="checkbox" [(ngModel)]="isBrandName" name="isBrandName">
@@ -14,16 +14,16 @@
       <div *ngIf="isBrandName" class="brand-name-block">
         <p><label for="" class="line-name"><span class="required-tag">*</span><span
           class="input-label-name">品牌名称：</span></label>
-          <input class="form-control brand-name-input" name="brandName" type="text" [(ngModel)]="brandName" required
-                 placeholder="请输入">
+          <input class="form-control brand-name-input" name="brandName" type="text" [(ngModel)]="brandName" (change)="updateShopName()" required
+                 placeholder="请输入" maxlength="30">
         </p>
         <p><label for="" class="line-name"><span class="required-tag">*</span><span
           class="input-label-name">分店名：</span></label>
           <input class="form-control subshop-name" name="subShopName" type="text" [(ngModel)]="subShopName" required
-                 placeholder="请输入">
+                 placeholder="请输入" maxlength="10">
         </p>
         <p><label for="" class="line-name"><span class="input-label-name">运营模式：</span></label>
-          <select class="form-control select-style" name="" id="" [(ngModel)]="operateType">
+          <select class="form-control select-style" name="operateType" id="" [(ngModel)]="operateType">
             <option value="">请选择</option>
             <option value="item.code" *ngFor="let item of operateMode">{{item.name}}</option>
           </select>
@@ -49,7 +49,7 @@
     <!--开业时间-->
     <div class="block">
       <label for="" class="line-name"><span class="input-label-name">开业日期:</span></label>
-      <app-date-picker [date]="endOpenDate" (dateChange)="getEndTime($event)"></app-date-picker>
+      <app-date-picker [date]="startOpenDate" (dateChange)="getEndTime($event)"></app-date-picker>
     </div>
 
     <!--经营状态-->
@@ -63,7 +63,7 @@
     <!--停业日期-->
     <div class="block">
       <label for="" class="line-name"><span class="input-label-name">停业日期:</span></label>
-      <app-date-picker [date]="startOpenDate" (dateChange)="getStartTime($event)"></app-date-picker>
+      <app-date-picker [date]="endOpenDate" (dateChange)="getStartTime($event)"></app-date-picker>
     </div>
 
     <!--店铺图片-->
@@ -110,8 +110,8 @@
                            (click)="selectAllDay()">24小时</span><span
               class="divider">|</span>
               <input class="form-control time-input inline-input" name="startTime" type="text" placeholder="8:00"
-                     [(ngModel)]="startTime">—<input class="form-control time-input inline-input" name="endTime"
-                                                     type="text" placeholder="24:00" [(ngModel)]="endTime">
+                     [(ngModel)]="operateStartTime">—<input class="form-control time-input inline-input" name="endTime"
+                                                     type="text" placeholder="24:00" [(ngModel)]="operateEndTime">
             </p>
           </ng-template>
         </ngb-tab>
@@ -254,9 +254,15 @@
     <!--合伙人-->
     <div class="block">
       <label for="" class="line-name"><span class="input-label-name">合伙人:</span></label>
-      <span>{{partner}}</span><span>{{partnerPhone}}</span> <span class="edit-info" (click)="open(personInfo)">编辑</span>
-      <input type="text" name="stockRatio" placeholder="参股比例" class="inline-input form-control">
-      <p class="add-partner-btn add-popup-btn" (click)="open(certificationEdit)"><label class="line-name"></label><i
+      <div class="inline-block vertical-m">
+        <p *ngFor="let item of partner">
+          <span>{{item.name}}</span><span>{{item.phone}}</span> <span class="edit-info"
+                                                                      (click)="open(personInfo)">编辑</span>
+          <input type="text" name="stockRatio" placeholder="参股比例" class="inline-input form-control">
+        </p>
+      </div>
+      <p *ngIf="partner.length < 5" class="add-partner-btn add-popup-btn" (click)="addPartner()"><label
+        class="line-name"></label><i
         class="iconfont icon-tianjiatupian m-ritght-5"></i><span class="light-weight-grey">添加合伙人</span></p>
 
     </div>
@@ -264,14 +270,19 @@
     <!--店铺员工-->
     <div class="block">
       <label for="" class="line-name"><span class="input-label-name">店铺员工:</span></label>
-      <p class="inline-p">
-        <input type="text" placeholder="职位" name="position" class="inline-input form-control"> <span
-        class="light-weight-grey">姓名</span><span class="edit-info" (click)="open(personInfo)">编辑</span>
-        <app-date-picker></app-date-picker>
-        <input type="text" placeholder="工作内容" class="inline-input form-control" name="workContent">
-        <input type="checkbox"> <span>已离职</span>
-        <app-date-picker></app-date-picker>
-      </p>
+      <div class="inline-block vertical-m">
+        <p class="" *ngFor="let item of employee">
+          <input type="text" placeholder="职位" name="position" class="inline-input form-control"
+                 [(ngModel)]="item.position"> <span
+          class="light-weight-grey">姓名</span><span class="edit-info" (click)="open(personInfo)">编辑</span>
+          <app-date-picker [date]="entryDate" (dateChange)="getEntryDate($event)"></app-date-picker>
+          <input type="text" placeholder="工作内容" class="inline-input form-control" name="workContent"
+                 [(ngModel)]="item.workContent">
+          <input type="checkbox"> <span>已离职</span>
+          <app-date-picker [date]="leaveDate" (dateChange)="getLeaveDate($event)"></app-date-picker>
+        </p>
+      </div>
+
       <p class="add-employee-btn add-popup-btn" (click)="addEmployee()"><label class="line-name"></label><i
         class="iconfont icon-tianjiatupian m-ritght-5"></i><span class="light-weight-grey">添加员工</span></p>
     </div>
@@ -283,15 +294,18 @@
     <div class="block" style="position: relative;">
       <label for="" class="line-name"><span class="required-tag">*</span><span
         class="input-label-name">所在位置:</span></label>
-      <select class="form-control select-style" name="city" id="city" [(ngModel)]="bigIndustry">
-        <option value="item.code" *ngFor="let item of bigIndustryList">{{item.name}}</option>
+      <select class="form-control select-style" name="city" id="city" [(ngModel)]="citySelected"
+              (change)="cityChange(citySelected)">
+        <option value="item.code" *ngFor="let item of cityList">{{item.name}}</option>
       </select>
-      <select class="form-control select-style" name="district" id="district" [(ngModel)]="smallIndustry">
-        <option value="item.code" *ngFor="let item of smallIndustryList">{{item.name}}</option>
+      <select class="form-control select-style" name="district" id="district" [(ngModel)]="districtSelected"
+              (change)="districtChange(districtSelected)">
+        <option value="item.code" *ngFor="let item of districtList">{{item.name}}</option>
       </select>
-      <input type="text" name="detailAddress" placeholder="详细地址" class="form-control inline-input">
-      <p><label for="" class="line-name"></label>深圳南山区 <span class="model-popup">地图定位</span> <span class="longitude">190.90</span>
-        <span class="altitude">1187.89</span></p>
+      <input type="text" name="detailAddress" placeholder="详细地址" name="addressDetail" [(ngModel)]="addressDetail"
+             class="form-control inline-input">
+      <p><label for="" class="line-name"></label>深圳南山区 <span class="model-popup">地图定位</span> <span class="longitude">{{lng}}</span>
+        <span class="altitude">{{lat}}</span></p>
       <!--地图-->
       <app-baidu-map></app-baidu-map>
     </div>
@@ -301,16 +315,16 @@
     <div class="block">
       <label for="" class="line-name"><span class="required-tag">*</span><span
         class="input-label-name">位置描述:</span></label>
-      <select class="form-control  select-style" name="position" id="position" [(ngModel)]="fitMentLevelStatus">
-        <option value="item.code" *ngFor="let item of fitMentLevelList">{{item.name}}</option>
+      <select class="form-control  select-style" name="position" id="position" [(ngModel)]="positionDescription">
+        <option value="item.code" *ngFor="let item of positionDescriptionList">{{item.name}}</option>
       </select>
     </div>
 
     <!--是否临街-->
     <div class="block">
       <label for="" class="line-name"><span class="input-label-name">是否临街:</span></label>
-      <select class="form-control  select-style" name="nearStreet" id="nearStreet" [(ngModel)]="fitMentLevelStatus">
-        <option value="item.code" *ngFor="let item of fitMentLevelList">{{item.name}}</option>
+      <select class="form-control  select-style" name="nearStreet" id="nearStreet" [(ngModel)]="isNearStreet">
+        <option value="item.code" *ngFor="let item of positionList">{{item.name}}</option>
       </select>
     </div>
 
@@ -318,11 +332,12 @@
     <!--上级物业-->
     <div class="block">
       <label for="" class="line-name"><span class="input-label-name">上级物业:</span></label>
-      <select class="form-control  select-style" name="facilities" id="facilities" [(ngModel)]="fitMentLevelStatus">
-        <option value="item.code" *ngFor="let item of fitMentLevelList">{{item.name}}</option>
+      <select class="form-control  select-style" name="facilities" id="facilities" [(ngModel)]="superFacility">
+        <option value="item.code" *ngFor="let item of superFacilityList">{{item.name}}</option>
       </select>
       <p class="block"><label for="" class="line-name"></label> <input class="form-control select-style" type="text"
-                                                                       placeholder="请填写商城名称" name="shopCityName"></p>
+                                                                       placeholder="请填写商城名称" name="shopCityName"
+                                                                       [(ngModel)]="shopCityName"></p>
     </div>
 
 
@@ -331,69 +346,77 @@
       <div class="block">
         <label for="" class="line-name"><span class="required-tag">*</span><span
           class="input-label-name">建筑面积:</span></label>
-        <input class="form-control inline-input  m-ritght-5" name="buildingArea" type="text" placeholder="请填写">平米
+        <input class="form-control inline-input  m-ritght-5" name="buildingArea" [(ngModel)]="buildingArea" type="text"
+               placeholder="请填写">平米
       </div>
       <!--开间-->
       <div class="block">
         <label for="" class="line-name"><span class="input-label-name">开间:</span></label>
-        <input class="form-control inline-input  m-ritght-5" name="roomArea" type="text" placeholder="请填写">米
+        <input class="form-control inline-input  m-ritght-5" name="roomArea" [(ngModel)]="roomArea" type="text"
+               placeholder="请填写">米
       </div>
       <!--门宽-->
       <div class="block">
         <label for="" class="line-name"><span class="input-label-name">门宽:</span></label>
-        <input class="form-control inline-input  m-ritght-5" name="doorWidth" type="text" placeholder="请填写">米
+        <input class="form-control inline-input  m-ritght-5" name="doorWidth" [(ngModel)]="doorWidth" type="text"
+               placeholder="请填写">米
       </div>
       <!--所处楼层-->
       <div class="block">
         <label for="" class="line-name"><span class="input-label-name">所处楼层:</span></label>
-        <input class="form-control inline-input  m-ritght-5" name="floor" type="text" placeholder="请填写">楼
+        <input class="form-control inline-input  m-ritght-5" name="floor" [(ngModel)]="floor" type="text"
+               placeholder="请填写">楼
       </div>
     </div>
     <div class="right-inline-block">
       <!--使用面积-->
       <div class="block">
         <label for="" class="line-name"><span class="input-label-name">使用面积:</span></label>
-        <input class="form-control inline-input  m-ritght-5" name="validArea" type="text" placeholder="请填写">平米
+        <input class="form-control inline-input  m-ritght-5" name="validArea" [(ngModel)]="validArea" type="text"
+               placeholder="请填写">平米
       </div>
       <!--进深-->
       <div class="block">
         <label for="" class="line-name"><span class="input-label-name">进深:</span></label>
-        <input class="form-control inline-input  m-ritght-5" name="depth" type="text" placeholder="请填写">米
+        <input class="form-control inline-input  m-ritght-5" name="depth" [(ngModel)]="depth" type="text"
+               placeholder="请填写">米
       </div>
       <!--层高-->
       <div class="block">
         <label for="" class="line-name"><span class="input-label-name">层高:</span></label>
-        <input class="form-control inline-input  m-ritght-5" name="floorHeight" type="text" placeholder="请填写">米
+        <input class="form-control inline-input  m-ritght-5" name="floorHeight" [(ngModel)]="floorHeight" type="text"
+               placeholder="请填写">米
       </div>
       <!--总层数-->
       <div class="block">
         <label for="" class="line-name"><span class="input-label-name">总层数:</span></label>
-        <input class="form-control inline-input  m-ritght-5" name="floorAmound" type="text" placeholder="请填写">层
+        <input class="form-control inline-input  m-ritght-5" name="floorAmount" [(ngModel)]="floorAmount" type="text"
+               placeholder="请填写">层
       </div>
     </div>
 
     <!--适合经营-->
     <div class="block">
       <label for="" class="line-name"><span class="input-label-name">适合经营:</span></label>
-      <span class="span-list-item" *ngFor="let item of fitIndustryList"><span>{{item.name}}</span><i
-        class="iconfont icon-delete" (click)="deleteSelectedIndustry(fitIndustryList,item)"></i></span>
-      <span class="add-item" (click)="openModel(industryContent,fitIndustryList)">添加</span>
+      <span class="span-list-item" *ngFor="let item of fitIndustry"><span>{{item.name}}</span><i
+        class="iconfont icon-delete" (click)="deleteSelectedIndustry(fitIndustry,item)"></i></span>
+      <span class="add-item" (click)="openModel(industryContent,fitIndustry)">添加</span>
     </div>
 
     <!--推荐经营行业-->
     <div class="block">
       <label for="" class="line-name"><span class="input-label-name">推荐经营行业:</span></label>
-      <span class="span-list-item" *ngFor="let item of recommendableIndustryList"><span>{{item.name}}</span><i
-        class="iconfont icon-delete" (click)="deleteSelectedIndustry(recommendableIndustryList,item)"></i></span>
-      <span class="add-item" (click)="openModel(industryContent,recommendableIndustryList)">添加</span>
+      <span class="span-list-item" *ngFor="let item of recommendableIndustry"><span>{{item.name}}</span><i
+        class="iconfont icon-delete" (click)="deleteSelectedIndustry(recommendableIndustry,item)"></i></span>
+      <span class="add-item" (click)="openModel(industryContent,recommendableIndustry)">添加</span>
     </div>
 
     <!--不宜经营行业-->
     <div class="block">
       <label for="" class="line-name"><span class="input-label-name">不宜经营行业:</span></label>
-      <span class="span-list-item" *ngFor="let item of unRecommendableIndustryList"><span>{{item.name}}</span><i
-        class="iconfont icon-delete" (click)="deleteSelectedIndustry(unRecommendableIndustryList,item)"></i></span>
-      <span class="add-item" (click)="openModel(industryContent,unRecommendableIndustryList)">添加</span>
+      <span class="span-list-item" *ngFor="let item of unRecommendableIndustry"><span>{{item.name}}</span><i
+        class="iconfont icon-delete" (click)="deleteSelectedIndustry(unRecommendableIndustry,item)"></i></span>
+      <span class="add-item" (click)="openModel(industryContent,unRecommendableIndustry)">添加</span>
     </div>
 
 
@@ -403,7 +426,7 @@
       <div class="facilities-list">
         <span *ngFor="let item of facilitiesList" class="facility-item"><input [(ngModel)]="item.checked"
                                                                                name="facilityList"
-                                                                               (click)="selectThisService(item)"
+                                                                               (click)="selectThisFacility(item)"
                                                                                class="week-checkbox" type="checkbox"
                                                                                data-code="item.code">{{item.name}}</span>
       </div>
@@ -416,17 +439,17 @@
         <!--水费-->
         <div class="block">
           <label for="" class="line-name"><span class="input-label-name light-weight-grey">水费:</span></label>
-          <input class="form-control inline-input  m-ritght-5" name="waterFee" type="text" placeholder="请填写">元/吨
+          <input class="form-control inline-input  m-ritght-5" name="waterFee" type="text" [(ngModel)]="waterFee" placeholder="请填写">元/吨
         </div>
         <!--物业-->
         <div class="block">
           <label for="" class="line-name"><span class="input-label-name light-weight-grey">物业:</span></label>
-          <input class="form-control inline-input  m-ritght-5" name="facilityFee" type="text" placeholder="请填写">元/平米/月
+          <input class="form-control inline-input  m-ritght-5" name="facilityFee" type="text" [(ngModel)]="facilityFee" placeholder="请填写">元/平米/月
         </div>
         <!--燃气-->
         <div class="block">
           <label for="" class="line-name"><span class="input-label-name light-weight-grey">燃气:</span></label>
-          <input class="form-control inline-input  m-ritght-5" type="text" name="gasFee" placeholder="请填写">元/立方
+          <input class="form-control inline-input  m-ritght-5" type="text" name="gasFee" [(ngModel)]="gasFee" placeholder="请填写">元/立方
         </div>
 
       </div>
@@ -434,20 +457,20 @@
         <!--电费-->
         <div class="block">
           <label for="" class="line-name"><span class="input-label-name light-weight-grey">电费:</span></label>
-          <input class="form-control inline-input  m-ritght-5" name="elecFee" type="text" placeholder="请填写">元/度
+          <input class="form-control inline-input  m-ritght-5" name="elecFee" type="text" [(ngModel)]="elecFee" placeholder="请填写">元/度
         </div>
         <!--租金-->
         <div class="block">
           <label for="" class="line-name"><span class="input-label-name light-weight-grey">租金:</span></label>
           <input class="form-control inline-input  m-ritght-5" name="rent" type="text" placeholder="请填写">
-          <select class="form-control select-style" name="rentM" id="rentM" [(ngModel)]="bigIndustry">
+          <select class="form-control select-style" name="rentM" id="rentM" [(ngModel)]="rent">
             <option value="item.code" *ngFor="let item of bigIndustryList">{{item.name}}</option>
           </select>
         </div>
         <!--暖气-->
         <div class="block">
           <label for="" class="line-name"><span class="input-label-name light-weight-grey">暖气:</span></label>
-          <input class="form-control inline-input  m-ritght-5" name="warmFee" type="text" placeholder="请填写">元/平米/月
+          <input class="form-control inline-input  m-ritght-5" name="warmFee" type="text" [(ngModel)]="warmFee" placeholder="请填写">元/平米/月
         </div>
 
       </div>
@@ -457,26 +480,26 @@
     <!--建筑形状-->
     <div class="block">
       <label for="" class="line-name"><span class="input-label-name">建筑形状:</span></label>
-      <select class="form-control  select-style" name="buildingShap" id="buildingShap" [(ngModel)]="fitMentLevelStatus">
-        <option value="item.code" *ngFor="let item of fitMentLevelList">{{item.name}}</option>
+      <select class="form-control  select-style" name="buildingShape" id="buildingShape" [(ngModel)]="buildingShape">
+        <option value="item.code" *ngFor="let item of buildingShapeList">{{item.name}}</option>
       </select>
     </div>
 
     <!--产权类型-->
     <div class="block">
       <label for="" class="line-name"><span class="input-label-name">产权类型:</span></label>
-      <select class="form-control  select-style" name="stateType" id="stateType" [(ngModel)]="fitMentLevelStatus">
-        <option value="item.code" *ngFor="let item of fitMentLevelList">{{item.name}}</option>
+      <select class="form-control  select-style" name="stateType" id="stateType" [(ngModel)]="propertyRightType">
+        <option value="item.code" *ngFor="let item of propertyRightTypeList">{{item.name}}</option>
       </select>
     </div>
 
     <!--拆迁风险-->
     <div class="block">
       <label for="" class="line-name"><span class="input-label-name">拆迁风险:</span></label>
-      <select class="form-control  select-style" name="destroyRate" id="destroyRate" [(ngModel)]="fitMentLevelStatus">
-        <option value="item.code" *ngFor="let item of fitMentLevelList">{{item.name}}</option>
+      <select class="form-control  select-style" name="destroyRate" id="destroyRate" [(ngModel)]="destroyedRatio">
+        <option value="item.code" *ngFor="let item of destroyedRatioList">{{item.name}}</option>
       </select>
-      <input type="text" name="destroyRate" placeholder="请填写拆迁风险详情" class="form-control inline-input">
+      <input type="text" name="destroyRate" [(ngModel)]="destroyedRatioDetail" placeholder="请填写拆迁风险详情" class="form-control inline-input">
     </div>
 
 
@@ -484,7 +507,6 @@
     <div class="block">
       <label for="" class="line-name"><span class="input-label-name">房东:</span></label>
       <span>王铁柱</span> <span class="edit-info" (click)="open(personInfo)">编辑</span>
-
     </div>
 
 
@@ -507,7 +529,7 @@
     </p>
     <p>
       <label for="" class="line-name"><span class="input-label-name">环境:</span></label>
-      <app-upload-files [images]="images" (addImages)="addImages(images,$event)"></app-upload-files>
+      <app-upload-files [images]="environment" (addImages)="addImages(environment,$event)"></app-upload-files>
     </p>
     <p>
       <label for="" class="line-name"><span class="input-label-name">VR全景图:</span></label>
@@ -770,7 +792,8 @@
       <select class="form-control  select-style" name="certifications" [(ngModel)]="selectedCertification">
         <option value="{{item.id}}" *ngFor="let item of certificationsTypeList">{{item.name}}</option>
       </select>
-      <input class="form-control rent-input" type="text" name="certificationType" [(ngModel)]="certificationType" placeholder="请填写证件类型">
+      <input class="form-control rent-input" type="text" name="certificationType" [(ngModel)]="certificationType"
+             placeholder="请填写证件类型">
     </div>
 
     <div class="block">
@@ -778,15 +801,18 @@
         class="input-label-name">图片:</span></label>
       <div class="certification-list">
         <div class="upload-block-inline">
-          <app-upload-files [multiImages]="headIsMulti" [images]="headImage" (addImages)="addImages(headImage,$event)"></app-upload-files>
+          <app-upload-files [multiImages]="headIsMulti" [images]="headImage"
+                            (addImages)="addImages(headImage,$event)"></app-upload-files>
           <p class="light-weight-grey">正面</p>
         </div>
         <div class="upload-block-inline">
-          <app-upload-files [multiImages]="backIsMulti" [images]="backImage" (addImages)="addImages(backImage,$event)"></app-upload-files>
+          <app-upload-files [multiImages]="backIsMulti" [images]="backImage"
+                            (addImages)="addImages(backImage,$event)"></app-upload-files>
           <p class="light-weight-grey">反面</p>
         </div>
         <div class="upload-block-inline">
-          <app-upload-files [multiImages]="otherIsMulti" [images]="otherImages" (addImages)="addImages(otherImages,$event)"></app-upload-files>
+          <app-upload-files [multiImages]="otherIsMulti" [images]="otherImages"
+                            (addImages)="addImages(otherImages,$event)"></app-upload-files>
           <p class="light-weight-grey">添加</p>
         </div>
       </div>
@@ -794,27 +820,32 @@
 
     <div class="block">
       <label for="" class="line-name"><span class="input-label-name">证件编号:</span></label>
-      <input class="form-control profit inline-input" name="certificationNumber" [(ngModel)]="certificationNumber" type="text" placeholder="请填写">
+      <input class="form-control profit inline-input" name="certificationNumber" [(ngModel)]="certificationNumber"
+             type="text" placeholder="请填写">
     </div>
 
     <div class="block">
       <label for="" class="line-name"><span class="input-label-name">主题名称:</span></label>
-      <input class="form-control profit inline-input" name="themeName" [(ngModel)]="themeName" type="text" placeholder="请填写">
+      <input class="form-control profit inline-input" name="themeName" [(ngModel)]="themeName" type="text"
+             placeholder="请填写">
     </div>
 
     <div class="block">
       <label for="" class="line-name"><span class="input-label-name">地址:</span></label>
-      <input class="form-control profit inline-input" name="address" [(ngModel)]="address" type="text" placeholder="请填写">
+      <input class="form-control profit inline-input" name="address" [(ngModel)]="address" type="text"
+             placeholder="请填写">
     </div>
 
     <div class="block">
       <label for="" class="line-name"><span class="input-label-name">许可范围:</span></label>
-      <input class="form-control profit inline-input" name="accessLine" [(ngModel)]="permissionScope" type="text" placeholder="请填写">
+      <input class="form-control profit inline-input" name="accessLine" [(ngModel)]="permissionScope" type="text"
+             placeholder="请填写">
     </div>
 
     <div class="block">
       <label for="" class="line-name"><span class="input-label-name">其他内容:</span></label>
-      <input class="form-control profit inline-input" name="otherContent" [(ngModel)]="otherContent" type="text" placeholder="请填写">
+      <input class="form-control profit inline-input" name="otherContent" [(ngModel)]="otherContent" type="text"
+             placeholder="请填写">
     </div>
 
 
@@ -852,8 +883,8 @@
 
     <div class="block">
       <label for="" class="line-name"><span class="input-label-name">称呼:</span></label>
-      <input class="form-control  inline-input" type="text" placeholder="如王先生">
-      <input class="form-control  inline-input" type="text" placeholder="真实姓名">
+      <input class="form-control  inline-input" type="text" name="name" [(ngModel)]="name" placeholder="如王先生">
+      <input class="form-control  inline-input" type="text" name="realName" [(ngModel)]="realName" placeholder="真实姓名">
     </div>
 
     <div class="block">
@@ -869,39 +900,41 @@
 
     <div class="block">
       <label for="" class="line-name"><span class="input-label-name">出生年月日:</span></label>
-      <app-date-picker [date]="startOpenDate" (dateChange)="getStartTime($event)"></app-date-picker>
+      <app-date-picker [date]="birthdayDate" (dateChange)="getbirthTime($event)"></app-date-picker>
     </div>
 
     <div class="block">
       <label for="" class="line-name"><span class="required-tag">*</span><span
         class="input-label-name">联系地址:</span></label>
-      <input class="form-control  inline-input" type="text" placeholder="请填写">
+      <input class="form-control  inline-input" type="text" name="contactAddress" [(ngModel)]="contactAddress"
+             placeholder="请填写">
     </div>
 
 
     <div class="block">
       <label for="" class="line-name"><span class="required-tag">*</span><span
         class="input-label-name">电子邮件:</span></label>
-      <input class="form-control  inline-input" type="text" placeholder="请填写">
+      <input class="form-control  inline-input" type="text" name="email" [(ngModel)]="email" placeholder="请填写">
     </div>
 
 
     <div class="block">
       <label for="" class="line-name"><span class="required-tag">*</span><span
         class="input-label-name">qq:</span></label>
-      <input class="form-control  inline-input" type="text" placeholder="请填写">
+      <input class="form-control  inline-input" type="text" name="qq" [(ngModel)]="qq" placeholder="请填写">
     </div>
 
     <div class="block">
       <label for="" class="line-name"><span class="required-tag">*</span><span
         class="input-label-name">微信</span></label>
-      <input class="form-control  inline-input" type="text" placeholder="请填写">
+      <input class="form-control  inline-input" type="text" name="wx" [(ngModel)]="wx" placeholder="请填写">
     </div>
 
 
     <div class="block">
       <label for="" class="line-name"><span class="input-label-name">详细描述:</span></label>
-      <textarea name="" id="personInfoDetail" cols="60" rows="5"></textarea>
+      <textarea name="" id="personInfoDetail" cols="60" rows="5" name="personInfoDetail"
+                [(ngModel)]="personInfoDetail"></textarea>
     </div>
 
 
