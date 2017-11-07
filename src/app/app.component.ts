@@ -128,8 +128,9 @@ export class AppComponent {
   ];
   multiEnvironment = true;
 
-  addImages(newInamges) {
+  addImages(oldImages,newInamges) {
     console.log("newInamges:", newInamges);
+    oldImages=newInamges;
   }
 
   /*前台电话*/
@@ -336,6 +337,8 @@ export class AppComponent {
     console.log("2");
   }
   emptyTransferFee='';          //空转转让费
+  transferStaff='';           //转让内容
+  transferReason='';            //转让原因
 
   /*店铺证件*/
   certifications = [
@@ -351,9 +354,20 @@ export class AppComponent {
   }
 
   /*店铺证件弹出框*/
-  headImage = [];
-  backImage = [];
-  otherImages = [];
+  selectedCertification = 4;
+  certificationType='';           //证件类型
+  certificationsTypeList = [
+    {id: 1, name: "营业执照"},
+    {id: 2, name: "店铺图片"},
+    {id: 3, name: "身份证件"},
+    {id: 4, name: "其他"}
+  ];
+  headIsMulti=false;            //是否多张
+  backIsMulti=false;
+  otherIsMulti=true;
+  headImage = [];            //正面图片
+  backImage = [];            //反面图片
+  otherImages = [];            //其他图片
 
   /*店铺老板*/
   shopOwner = "战三";
