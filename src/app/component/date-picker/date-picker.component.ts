@@ -14,6 +14,8 @@ export class DatePickerComponent implements OnInit {
 
   @Input() date='';
 
+  @Input() placeholder='yyyy-mm-dd';
+
   @Output() dateChange:EventEmitter<any>=new EventEmitter();
 
   fireDateChange(date){

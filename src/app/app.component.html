@@ -14,7 +14,8 @@
       <div *ngIf="isBrandName" class="brand-name-block">
         <p><label for="" class="line-name"><span class="required-tag">*</span><span
           class="input-label-name">品牌名称：</span></label>
-          <input class="form-control brand-name-input" name="brandName" type="text" [(ngModel)]="brandName" (ngModelChange)="updateShopName()" required
+          <input class="form-control brand-name-input" name="brandName" type="text" [(ngModel)]="brandName"
+                 (ngModelChange)="updateShopName()" required
                  placeholder="请输入" maxlength="30">
         </p>
         <p><label for="" class="line-name"><span class="required-tag">*</span><span
@@ -49,7 +50,7 @@
     <!--开业时间-->
     <div class="block">
       <label for="" class="line-name"><span class="input-label-name">开业日期:</span></label>
-      <app-date-picker [date]="startOpenDate" (dateChange)="getEndTime($event)"></app-date-picker>
+      <app-date-picker [date]="startOpenDate" (dateChange)="getStartTime($event)"></app-date-picker>
     </div>
 
     <!--经营状态-->
@@ -61,14 +62,19 @@
     </div>
 
     <!--停业日期-->
-    <div class="block">
+    <div class="block" *ngIf="operateStatus==2">
       <label for="" class="line-name"><span class="input-label-name">停业日期:</span></label>
-      <app-date-picker [date]="endOpenDate" (dateChange)="getStartTime($event)"></app-date-picker>
+      <app-date-picker [date]="endOpenDate" (dateChange)="getEndTime($event)"></app-date-picker>
     </div>
 
     <!--店铺图片-->
     <div class="block">
       <label for="" class="line-name"><span class="input-label-name">店铺图片:</span></label>
+      <div *ngFor="let item of shopImages" class="old-images-block">
+        <a class="img-item-box" href="">
+          <img src="{{item.url}}" alt="">
+        </a>
+      </div>
       <span (click)="open(content)" class="model-popup">编辑>></span>
     </div>
 
@@ -76,14 +82,14 @@
     <div class="block">
       <label for="" class="line-name"><span class="input-label-name">前台电话:</span></label>
       <input class="form-control inline-input" name="shopPhoneNumber" type="text" placeholder="请填写"
-             [(ngModel)]="shopPhoneNumber">
+             [(ngModel)]="shopPhoneNumber" maxlength="20">
     </div>
 
     <!--外卖电话-->
     <div class="block">
       <label for="" class="line-name"><span class="input-label-name">外卖电话:</span></label>
       <input class="form-control inline-input" name="takeOutPhone" type="text" placeholder="请填写"
-             [(ngModel)]="takeOutPhone">
+             [(ngModel)]="takeOutPhone" maxlength="20">
     </div>
 
     <!--营业时间-->
@@ -111,7 +117,8 @@
               class="divider">|</span>
               <input class="form-control time-input inline-input" name="startTime" type="text" placeholder="8:00"
                      [(ngModel)]="operateStartTime">—<input class="form-control time-input inline-input" name="endTime"
-                                                     type="text" placeholder="24:00" [(ngModel)]="operateEndTime">
+                                                            type="text" placeholder="24:00"
+                                                            [(ngModel)]="operateEndTime">
             </p>
           </ng-template>
         </ngb-tab>
@@ -140,9 +147,10 @@
 
     <!--店铺租金-->
     <div class="block">
-      <label for="" class="line-name"><span class="input-label-name">店铺租金:</span></label>
-      <input class="form-control rent-input" name="shopRent" type="text" placeholder="6位整数+2位小数" [(ngModel)]="rent">
-      <select class="form-control  select-style" name="shopRent" id="rentMeasure" [(ngModel)]="rentMeasure">
+      <label class="line-name"><span class="input-label-name">店铺租金:</span></label>
+      <input class="form-control inline-input" name="shopRent" type="text" placeholder="6位整数+2位小数" [(ngModel)]="rent"
+             pattern="\d{1,4}">
+      <select class="form-control  select-style" name="shopRentMeasure" id="rentMeasure" [(ngModel)]="rentMeasure">
         <option value="{{item.code}}" *ngFor="let item of rentMeasureList">{{item.name}}</option>
       </select>
     </div>
@@ -275,11 +283,13 @@
           <input type="text" placeholder="职位" name="position" class="inline-input form-control"
                  [(ngModel)]="item.position"> <span
           class="light-weight-grey">姓名</span><span class="edit-info" (click)="open(personInfo)">编辑</span>
-          <app-date-picker [date]="entryDate" (dateChange)="getEntryDate($event)"></app-date-picker>
+          <app-date-picker [date]="entryDate" [placeholder]="entryTimePlaceHolder"
+                           (dateChange)="getEntryDate($event)"></app-date-picker>
           <input type="text" placeholder="工作内容" class="inline-input form-control" name="workContent"
                  [(ngModel)]="item.workContent">
           <input type="checkbox"> <span>已离职</span>
-          <app-date-picker [date]="leaveDate" (dateChange)="getLeaveDate($event)"></app-date-picker>
+          <app-date-picker [date]="leaveDate" [placeholder]="leaveTimePlaceHolder"
+                           (dateChange)="getLeaveDate($event)"></app-date-picker>
         </p>
       </div>
 
@@ -304,8 +314,8 @@
       </select>
       <input type="text" name="detailAddress" placeholder="详细地址" name="addressDetail" [(ngModel)]="addressDetail"
              class="form-control inline-input">
-      <p><label for="" class="line-name"></label>深圳南山区 <span class="model-popup">地图定位</span> <span class="longitude">{{lng}}</span>
-        <span class="altitude">{{lat}}</span></p>
+      <p><label for="" class="line-name"></label>深圳南山区 <span class="model-popup">地图定位</span> <span class="longitude ">{{lng}}</span>
+        <span class="latitude">{{lat}}</span></p>
       <!--地图-->
       <app-baidu-map></app-baidu-map>
     </div>
@@ -439,17 +449,20 @@
         <!--水费-->
         <div class="block">
           <label for="" class="line-name"><span class="input-label-name light-weight-grey">水费:</span></label>
-          <input class="form-control inline-input  m-ritght-5" name="waterFee" type="text" [(ngModel)]="waterFee" placeholder="请填写">元/吨
+          <input class="form-control inline-input  m-ritght-5" name="waterFee" type="text" [(ngModel)]="waterFee"
+                 placeholder="请填写">元/吨
         </div>
         <!--物业-->
         <div class="block">
           <label for="" class="line-name"><span class="input-label-name light-weight-grey">物业:</span></label>
-          <input class="form-control inline-input  m-ritght-5" name="facilityFee" type="text" [(ngModel)]="facilityFee" placeholder="请填写">元/平米/月
+          <input class="form-control inline-input  m-ritght-5" name="facilityFee" type="text" [(ngModel)]="facilityFee"
+                 placeholder="请填写">元/平米/月
         </div>
         <!--燃气-->
         <div class="block">
           <label for="" class="line-name"><span class="input-label-name light-weight-grey">燃气:</span></label>
-          <input class="form-control inline-input  m-ritght-5" type="text" name="gasFee" [(ngModel)]="gasFee" placeholder="请填写">元/立方
+          <input class="form-control inline-input  m-ritght-5" type="text" name="gasFee" [(ngModel)]="gasFee"
+                 placeholder="请填写">元/立方
         </div>
 
       </div>
@@ -457,7 +470,8 @@
         <!--电费-->
         <div class="block">
           <label for="" class="line-name"><span class="input-label-name light-weight-grey">电费:</span></label>
-          <input class="form-control inline-input  m-ritght-5" name="elecFee" type="text" [(ngModel)]="elecFee" placeholder="请填写">元/度
+          <input class="form-control inline-input  m-ritght-5" name="elecFee" type="text" [(ngModel)]="elecFee"
+                 placeholder="请填写">元/度
         </div>
         <!--租金-->
         <div class="block">
@@ -470,7 +484,8 @@
         <!--暖气-->
         <div class="block">
           <label for="" class="line-name"><span class="input-label-name light-weight-grey">暖气:</span></label>
-          <input class="form-control inline-input  m-ritght-5" name="warmFee" type="text" [(ngModel)]="warmFee" placeholder="请填写">元/平米/月
+          <input class="form-control inline-input  m-ritght-5" name="warmFee" type="text" [(ngModel)]="warmFee"
+                 placeholder="请填写">元/平米/月
         </div>
 
       </div>
@@ -499,7 +514,8 @@
       <select class="form-control  select-style" name="destroyRate" id="destroyRate" [(ngModel)]="destroyedRatio">
         <option value="item.code" *ngFor="let item of destroyedRatioList">{{item.name}}</option>
       </select>
-      <input type="text" name="destroyRate" [(ngModel)]="destroyedRatioDetail" placeholder="请填写拆迁风险详情" class="form-control inline-input">
+      <input type="text" name="destroyRate" [(ngModel)]="destroyedRatioDetail" placeholder="请填写拆迁风险详情"
+             class="form-control inline-input">
     </div>
 
 
