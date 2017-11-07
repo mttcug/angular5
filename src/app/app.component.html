@@ -14,13 +14,13 @@
       <div *ngIf="isBrandName" class="brand-name-block">
         <p><label for="" class="line-name"><span class="required-tag">*</span><span
           class="input-label-name">品牌名称：</span></label>
-          <input class="form-control brand-name-input" name="brandName" type="text" [(ngModel)]="brandName" (change)="updateShopName()" required
+          <input class="form-control brand-name-input" name="brandName" type="text" [(ngModel)]="brandName" (ngModelChange)="updateShopName()" required
                  placeholder="请输入" maxlength="30">
         </p>
         <p><label for="" class="line-name"><span class="required-tag">*</span><span
           class="input-label-name">分店名：</span></label>
           <input class="form-control subshop-name" name="subShopName" type="text" [(ngModel)]="subShopName" required
-                 placeholder="请输入" maxlength="10">
+                 placeholder="请输入" maxlength="10" (ngModelChange)="updateShopName()">
         </p>
         <p><label for="" class="line-name"><span class="input-label-name">运营模式：</span></label>
           <select class="form-control select-style" name="operateType" id="" [(ngModel)]="operateType">
@@ -294,11 +294,11 @@
     <div class="block" style="position: relative;">
       <label for="" class="line-name"><span class="required-tag">*</span><span
         class="input-label-name">所在位置:</span></label>
-      <select class="form-control select-style" name="city" id="city" [(ngModel)]="citySelected"
+      <select class="form-control select-style" name="city" id="city" [(ngModel)]="city"
               (change)="cityChange(citySelected)">
         <option value="item.code" *ngFor="let item of cityList">{{item.name}}</option>
       </select>
-      <select class="form-control select-style" name="district" id="district" [(ngModel)]="districtSelected"
+      <select class="form-control select-style" name="district" id="district" [(ngModel)]="district"
               (change)="districtChange(districtSelected)">
         <option value="item.code" *ngFor="let item of districtList">{{item.name}}</option>
       </select>

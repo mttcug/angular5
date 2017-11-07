@@ -34,7 +34,9 @@ export class AppComponent {
     }];
 
   updateShopName(){
-    this.shopName= this.subShopName == '' ? this.shopName : this.shopName + "(" + this.subShopName + ")";
+    console.log("ooo",this.subShopName);
+    this.shopName= this.subShopName == '' ? this.brandName : this.brandName + "(" + this.subShopName + ")";
+    console.log("shopName:",this.shopName);
   }
 
 
@@ -447,10 +449,11 @@ export class AppComponent {
 
 
   /*所在位置*/
-  citySelected='';           //城市
-  districtSelected='';       //区域
+  city='';           //城市
+  district='';       //区域
   cityList=[];
   districtList=[];
+  addressDetail='';
   cityChange(code){
 
   }
