@@ -794,27 +794,27 @@
 
     <div class="block">
       <label for="" class="line-name"><span class="input-label-name">证件编号:</span></label>
-      <input class="form-control profit inline-input" name="certificationNumber" type="text" placeholder="请填写">
+      <input class="form-control profit inline-input" name="certificationNumber" [(ngModel)]="certificationNumber" type="text" placeholder="请填写">
     </div>
 
     <div class="block">
       <label for="" class="line-name"><span class="input-label-name">主题名称:</span></label>
-      <input class="form-control profit inline-input" name="titleName" type="text" placeholder="请填写">
+      <input class="form-control profit inline-input" name="themeName" [(ngModel)]="themeName" type="text" placeholder="请填写">
     </div>
 
     <div class="block">
       <label for="" class="line-name"><span class="input-label-name">地址:</span></label>
-      <input class="form-control profit inline-input" name="address" type="text" placeholder="请填写">
+      <input class="form-control profit inline-input" name="address" [(ngModel)]="address" type="text" placeholder="请填写">
     </div>
 
     <div class="block">
       <label for="" class="line-name"><span class="input-label-name">许可范围:</span></label>
-      <input class="form-control profit inline-input" name="accessLine" type="text" placeholder="请填写">
+      <input class="form-control profit inline-input" name="accessLine" [(ngModel)]="permissionScope" type="text" placeholder="请填写">
     </div>
 
     <div class="block">
       <label for="" class="line-name"><span class="input-label-name">其他内容:</span></label>
-      <input class="form-control profit inline-input" name="otherContent" type="text" placeholder="请填写">
+      <input class="form-control profit inline-input" name="otherContent" [(ngModel)]="otherContent" type="text" placeholder="请填写">
     </div>
 
 

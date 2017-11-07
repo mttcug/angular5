@@ -369,8 +369,36 @@ export class AppComponent {
   backImage = [];            //反面图片
   otherImages = [];            //其他图片
 
-  /*店铺老板*/
+  certificationNumber='';     //证件名称
+  themeName='';               //主题名称
+  address='';                 //地址
+  permissionScope='';         //许可范围
+  otherContent='';            //其他内容
+
+
+  /*店铺老板 && 个人信息弹出框*/
   shopOwner = "战三";
+
+  phoneList = [""];
+
+  addPhoneNumbers() {
+    this.phoneList.push("");          //增加输入框个数
+  }
+
+  sexType = [
+    {code: 1, name: "男"},
+    {code: 2, name: "女"},
+    {code: 3, name: "其他"}
+  ];
+  sexSelected = '';
+
+  selectSexStatus(item) {
+    this.sexSelected = item;
+    console.log("已选性别：", this.sexSelected);
+  }
+
+
+
 
   /*合伙人*/
   partner = "里欧";
@@ -457,23 +485,7 @@ export class AppComponent {
   ];
 
   /*个人信息弹出框*/
-  phoneList = [""];
 
-  addPhoneNumbers() {
-    this.phoneList.push("");          //增加输入框个数
-  }
-
-  sexType = [
-    {code: 1, name: "男"},
-    {code: 2, name: "女"},
-    {code: 3, name: "其他"}
-  ];
-  sexSelected = '';
-
-  selectSexStatus(item) {
-    this.sexSelected = item;
-    console.log("已选性别：", this.sexSelected);
-  }
 
 
 
