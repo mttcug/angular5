@@ -148,7 +148,7 @@
     <!--店铺租金-->
     <div class="block">
       <label class="line-name"><span class="input-label-name">店铺租金:</span></label>
-      <input class="form-control inline-input" name="shopRent" type="text" placeholder="6位整数+2位小数" [(ngModel)]="rent"
+      <input class="form-control inline-input" name="shopRent" type="text" placeholder="6位整数+2位小数" [(ngModel)]="shopRent"
              pattern="\d{1,4}">
       <select class="form-control  select-style" name="shopRentMeasure" id="rentMeasure" [(ngModel)]="rentMeasure">
         <option value="{{item.code}}" *ngFor="let item of rentMeasureList">{{item.name}}</option>
@@ -314,8 +314,8 @@
       </select>
       <input type="text" name="detailAddress" placeholder="详细地址" name="addressDetail" [(ngModel)]="addressDetail"
              class="form-control inline-input">
-      <p><label for="" class="line-name"></label>深圳南山区 <span class="model-popup">地图定位</span> <span class="longitude ">{{lng}}</span>
-        <span class="latitude">{{lat}}</span></p>
+      <p><label for="" class="line-name"></label>深圳南山区 <span class="model-popup">地图定位</span> <span class="longitude ">{{longitude}}</span>
+        <span class="latitude">{{latitude}}</span></p>
       <!--地图-->
       <app-baidu-map></app-baidu-map>
     </div>
@@ -541,11 +541,11 @@
   <div class="modal-body">
     <p>
       <label class="line-name" for=""><span class="input-label-name">门面:</span></label>
-      <app-upload-files [images]="shopImages" (addImages)="addImages(shopImages,$event)"></app-upload-files>
+      <app-upload-files [images]="tempshopImages" (addImages)="addImages(tempshopImages,$event)"></app-upload-files>
     </p>
     <p>
       <label for="" class="line-name"><span class="input-label-name">环境:</span></label>
-      <app-upload-files [images]="environment" (addImages)="addImages(environment,$event)"></app-upload-files>
+      <app-upload-files [images]="tempenvironment" (addImages)="addImages(tempenvironment,$event)"></app-upload-files>
     </p>
     <p>
       <label for="" class="line-name"><span class="input-label-name">VR全景图:</span></label>
@@ -558,7 +558,7 @@
 
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-outline-dark" (click)="c('Close click')">确定</button>
+    <button type="button" class="btn btn-outline-dark" (click)="c(jsonShopImages)">确定</button>
   </div>
 </ng-template>
 
@@ -570,13 +570,11 @@
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
-
-
   <div class="modal-body">
     <div class="block">
       <label class="line-name" for=""><span class="input-label-name">店铺租金:</span></label>
-      <input class="form-control rent-input" type="text" placeholder="6位整数+2位小数" [(ngModel)]="rent">
-      <select class="form-control  select-style" name="" [(ngModel)]="rentMeasure">
+      <input class="form-control rent-input" type="text" placeholder="6位整数+2位小数" [(ngModel)]="tempshopRent">
+      <select class="form-control  select-style" name="" [(ngModel)]="temprentMeasure">
         <option value="{{item.code}}" *ngFor="let item of rentMeasureList">{{item.name}}</option>
       </select>
     </div>
@@ -586,10 +584,10 @@
       <div class="pay-way-list">
         <span *ngFor="let item of payWayList" class="select-span"><input [(ngModel)]="item.name" [value]="item.name"
                                                                          name="item.name"
-                                                                         (click)="selectThisWay(item)"
+                                                                         (click)="selectThisPayWay(item)"
                                                                          class="week-checkbox" type="radio"
                                                                          data-code="item.code">{{item.name}}</span>
-        <input class="form-control time-imput inline-input" type="text" placeholder="请填写" [(ngModel)]="definedPayWay">
+        <input class="form-control time-imput inline-input" type="text" placeholder="请填写" [(ngModel)]="tempdefinedPayWay">
       </div>
     </div>
 
@@ -599,7 +597,7 @@
                                                                        name="item.name" (click)="selectThisRate(item)"
                                                                        class="week-checkbox" type="radio"
                                                                        data-code="item.code">{{item.name}}</span>
-      <input type="text" class="form-control inline-input" placeholder="请填写递增幅度，如每年5%">
+      <input type="text" class="form-control inline-input" placeholder="请填写递增幅度，如每年5%" name="radioNumber" [(ngModel)]="tempdefinedRateWay">
     </div>
 
     <div class="block">
@@ -612,29 +610,26 @@
                                                                       data-code="item.code">{{item.name}}</span>
 
         <input class="form-control time-imput inline-input" type="text" placeholder="请填写"
-               [(ngModel)]="definedDepositWay">
+               [(ngModel)]="tempdefinedDepositWay">
       </div>
     </div>
 
     <div class="block">
       <label for="" class="line-name"><span class="input-label-name">租约:</span></label>
-      <app-date-picker [date]="rentDate" (dateChange)="getRentDate($event)"></app-date-picker>
+      <app-date-picker [date]="temprentDate" (dateChange)="getRentDate($event)"></app-date-picker>
       开始，租期 <input type="text" name="rentTime" class="form-control inline-input" placeholder="请填写"
-                   [(ngModel)]="rentTime"> 月
+                   [(ngModel)]="temprentTime"> 月
     </div>
 
     <div class="block">
       <label for="" class="line-name"><span class="input-label-name">剩余合同期:</span></label>
       <input type="text" class="form-control inline-input" placeholder="请填写" name="leftContractTime"
-             [(ngModel)]="leftContractTime"> 月
+             [(ngModel)]="templeftContractTime"> 月
     </div>
   </div>
   <div class="modal-footer">
-
     <button type="button" class="btn btn-outline-dark" (click)="c('Close click')">取消</button>
-
-    <button type="button" class="btn btn-outline-dark" (click)="c('Close click')">确定</button>
-
+    <button type="button" class="btn btn-outline-dark" (click)="c(tempRentContent)">确定</button>
   </div>
 </ng-template>
 
@@ -650,56 +645,52 @@
   <div class="modal-body">
     <div class="block">
       <label for="" class="line-name"><span class="input-label-name">客单价:</span></label>
-      <input class="form-control profit inline-input" type="text" [(ngModel)]="personProfit" placeholder="请填写">元
+      <input class="form-control profit inline-input" type="text" [(ngModel)]="temppersonProfit" placeholder="请填写">元
     </div>
 
     <div class="block">
       <label for="" class="line-name"><span class="input-label-name">日均营业额:</span></label>
-      <input class="form-control profit inline-input" type="text" [(ngModel)]="dayProfit" placeholder="请填写">元
+      <input class="form-control profit inline-input" type="text" [(ngModel)]="tempdayProfit" placeholder="请填写">元
     </div>
 
     <div class="block">
       <label for="" class="line-name"><span class="input-label-name">消费人群:</span></label>
-      <input class="form-control profit inline-input" type="text" [(ngModel)]="consumePersonType" placeholder="请填写">如：居民，学生，游客，工薪，商务，公务，母婴人群，年轻人，中年人，老年人
+      <input class="form-control profit inline-input" type="text" [(ngModel)]="tempconsumePersonType" placeholder="请填写">如：居民，学生，游客，工薪，商务，公务，母婴人群，年轻人，中年人，老年人
     </div>
 
     <div class="block">
       <label for="" class="line-name"><span class="input-label-name">最旺时段:</span></label>
-      <input class="form-control profit inline-input" type="text" [(ngModel)]="consumeTime" placeholder="请填写">如：早上，上午，中午，下午，晚上，凌晨
+      <input class="form-control profit inline-input" type="text" [(ngModel)]="tempconsumeTime" placeholder="请填写">如：早上，上午，中午，下午，晚上，凌晨
     </div>
 
 
     <div class="block">
       <label for="" class="line-name"><span class="input-label-name">堂食量:</span></label>
-      <input class="form-control profit inline-input" type="text" [(ngModel)]="foodAmount" placeholder="请填写">元
+      <input class="form-control profit inline-input" type="text" [(ngModel)]="tempfoodAmount" placeholder="请填写">元
     </div>
 
     <div class="block">
       <label for="" class="line-name"><span class="input-label-name">外卖量:</span></label>
-      <input class="form-control profit inline-input" type="text" [(ngModel)]="takeOutAmount" placeholder="请填写">元
+      <input class="form-control profit inline-input" type="text" [(ngModel)]="temptakeOutAmount" placeholder="请填写">元
     </div>
 
     <div class="block">
       <label for="" class="line-name"><span class="input-label-name">会员数:</span></label>
-      <input class="form-control profit inline-input" type="text" [(ngModel)]="memberAmount" placeholder="请填写">元
+      <input class="form-control profit inline-input" type="text" [(ngModel)]="tempmemberAmount" placeholder="请填写">元
     </div>
 
     <div class="block">
       <label for="" class="line-name"><span class="input-label-name">会员类型:</span></label>
-      <select class="form-control  select-style" name="" [(ngModel)]="memberType">
+      <select class="form-control  select-style" name="" [(ngModel)]="tempmemberType">
         <option>1</option>
         <option>2</option>
         <option>3</option>
       </select>
     </div>
-
   </div>
   <div class="modal-footer">
-
     <button type="button" class="btn btn-outline-dark" (click)="c('Close click')">取消</button>
-
-    <button type="button" class="btn btn-outline-dark" (click)="c('Close click')">确定</button>
-
+    <button type="button" class="btn btn-outline-dark" (click)="c(tempOperateStatus)">确定</button>
   </div>
 </ng-template>
 
