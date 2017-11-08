@@ -282,13 +282,13 @@
         <p class="" *ngFor="let item of employee">
           <input type="text" placeholder="职位" name="position" class="inline-input form-control"
                  [(ngModel)]="item.position"> <span
-          class="light-weight-grey">姓名</span><span class="edit-info" (click)="open(personInfo)">编辑</span>
-          <app-date-picker [date]="entryDate" [placeholder]="entryTimePlaceHolder"
+          class="light-weight-grey">姓名</span><span class="edit-info" (click)="openPersonalInfo(personInfo,employee)">编辑</span>
+          <app-date-picker [date]="item.entryDate" [placeholder]="entryTimePlaceHolder"
                            (dateChange)="getEntryDate($event)"></app-date-picker>
           <input type="text" placeholder="工作内容" class="inline-input form-control" name="workContent"
                  [(ngModel)]="item.workContent">
-          <input type="checkbox"> <span>已离职</span>
-          <app-date-picker [date]="leaveDate" [placeholder]="leaveTimePlaceHolder"
+          <input type="checkbox" [(ngModel)]="item.isDission" name="isDimission"> <span>已离职</span>
+          <app-date-picker [date]="item.leaveDate" [placeholder]="leaveTimePlaceHolder"
                            (dateChange)="getLeaveDate($event)"></app-date-picker>
         </p>
       </div>
@@ -522,12 +522,10 @@
     <!--房东-->
     <div class="block">
       <label for="" class="line-name"><span class="input-label-name">房东:</span></label>
-      <span>王铁柱</span> <span class="edit-info" (click)="open(personInfo)">编辑</span>
+      <span>王铁柱</span> <span class="edit-info" (click)="openPersonalInfo(personInfo,houseOwner)">编辑</span>
     </div>
-
-
   </div>
-  <button class="form-control inline-input" (click)="release()">发布</button>
+  <button class="form-control inline-input btn-primary release-btn" (click)="release()">发布</button>
 </form>
 
 

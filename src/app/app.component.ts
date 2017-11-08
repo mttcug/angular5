@@ -12,67 +12,7 @@ export class AppComponent {
   constructor(private modalService: NgbModal, @Inject('request') private request) {
   }
 
-  init(){
-    var params={
-      shopName:this.shopName,                           //店名
-      brandName:this.brandName,                         //品牌名称
-      subShopName:this.subShopName,                      //分店名
-      operateType:this.operateType,                      //运营模式
-      bigIndustry:this.bigIndustry,
-      smallIndustry:this.smallIndustry,
-      startOpenDate:this.startOpenDate,                 //开业日期
-      operateStatus:this.operateStatus,                 //经营状态
-      endOpenDate:this.endOpenDate,                     //停业日期
-      shopImages:this.shopImages,                       //店铺门面图片
-      environment:this.environment,                     //店铺环境图片
-      shopPhoneNumber:this.shopPhoneNumber,             //前台电话
-      takeOutPhone:this.takeOutPhone,                    //外卖电话
-      operateDate:this.operateDate,                     //营业日
-      operateStartTime:this.operateStartTime,           //营业开始时间
-      operateEndTime:this.operateEndTime,               //营业结束时间
-      fitmentLevelStatus:this.fitmentLevelStatus,       //装修档次
-      serviceProvided:this.serviceProvided,             //提供服务
-      shopRent:this.shopRent,                           //店铺租金
-      rentMeasure:this.rentMeasure,                     //店铺租金单位
-      payWay:this.payWay,                               //支付方式
-      definedPayWay:this.definedPayWay,                 //自定义支付方式
-      rateWay:this.rateWay,                             //递增或递减
-      definedRateWay:this.definedRateWay,               //增率或减率
-      depositWay:this.depositWay,                       //押金方式
-      definedDepositWay:this.definedDepositWay,         //自定义押金方式
-      rentDate:this.rentDate,                           //租期
-      rentTime:this.rentTime,                           //租约
-      leftContractTime:this.leftContractTime,           //剩余合同期
-      personProfit:this.personProfit,                   //客单价
-      dayProfit:this.dayProfit,                         //日均营业额
-      consumePersonType:this.consumePersonType,         //消费人群
-      consumeTime:this.consumeTime,                     //消费时间
-      foodAmount:this.foodAmount,                       //堂食量
-      takeOutAmount:this.takeOutAmount,                 //外卖量
-      memberAmount:this.memberAmount,                   //会员数
-      memberType:this.memberType,                       //会员类型
-      transferStatus:this.transferStatus,               //转让状态
-      transferFee:this.transferFee,                     //转让费
-      emptyTransfer:this.emptyTransfer,                 //是否空转
-      emptyTransferFee:this.emptyTransferFee,           //空转转让费
-      transferStaff:this.transferStaff,                 //转让内容
-      transferReason:this.transferReason,               //转让原因
-      certifications:this.certifications,               //店铺证件
-      shopBoss:this.shopBoss,                           //店铺老板
-      partner:this.partner,                             //合作伙伴
-      employee:this.employee,                           //店铺员工
 
-
-
-
-
-
-
-
-
-
-    }
-}
 
 
   /*品牌名称*/
@@ -376,8 +316,19 @@ export class AppComponent {
   /*店铺员工*/
   entryTimePlaceHolder = '入职时间';
   leaveTimePlaceHolder = '离职时间';
+  isDission=false;
   employee = [{
-    position: '', entryDate: '', workContent: '', leaveDate: ''
+    position: '', entryDate: '', workContent: '', leaveDate: '',isDission:false,
+    name: "里欧1",
+    phoneList: [],
+    realName: '',
+    sex: '',
+    birthdayDate: '',
+    contactAddress: '',
+    email: '',
+    qq: '',
+    wx: '',
+    personInfoDetail: ''
   }];
 
   /*所在位置*/
@@ -471,7 +422,17 @@ export class AppComponent {
   destroyedRatioDetail = '';
 
   /*房东*/
-  houseOwner = {};
+  houseOwner = {
+    name: "里欧1",
+    phoneList: [],
+    realName: '',
+    sex: '',
+    birthdayDate: '',
+    contactAddress: '',
+    email: '',
+    qq: '',
+    wx: '',
+    personInfoDetail: ''};
 
 
   updateShopName() {
@@ -579,10 +540,8 @@ export class AppComponent {
 
   addEmployee() {
     var obj = {
-      position: '',
-      entryDate: '',
-      workContent: '',
-      leaveDate: '',
+      position: '', entryDate: '', workContent: '', leaveDate: '',isDission:false,
+      name: "里欧1",
       phoneList: [],
       realName: '',
       sex: '',
@@ -594,6 +553,14 @@ export class AppComponent {
       personInfoDetail: ''
     };
     this.employee.push(obj);
+  }
+
+  getEntryDate(date){
+
+  }
+
+  getLeaveDate(date){
+
   }
 
   cityChange(code) {
@@ -854,7 +821,88 @@ export class AppComponent {
   }
 
   release(){
-
+    var params={
+      shopName:this.shopName,                           //店名
+      brandName:this.brandName,                         //品牌名称
+      subShopName:this.subShopName,                      //分店名
+      operateType:this.operateType,                      //运营模式
+      bigIndustry:this.bigIndustry,
+      smallIndustry:this.smallIndustry,
+      startOpenDate:this.startOpenDate,                 //开业日期
+      operateStatus:this.operateStatus,                 //经营状态
+      endOpenDate:this.endOpenDate,                     //停业日期
+      shopImages:this.shopImages,                       //店铺门面图片
+      environment:this.environment,                     //店铺环境图片
+      shopPhoneNumber:this.shopPhoneNumber,             //前台电话
+      takeOutPhone:this.takeOutPhone,                    //外卖电话
+      operateDate:this.operateDate,                     //营业日
+      operateStartTime:this.operateStartTime,           //营业开始时间
+      operateEndTime:this.operateEndTime,               //营业结束时间
+      fitmentLevelStatus:this.fitmentLevelStatus,       //装修档次
+      serviceProvided:this.serviceProvided,             //提供服务
+      shopRent:this.shopRent,                           //店铺租金
+      rentMeasure:this.rentMeasure,                     //店铺租金单位
+      payWay:this.payWay,                               //支付方式
+      definedPayWay:this.definedPayWay,                 //自定义支付方式
+      rateWay:this.rateWay,                             //递增或递减
+      definedRateWay:this.definedRateWay,               //增率或减率
+      depositWay:this.depositWay,                       //押金方式
+      definedDepositWay:this.definedDepositWay,         //自定义押金方式
+      rentDate:this.rentDate,                           //租期
+      rentTime:this.rentTime,                           //租约
+      leftContractTime:this.leftContractTime,           //剩余合同期
+      personProfit:this.personProfit,                   //客单价
+      dayProfit:this.dayProfit,                         //日均营业额
+      consumePersonType:this.consumePersonType,         //消费人群
+      consumeTime:this.consumeTime,                     //消费时间
+      foodAmount:this.foodAmount,                       //堂食量
+      takeOutAmount:this.takeOutAmount,                 //外卖量
+      memberAmount:this.memberAmount,                   //会员数
+      memberType:this.memberType,                       //会员类型
+      transferStatus:this.transferStatus,               //转让状态
+      transferFee:this.transferFee,                     //转让费
+      emptyTransfer:this.emptyTransfer,                 //是否空转
+      emptyTransferFee:this.emptyTransferFee,           //空转转让费
+      transferStaff:this.transferStaff,                 //转让内容
+      transferReason:this.transferReason,               //转让原因
+      certifications:this.certifications,               //店铺证件
+      shopBoss:this.shopBoss,                           //店铺老板
+      partner:this.partner,                             //合作伙伴
+      employee:this.employee,                           //店铺员工
+      city:this.city,                                   //城市
+      district:this.district,                           //区域
+      addressDetail:this.addressDetail,                 //详细地址
+      longitude:this.longitude,                         //经度
+      latitude:this.latitude,                           //纬度
+      positionDescription:this.positionDescription,     //位置描述
+      isNearStreet:this.isNearStreet,                   //是否临街
+      superFacility:this.superFacility,                 //上级物业
+      shopCityName:this.shopCityName,                   //商城名称
+      buildingArea:this.buildingArea,                   //建筑面积
+      roomArea:this.roomArea,                           //开间
+      doorWidth:this.doorWidth,                          //门宽
+      floor:this.floor,                                  //所处楼层
+      validArea:this.validArea,                          //使用面积
+      depth:this.depth,                                   //进深
+      floorHeight:this.floorHeight,                       //层高
+      floorAmount:this.floorAmount,                       //楼层数
+      fitIndustry:this.fitIndustry,                        //适合经营
+      recommendableIndustry:this.recommendableIndustry,    //推荐经营
+      unRecommendableIndustry:this.unRecommendableIndustry, //不宜经营
+      facilities:this.facilities,                           //物业配套
+      waterFee:this.waterFee,                             //水费
+      facilityFee:this.facilityFee,                         //物业
+      gasFee:this.gasFee,                                   //燃气费
+      elecFee:this.elecFee,                                 //电费
+      rent:this.rent,                                         //租金
+      warmFee:this.warmFee,                                 //暖气费
+      buildingShape:this.buildingShape,                     //建筑形状
+      propertyRightType:this.propertyRightType,             //产权类型
+      destroyedRatio:this.destroyedRatio,                   //拆迁风险
+      destroyedRatioDetail:this.destroyedRatioDetail,       //拆迁风险率
+      houseOwner:this.houseOwner                            //房主
+    }
+    console.log("params:",params);
   }
 
 

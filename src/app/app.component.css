@@ -271,5 +271,9 @@ textarea{
   right: 5px;
   font-size: 20px;
 }
+.release-btn{
+  display: block;
+  margin: 0 auto;
+}
 
 
