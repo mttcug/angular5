@@ -314,8 +314,8 @@ export class AppComponent {
   }
 
   /*店铺员工*/
-  entryTimePlaceHolder='入职时间';
-  leaveTimePlaceHolder='离职时间';
+  entryTimePlaceHolder = '入职时间';
+  leaveTimePlaceHolder = '离职时间';
   employee = [{
     position: '', entryDate: '', workContent: '', leaveDate: ''
   }];
@@ -351,7 +351,6 @@ export class AppComponent {
   depth = '';                        //进深
   floorHeight = '';                   //层高
   floorAmount = '';                  //总层数
-
 
 
   /*适合经营*/
@@ -395,7 +394,7 @@ export class AppComponent {
   facilityFee = '';             ////物业
   gasFee = '';                   //燃气
   elecFee = '';                  //电费
-  rent='';                      //租金
+  rent = '';                      //租金
   warmFee = '';                    //暖气
 
   /*建筑形状*/
@@ -413,9 +412,6 @@ export class AppComponent {
 
   /*房东*/
   houseOwner = {};
-
-
-
 
 
   updateShopName() {
@@ -582,16 +578,13 @@ export class AppComponent {
   }
 
 
-
-
   ///////////////////////////////////////////////////////////////////////////////////////////////
   //开始处理弹出框的值
   ////////////////////////////////////////////////////////////////////////////////////////////////
   /*图片弹出框*/
-  tempshopImages=[{id:1,url:"http://www.baidu.com"},{id:2,url:"http://www.baidu.com"}];       //此处复制方式和shopImages一样；
-  tempenvironment=[{id:3,url:"http://www.baidu.com"}];
-  jsonShopImages={tempshopImages:this.tempshopImages,tempenvironment:this.tempenvironment};
-
+  tempshopImages = [{id: 1, url: "http://www.baidu.com"}, {id: 2, url: "http://www.baidu.com"}];       //此处复制方式和shopImages一样；
+  tempenvironment = [{id: 3, url: "http://www.baidu.com"}];
+  jsonShopImages = {tempshopImages: this.tempshopImages, tempenvironment: this.tempenvironment};
 
 
   /*店铺租金弹出框*/
@@ -604,54 +597,67 @@ export class AppComponent {
   temprentDate = '';
   temprentTime = '';
   templeftContractTime = '';
-  tempRentContent={
-    tempshopRent:this.tempshopRent,
-    temprentMeasure:this.temprentMeasure,
-    temprateWay:this.temprateWay,
-    tempdefinedRateWay:this.tempdefinedRateWay,
-    tempdepositWay:this.tempdepositWay,
-    tempdefinedDepositWay:this.tempdefinedDepositWay,
-    temprentDate:this.temprentDate,
-    temprentTime:this.temprentTime,
-    templeftContractTime:this.templeftContractTime
+  tempRentContent = {
+    tempshopRent: this.tempshopRent,
+    temprentMeasure: this.temprentMeasure,
+    temprateWay: this.temprateWay,
+    tempdefinedRateWay: this.tempdefinedRateWay,
+    tempdepositWay: this.tempdepositWay,
+    tempdefinedDepositWay: this.tempdefinedDepositWay,
+    temprentDate: this.temprentDate,
+    temprentTime: this.temprentTime,
+    templeftContractTime: this.templeftContractTime
   }
 
 
   /*店铺营业状况弹出框*/
-  temppersonProfit='';
-  tempdayProfit='';
-  tempconsumePersonType='';
-  tempconsumeTime='';
-  tempfoodAmount='';
-  temptakeOutAmount='';
-  tempmemberAmount='';
-  tempmemberType='';
+  temppersonProfit = '';
+  tempdayProfit = '';
+  tempconsumePersonType = '';
+  tempconsumeTime = '';
+  tempfoodAmount = '';
+  temptakeOutAmount = '';
+  tempmemberAmount = '';
+  tempmemberType = '';
 
-  tempOperateStatus={
-    temppersonProfit:this.temppersonProfit,
-    tempdayProfit:this.tempdayProfit,
-    tempconsumePersonType:this.tempconsumePersonType,
-    tempconsumeTime:this.tempconsumeTime,
-    tempfoodAmount:this.tempfoodAmount,
-    temptakeOutAmount:this.temptakeOutAmount,
-    tempmemberAmount:this.tempmemberAmount,
-    tempmemberType:this.tempmemberType
+  tempOperateStatus = {
+    temppersonProfit: this.temppersonProfit,
+    tempdayProfit: this.tempdayProfit,
+    tempconsumePersonType: this.tempconsumePersonType,
+    tempconsumeTime: this.tempconsumeTime,
+    tempfoodAmount: this.tempfoodAmount,
+    temptakeOutAmount: this.temptakeOutAmount,
+    tempmemberAmount: this.tempmemberAmount,
+    tempmemberType: this.tempmemberType
   }
 
   /*转让信息弹出框*/
+  temptransferStatus = '';
+  temptransferFee = '';
+  tempemptyTransfer = '';
+  tempemptyTransferFee = '';
+  temptransferStaff = '';
+  temptransferReason = '';
+  tempTransferContent = {
+    temptransferStatus: this.temptransferStatus,
+    temptransferFee: this.temptransferFee,
+    tempemptyTransfer: this.tempemptyTransfer,
+    tempemptyTransferFee: this.tempemptyTransferFee,
+    temptransferStaff: this.temptransferStaff,
+    temptransferReason: this.temptransferReason
+  }
 
-
-
-
+  /*行业列表弹出框*/
 
 
 
   ////////////////////////////////////////////////////////////////////////////////////////////////
   //公共函数
   closeResult: string;
+
   open(content) {
     this.modalService.open(content, {size: 'lg'}).result.then((result) => {
-      this.sureBtnFunction(content,result);
+      this.sureBtnFunction(content, result);
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
     });
@@ -667,40 +673,51 @@ export class AppComponent {
     }
   }
 
-  sureBtnFunction(content,result){
-    if(content=='shopImageContent'){
-      this.shopImages=result.tempshopImages;
-      this.environment=result.tempenvironment;
+  sureBtnFunction(content, result) {
+    if (content == 'shopImageContent') {
+      this.shopImages = result.tempshopImages;
+      this.environment = result.tempenvironment;
     }
-    if(content=='rentContent'){
-      this.shopRent=result.tempshopRent;
-      this.rentMeasure=result.temprentMeasure;
-      this.rateWay=result.temprateWay;
-      this.definedRateWay=result.tempdefinedRateWay;
-      this.depositWay=result.tempdepositWay;
-      this.definedDepositWay=result.tempdefinedDepositWay;
-      this.rentDate=result.temprentDate;
-      this.rentTime=result.temprentTime;
-      this.leftContractTime=result.templeftContractTime;
+    if (content == 'rentContent') {
+      this.shopRent = result.tempshopRent;
+      this.rentMeasure = result.temprentMeasure;
+      this.rateWay = result.temprateWay;
+      this.definedRateWay = result.tempdefinedRateWay;
+      this.depositWay = result.tempdepositWay;
+      this.definedDepositWay = result.tempdefinedDepositWay;
+      this.rentDate = result.temprentDate;
+      this.rentTime = result.temprentTime;
+      this.leftContractTime = result.templeftContractTime;
     }
-    if(content=='profitContent'){
-      this.personProfit=result.temppersonProfit;
-      this.dayProfit=result.tempdayProfit;
-      this.consumePersonType=result.tempconsumePersonType;
-      this.consumeTime=result.tempconsumeTime;
-      this.foodAmount=result.tempfoodAmount;
-      this.takeOutAmount=result.temptakeOutAmount;
-      this.memberAmount=result.tempmemberAmount;
-      this.memberType=result.tempmemberType;
+    if (content == 'profitContent') {
+      this.personProfit = result.temppersonProfit;
+      this.dayProfit = result.tempdayProfit;
+      this.consumePersonType = result.tempconsumePersonType;
+      this.consumeTime = result.tempconsumeTime;
+      this.foodAmount = result.tempfoodAmount;
+      this.takeOutAmount = result.temptakeOutAmount;
+      this.memberAmount = result.tempmemberAmount;
+      this.memberType = result.tempmemberType;
     }
-    if(content=='transferContent'){
+    if (content == 'transferContent') {
+      this.transferStatus = result.temptransferStatus,
+      this.transferFee = result.temptransferFee,
+      this.emptyTransfer = result.tempemptyTransfer,
+      this.emptyTransferFee = result.tempemptyTransferFee,
+      this.transferStaff = result.temptransferStaff,
+      this.transferReason = result.temptransferReason
+    }
+    if (content == 'industryContent') {
+
+    }
+    if (content == 'certificationEdit') {
+
+    }
+    if (content == 'personInfo') {
 
     }
 
   }
-
-
-
 
 
 }

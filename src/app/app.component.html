@@ -718,7 +718,7 @@
     </div>
     <div class="block">
       <label for="" class="line-name"><span class="input-label-name">转让费:</span></label>
-      <input class="form-control profit inline-input" name="transferFee" type="text" [(ngModel)]="transferFee"
+      <input class="form-control profit inline-input" name="transferFee" type="text" [(ngModel)]="temptransferFee"
              placeholder="请填写">万元 <input type="checkbox"> 可面议
     </div>
 
@@ -732,30 +732,25 @@
                                                                                 class="week-checkbox" type="radio"
                                                                                 data-code="item.code">{{item.name}}</span>
         <input type="text" class="form-control inline-input" placeholder="空转转让费" name="transferFee"
-               [(ngModel)]="emptyTransferFee"> 万元
+               [(ngModel)]="tempemptyTransferFee"> 万元
       </div>
     </div>
 
     <div class="block">
       <label for="" class="line-name"><span class="input-label-name">转让内容:</span></label>
-      <input class="form-control profit inline-input" name="transferContent" [(ngModel)]="transferStaff" type="text"
+      <input class="form-control profit inline-input" name="transferContent" [(ngModel)]="temptransferStaff" type="text"
              placeholder="请填写">如：设备，家具，品牌，技术，会员
     </div>
 
 
     <div class="block">
       <label for="" class="line-name"><span class="input-label-name">转让原因:</span></label>
-      <textarea name="transferReason" id="transferReason" [(ngModel)]="transferReason" cols="60" rows="5"></textarea>
+      <textarea name="transferReason" id="transferReason" [(ngModel)]="temptransferReason" cols="60" rows="5"></textarea>
     </div>
-
-
   </div>
   <div class="modal-footer">
-
     <button type="button" class="btn btn-outline-dark" (click)="c('Close click')">取消</button>
-
-    <button type="button" class="btn btn-outline-dark" (click)="c('Close click')">确定</button>
-
+    <button type="button" class="btn btn-outline-dark" (click)="c(tempTransferContent)">确定</button>
   </div>
 </ng-template>
 
