@@ -46,7 +46,7 @@ export class UploadFilesComponent implements OnInit {
   /*删除图片（注：新图片需要上传和就图片格式是不一样的需要单独存储）*/
   deleteNewImage(item) {
     this.images.forEach((v, i) => {
-      item.id.toString() == v.id.toString() ? this.images.splice(i, 1) : '';
+      item.url.toString().trim() == v.url.toString().trim() ? this.images.splice(i, 1) : '';
     })
 
     this.uploadImages.emit(this.images);

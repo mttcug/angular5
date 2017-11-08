@@ -256,7 +256,7 @@
     <!--店铺老板-->
     <div class="block">
       <label for="" class="line-name"><span class="input-label-name">店铺老板:</span></label>
-      <span class="light-weight-grey">姓名</span> <span class="edit-info" (click)="open(personInfo)">编辑</span>
+      <span class="light-weight-grey">姓名</span> <span class="edit-info" (click)="openPersonalInfo(personInfo,shopBoss)">编辑</span>
     </div>
 
     <!--合伙人-->
@@ -265,7 +265,7 @@
       <div class="inline-block vertical-m">
         <p *ngFor="let item of partner">
           <span>{{item.name}}</span><span>{{item.phone}}</span> <span class="edit-info"
-                                                                      (click)="open(personInfo)">编辑</span>
+                                                                      (click)="openPersonalInfo(personInfo,partner)">编辑</span>
           <input type="text" name="stockRatio" placeholder="参股比例" class="inline-input form-control">
         </p>
       </div>

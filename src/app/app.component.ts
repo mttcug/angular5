@@ -58,6 +58,9 @@ export class AppComponent {
       transferStaff:this.transferStaff,                 //转让内容
       transferReason:this.transferReason,               //转让原因
       certifications:this.certifications,               //店铺证件
+      shopBoss:this.shopBoss,                           //店铺老板
+      partner:this.partner,                             //合作伙伴
+      employee:this.employee,                           //店铺员工
 
 
 
@@ -263,9 +266,9 @@ export class AppComponent {
 
   /*店铺证件*/
   certifications = [
-    {'certificationType': 1, 'name': "营业执照",'headImage':'','backImage':'','otherImages':[],'certificationNumber':'','themeName':'','address':'','permissionScope':'','otherContent':''},
-    {'certificationType': 2, 'name': "店铺图片",'headImage':'','backImage':'','otherImages':[],'certificationNumber':'','themeName':'','address':'','permissionScope':'','otherContent':''},
-    {'certificationType': 3, 'name': "身份证件",'headImage':'','backImage':'','otherImages':[],'certificationNumber':'','themeName':'','address':'','permissionScope':'','otherContent':''}
+    {certificationType: 1, name: "营业执照",headImage:'',backImage:'',otherImages:[],certificationNumber:'',themeName:'',address:'',permissionScope:'',otherContent:''},
+    {certificationType: 2, name: "店铺图片",headImage:'',backImage:'',otherImages:[],certificationNumber:'',themeName:'',address:'',permissionScope:'',otherContent:''},
+    {certificationType: 3, name: "身份证件",headImage:'',backImage:'',otherImages:[],certificationNumber:'',themeName:'',address:'',permissionScope:'',otherContent:''}
   ];
   /*店铺证件弹出框*/
   selectedCertificationType = 4;
@@ -314,7 +317,7 @@ export class AppComponent {
     {code: 2, name: "女"},
     {code: 3, name: "其他"}
   ];
-  sexSelected = '';            //性别
+  sex = '';            //性别
   /*出生日期*/
   birthdayDate = '';
 
@@ -329,7 +332,6 @@ export class AppComponent {
   partner = [
     {
       name: "里欧1",
-      phone: '18977765655',
       phoneList: [],
       realName: '',
       sex: '',
@@ -358,7 +360,6 @@ export class AppComponent {
   addPartner() {
     var obj = {
       name: "",
-      phone: '',
       phoneList: [],
       realName: '',
       sex: '',
@@ -491,6 +492,7 @@ export class AppComponent {
   addImages(oldImages, newInamges) {
     oldImages = newInamges;
   }
+
   addCertificationImages(imageUrl,newInamges){
     imageUrl=newInamges[0].url;
   }
@@ -568,7 +570,7 @@ export class AppComponent {
   }
 
   selectSexStatus(item) {
-    this.sexSelected = item;
+    this.sex = item;
   }
 
   getbirthTime(date) {
@@ -602,7 +604,7 @@ export class AppComponent {
 
   }
 
-  defaultCertification='';
+  defaultCertification;
   openShopCertificationModal(content,item){
     this.defaultCertification = item;
     this.selectedCertificationType = item.certificationType;
@@ -624,9 +626,29 @@ export class AppComponent {
     });
   }
 
-  /*适合经营*/
-  /*打开行业列表弹出框的时候确定默认选择列表(三个按钮打开同一个行业列表弹出框)*/
-  industrySelectedList = [];  //用来记录适合经营，推荐经营和不宜经营点击的是哪一个
+  defaultPerson;
+  openPersonalInfo(content,item){
+    this.defaultPerson = item;
+    this.phoneList = item.phoneList;
+    this.name = item.name;           //证件类型
+    this.realName=item.realName;
+    this.sex=item.sex;
+    this.birthdayDate=item.birthdayDate;
+    this.contactAddress=item.contactAddress;
+    this.email=item.email;
+    this.qq=item.qq;
+    this.wx=item.wx;
+    this.personInfoDetail=item.personInfoDetail;
+
+
+    this.modalService.open(content, {size: 'lg'}).result.then((result) => {
+      this.sureBtnFunction(content, result);
+    }, (reason) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    });
+  }
+
+  industrySelectedList = [];
   openIndustryModel(content, selectedList) {
     this.industrySelectedList = selectedList;
     this.modalService.open(content, {size: 'lg'}).result.then((result) => {
@@ -659,6 +681,8 @@ export class AppComponent {
       v.code.toString() === item.code.toString() ? this.facilities.splice(i, 1) : i == this.facilities.length ? this.facilities.push(item) : '';
     })
   }
+
+
 
 
   ///////////////////////////////////////////////////////////////////////////////////////////////
@@ -801,20 +825,30 @@ export class AppComponent {
     if (modalName == 'certificationEdit') {
       console.log("certificationEdit:",this.defaultCertification,typeof(this.defaultCertification));
       this.defaultCertification.certificationType=this.selectedCertificationType;         //证件类型
+      this.defaultCertification.name=this.certificationsTypeList.find(item=>item.id==this.selectedCertificationType).name;
+      this.defaultCertification.headImage=this.headImageA[0].url;
+      this.defaultCertification.backImage=this.backImageA[0].url;
+      this.defaultCertification.otherImages=this.otherImages;
 
-/*      this.headImageA.push(item.headImage);            //正面图片
-      this.backImageA.push(item.backImage);            //反面图片
-      this.otherImages = item.otherImages;            //其他图片
-
-      this.certificationNumber =item.certificationNumber;     //证件名称
-      this.themeName = item.themeName;               //主题名称
-      this.address = item.address;                 //地址
-      this.permissionScope = item.permissionScope;         //许可范围
-      this.otherContent = item.otherContent;            //其他内容*/
+      this.defaultCertification.certificationNumber=this.certificationNumber;
+      this.defaultCertification.themeName=this.themeName;
+      this.defaultCertification.address=this.address;
+      this.defaultCertification.permissionScope=this.permissionScope;
+      this.defaultCertification.otherContent=this.otherContent;
 
     }
     if (modalName == 'personInfo') {
-
+      this.defaultPerson.phoneList=this.phoneList;
+      this.defaultPerson.phoneList = this.phoneList;
+      this.defaultPerson.name = this.name;           //证件类型
+      this.defaultPerson.realName=this.realName;
+      this.defaultPerson.sex=this.sex;
+      this.defaultPerson.birthdayDate=this.birthdayDate;
+      this.defaultPerson.contactAddress=this.contactAddress;
+      this.defaultPerson.email=this.email;
+      this.defaultPerson.qq=this.qq;
+      this.defaultPerson.wx=this.wx;
+      this.defaultPerson.personInfoDetail=this.personInfoDetail;
     }
 
   }
