@@ -12,7 +12,64 @@ export class AppComponent {
   constructor(private modalService: NgbModal, @Inject('request') private request) {
   }
 
-  title = 'app';
+  init(){
+    var params={
+      shopName:this.shopName,                           //店名
+      brandName:this.brandName,                         //品牌名称
+      subShopName:this.subShopName,                      //分店名
+      operateType:this.operateType,                      //运营模式
+      bigIndustry:this.bigIndustry,
+      smallIndustry:this.smallIndustry,
+      startOpenDate:this.startOpenDate,                 //开业日期
+      operateStatus:this.operateStatus,                 //经营状态
+      endOpenDate:this.endOpenDate,                     //停业日期
+      shopImages:this.shopImages,                       //店铺门面图片
+      environment:this.environment,                     //店铺环境图片
+      shopPhoneNumber:this.shopPhoneNumber,             //前台电话
+      takeOutPhone:this.takeOutPhone,                    //外卖电话
+      operateDate:this.operateDate,                     //营业日
+      operateStartTime:this.operateStartTime,           //营业开始时间
+      operateEndTime:this.operateEndTime,               //营业结束时间
+      fitmentLevelStatus:this.fitmentLevelStatus,       //装修档次
+      serviceProvided:this.serviceProvided,             //提供服务
+      shopRent:this.shopRent,                           //店铺租金
+      rentMeasure:this.rentMeasure,                     //店铺租金单位
+      payWay:this.payWay,                               //支付方式
+      definedPayWay:this.definedPayWay,                 //自定义支付方式
+      rateWay:this.rateWay,                             //递增或递减
+      definedRateWay:this.definedRateWay,               //增率或减率
+      depositWay:this.depositWay,                       //押金方式
+      definedDepositWay:this.definedDepositWay,         //自定义押金方式
+      rentDate:this.rentDate,                           //租期
+      rentTime:this.rentTime,                           //租约
+      leftContractTime:this.leftContractTime,           //剩余合同期
+      personProfit:this.personProfit,                   //客单价
+      dayProfit:this.dayProfit,                         //日均营业额
+      consumePersonType:this.consumePersonType,         //消费人群
+      consumeTime:this.consumeTime,                     //消费时间
+      foodAmount:this.foodAmount,                       //堂食量
+      takeOutAmount:this.takeOutAmount,                 //外卖量
+      memberAmount:this.memberAmount,                   //会员数
+      memberType:this.memberType,                       //会员类型
+      transferStatus:this.transferStatus,               //转让状态
+      transferFee:this.transferFee,                     //转让费
+      emptyTransfer:this.emptyTransfer,                 //是否空转
+      emptyTransferFee:this.emptyTransferFee,           //空转转让费
+      transferStaff:this.transferStaff,                 //转让内容
+      transferReason:this.transferReason,               //转让原因
+      certifications:this.certifications,               //店铺证件
+
+
+
+
+
+
+
+
+
+
+    }
+}
 
 
   /*品牌名称*/
@@ -206,13 +263,13 @@ export class AppComponent {
 
   /*店铺证件*/
   certifications = [
-    {id: 1, name: "营业执照"},
-    {id: 2, name: "店铺图片"},
-    {id: 3, name: "身份证件"}
+    {'certificationType': 1, 'name': "营业执照",'headImage':'','backImage':'','otherImages':[],'certificationNumber':'','themeName':'','address':'','permissionScope':'','otherContent':''},
+    {'certificationType': 2, 'name': "店铺图片",'headImage':'','backImage':'','otherImages':[],'certificationNumber':'','themeName':'','address':'','permissionScope':'','otherContent':''},
+    {'certificationType': 3, 'name': "身份证件",'headImage':'','backImage':'','otherImages':[],'certificationNumber':'','themeName':'','address':'','permissionScope':'','otherContent':''}
   ];
   /*店铺证件弹出框*/
-  selectedCertification = 4;
-  certificationType = '';           //证件类型
+  selectedCertificationType = 4;
+  writeCertificationType = '';           //证件类型
   certificationsTypeList = [
     {id: 1, name: "营业执照"},
     {id: 2, name: "店铺图片"},
@@ -222,8 +279,10 @@ export class AppComponent {
   headIsMulti = false;            //是否多张
   backIsMulti = false;
   otherIsMulti = true;
-  headImage = [];            //正面图片
-  backImage = [];            //反面图片
+  headImage='';
+  backImage='';
+  headImageA = [];            //正面图片
+  backImageA = [];            //反面图片
   otherImages = [];            //其他图片
 
   certificationNumber = '';     //证件名称
@@ -432,6 +491,9 @@ export class AppComponent {
   addImages(oldImages, newInamges) {
     oldImages = newInamges;
   }
+  addCertificationImages(imageUrl,newInamges){
+    imageUrl=newInamges[0].url;
+  }
 
   selectAllWeek() {
     this.wholeWeek === false ? this.vaildTime.map((item, index) => {
@@ -471,9 +533,8 @@ export class AppComponent {
     }
   }
 
-  selectThisPayWay(item) {
-    console.log("payWay:", item.code, this.payWayList);
-    this.payWay = item.code == 0 ? this.definedPayWay : item.name;
+  selectThisPayWay(selectWay,definedWay,item) {
+    selectWay = item.code == 0 ? definedWay: item.name;
   }
 
   selectThisRate(item) {
@@ -498,7 +559,7 @@ export class AppComponent {
 
   deleteCertification(item) {
     this.certifications.forEach((value, index) => {
-      value.id == item.id ? this.certifications.splice(index, 1) : '';
+      value.certificationType == item.id ? this.certifications.splice(index, 1) : '';
     });
   }
 
@@ -541,13 +602,35 @@ export class AppComponent {
 
   }
 
+  defaultCertification='';
+  openShopCertificationModal(content,item){
+    this.defaultCertification = item;
+    this.selectedCertificationType = item.certificationType;
+    this.writeCertificationType = '';           //证件类型
+
+    this.headImageA.push(item.headImage);            //正面图片
+    this.backImageA.push(item.backImage);            //反面图片
+    this.otherImages = item.otherImages;            //其他图片
+
+    this.certificationNumber =item.certificationNumber;     //证件名称
+    this.themeName = item.themeName;               //主题名称
+    this.address = item.address;                 //地址
+    this.permissionScope = item.permissionScope;         //许可范围
+    this.otherContent = item.otherContent;            //其他内容
+    this.modalService.open(content, {size: 'lg'}).result.then((result) => {
+      this.sureBtnFunction(content, result);
+    }, (reason) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    });
+  }
+
   /*适合经营*/
   /*打开行业列表弹出框的时候确定默认选择列表(三个按钮打开同一个行业列表弹出框)*/
   industrySelectedList = [];  //用来记录适合经营，推荐经营和不宜经营点击的是哪一个
-  openModel(content, selectedList) {
+  openIndustryModel(content, selectedList) {
     this.industrySelectedList = selectedList;
     this.modalService.open(content, {size: 'lg'}).result.then((result) => {
-      this.closeResult = `Closed with: ${result}`;
+      this.sureBtnFunction(content, result);
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
     });
@@ -590,6 +673,8 @@ export class AppComponent {
   /*店铺租金弹出框*/
   tempshopRent = '';
   temprentMeasure = 1;
+  temppayWay='';
+  tempdefinedPayWay='';
   temprateWay = '';
   tempdefinedRateWay = '';
   tempdepositWay = '';
@@ -682,6 +767,8 @@ export class AppComponent {
     if (modalName == 'rentContent') {
       this.shopRent = this.tempshopRent;
       this.rentMeasure = this.temprentMeasure;
+      this.payWay=this.temppayWay;
+      this.definedPayWay=this.tempdefinedPayWay;
       this.rateWay = this.temprateWay;
       this.definedRateWay = this.tempdefinedRateWay;
       this.depositWay = this.tempdepositWay;
@@ -712,6 +799,18 @@ export class AppComponent {
 
     }
     if (modalName == 'certificationEdit') {
+      console.log("certificationEdit:",this.defaultCertification,typeof(this.defaultCertification));
+      this.defaultCertification.certificationType=this.selectedCertificationType;         //证件类型
+
+/*      this.headImageA.push(item.headImage);            //正面图片
+      this.backImageA.push(item.backImage);            //反面图片
+      this.otherImages = item.otherImages;            //其他图片
+
+      this.certificationNumber =item.certificationNumber;     //证件名称
+      this.themeName = item.themeName;               //主题名称
+      this.address = item.address;                 //地址
+      this.permissionScope = item.permissionScope;         //许可范围
+      this.otherContent = item.otherContent;            //其他内容*/
 
     }
     if (modalName == 'personInfo') {
@@ -721,7 +820,7 @@ export class AppComponent {
   }
 
   release(){
-    console.log("rentMeasure:",this.rentMeasure);
+
   }
 
 

@@ -161,7 +161,7 @@
       <div class="pay-way-list">
         <span *ngFor="let item of payWayList" class="select-span"><input [(ngModel)]="item.name" name="payWayList"
                                                                          [value]="item.name"
-                                                                         (click)="selectThisPayWay(item)"
+                                                                         (click)="selectThisPayWay(payWay,definedPayWay,item)"
                                                                          class="week-checkbox" type="radio"
                                                                          data-code="item.code">{{item.name}}</span>
         <input class="form-control time-imput inline-input" name="payWay" type="text" placeholder="请填写"
@@ -244,7 +244,7 @@
       <label for="" class="line-name"><span class="input-label-name">店铺证件:</span></label>
       <ul *ngIf="certifications.length > 0" class="shop-certifications">
         <li *ngFor="let item of certifications"><span class="light-weight-grey">{{item.name}}</span><span
-          class="edit-info m-left-10 m-ritght-10" (click)="open(certificationEdit)">编辑</span><span
+          class="edit-info m-left-10 m-ritght-10" (click)="openShopCertificationModal(certificationEdit,item)">编辑</span><span
           class="edit-info m-left-5 m-ritght-5" (click)="deleteCertification(item)">删除</span></li>
       </ul>
       <p class="add-certifications-btn add-popup-btn" (click)="open(certificationEdit)"><label
@@ -410,7 +410,7 @@
       <label for="" class="line-name"><span class="input-label-name">适合经营:</span></label>
       <span class="span-list-item" *ngFor="let item of fitIndustry"><span>{{item.name}}</span><i
         class="iconfont icon-delete" (click)="deleteSelectedIndustry(fitIndustry,item)"></i></span>
-      <span class="add-item" (click)="openModel(industryContent,fitIndustry)">添加</span>
+      <span class="add-item" (click)="openIndustryModel(industryContent,fitIndustry)">添加</span>
     </div>
 
     <!--推荐经营行业-->
@@ -418,7 +418,7 @@
       <label for="" class="line-name"><span class="input-label-name">推荐经营行业:</span></label>
       <span class="span-list-item" *ngFor="let item of recommendableIndustry"><span>{{item.name}}</span><i
         class="iconfont icon-delete" (click)="deleteSelectedIndustry(recommendableIndustry,item)"></i></span>
-      <span class="add-item" (click)="openModel(industryContent,recommendableIndustry)">添加</span>
+      <span class="add-item" (click)="openIndustryModel(industryContent,recommendableIndustry)">添加</span>
     </div>
 
     <!--不宜经营行业-->
@@ -426,7 +426,7 @@
       <label for="" class="line-name"><span class="input-label-name">不宜经营行业:</span></label>
       <span class="span-list-item" *ngFor="let item of unRecommendableIndustry"><span>{{item.name}}</span><i
         class="iconfont icon-delete" (click)="deleteSelectedIndustry(unRecommendableIndustry,item)"></i></span>
-      <span class="add-item" (click)="openModel(industryContent,unRecommendableIndustry)">添加</span>
+      <span class="add-item" (click)="openIndustryModel(industryContent,unRecommendableIndustry)">添加</span>
     </div>
 
 
@@ -585,7 +585,7 @@
       <div class="pay-way-list">
         <span *ngFor="let item of payWayList" class="select-span"><input [(ngModel)]="item.name" [value]="item.name"
                                                                          name="item.name"
-                                                                         (click)="selectThisPayWay(item)"
+                                                                         (click)="selectThisPayWay(temppayWay,tempdefinedPayWay,item)"
                                                                          class="week-checkbox" type="radio"
                                                                          data-code="item.code">{{item.name}}</span>
         <input class="form-control time-imput inline-input" type="text" placeholder="请填写" [(ngModel)]="tempdefinedPayWay">
@@ -792,10 +792,10 @@
     <!--证件类型-->
     <div class="block">
       <label for="" class="line-name"><span class="input-label-name">证件类型:</span></label>
-      <select class="form-control  select-style" name="certifications" [(ngModel)]="selectedCertification">
+      <select class="form-control  select-style" name="certifications" [(ngModel)]="selectedCertificationType">
         <option value="{{item.id}}" *ngFor="let item of certificationsTypeList">{{item.name}}</option>
       </select>
-      <input class="form-control rent-input" type="text" name="certificationType" [(ngModel)]="certificationType"
+      <input class="form-control rent-input" type="text" name="writeCertificationType" [(ngModel)]="writeCertificationType"
              placeholder="请填写证件类型">
     </div>
 
@@ -804,18 +804,18 @@
         class="input-label-name">图片:</span></label>
       <div class="certification-list">
         <div class="upload-block-inline">
-          <app-upload-files [multiImages]="headIsMulti" [images]="headImage"
-                            (addImages)="addImages(headImage,$event)"></app-upload-files>
+          <app-upload-files [multiImages]="headIsMulti" [images]="headImageA"
+                            (addImages)="addCertificationImages(headImage,$event)"></app-upload-files>
           <p class="light-weight-grey">正面</p>
         </div>
         <div class="upload-block-inline">
-          <app-upload-files [multiImages]="backIsMulti" [images]="backImage"
-                            (addImages)="addImages(backImage,$event)"></app-upload-files>
+          <app-upload-files [multiImages]="backIsMulti" [images]="backImageA"
+                            (addImages)="addCertificationImages(backImage,$event)"></app-upload-files>
           <p class="light-weight-grey">反面</p>
         </div>
         <div class="upload-block-inline">
           <app-upload-files [multiImages]="otherIsMulti" [images]="otherImages"
-                            (addImages)="addImages(otherImages,$event)"></app-upload-files>
+                            (addImages)="addCertificationImages(otherImages,$event)"></app-upload-files>
           <p class="light-weight-grey">添加</p>
         </div>
       </div>
