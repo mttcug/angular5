@@ -81,8 +81,8 @@ export class AppComponent {
   multiShops = true;
   /*环境*/
   environment = [
-    {id: "123", url: "./app/public/images/1.png"},
-    {id: "123", url: "./app/public/images/2.jpg"}
+    {id: 123, url: "./app/public/images/1.png"},
+    {id: 123, url: "./app/public/images/2.jpg"}
   ];
   multiEnvironment = true;
   /*前台电话*/
@@ -674,49 +674,54 @@ export class AppComponent {
   }
 
   sureBtnFunction(content, result) {
-    if (content == 'shopImageContent') {
-      this.shopImages = result.tempshopImages;
-      this.environment = result.tempenvironment;
+    var modalName=Object.keys(content._def.references)[0];
+    if (modalName == 'shopImageContent') {
+      this.shopImages = this.tempshopImages;
+      this.environment = this.tempenvironment;
     }
-    if (content == 'rentContent') {
-      this.shopRent = result.tempshopRent;
-      this.rentMeasure = result.temprentMeasure;
-      this.rateWay = result.temprateWay;
-      this.definedRateWay = result.tempdefinedRateWay;
-      this.depositWay = result.tempdepositWay;
-      this.definedDepositWay = result.tempdefinedDepositWay;
-      this.rentDate = result.temprentDate;
-      this.rentTime = result.temprentTime;
-      this.leftContractTime = result.templeftContractTime;
+    if (modalName == 'rentContent') {
+      this.shopRent = this.tempshopRent;
+      this.rentMeasure = this.temprentMeasure;
+      this.rateWay = this.temprateWay;
+      this.definedRateWay = this.tempdefinedRateWay;
+      this.depositWay = this.tempdepositWay;
+      this.definedDepositWay = this.tempdefinedDepositWay;
+      this.rentDate = this.temprentDate;
+      this.rentTime = this.temprentTime;
+      this.leftContractTime = this.templeftContractTime;
     }
-    if (content == 'profitContent') {
-      this.personProfit = result.temppersonProfit;
-      this.dayProfit = result.tempdayProfit;
-      this.consumePersonType = result.tempconsumePersonType;
-      this.consumeTime = result.tempconsumeTime;
-      this.foodAmount = result.tempfoodAmount;
-      this.takeOutAmount = result.temptakeOutAmount;
-      this.memberAmount = result.tempmemberAmount;
-      this.memberType = result.tempmemberType;
+    if (modalName == 'profitContent') {
+      this.personProfit = this.temppersonProfit;
+      this.dayProfit = this.tempdayProfit;
+      this.consumePersonType = this.tempconsumePersonType;
+      this.consumeTime = this.tempconsumeTime;
+      this.foodAmount = this.tempfoodAmount;
+      this.takeOutAmount = this.temptakeOutAmount;
+      this.memberAmount = this.tempmemberAmount;
+      this.memberType = this.tempmemberType;
     }
-    if (content == 'transferContent') {
-      this.transferStatus = result.temptransferStatus,
-      this.transferFee = result.temptransferFee,
-      this.emptyTransfer = result.tempemptyTransfer,
-      this.emptyTransferFee = result.tempemptyTransferFee,
-      this.transferStaff = result.temptransferStaff,
-      this.transferReason = result.temptransferReason
+    if (modalName == 'transferContent') {
+      this.transferStatus = this.temptransferStatus,
+      this.transferFee = this.temptransferFee,
+      this.emptyTransfer = this.tempemptyTransfer,
+      this.emptyTransferFee = this.tempemptyTransferFee,
+      this.transferStaff = this.temptransferStaff,
+      this.transferReason = this.temptransferReason
     }
-    if (content == 'industryContent') {
+    if (modalName == 'industryContent') {
 
     }
-    if (content == 'certificationEdit') {
+    if (modalName == 'certificationEdit') {
 
     }
-    if (content == 'personInfo') {
+    if (modalName == 'personInfo') {
 
     }
 
+  }
+
+  release(){
+    console.log("rentMeasure:",this.rentMeasure);
   }
 
 

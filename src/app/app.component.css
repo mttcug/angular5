@@ -265,7 +265,7 @@ textarea{
   width: 100px;
 }
 
-i{
+.upload-block i{
   position: absolute;
   top: 0px;
   right: 5px;
