@@ -75,7 +75,7 @@
           <img src="{{item.url}}" alt="">
         </a>
       </div>
-      <span (click)="open(content)" class="model-popup">编辑>></span>
+      <span (click)="open(shopImageContent)" class="model-popup">编辑>></span>
     </div>
 
     <!--前台电话-->
@@ -531,7 +531,7 @@
 
 
 <!--店铺图片弹出框-->
-<ng-template #content let-c="close" let-d="dismiss">
+<ng-template #shopImageContent let-c="close" let-d="dismiss">
   <div class="modal-header">
     <h4 class="modal-title">店铺图片</h4>
     <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">

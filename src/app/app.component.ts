@@ -601,9 +601,9 @@ export class AppComponent {
   tempdefinedRateWay = '';
   tempdepositWay = '';
   tempdefinedDepositWay = '';
-  temprentDate = '';           //租期
-  temprentTime = '';           //租约
-  templeftContractTime = '';  //剩余合同期
+  temprentDate = '';
+  temprentTime = '';
+  templeftContractTime = '';
   tempRentContent={
     tempshopRent:this.tempshopRent,
     temprentMeasure:this.temprentMeasure,
@@ -668,6 +668,34 @@ export class AppComponent {
   }
 
   sureBtnFunction(content,result){
+    if(content=='shopImageContent'){
+      this.shopImages=result.tempshopImages;
+      this.environment=result.tempenvironment;
+    }
+    if(content=='rentContent'){
+      this.shopRent=result.tempshopRent;
+      this.rentMeasure=result.temprentMeasure;
+      this.rateWay=result.temprateWay;
+      this.definedRateWay=result.tempdefinedRateWay;
+      this.depositWay=result.tempdepositWay;
+      this.definedDepositWay=result.tempdefinedDepositWay;
+      this.rentDate=result.temprentDate;
+      this.rentTime=result.temprentTime;
+      this.leftContractTime=result.templeftContractTime;
+    }
+    if(content=='profitContent'){
+      this.personProfit=result.temppersonProfit;
+      this.dayProfit=result.tempdayProfit;
+      this.consumePersonType=result.tempconsumePersonType;
+      this.consumeTime=result.tempconsumeTime;
+      this.foodAmount=result.tempfoodAmount;
+      this.takeOutAmount=result.temptakeOutAmount;
+      this.memberAmount=result.tempmemberAmount;
+      this.memberType=result.tempmemberType;
+    }
+    if(content=='transferContent'){
+
+    }
 
   }
 
