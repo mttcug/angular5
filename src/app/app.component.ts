@@ -9,7 +9,10 @@ import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 })
 export class AppComponent {
 
-  constructor(private modalService: NgbModal, @Inject('request') private request) {
+  constructor(private modalService: NgbModal,@Inject('data') private data) {
+    this.data.getIndustryData().then(res=>{
+      console.log("APPres:",res);
+    })
   }
 
 
@@ -120,13 +123,14 @@ export class AppComponent {
   serviceProvided = [];
   serviceList = [
     {code: 1, name: "可刷卡", checked: false},
-    {code: 2, name: "摆件", checked: false},
-    {code: 3, name: "外卖", checked: false},
-    {code: 4, name: "支付宝", checked: false},
-    {code: 5, name: "wifi", checked: false},
-    {code: 6, name: "微信", checked: false},
-    {code: 7, name: "停车位", checked: false},
-    {code: 8, name: "可刷卡", checked: false},
+    {code: 2, name: "支付宝", checked: false},
+    {code: 3, name: "微信", checked: false},
+    {code: 4, name: "包间", checked: false},
+    {code: 5, name: "WIFI", checked: false},
+    {code: 6, name: "可订座", checked: false},
+    {code: 7, name: "外卖", checked: false},
+    {code: 8, name: "机打发票", checked: false},
+    {code: 9, name: "手撕发票", checked: false}
   ];
   /*店铺租金*/
   shopRent = '';
@@ -135,11 +139,11 @@ export class AppComponent {
   /*支付方式&&编辑更多支付方式*/
   payWayList = [
     {code: 1, name: "一月一付"},
-    {code: 2, name: "两月一付"},
-    {code: 3, name: "三月一付"},
-    {code: 4, name: "四月一付"},
-    {code: 5, name: "五月一付"},
-    {code: 6, name: "六月一付"},
+    {code: 2, name: "1月一付"},
+    {code: 3, name: "2月一付"},
+    {code: 4, name: "3月一付"},
+    {code: 5, name: "半年一付"},
+    {code: 6, name: "1年一付"},
     {code: 0, name: "自定义"}
   ];
   payWay = '';
@@ -375,7 +379,7 @@ export class AppComponent {
   ];
 
   /*物业配套*/
-  facilities = [];                                   //物业配套
+  facilities = [];             //物业配套
   facilitiesList = [
     {code: 1, name: "可明火", checked: false},
     {code: 2, name: "380V电压", checked: false},
@@ -462,11 +466,17 @@ export class AppComponent {
   }
 
   selectAllWeek() {
-    this.wholeWeek === false ? this.vaildTime.map((item, index) => {
-      item.checked = true;
-    }) : this.vaildTime.map((item, index) => {
-      item.checked = false;
-    });
+    if(this.wholeWeek === false){
+      this.vaildTime.map((item, index) => {
+        item.checked = true;
+      });
+      this.vaildTime.forEach((v,i)=>{this.operateDate.push(v)});
+    }else{
+      this.vaildTime.map((item, index) => {
+        item.checked = false;
+      });
+      this.operateDate=[];
+    }
   }
 
   selectThisDay(item) {
@@ -647,7 +657,10 @@ export class AppComponent {
   defaultPerson;
   openPersonalInfo(content,item){
     this.defaultPerson = item;
-    this.phoneList = item.phoneList;
+   /* this.phoneList = item.phoneList;*/
+   console.log("item:1",item.phoneList);
+    this.phoneList=[];
+    item.phoneList.forEach((v,i)=>{this.phoneList.push(v);});
     this.name = item.name;           //证件类型
     this.realName=item.realName;
     this.sex=item.sex;

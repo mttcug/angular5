@@ -40,11 +40,23 @@
 .inline-p,.inline-block{
   display: inline-block;
 }
-.vertical-m{
+.vertical-t{
   vertical-align: middle;
+}
+
+.vertical-t{
+  vertical-align: top;
 }
 .m-top-10{
   margin-top: 10px;
+}
+
+.m-top-20{
+  margin-top: 20px;
+}
+
+.m-bottom-20{
+  margin-bottom: 20px;
 }
 .p-block{
   display: block;

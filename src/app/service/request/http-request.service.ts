@@ -15,8 +15,8 @@ export class HttpRequestService {
   }
 
   josnrpConfig={
-    rpcUrl:'http://127.0.0.1:8080/api/user/',
-    id:this.guide(),
+    rpcUrl:'',
+    id:0,
     jsonrpc:"2.0"
   }
 

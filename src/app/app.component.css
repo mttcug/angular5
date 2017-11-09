@@ -6,7 +6,7 @@
 }
 .block{
   display: block;
-  margin-top: 20px;
+ /* margin-top: 20px;*/
 }
 label{
   width: 100px;
@@ -56,6 +56,7 @@ label{
 }
 .input-label-name{
   font-size: 16px;
+  line-height: 38px;
 }
 .shop-name-input,.brand-name-input,.subshop-name{
   display: inline-block;
@@ -99,7 +100,7 @@ label{
 .service-list{
   display: inline-block;
   width: 300px;
-  vertical-align: middle;
+  padding: 8px 0px;
 }
 .service-item{
   margin:0px 8px;
@@ -166,7 +167,7 @@ textarea{
 .facilities-list{
   display: inline-block;
   width: 500px;
-  vertical-align: middle;
+  padding: 8px 0px;
 }
 .facility-item{
   display: inline-block;
@@ -175,7 +176,6 @@ textarea{
 /*费用成本*/
 .fee-left-inline-block,.fee-right-inline-block{
   display: inline-block;
-  vertical-align: middle;
 }
 .fee-left-inline-block label,.fee-right-inline-block label{
   width: 50px;
@@ -185,9 +185,9 @@ textarea{
 .shop-certifications{
   display: inline-block;
   list-style: none;
-  vertical-align: middle;
   margin: 0px;
   padding: 0px;
+  padding-top: 6px;
 }
 .shop-certifications li{
   display: block;
