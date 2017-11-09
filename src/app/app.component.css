@@ -115,7 +115,6 @@ label{
 /*支付方式*/
 .pay-way-list{
   display: inline-block;
-  vertical-align: middle;
   width: 80%;
 }
 .pay-way-item{
@@ -131,8 +130,9 @@ label{
   margin-right: 3px;
 }
 .select-span{
-  padding: 10px 0px;
-  margin:0px 10px;
+ /* padding: 10px 0px;*/
+  margin:10px 10px;
+  display: inline-block;
 }
 
 /*营业额*/

@@ -15,7 +15,7 @@ export class HttpRequestService {
   }
 
   josnrpConfig={
-    rpcUrl:'',
+    rpcUrl:'http://192.168.1.234:5544/selectOption',
     id:0,
     jsonrpc:"2.0"
   }

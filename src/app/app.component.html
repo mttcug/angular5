@@ -37,7 +37,7 @@
     <div class="block m-top-20">
       <label for="" class="line-name"><span class="required-tag">*</span><span
         class="input-label-name">经营行业:</span></label>
-      <select class="form-control select-style" name="bigIndustry" id="big-industry" [(ngModel)]="bigIndustry">
+      <select class="form-control select-style" name="bigIndustry" id="big-industry" [(ngModel)]="bigIndustry" (ngModelChange)="loadSmallIndustry(bigIndustry)">
         <option value="">请选择</option>
         <option value="{{item.code}}" *ngFor="let item of bigIndustryList">{{item.name}}</option>
       </select>
@@ -159,7 +159,7 @@
     <!--支付方式-->
     <div class="block m-top-20">
       <label for="" class="line-name"><span class="input-label-name">支付方式:</span></label>
-      <div class="pay-way-list">
+      <div class="pay-way-list vertical-t">
         <span *ngFor="let item of payWayList" class="select-span"><input [(ngModel)]="item.name" name="payWayList"
                                                                          [value]="item.name"
                                                                          (click)="selectThisPayWay(item)"
@@ -201,7 +201,7 @@
     <!--转让状态-->
     <div class="block m-top-20">
       <label for="" class="line-name"><span class="input-label-name">转让状态:</span></label>
-      <div class="pay-way-list">
+      <div class="pay-way-list vertical-t">
         <span *ngFor="let item of transferStatusList;let i=index;" class="select-span"><input [(ngModel)]="item.name"
                                                                                               [value]="item.name"
                                                                                               name="transferStatus"
@@ -584,7 +584,7 @@
 
     <div class="block m-top-20">
       <label for="" class="line-name"><span class="input-label-name">支付方式:</span></label>
-      <div class="pay-way-list">
+      <div class="pay-way-list vertical-t">
         <span *ngFor="let item of payWayList" class="select-span"><input [(ngModel)]="item.name" [value]="item.name"
                                                                          name="popUpPayWayChenk"
                                                                          (click)="selectThisPopUpPayWay(item)"
@@ -607,7 +607,7 @@
 
     <div class="block m-top-20">
       <label for="" class="line-name"><span class="input-label-name">押金:</span></label>
-      <div class="pay-way-list">
+      <div class="pay-way-list vertical-t">
         <span *ngFor="let item of deposit" class="select-span"><input [(ngModel)]="item.name" [value]="item.name"
                                                                       name="depositCheck"
                                                                       (click)="selectThisDepositWay(item)"
@@ -770,12 +770,12 @@
   </div>
 
   <div class="modal-body">
-    <p><span>您已选择：</span> <span *ngFor="let item of industrySelectedList" class="industry-selected-span">{{item.name}}<i
-      (click)="deleteSelectedIndustry(industrySelectedList,item)" class="iconfont icon-delete"></i> </span></p>
+    <p><span>您已选择：</span> <span *ngFor="let item of tempdefaultIndustryList" class="industry-selected-span">{{item.name}}<i
+      (click)="deleteSelectedIndustry(tempdefaultIndustryList,item)" class="iconfont icon-delete"></i> </span></p>
     <ul class="popup-industry-list">
       <li *ngFor="let list of industries">
         <span (click)="selectThisIndustry(item)" *ngFor="let item of list"
-              [ngClass]="{'big-industry-style':item.code.toString().length<4,'small-industry-style':item.code.toString().length>4}">{{item.name}}</span>
+              [ngClass]="{'big-industry-style':item.code.toString().length < 4,'small-industry-style':item.code.toString().length > 3}">{{item.name}}</span>
       </li>
     </ul>
   </div>

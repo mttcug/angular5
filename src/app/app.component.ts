@@ -9,10 +9,24 @@ import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 })
 export class AppComponent {
 
+  allIndustry=[];
   constructor(private modalService: NgbModal,@Inject('data') private data) {
+
+    //获取行业列表
     this.data.getIndustryData().then(res=>{
-      console.log("APPres:",res);
-    })
+      this.industries=res;                      //所有数据[[],[]],用于推荐经营，不宜经营。。。
+      res.forEach((value,i)=>{
+       value.forEach((v,j)=>{
+         j == 0 ? this.bigIndustryList.push(v) : '';
+         this.allIndustry.push(v);
+       })
+      })
+    });
+
+    //获取城市列表
+    this.data.getDistrictData().then(res=>{
+      console.log("res:",res);
+    });
   }
 
 
@@ -35,80 +49,34 @@ export class AppComponent {
       code: 3,
       name: "123"
     }];
-  /* 经营行业*/
+   // 经营行业
   bigIndustry = '';
   smallIndustry = '';
-  industries = [
-    [
-      {code: 12, name: "娱乐设施"}, {code: 27895, name: "娱乐"}, {code: 32341, name: "运动"}, {
-      code: 27895,
-      name: "娱乐"
-    }, {code: 32341, name: "运动"}, {code: 27895, name: "娱乐"}, {code: 32341, name: "运动"}, {
-      code: 27895,
-      name: "娱乐"
-    }, {code: 32341, name: "运动"}, {code: 27895, name: "娱乐"}, {code: 32341, name: "运动"}, {
-      code: 27895,
-      name: "娱乐"
-    }, {code: 32341, name: "运动"}, {code: 27895, name: "娱乐"}, {code: 32341, name: "运动"}, {
-      code: 27895,
-      name: "娱乐"
-    }, {code: 32341, name: "运动"}, {code: 27895, name: "娱乐"}, {code: 32341, name: "运动"}, {
-      code: 27895,
-      name: "娱乐"
-    }, {code: 32341, name: "运动"}, {code: 27895, name: "娱乐"}, {code: 32341, name: "运动"}, {
-      code: 27895,
-      name: "娱乐"
-    }, {code: 32341, name: "运动"}
-    ], [
-      {code: 13, name: "餐饮美食"}, {code: 2123123, name: "娱乐small"}, {code: 3123123, name: "运动small"}
-    ]
-  ];
-  bigIndustryList = [
-    {code: 1, name: "餐饮"}, {code: 2, name: "娱乐"}, {code: 3, name: "运动"}
-  ];
-  smallIndustryList = [
-    {code: 1, name: "餐饮small"}, {code: 2, name: "娱乐small"}, {code: 3, name: "运动small"}
-  ];
-  /*开业日期*/
-  startOpenDate = '';
-  /*经营状态*/
+  industries;
+  bigIndustryList=[];
+  smallIndustryList=[];
+  startOpenDate = '';// 开业日期
   operateStatusList = [
     {code: 1, name: "经营中"}, {code: 2, name: "停业"}, {code: 3, name: "装修"}
-  ];
+  ]; // 经营状态
   operateStatus = 1;
-  /*停业日期*/
-  endOpenDate = '';
-  /*店铺图片*/
-  /*门面*/
-  shopImages = [];
+  endOpenDate = ''; // 停业日期
+  shopImages = [];// 门面
   multiShops = true;
-  /*环境*/
   environment = [
     {id: 123, url: "./app/public/images/1.png"},
     {id: 123, url: "./app/public/images/2.jpg"}
-  ];
+  ]; // 环境
   multiEnvironment = true;
-  /*前台电话*/
-  shopPhoneNumber = '';
-  /*外卖电话*/
-  takeOutPhone = '';
-  /*营业时间*/
-  wholeWeek = false;
-  vaildTime = [
-    {code: 1, name: "周一", checked: false},
-    {code: 2, name: "周二", checked: false},
-    {code: 3, name: "周三", checked: false},
-    {code: 4, name: "周四", checked: false},
-    {code: 5, name: "周五", checked: false},
-    {code: 6, name: "周六", checked: false},
-    {code: 7, name: "周日", checked: false}
-  ];
+  shopPhoneNumber = '';  // 前台电话
+  takeOutPhone = '';  // 外卖电话
+  wholeWeek = false;  // 营业时间
+  vaildTime=this.data.getWeekData();  //星期列表
   operateDate = [];
   allDay = false;
   operateStartTime = '';
   operateEndTime = '';
-  /*装修档次*/
-  fitmentLevelStatus = '';
+  fitmentLevelStatus = '';  // 装修档次
   fitmentLevelList = [
     {code: 1, name: "精装修"},
     {code: 2, name: "普通装修"},
@@ -119,75 +87,34 @@ export class AppComponent {
     {code: 7, name: "停车位"},
     {code: 8, name: "可刷卡"},
   ];
-  /*提供服务*/
-  serviceProvided = [];
-  serviceList = [
-    {code: 1, name: "可刷卡", checked: false},
-    {code: 2, name: "支付宝", checked: false},
-    {code: 3, name: "微信", checked: false},
-    {code: 4, name: "包间", checked: false},
-    {code: 5, name: "WIFI", checked: false},
-    {code: 6, name: "可订座", checked: false},
-    {code: 7, name: "外卖", checked: false},
-    {code: 8, name: "机打发票", checked: false},
-    {code: 9, name: "手撕发票", checked: false}
-  ];
-  /*店铺租金*/
-  shopRent = '';
+  serviceProvided = [];  // 提供服务
+  serviceList = this.data.getServiceList();
+  shopRent = '';  // 店铺租金
   rentMeasure = 1;
   rentMeasureList = [{code: 1, name: "元/月"}, {code: 2, name: "万元/月"}, {code: 3, name: "千元/月"}];
-  /*支付方式&&编辑更多支付方式*/
-  payWayList = [
-    {code: 1, name: "一月一付"},
-    {code: 2, name: "1月一付"},
-    {code: 3, name: "2月一付"},
-    {code: 4, name: "3月一付"},
-    {code: 5, name: "半年一付"},
-    {code: 6, name: "1年一付"},
-    {code: 0, name: "自定义"}
-  ];
+  payWayList = this.data.getPayWayList()  // 支付方式&&编辑更多支付方式
   payWay = '';
   definedPayWay = '';
-  /*递增或递减*/
-  rateWay = '';
+  rateWay = '';  // 递增或递减
   definedRateWay = '';
   rateChoice = [
     {code: 1, name: "递增"},
     {code: 2, name: "递减"}
   ];
-  /*押金*/
-  depositWay = '';
+  depositWay = '';  // 押金
   definedDepositWay = '';
-  deposit = [
-    {code: 1, name: "一月租金"},
-    {code: 2, name: "两月租金"},
-    {code: 3, name: "三月租金"},
-    {code: 4, name: "四月租金"},
-    {code: 5, name: "五月租金"},
-    {code: 6, name: "六月租金"},
-    {code: 0, name: "自定义"}
-  ];
+  deposit = this.data.getDepositList();
   rentDate = '';           //租期
   rentTime = '';           //租约
   leftContractTime = '';  //剩余合同期
-  /*客单价*/
   personProfit = '';  //客单价
-  /*日均营业额*/
   dayProfit = '';       //日均营业额
-
   consumePersonType = '';  //消费人群
-
   consumeTime = '';    //消费时间
-
   foodAmount = '';    //堂食量
-
   takeOutAmount = '';  //外卖量
-
   memberAmount = ''; //会员数
-
   memberType = '';  //会员类型
-
-  /*转让状态*/
   transferStatus = ''          //转让状态
   transferStatusList = [
     {code: 1, name: "不转让"},
@@ -195,17 +122,13 @@ export class AppComponent {
     {code: 3, name: "转让成功"},
     {code: 4, name: "租约到期"}
   ];
-  /*转让费*/
   transferFee = '';              //转让费
   isNegotiable = false;
-
-  /*可否空转*/
   emptyTransfer = '';           //可否空转
   emptyTransferList = [
     {code: 1, name: "可空转"},
     {code: 2, name: "不可空转"}
   ];
-
   emptyTransferFee = '';          //空转转让费
   transferStaff = '';           //转让内容
   transferReason = '';            //转让原因
@@ -253,7 +176,6 @@ export class AppComponent {
     wx: '',
     personInfoDetail: ''
   };
-
   phoneList = [""];
   name = '';                       //名称
   realName = ''                   //真实名字
@@ -266,14 +188,11 @@ export class AppComponent {
   sex = '';            //性别
   /*出生日期*/
   birthdayDate = '';
-
   contactAddress = '';            //联系地址
-
   email = '';                     //电子邮件
   qq = '';                        //qq
   wx = '';                        //微信
   personInfoDetail = '';          //详细描述
-
   /*合伙人*/
   partner = [
     {
@@ -430,6 +349,12 @@ export class AppComponent {
     console.log("ooo", this.subShopName);
     this.shopName = this.subShopName == '' ? this.brandName : this.brandName + "(" + this.subShopName + ")";
     console.log("shopName:", this.shopName);
+  }
+
+  loadSmallIndustry(code){
+    this.allIndustry.forEach((v,i)=>{
+      code.toString().trim() === v.code.toString().substr(0,2).trim() ? this.smallIndustryList.push(v) : '';
+    })
   }
 
   getStartTime(date) {
@@ -657,8 +582,6 @@ export class AppComponent {
   defaultPerson;
   openPersonalInfo(content,item){
     this.defaultPerson = item;
-   /* this.phoneList = item.phoneList;*/
-   console.log("item:1",item.phoneList);
     this.phoneList=[];
     item.phoneList.forEach((v,i)=>{this.phoneList.push(v);});
     this.name = item.name;           //证件类型
@@ -670,7 +593,6 @@ export class AppComponent {
     this.qq=item.qq;
     this.wx=item.wx;
     this.personInfoDetail=item.personInfoDetail;
-    console.log("this.phoneList:", item,this.phoneList);
 
 
     this.modalService.open(content, {size: 'lg'}).result.then((result) => {
@@ -680,9 +602,11 @@ export class AppComponent {
     });
   }
 
-  industrySelectedList = [];
+  defaultIndustryList = [];
+  tempdefaultIndustryList=[];
   openIndustryModel(content, selectedList) {
-    this.industrySelectedList = selectedList;
+    this.defaultIndustryList = selectedList;
+    selectedList.forEach((v,i)=>{this.tempdefaultIndustryList.push(v)});
     this.modalService.open(content, {size: 'lg'}).result.then((result) => {
       this.sureBtnFunction(content, result);
     }, (reason) => {
@@ -691,14 +615,20 @@ export class AppComponent {
   }
 
   selectThisIndustry(item) {
-    this.industrySelectedList.forEach((v, i) => {
-      if (v.code.toString() == item.code.toString()) {
+    this.tempdefaultIndustryList.forEach((v, i) => {
+      if (v.code.toString() != item.code.toString()) {
+        if (i == (this.tempdefaultIndustryList.length - 1)) {
+          console.log("defaoooo:",v.code.toString(),item.code.toString(),i,this.tempdefaultIndustryList.length);
+          this.tempdefaultIndustryList.push(item);
+        }
+      }else{
         return;
-      } else if (i == (this.industrySelectedList.length - 1) && v.code.toString() != item.code.toString()) {
-        this.industrySelectedList.push(item);
+
       }
+
+      //v.code.toString() == item.code.toString() ? '' : i-1==this.tempdefaultIndustryList.length-1 ? '' : this.tempdefaultIndustryList.push(v);
     })
-    console.log("default:", this.industrySelectedList, this.fitIndustry);
+    console.log("default:", this.tempdefaultIndustryList, this.fitIndustry);
   }
 
   deleteSelectedIndustry(dataList, item) {
@@ -790,6 +720,9 @@ export class AppComponent {
   }
 
   /*行业列表弹出框*/
+  tempfitIndustry=[];
+  temprecommendableIndustry=[];
+  tempunRecommendableIndustry=[];
 
 
 
@@ -847,7 +780,8 @@ export class AppComponent {
       this.transferReason = this.temptransferReason
     }
     if (modalName == 'industryContent') {
-
+      this.defaultIndustryList.splice(0,this.defaultIndustryList.length);
+      this.tempdefaultIndustryList.forEach((v,i)=>{ this.defaultIndustryList.push(v) });
     }
     if (modalName == 'certificationEdit') {
       console.log("certificationEdit:",this.defaultCertification,typeof(this.defaultCertification));
