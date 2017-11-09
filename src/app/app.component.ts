@@ -237,7 +237,7 @@ export class AppComponent {
   /*店铺老板 && 个人信息弹出框*/
   shopBoss = {
     name: '',
-    phoneList: [],
+    phoneList: [""],
     realName: '',
     sex: '',
     birthdayDate: '',
@@ -272,7 +272,7 @@ export class AppComponent {
   partner = [
     {
       name: "里欧1",
-      phoneList: [],
+      phoneList: ['18971154515'],
       realName: '',
       sex: '',
       birthdayDate: '',
@@ -284,8 +284,7 @@ export class AppComponent {
     },
     {
       name: "里欧2",
-      phone: '18977765655',
-      phoneList: [],
+      phoneList: [''],
       realName: '',
       sex: '',
       birthdayDate: '',
@@ -300,7 +299,7 @@ export class AppComponent {
   addPartner() {
     var obj = {
       name: "",
-      phoneList: [],
+      phoneList: [''],
       realName: '',
       sex: '',
       birthdayDate: '',
@@ -320,7 +319,7 @@ export class AppComponent {
   employee = [{
     position: '', entryDate: '', workContent: '', leaveDate: '',isDission:false,
     name: "里欧1",
-    phoneList: [],
+    phoneList: [''],
     realName: '',
     sex: '',
     birthdayDate: '',
@@ -424,7 +423,7 @@ export class AppComponent {
   /*房东*/
   houseOwner = {
     name: "里欧1",
-    phoneList: [],
+    phoneList: [''],
     realName: '',
     sex: '',
     birthdayDate: '',
@@ -542,7 +541,7 @@ export class AppComponent {
     var obj = {
       position: '', entryDate: '', workContent: '', leaveDate: '',isDission:false,
       name: "里欧1",
-      phoneList: [],
+      phoneList: [''],
       realName: '',
       sex: '',
       birthdayDate: '',
@@ -606,6 +605,7 @@ export class AppComponent {
     this.qq=item.qq;
     this.wx=item.wx;
     this.personInfoDetail=item.personInfoDetail;
+    console.log("this.phoneList:", item,this.phoneList);
 
 
     this.modalService.open(content, {size: 'lg'}).result.then((result) => {

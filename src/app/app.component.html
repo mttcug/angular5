@@ -264,8 +264,8 @@
       <label for="" class="line-name"><span class="input-label-name">合伙人:</span></label>
       <div class="inline-block vertical-m">
         <p *ngFor="let item of partner">
-          <span>{{item.name}}</span><span>{{item.phone}}</span> <span class="edit-info"
-                                                                      (click)="openPersonalInfo(personInfo,partner)">编辑</span>
+          <span>{{item.name}}</span><span>{{item.phoneList[0]}}</span> <span class="edit-info"
+                                                                      (click)="openPersonalInfo(personInfo,item)">编辑</span>
           <input type="text" name="stockRatio" placeholder="参股比例" class="inline-input form-control">
         </p>
       </div>
@@ -282,7 +282,7 @@
         <p class="" *ngFor="let item of employee">
           <input type="text" placeholder="职位" name="position" class="inline-input form-control"
                  [(ngModel)]="item.position"> <span
-          class="light-weight-grey">姓名</span><span class="edit-info" (click)="openPersonalInfo(personInfo,employee)">编辑</span>
+          class="light-weight-grey">姓名</span><span class="edit-info" (click)="openPersonalInfo(personInfo,item)">编辑</span>
           <app-date-picker [date]="item.entryDate" [placeholder]="entryTimePlaceHolder"
                            (dateChange)="getEntryDate($event)"></app-date-picker>
           <input type="text" placeholder="工作内容" class="inline-input form-control" name="workContent"
