@@ -171,7 +171,7 @@
 
     <!--编辑更多租金内容-->
     <div class="block">
-      <p class="model-popup"><label for="" class="line-name"></label><span (click)="open(rentContent)">编辑更多租金内容</span>
+      <p class="model-popup"><label for="" class="line-name"></label><span (click)="openRentModal(rentContent)">编辑更多租金内容</span>
       </p>
     </div>
 
@@ -582,7 +582,7 @@
       <label for="" class="line-name"><span class="input-label-name">支付方式:</span></label>
       <div class="pay-way-list">
         <span *ngFor="let item of payWayList" class="select-span"><input [(ngModel)]="item.name" [value]="item.name"
-                                                                         name="item.name"
+                                                                         name="popUpPayWayChenk"
                                                                          (click)="selectThisPopUpPayWay(item)"
                                                                          class="week-checkbox" type="radio"
                                                                          data-code="item.code">{{item.name}}</span>
@@ -593,7 +593,7 @@
     <div class="block">
       <label for="" class="line-name"><span class="input-label-name">是否递增:</span></label>
       <span *ngFor="let item of rateChoice" class="select-span"><input [(ngModel)]="item.name" [value]="item.name"
-                                                                       name="item.name" (click)="selectThisRate(item)"
+                                                                       name="isIncrease" (click)="selectThisRate(item)"
                                                                        class="week-checkbox" type="radio"
                                                                        data-code="item.code">{{item.name}}</span>
       <input type="text" class="form-control inline-input" placeholder="请填写递增幅度，如每年5%" name="radioNumber" [(ngModel)]="tempdefinedRateWay">
@@ -603,13 +603,13 @@
       <label for="" class="line-name"><span class="input-label-name">押金:</span></label>
       <div class="pay-way-list">
         <span *ngFor="let item of deposit" class="select-span"><input [(ngModel)]="item.name" [value]="item.name"
-                                                                      name="item.name"
+                                                                      name="depositCheck"
                                                                       (click)="selectThisDepositWay(item)"
                                                                       class="week-checkbox" type="radio"
                                                                       data-code="item.code">{{item.name}}</span>
 
-        <input class="form-control time-imput inline-input" type="text" placeholder="请填写"
-               [(ngModel)]="tempdefinedDepositWay">
+        <input class="form-control time-imput inline-input" type="text" placeholder="请填写" name="definedDeposit"
+               [(ngModel)]="tempdefinedDepositWay" (ngModelChange)="definedDepositChange()">
       </div>
     </div>
 

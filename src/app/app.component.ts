@@ -298,21 +298,7 @@ export class AppComponent {
     },
   ];
 
-  addPartner() {
-    var obj = {
-      name: "",
-      phoneList: [''],
-      realName: '',
-      sex: '',
-      birthdayDate: '',
-      contactAddress: '',
-      email: '',
-      qq: '',
-      wx: '',
-      personInfoDetail: ''
-    };
-    this.partner.push(obj);
-  }
+
 
   /*店铺员工*/
   entryTimePlaceHolder = '入职时间';
@@ -455,6 +441,22 @@ export class AppComponent {
     oldImages = newInamges;
   }
 
+  addPartner() {
+    var obj = {
+      name: "",
+      phoneList: [''],
+      realName: '',
+      sex: '',
+      birthdayDate: '',
+      contactAddress: '',
+      email: '',
+      qq: '',
+      wx: '',
+      personInfoDetail: ''
+    };
+    this.partner.push(obj);
+  }
+
   addCertificationImages(imageUrl,newInamges){
     imageUrl=newInamges[0].url;
   }
@@ -501,7 +503,6 @@ export class AppComponent {
   selectThisPayWay(item) {
     this.payWayCode=item.code;
     this.payWay = item.code == 0 ? this.definedPayWay: item.name;
-    this.temppayWay=this.payWay;
   }
 
   tempPayWayCode='';
@@ -526,8 +527,14 @@ export class AppComponent {
     this.rateWay = item.name;
   }
 
+  depositWayCode;
   selectThisDepositWay(item) {
-    this.depositWay = item.code == 0 ? this.definedDepositWay : item.name;
+    this.depositWayCode=item.code;
+    this.tempdepositWay = item.code == 0 ? this.tempdefinedDepositWay : item.name;
+  }
+
+  definedDepositChange(){
+    this.tempdepositWay= this.depositWayCode.toString() == '0' ? this.tempdefinedDepositWay : this.tempdepositWay;
   }
 
   getRentDate(date) {
@@ -591,6 +598,28 @@ export class AppComponent {
 
   districtChange(code) {
 
+  }
+
+  closeResult: string;
+  open(content) {
+    this.modalService.open(content, {size: 'lg'}).result.then((result) => {
+      this.sureBtnFunction(content, result);
+    }, (reason) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    });
+  }
+
+  openRentModal(content) {
+    this.tempshopRent=this.shopRent;
+    this.temprentMeasure=this.rentMeasure;
+    this.temppayWay=this.payWay;
+    this.tempPayWayCode=this.payWayCode;
+    this.tempdefinedPayWay=this.definedPayWay;
+    this.modalService.open(content, {size: 'lg'}).result.then((result) => {
+      this.sureBtnFunction(content, result);
+    }, (reason) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    });
   }
 
   defaultCertification;
@@ -753,15 +782,7 @@ export class AppComponent {
 
   ////////////////////////////////////////////////////////////////////////////////////////////////
   //公共函数
-  closeResult: string;
 
-  open(content) {
-    this.modalService.open(content, {size: 'lg'}).result.then((result) => {
-      this.sureBtnFunction(content, result);
-    }, (reason) => {
-      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-    });
-  }
 
   private getDismissReason(reason: any): string {
     if (reason === ModalDismissReasons.ESC) {
@@ -783,6 +804,7 @@ export class AppComponent {
       this.shopRent = this.tempshopRent;
       this.rentMeasure = this.temprentMeasure;
       this.payWay=this.temppayWay;
+      this.payWayCode=this.tempPayWayCode;
       this.definedPayWay=this.tempdefinedPayWay;
       this.rateWay = this.temprateWay;
       this.definedRateWay = this.tempdefinedRateWay;
@@ -868,11 +890,9 @@ export class AppComponent {
       shopRent:this.shopRent,                           //店铺租金
       rentMeasure:this.rentMeasure,                     //店铺租金单位
       payWay:this.payWay,                               //支付方式
-      definedPayWay:this.definedPayWay,                 //自定义支付方式
       rateWay:this.rateWay,                             //递增或递减
       definedRateWay:this.definedRateWay,               //增率或减率
       depositWay:this.depositWay,                       //押金方式
-      definedDepositWay:this.definedDepositWay,         //自定义押金方式
       rentDate:this.rentDate,                           //租期
       rentTime:this.rentTime,                           //租约
       leftContractTime:this.leftContractTime,           //剩余合同期
