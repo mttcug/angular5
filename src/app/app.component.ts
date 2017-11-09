@@ -9,27 +9,26 @@ import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 })
 export class AppComponent {
 
-  allIndustry=[];
-  constructor(private modalService: NgbModal,@Inject('data') private data) {
+  allIndustry = [];
+
+  constructor(private modalService: NgbModal, @Inject('data') private data) {
 
     //获取行业列表
-    this.data.getIndustryData().then(res=>{
-      this.industries=res;                      //所有数据[[],[]],用于推荐经营，不宜经营。。。
-      res.forEach((value,i)=>{
-       value.forEach((v,j)=>{
-         j == 0 ? this.bigIndustryList.push(v) : '';
-         this.allIndustry.push(v);
-       })
+    this.data.getIndustryData().then(res => {
+      this.industries = res;                      //所有数据[[],[]],用于推荐经营，不宜经营。。。
+      res.forEach((value, i) => {
+        value.forEach((v, j) => {
+          j == 0 ? this.bigIndustryList.push(v) : '';
+          this.allIndustry.push(v);
+        })
       })
     });
 
     //获取城市列表
-    this.data.getDistrictData().then(res=>{
-      console.log("res:",res);
+    this.data.getDistrictData().then(res => {
+      console.log("res:", res);
     });
   }
-
-
 
 
   /*品牌名称*/
@@ -49,12 +48,12 @@ export class AppComponent {
       code: 3,
       name: "123"
     }];
-   // 经营行业
+  // 经营行业
   bigIndustry = '';
   smallIndustry = '';
   industries;
-  bigIndustryList=[];
-  smallIndustryList=[];
+  bigIndustryList = [];
+  smallIndustryList = [];
   startOpenDate = '';// 开业日期
   operateStatusList = [
     {code: 1, name: "经营中"}, {code: 2, name: "停业"}, {code: 3, name: "装修"}
@@ -71,7 +70,7 @@ export class AppComponent {
   shopPhoneNumber = '';  // 前台电话
   takeOutPhone = '';  // 外卖电话
   wholeWeek = false;  // 营业时间
-  vaildTime=this.data.getWeekData();  //星期列表
+  vaildTime = this.data.getWeekData();  //星期列表
   operateDate = [];
   allDay = false;
   operateStartTime = '';
@@ -135,9 +134,42 @@ export class AppComponent {
 
   /*店铺证件*/
   certifications = [
-    {certificationType: 1, name: "营业执照",headImage:'',backImage:'',otherImages:[],certificationNumber:'',themeName:'',address:'',permissionScope:'',otherContent:''},
-    {certificationType: 2, name: "店铺图片",headImage:'',backImage:'',otherImages:[],certificationNumber:'',themeName:'',address:'',permissionScope:'',otherContent:''},
-    {certificationType: 3, name: "身份证件",headImage:'',backImage:'',otherImages:[],certificationNumber:'',themeName:'',address:'',permissionScope:'',otherContent:''}
+    {
+      certificationType: 1,
+      name: "营业执照",
+      headImage: '',
+      backImage: '',
+      otherImages: [],
+      certificationNumber: '',
+      themeName: '',
+      address: '',
+      permissionScope: '',
+      otherContent: ''
+    },
+    {
+      certificationType: 2,
+      name: "店铺图片",
+      headImage: '',
+      backImage: '',
+      otherImages: [],
+      certificationNumber: '',
+      themeName: '',
+      address: '',
+      permissionScope: '',
+      otherContent: ''
+    },
+    {
+      certificationType: 3,
+      name: "身份证件",
+      headImage: '',
+      backImage: '',
+      otherImages: [],
+      certificationNumber: '',
+      themeName: '',
+      address: '',
+      permissionScope: '',
+      otherContent: ''
+    }
   ];
   /*店铺证件弹出框*/
   selectedCertificationType = 4;
@@ -151,8 +183,8 @@ export class AppComponent {
   headIsMulti = false;            //是否多张
   backIsMulti = false;
   otherIsMulti = true;
-  headImage='';
-  backImage='';
+  headImage = '';
+  backImage = '';
   headImageA = [];            //正面图片
   backImageA = [];            //反面图片
   otherImages = [];            //其他图片
@@ -222,13 +254,12 @@ export class AppComponent {
   ];
 
 
-
   /*店铺员工*/
   entryTimePlaceHolder = '入职时间';
   leaveTimePlaceHolder = '离职时间';
-  isDission=false;
+  isDission = false;
   employee = [{
-    position: '', entryDate: '', workContent: '', leaveDate: '',isDission:false,
+    position: '', entryDate: '', workContent: '', leaveDate: '', isDission: false,
     name: "里欧1",
     phoneList: [''],
     realName: '',
@@ -342,7 +373,8 @@ export class AppComponent {
     email: '',
     qq: '',
     wx: '',
-    personInfoDetail: ''};
+    personInfoDetail: ''
+  };
 
 
   updateShopName() {
@@ -351,9 +383,9 @@ export class AppComponent {
     console.log("shopName:", this.shopName);
   }
 
-  loadSmallIndustry(code){
-    this.allIndustry.forEach((v,i)=>{
-      code.toString().trim() === v.code.toString().substr(0,2).trim() ? this.smallIndustryList.push(v) : '';
+  loadSmallIndustry(code) {
+    this.allIndustry.forEach((v, i) => {
+      code.toString().trim() === v.code.toString().substr(0, 2).trim() ? this.smallIndustryList.push(v) : '';
     })
   }
 
@@ -386,21 +418,23 @@ export class AppComponent {
     this.partner.push(obj);
   }
 
-  addCertificationImages(imageUrl,newInamges){
-    imageUrl=newInamges[0].url;
+  addCertificationImages(imageUrl, newInamges) {
+    imageUrl = newInamges[0].url;
   }
 
   selectAllWeek() {
-    if(this.wholeWeek === false){
+    if (this.wholeWeek === false) {
       this.vaildTime.map((item, index) => {
         item.checked = true;
       });
-      this.vaildTime.forEach((v,i)=>{this.operateDate.push(v)});
-    }else{
+      this.vaildTime.forEach((v, i) => {
+        this.operateDate.push(v)
+      });
+    } else {
       this.vaildTime.map((item, index) => {
         item.checked = false;
       });
-      this.operateDate=[];
+      this.operateDate = [];
     }
   }
 
@@ -434,27 +468,29 @@ export class AppComponent {
     }
   }
 
-  payWayCode='';
+  payWayCode = '';
+
   selectThisPayWay(item) {
-    this.payWayCode=item.code;
-    this.payWay = item.code == 0 ? this.definedPayWay: item.name;
+    this.payWayCode = item.code;
+    this.payWay = item.code == 0 ? this.definedPayWay : item.name;
   }
 
-  tempPayWayCode='';
+  tempPayWayCode = '';
+
   selectThisPopUpPayWay(item) {
-    this.tempPayWayCode=item.code;
+    this.tempPayWayCode = item.code;
     this.temppayWay = item.code == 0 ? this.tempdefinedPayWay : item.name;
   }
 
-  definedPayChange(){
-    if(this.payWayCode.toString() == '0'){
-      this.payWay=this.definedPayWay;
+  definedPayChange() {
+    if (this.payWayCode.toString() == '0') {
+      this.payWay = this.definedPayWay;
     }
   }
 
-  definedPopUpPayChange(){
-    if(this.tempPayWayCode.toString() == '0'){
-      this.temppayWay=this.tempdefinedPayWay;
+  definedPopUpPayChange() {
+    if (this.tempPayWayCode.toString() == '0') {
+      this.temppayWay = this.tempdefinedPayWay;
     }
   }
 
@@ -463,13 +499,14 @@ export class AppComponent {
   }
 
   depositWayCode;
+
   selectThisDepositWay(item) {
-    this.depositWayCode=item.code;
+    this.depositWayCode = item.code;
     this.tempdepositWay = item.code == 0 ? this.tempdefinedDepositWay : item.name;
   }
 
-  definedDepositChange(){
-    this.tempdepositWay= this.depositWayCode.toString() == '0' ? this.tempdefinedDepositWay : this.tempdepositWay;
+  definedDepositChange() {
+    this.tempdepositWay = this.depositWayCode.toString() == '0' ? this.tempdefinedDepositWay : this.tempdepositWay;
   }
 
   getRentDate(date) {
@@ -504,7 +541,7 @@ export class AppComponent {
 
   addEmployee() {
     var obj = {
-      position: '', entryDate: '', workContent: '', leaveDate: '',isDission:false,
+      position: '', entryDate: '', workContent: '', leaveDate: '', isDission: false,
       name: "里欧1",
       phoneList: [''],
       realName: '',
@@ -519,11 +556,11 @@ export class AppComponent {
     this.employee.push(obj);
   }
 
-  getEntryDate(date){
+  getEntryDate(date) {
 
   }
 
-  getLeaveDate(date){
+  getLeaveDate(date) {
 
   }
 
@@ -536,6 +573,7 @@ export class AppComponent {
   }
 
   closeResult: string;
+
   open(content) {
     this.modalService.open(content, {size: 'lg'}).result.then((result) => {
       this.sureBtnFunction(content, result);
@@ -545,11 +583,11 @@ export class AppComponent {
   }
 
   openRentModal(content) {
-    this.tempshopRent=this.shopRent;
-    this.temprentMeasure=this.rentMeasure;
-    this.temppayWay=this.payWay;
-    this.tempPayWayCode=this.payWayCode;
-    this.tempdefinedPayWay=this.definedPayWay;
+    this.tempshopRent = this.shopRent;
+    this.temprentMeasure = this.rentMeasure;
+    this.temppayWay = this.payWay;
+    this.tempPayWayCode = this.payWayCode;
+    this.tempdefinedPayWay = this.definedPayWay;
     this.modalService.open(content, {size: 'lg'}).result.then((result) => {
       this.sureBtnFunction(content, result);
     }, (reason) => {
@@ -558,7 +596,8 @@ export class AppComponent {
   }
 
   defaultCertification;
-  openShopCertificationModal(content,item){
+
+  openShopCertificationModal(content, item) {
     this.defaultCertification = item;
     this.selectedCertificationType = item.certificationType;
     this.writeCertificationType = '';           //证件类型
@@ -567,7 +606,7 @@ export class AppComponent {
     this.backImageA.push(item.backImage);            //反面图片
     this.otherImages = item.otherImages;            //其他图片
 
-    this.certificationNumber =item.certificationNumber;     //证件名称
+    this.certificationNumber = item.certificationNumber;     //证件名称
     this.themeName = item.themeName;               //主题名称
     this.address = item.address;                 //地址
     this.permissionScope = item.permissionScope;         //许可范围
@@ -580,19 +619,22 @@ export class AppComponent {
   }
 
   defaultPerson;
-  openPersonalInfo(content,item){
+
+  openPersonalInfo(content, item) {
     this.defaultPerson = item;
-    this.phoneList=[];
-    item.phoneList.forEach((v,i)=>{this.phoneList.push(v);});
+    this.phoneList = [];
+    item.phoneList.forEach((v, i) => {
+      this.phoneList.push(v);
+    });
     this.name = item.name;           //证件类型
-    this.realName=item.realName;
-    this.sex=item.sex;
-    this.birthdayDate=item.birthdayDate;
-    this.contactAddress=item.contactAddress;
-    this.email=item.email;
-    this.qq=item.qq;
-    this.wx=item.wx;
-    this.personInfoDetail=item.personInfoDetail;
+    this.realName = item.realName;
+    this.sex = item.sex;
+    this.birthdayDate = item.birthdayDate;
+    this.contactAddress = item.contactAddress;
+    this.email = item.email;
+    this.qq = item.qq;
+    this.wx = item.wx;
+    this.personInfoDetail = item.personInfoDetail;
 
 
     this.modalService.open(content, {size: 'lg'}).result.then((result) => {
@@ -603,10 +645,15 @@ export class AppComponent {
   }
 
   defaultIndustryList = [];
-  tempdefaultIndustryList=[];
+  tempdefaultIndustryList = [];
+
   openIndustryModel(content, selectedList) {
     this.defaultIndustryList = selectedList;
-    selectedList.forEach((v,i)=>{this.tempdefaultIndustryList.push(v)});
+
+    selectedList.forEach((v, i) => {
+      this.tempdefaultIndustryList.push(v)
+    });
+
     this.modalService.open(content, {size: 'lg'}).result.then((result) => {
       this.sureBtnFunction(content, result);
     }, (reason) => {
@@ -615,19 +662,20 @@ export class AppComponent {
   }
 
   selectThisIndustry(item) {
-    this.tempdefaultIndustryList.forEach((v, i) => {
+    for (let i = 0; i < this.tempdefaultIndustryList.length; i++) {                //for和forEach 使用return的区别
+      var v = this.tempdefaultIndustryList[i];
+
       if (v.code.toString() != item.code.toString()) {
         if (i == (this.tempdefaultIndustryList.length - 1)) {
-          console.log("defaoooo:",v.code.toString(),item.code.toString(),i,this.tempdefaultIndustryList.length);
           this.tempdefaultIndustryList.push(item);
         }
-      }else{
-        return;
-
+      } else {
+        if (item.code.toString().length)
+          return;
       }
+    }
 
-      //v.code.toString() == item.code.toString() ? '' : i-1==this.tempdefaultIndustryList.length-1 ? '' : this.tempdefaultIndustryList.push(v);
-    })
+
     console.log("default:", this.tempdefaultIndustryList, this.fitIndustry);
   }
 
@@ -644,7 +692,13 @@ export class AppComponent {
     })
   }
 
-
+  deleteIncludedIndustry(all, ele) {
+    all.forEach((v, i) => {
+      var _v=v.code.toString();
+      var _e=ele.code.toString();
+      (_v.length!=_e.length && _v.substr(0,2)==_e.substr(0,2)) ? all.splice(i,1) : '';
+    })
+  }
 
 
   ///////////////////////////////////////////////////////////////////////////////////////////////
@@ -659,8 +713,8 @@ export class AppComponent {
   /*店铺租金弹出框*/
   tempshopRent = '';
   temprentMeasure = 1;
-  temppayWay='';
-  tempdefinedPayWay='';
+  temppayWay = '';
+  tempdefinedPayWay = '';
   temprateWay = '';
   tempdefinedRateWay = '';
   tempdepositWay = '';
@@ -720,10 +774,9 @@ export class AppComponent {
   }
 
   /*行业列表弹出框*/
-  tempfitIndustry=[];
-  temprecommendableIndustry=[];
-  tempunRecommendableIndustry=[];
-
+  tempfitIndustry = [];
+  temprecommendableIndustry = [];
+  tempunRecommendableIndustry = [];
 
 
   ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -741,7 +794,7 @@ export class AppComponent {
   }
 
   sureBtnFunction(content, result) {
-    var modalName=Object.keys(content._def.references)[0];
+    var modalName = Object.keys(content._def.references)[0];
     if (modalName == 'shopImageContent') {
       this.shopImages = this.tempshopImages;
       this.environment = this.tempenvironment;
@@ -749,9 +802,9 @@ export class AppComponent {
     if (modalName == 'rentContent') {
       this.shopRent = this.tempshopRent;
       this.rentMeasure = this.temprentMeasure;
-      this.payWay=this.temppayWay;
-      this.payWayCode=this.tempPayWayCode;
-      this.definedPayWay=this.tempdefinedPayWay;
+      this.payWay = this.temppayWay;
+      this.payWayCode = this.tempPayWayCode;
+      this.definedPayWay = this.tempdefinedPayWay;
       this.rateWay = this.temprateWay;
       this.definedRateWay = this.tempdefinedRateWay;
       this.depositWay = this.tempdepositWay;
@@ -772,129 +825,131 @@ export class AppComponent {
     }
     if (modalName == 'transferContent') {
       this.transferStatus = this.temptransferStatus,
-      this.transferFee = this.temptransferFee,
-      this.isNegotiable=this.tempisNegotiable,
-      this.emptyTransfer = this.tempemptyTransfer,
-      this.emptyTransferFee = this.tempemptyTransferFee,
-      this.transferStaff = this.temptransferStaff,
-      this.transferReason = this.temptransferReason
+        this.transferFee = this.temptransferFee,
+        this.isNegotiable = this.tempisNegotiable,
+        this.emptyTransfer = this.tempemptyTransfer,
+        this.emptyTransferFee = this.tempemptyTransferFee,
+        this.transferStaff = this.temptransferStaff,
+        this.transferReason = this.temptransferReason
     }
     if (modalName == 'industryContent') {
-      this.defaultIndustryList.splice(0,this.defaultIndustryList.length);
-      this.tempdefaultIndustryList.forEach((v,i)=>{ this.defaultIndustryList.push(v) });
+      this.defaultIndustryList.splice(0, this.defaultIndustryList.length);
+      this.tempdefaultIndustryList.forEach((v, i) => {
+        this.defaultIndustryList.push(v)
+      });
     }
     if (modalName == 'certificationEdit') {
-      console.log("certificationEdit:",this.defaultCertification,typeof(this.defaultCertification));
-      this.defaultCertification.certificationType=this.selectedCertificationType;         //证件类型
-      this.defaultCertification.name=this.certificationsTypeList.find(item=>item.id==this.selectedCertificationType).name;
-      this.defaultCertification.headImage=this.headImageA[0].url;
-      this.defaultCertification.backImage=this.backImageA[0].url;
-      this.defaultCertification.otherImages=this.otherImages;
+      console.log("certificationEdit:", this.defaultCertification, typeof(this.defaultCertification));
+      this.defaultCertification.certificationType = this.selectedCertificationType;         //证件类型
+      this.defaultCertification.name = this.certificationsTypeList.find(item => item.id == this.selectedCertificationType).name;
+      this.defaultCertification.headImage = this.headImageA[0].url;
+      this.defaultCertification.backImage = this.backImageA[0].url;
+      this.defaultCertification.otherImages = this.otherImages;
 
-      this.defaultCertification.certificationNumber=this.certificationNumber;
-      this.defaultCertification.themeName=this.themeName;
-      this.defaultCertification.address=this.address;
-      this.defaultCertification.permissionScope=this.permissionScope;
-      this.defaultCertification.otherContent=this.otherContent;
+      this.defaultCertification.certificationNumber = this.certificationNumber;
+      this.defaultCertification.themeName = this.themeName;
+      this.defaultCertification.address = this.address;
+      this.defaultCertification.permissionScope = this.permissionScope;
+      this.defaultCertification.otherContent = this.otherContent;
 
     }
     if (modalName == 'personInfo') {
-      this.defaultPerson.phoneList=this.phoneList;
+      this.defaultPerson.phoneList = this.phoneList;
       this.defaultPerson.phoneList = this.phoneList;
       this.defaultPerson.name = this.name;           //证件类型
-      this.defaultPerson.realName=this.realName;
-      this.defaultPerson.sex=this.sex;
-      this.defaultPerson.birthdayDate=this.birthdayDate;
-      this.defaultPerson.contactAddress=this.contactAddress;
-      this.defaultPerson.email=this.email;
-      this.defaultPerson.qq=this.qq;
-      this.defaultPerson.wx=this.wx;
-      this.defaultPerson.personInfoDetail=this.personInfoDetail;
+      this.defaultPerson.realName = this.realName;
+      this.defaultPerson.sex = this.sex;
+      this.defaultPerson.birthdayDate = this.birthdayDate;
+      this.defaultPerson.contactAddress = this.contactAddress;
+      this.defaultPerson.email = this.email;
+      this.defaultPerson.qq = this.qq;
+      this.defaultPerson.wx = this.wx;
+      this.defaultPerson.personInfoDetail = this.personInfoDetail;
     }
 
   }
 
-  release(){
-    var params={
-      shopName:this.shopName,                           //店名
-      brandName:this.brandName,                         //品牌名称
-      subShopName:this.subShopName,                      //分店名
-      operateType:this.operateType,                      //运营模式
-      bigIndustry:this.bigIndustry,
-      smallIndustry:this.smallIndustry,
-      startOpenDate:this.startOpenDate,                 //开业日期
-      operateStatus:this.operateStatus,                 //经营状态
-      endOpenDate:this.endOpenDate,                     //停业日期
-      shopImages:this.shopImages,                       //店铺门面图片
-      environment:this.environment,                     //店铺环境图片
-      shopPhoneNumber:this.shopPhoneNumber,             //前台电话
-      takeOutPhone:this.takeOutPhone,                    //外卖电话
-      operateDate:this.operateDate,                     //营业日
-      operateStartTime:this.operateStartTime,           //营业开始时间
-      operateEndTime:this.operateEndTime,               //营业结束时间
-      fitmentLevelStatus:this.fitmentLevelStatus,       //装修档次
-      serviceProvided:this.serviceProvided,             //提供服务
-      shopRent:this.shopRent,                           //店铺租金
-      rentMeasure:this.rentMeasure,                     //店铺租金单位
-      payWay:this.payWay,                               //支付方式
-      rateWay:this.rateWay,                             //递增或递减
-      definedRateWay:this.definedRateWay,               //增率或减率
-      depositWay:this.depositWay,                       //押金方式
-      rentDate:this.rentDate,                           //租期
-      rentTime:this.rentTime,                           //租约
-      leftContractTime:this.leftContractTime,           //剩余合同期
-      personProfit:this.personProfit,                   //客单价
-      dayProfit:this.dayProfit,                         //日均营业额
-      consumePersonType:this.consumePersonType,         //消费人群
-      consumeTime:this.consumeTime,                     //消费时间
-      foodAmount:this.foodAmount,                       //堂食量
-      takeOutAmount:this.takeOutAmount,                 //外卖量
-      memberAmount:this.memberAmount,                   //会员数
-      memberType:this.memberType,                       //会员类型
-      transferStatus:this.transferStatus,               //转让状态
-      transferFee:this.transferFee,                     //转让费
-      emptyTransfer:this.emptyTransfer,                 //是否空转
-      emptyTransferFee:this.emptyTransferFee,           //空转转让费
-      transferStaff:this.transferStaff,                 //转让内容
-      transferReason:this.transferReason,               //转让原因
-      certifications:this.certifications,               //店铺证件
-      shopBoss:this.shopBoss,                           //店铺老板
-      partner:this.partner,                             //合作伙伴
-      employee:this.employee,                           //店铺员工
-      city:this.city,                                   //城市
-      district:this.district,                           //区域
-      addressDetail:this.addressDetail,                 //详细地址
-      longitude:this.longitude,                         //经度
-      latitude:this.latitude,                           //纬度
-      positionDescription:this.positionDescription,     //位置描述
-      isNearStreet:this.isNearStreet,                   //是否临街
-      superFacility:this.superFacility,                 //上级物业
-      shopCityName:this.shopCityName,                   //商城名称
-      buildingArea:this.buildingArea,                   //建筑面积
-      roomArea:this.roomArea,                           //开间
-      doorWidth:this.doorWidth,                          //门宽
-      floor:this.floor,                                  //所处楼层
-      validArea:this.validArea,                          //使用面积
-      depth:this.depth,                                   //进深
-      floorHeight:this.floorHeight,                       //层高
-      floorAmount:this.floorAmount,                       //楼层数
-      fitIndustry:this.fitIndustry,                        //适合经营
-      recommendableIndustry:this.recommendableIndustry,    //推荐经营
-      unRecommendableIndustry:this.unRecommendableIndustry, //不宜经营
-      facilities:this.facilities,                           //物业配套
-      waterFee:this.waterFee,                             //水费
-      facilityFee:this.facilityFee,                         //物业
-      gasFee:this.gasFee,                                   //燃气费
-      elecFee:this.elecFee,                                 //电费
-      rent:this.rent,                                         //租金
-      warmFee:this.warmFee,                                 //暖气费
-      buildingShape:this.buildingShape,                     //建筑形状
-      propertyRightType:this.propertyRightType,             //产权类型
-      destroyedRatio:this.destroyedRatio,                   //拆迁风险
-      destroyedRatioDetail:this.destroyedRatioDetail,       //拆迁风险率
-      houseOwner:this.houseOwner                            //房主
+  release() {
+    var params = {
+      shopName: this.shopName,                           //店名
+      brandName: this.brandName,                         //品牌名称
+      subShopName: this.subShopName,                      //分店名
+      operateType: this.operateType,                      //运营模式
+      bigIndustry: this.bigIndustry,
+      smallIndustry: this.smallIndustry,
+      startOpenDate: this.startOpenDate,                 //开业日期
+      operateStatus: this.operateStatus,                 //经营状态
+      endOpenDate: this.endOpenDate,                     //停业日期
+      shopImages: this.shopImages,                       //店铺门面图片
+      environment: this.environment,                     //店铺环境图片
+      shopPhoneNumber: this.shopPhoneNumber,             //前台电话
+      takeOutPhone: this.takeOutPhone,                    //外卖电话
+      operateDate: this.operateDate,                     //营业日
+      operateStartTime: this.operateStartTime,           //营业开始时间
+      operateEndTime: this.operateEndTime,               //营业结束时间
+      fitmentLevelStatus: this.fitmentLevelStatus,       //装修档次
+      serviceProvided: this.serviceProvided,             //提供服务
+      shopRent: this.shopRent,                           //店铺租金
+      rentMeasure: this.rentMeasure,                     //店铺租金单位
+      payWay: this.payWay,                               //支付方式
+      rateWay: this.rateWay,                             //递增或递减
+      definedRateWay: this.definedRateWay,               //增率或减率
+      depositWay: this.depositWay,                       //押金方式
+      rentDate: this.rentDate,                           //租期
+      rentTime: this.rentTime,                           //租约
+      leftContractTime: this.leftContractTime,           //剩余合同期
+      personProfit: this.personProfit,                   //客单价
+      dayProfit: this.dayProfit,                         //日均营业额
+      consumePersonType: this.consumePersonType,         //消费人群
+      consumeTime: this.consumeTime,                     //消费时间
+      foodAmount: this.foodAmount,                       //堂食量
+      takeOutAmount: this.takeOutAmount,                 //外卖量
+      memberAmount: this.memberAmount,                   //会员数
+      memberType: this.memberType,                       //会员类型
+      transferStatus: this.transferStatus,               //转让状态
+      transferFee: this.transferFee,                     //转让费
+      emptyTransfer: this.emptyTransfer,                 //是否空转
+      emptyTransferFee: this.emptyTransferFee,           //空转转让费
+      transferStaff: this.transferStaff,                 //转让内容
+      transferReason: this.transferReason,               //转让原因
+      certifications: this.certifications,               //店铺证件
+      shopBoss: this.shopBoss,                           //店铺老板
+      partner: this.partner,                             //合作伙伴
+      employee: this.employee,                           //店铺员工
+      city: this.city,                                   //城市
+      district: this.district,                           //区域
+      addressDetail: this.addressDetail,                 //详细地址
+      longitude: this.longitude,                         //经度
+      latitude: this.latitude,                           //纬度
+      positionDescription: this.positionDescription,     //位置描述
+      isNearStreet: this.isNearStreet,                   //是否临街
+      superFacility: this.superFacility,                 //上级物业
+      shopCityName: this.shopCityName,                   //商城名称
+      buildingArea: this.buildingArea,                   //建筑面积
+      roomArea: this.roomArea,                           //开间
+      doorWidth: this.doorWidth,                          //门宽
+      floor: this.floor,                                  //所处楼层
+      validArea: this.validArea,                          //使用面积
+      depth: this.depth,                                   //进深
+      floorHeight: this.floorHeight,                       //层高
+      floorAmount: this.floorAmount,                       //楼层数
+      fitIndustry: this.fitIndustry,                        //适合经营
+      recommendableIndustry: this.recommendableIndustry,    //推荐经营
+      unRecommendableIndustry: this.unRecommendableIndustry, //不宜经营
+      facilities: this.facilities,                           //物业配套
+      waterFee: this.waterFee,                             //水费
+      facilityFee: this.facilityFee,                         //物业
+      gasFee: this.gasFee,                                   //燃气费
+      elecFee: this.elecFee,                                 //电费
+      rent: this.rent,                                         //租金
+      warmFee: this.warmFee,                                 //暖气费
+      buildingShape: this.buildingShape,                     //建筑形状
+      propertyRightType: this.propertyRightType,             //产权类型
+      destroyedRatio: this.destroyedRatio,                   //拆迁风险
+      destroyedRatioDetail: this.destroyedRatioDetail,       //拆迁风险率
+      houseOwner: this.houseOwner                            //房主
     }
-    console.log("params:",params);
+    console.log("params:", params);
   }
 
 
