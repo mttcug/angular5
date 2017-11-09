@@ -182,6 +182,7 @@ export class AppComponent {
   memberAmount = ''; //会员数
 
   memberType = '';  //会员类型
+
   /*转让状态*/
   transferStatus = ''          //转让状态
   transferStatusList = [
@@ -192,6 +193,7 @@ export class AppComponent {
   ];
   /*转让费*/
   transferFee = '';              //转让费
+  isNegotiable = false;
 
   /*可否空转*/
   emptyTransfer = '';           //可否空转
@@ -495,8 +497,29 @@ export class AppComponent {
     }
   }
 
-  selectThisPayWay(selectWay,definedWay,item) {
-    selectWay = item.code == 0 ? definedWay: item.name;
+  payWayCode='';
+  selectThisPayWay(item) {
+    this.payWayCode=item.code;
+    this.payWay = item.code == 0 ? this.definedPayWay: item.name;
+    this.temppayWay=this.payWay;
+  }
+
+  tempPayWayCode='';
+  selectThisPopUpPayWay(item) {
+    this.tempPayWayCode=item.code;
+    this.temppayWay = item.code == 0 ? this.tempdefinedPayWay : item.name;
+  }
+
+  definedPayChange(){
+    if(this.payWayCode.toString() == '0'){
+      this.payWay=this.definedPayWay;
+    }
+  }
+
+  definedPopUpPayChange(){
+    if(this.tempPayWayCode.toString() == '0'){
+      this.temppayWay=this.tempdefinedPayWay;
+    }
   }
 
   selectThisRate(item) {
@@ -710,6 +733,7 @@ export class AppComponent {
   /*转让信息弹出框*/
   temptransferStatus = '';
   temptransferFee = '';
+  tempisNegotiable = false;
   tempemptyTransfer = '';
   tempemptyTransferFee = '';
   temptransferStaff = '';
@@ -781,6 +805,7 @@ export class AppComponent {
     if (modalName == 'transferContent') {
       this.transferStatus = this.temptransferStatus,
       this.transferFee = this.temptransferFee,
+      this.isNegotiable=this.tempisNegotiable,
       this.emptyTransfer = this.tempemptyTransfer,
       this.emptyTransferFee = this.tempemptyTransferFee,
       this.transferStaff = this.temptransferStaff,

@@ -161,11 +161,11 @@
       <div class="pay-way-list">
         <span *ngFor="let item of payWayList" class="select-span"><input [(ngModel)]="item.name" name="payWayList"
                                                                          [value]="item.name"
-                                                                         (click)="selectThisPayWay(payWay,definedPayWay,item)"
+                                                                         (click)="selectThisPayWay(item)"
                                                                          class="week-checkbox" type="radio"
                                                                          data-code="item.code">{{item.name}}</span>
         <input class="form-control time-imput inline-input" name="payWay" type="text" placeholder="请填写"
-               [(ngModel)]="definedPayWay">
+               [(ngModel)]="definedPayWay" (ngModelChange)="definedPayChange()">
       </div>
     </div>
 
@@ -583,10 +583,10 @@
       <div class="pay-way-list">
         <span *ngFor="let item of payWayList" class="select-span"><input [(ngModel)]="item.name" [value]="item.name"
                                                                          name="item.name"
-                                                                         (click)="selectThisPayWay(temppayWay,tempdefinedPayWay,item)"
+                                                                         (click)="selectThisPopUpPayWay(item)"
                                                                          class="week-checkbox" type="radio"
                                                                          data-code="item.code">{{item.name}}</span>
-        <input class="form-control time-imput inline-input" type="text" placeholder="请填写" [(ngModel)]="tempdefinedPayWay">
+        <input class="form-control time-imput inline-input" type="text" placeholder="请填写" [(ngModel)]="tempdefinedPayWay" (ngModelChange)="definedPopUpPayChange()" >
       </div>
     </div>
 
@@ -718,7 +718,7 @@
     <div class="block">
       <label for="" class="line-name"><span class="input-label-name">转让费:</span></label>
       <input class="form-control profit inline-input" name="transferFee" type="text" [(ngModel)]="temptransferFee"
-             placeholder="请填写">万元 <input type="checkbox"> 可面议
+             placeholder="请填写">万元 <input type="checkbox"  name="isNegotiable" [(ngModel)]="tempisNegotiable"> 可面议
     </div>
 
     <div class="block">
