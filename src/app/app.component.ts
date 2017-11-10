@@ -13,6 +13,13 @@ export class AppComponent {
 
   constructor(private modalService: NgbModal, @Inject('data') private data) {
 
+/*    var tempo=[{code:1,name:"1"},{code:6,name:"1"},{code:2,name:"2"},{code:3,name:"1"},{code:4,name:"1"},{code:5,name:"1"}];
+    tempo.forEach((v,i)=>{
+      console.log("1:",v.code,i);
+      v.name=="1" ? tempo.splice(i,1) : '';
+      console.log("2",tempo.length,tempo);
+    })*/
+
     //获取行业列表
     this.data.getIndustryData().then(res => {
       this.industries = res;                      //所有数据[[],[]],用于推荐经营，不宜经营。。。
@@ -662,19 +669,23 @@ export class AppComponent {
   }
 
   selectThisIndustry(item) {
+    var tempIndexArr=[];
     for (let i = 0; i < this.tempdefaultIndustryList.length; i++) {                //for和forEach 使用return的区别
       var v = this.tempdefaultIndustryList[i];
 
       if (v.code.toString() != item.code.toString()) {
-        if (i == (this.tempdefaultIndustryList.length - 1)) {
+        //不同的情况分为两种，1,完全不同和部分不同
+        if(v.code.toString().length!=item.code.toString().length && v.code.toString().substr(0,2) == item.code.toString().substr(0,2)){
+          tempIndexArr.push(i);
+        }
+        if(i == (this.tempdefaultIndustryList.length - 1) && v.code.toString().length==item.code.toString().length){
           this.tempdefaultIndustryList.push(item);
         }
       } else {
-        if (item.code.toString().length)
           return;
       }
     }
-
+    tempIndexArr.forEach((v,i)=>{this.tempdefaultIndustryList.splice(v,1)});
 
     console.log("default:", this.tempdefaultIndustryList, this.fitIndustry);
   }
@@ -692,13 +703,6 @@ export class AppComponent {
     })
   }
 
-  deleteIncludedIndustry(all, ele) {
-    all.forEach((v, i) => {
-      var _v=v.code.toString();
-      var _e=ele.code.toString();
-      (_v.length!=_e.length && _v.substr(0,2)==_e.substr(0,2)) ? all.splice(i,1) : '';
-    })
-  }
 
 
   ///////////////////////////////////////////////////////////////////////////////////////////////
