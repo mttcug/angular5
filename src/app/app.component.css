@@ -50,6 +50,9 @@ label{
 .add-popup-btn{
   width: 220px;
 }
+.selected-span{
+  color: red;
+}
 /*店名*/
 .brand-name{
   color: red;
@@ -212,12 +215,13 @@ textarea{
 }
 .popup-industry-list li{
   padding-left: 80px;
+  margin-top: 15px;
 }
 .big-industry-style{
   display: inline-block;
-  width: 80px;
+  width: 100px;
   text-align: right;
-  margin-left: -80px;
+  margin-left: -100px;
 }
 .small-industry-style{
   display: inline-block;

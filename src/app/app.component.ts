@@ -13,23 +13,24 @@ export class AppComponent {
 
   constructor(private modalService: NgbModal, @Inject('data') private data) {
 
-/*    var tempo=[{code:1,name:"1"},{code:2,name:"2"},{code:3,name:"1"},{code:4,name:"1"},{code:5,name:"3"},{code:6,name:"1"}];
-    tempo.forEach((v,j)=>{
-      console.log("1:",v.code,j);
-      v.name=="1" ? tempo.splice(j,1) : '';
-      j--;
-    })
+    /*    var tempo=[{code:1,name:"1"},{code:2,name:"2"},{code:3,name:"1"},{code:4,name:"1"},{code:5,name:"3"},{code:6,name:"1"}];
+        tempo.forEach((v,j)=>{
+          console.log("1:",v.code,j);
+          v.name=="1" ? tempo.splice(j,1) : '';
+          j--;
+        })
 
-    for(let i=0;i<tempo.length;i++){
-      var v=tempo[i];
-      console.log("1:",v.code,i);
-      v.name=="1" ? tempo.splice(i,1) : '';
-      i--;
-    }*/
+        for(let i=0;i<tempo.length;i++){
+          var v=tempo[i];
+          console.log("1:",v.code,i);
+          v.name=="1" ? tempo.splice(i,1) : '';
+          i--;
+        }*/
 
     //获取行业列表
     this.data.getIndustryData().then(res => {
       this.industries = res;                      //所有数据[[],[]],用于推荐经营，不宜经营。。。
+      console.log("行业,", res);
       res.forEach((value, i) => {
         value.forEach((v, j) => {
           j == 0 ? this.bigIndustryList.push(v) : '';
@@ -321,7 +322,7 @@ export class AppComponent {
 
   /*适合经营*/
   fitIndustry = [                   //适合经营
-    {code: 1, name: "餐馆1"},
+    {code: '1101', name: "餐馆"},
     {code: 2, name: "娱乐1"},
     {code: 3, name: "养生1"},
     {code: 4, name: "美妆1"}
@@ -587,6 +588,7 @@ export class AppComponent {
   }
 
   closeResult: string;
+
   open(content) {
     this.modalService.open(content, {size: 'lg'}).result.then((result) => {
       this.sureBtnFunction(content, result);
@@ -609,6 +611,7 @@ export class AppComponent {
   }
 
   defaultCertification;
+
   openShopCertificationModal(content, item) {
     this.defaultCertification = item;
     this.selectedCertificationType = item.certificationType;
@@ -631,6 +634,7 @@ export class AppComponent {
   }
 
   defaultPerson;
+
   openPersonalInfo(content, item) {
     this.defaultPerson = item;
     this.phoneList = [];
@@ -657,13 +661,16 @@ export class AppComponent {
 
   defaultIndustryList = [];
   tempdefaultIndustryList;
+
   openIndustryModel(content, selectedList) {
     this.defaultIndustryList = selectedList;
 
-    this.tempdefaultIndustryList=[];
+    this.tempdefaultIndustryList = [];
     selectedList.forEach((v, i) => {
-      this.tempdefaultIndustryList.push(v)
+      this.tempdefaultIndustryList.push(v);
     });
+
+    this.industrySelectedChange(this.industries, this.tempdefaultIndustryList);
 
     this.modalService.open(content, {size: 'lg'}).result.then((result) => {
       this.sureBtnFunction(content, result);
@@ -673,28 +680,35 @@ export class AppComponent {
   }
 
   selectThisIndustry(item) {
-    var tempIndexArr=[];
+    var tempIndexArr = [];          //记录要删除的项的index
+    var isContains = false;
+    item.selected = true;
     for (let i = 0; i < this.tempdefaultIndustryList.length; i++) {                //for和forEach 使用return的区别
       var v = this.tempdefaultIndustryList[i];
 
       if (v.code.toString() != item.code.toString()) {
         //不同的情况分为两种，1,完全不同和部分不同
-        if(v.code.toString().length!=item.code.toString().length && v.code.toString().substr(0,2) == item.code.toString().substr(0,2)){
-            tempIndexArr.push(i);
-        }else if(i == (this.tempdefaultIndustryList.length - 1)){
+        if (v.code.toString().length != item.code.toString().length && v.code.toString().substr(0, 2) == item.code.toString().substr(0, 2)) {
+          tempIndexArr.push(i);
+          isContains = true;
+        } else if (i == (this.tempdefaultIndustryList.length - 1)) {
           this.tempdefaultIndustryList.push(item);
+          this.industrySelectedChange(this.industries, this.tempdefaultIndustryList);
+          isContains = false;
         }
       } else {
-          return;
+        return;
       }
-
     }
-    for(let i=0;i<tempIndexArr.length;i++){
-      console.log("个数：",tempIndexArr.length,i);
-      var v=tempIndexArr[i];
-      this.tempdefaultIndustryList.splice(v,1);
-      for(let j=0;j<tempIndexArr.length;j++){
-        tempIndexArr[j]=tempIndexArr[j]-1;
+
+    isContains == true ? this.tempdefaultIndustryList.push(item) : '';
+
+    for (let i = 0; i < tempIndexArr.length; i++) {                             //不可用forEach
+      var v = tempIndexArr[i];
+      this.tempdefaultIndustryList.splice(v, 1);
+      this.industrySelectedChange(this.industries, this.tempdefaultIndustryList);
+      for (let j = 0; j < tempIndexArr.length; j++) {
+        tempIndexArr[j] = tempIndexArr[j] - 1;
       }
     }
   }
@@ -702,6 +716,7 @@ export class AppComponent {
   deleteSelectedIndustry(dataList, item) {
     dataList.forEach((value, index) => {
       value.code == item.code ? dataList.splice(index, 1) : '';
+      this.industrySelectedChange(this.industries, this.tempdefaultIndustryList);
     });
   }
 
@@ -712,6 +727,24 @@ export class AppComponent {
     })
   }
 
+  industrySelectedChange(industries, selectedL) {
+    for (let i = 0; i < selectedL.length; i++) {
+      var _v = selectedL[i];
+      this.industries.forEach((list, m) => {
+        for (let j = 0; j < list.length; j++) {
+          var v = list[j];
+          if (v.code.toString() == _v.code.toString()) {
+            console.log("v.code:", v.name,this.industries[m][j].name);
+            this.industries[m][j].selected = true;
+          } else {
+            this.industries[m][j].selected = false;
+          }
+        }
+      })
+    }
+
+    console.log("industries:", industries);
+  }
 
 
   ///////////////////////////////////////////////////////////////////////////////////////////////

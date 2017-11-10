@@ -37,7 +37,8 @@
     <div class="block m-top-20">
       <label for="" class="line-name"><span class="required-tag">*</span><span
         class="input-label-name">经营行业:</span></label>
-      <select class="form-control select-style" name="bigIndustry" id="big-industry" [(ngModel)]="bigIndustry" (ngModelChange)="loadSmallIndustry(bigIndustry)">
+      <select class="form-control select-style" name="bigIndustry" id="big-industry" [(ngModel)]="bigIndustry"
+              (ngModelChange)="loadSmallIndustry(bigIndustry)">
         <option value="">请选择</option>
         <option value="{{item.code}}" *ngFor="let item of bigIndustryList">{{item.name}}</option>
       </select>
@@ -349,9 +350,11 @@
       <select class="form-control  select-style" name="facilities" id="facilities" [(ngModel)]="superFacility">
         <option value="item.code" *ngFor="let item of superFacilityList">{{item.name}}</option>
       </select>
-      <p class="block m-top-20"><label for="" class="line-name"></label> <input class="form-control select-style" type="text"
-                                                                       placeholder="请填写商城名称" name="shopCityName"
-                                                                       [(ngModel)]="shopCityName"></p>
+      <p class="block m-top-20"><label for="" class="line-name"></label> <input class="form-control select-style"
+                                                                                type="text"
+                                                                                placeholder="请填写商城名称"
+                                                                                name="shopCityName"
+                                                                                [(ngModel)]="shopCityName"></p>
     </div>
 
 
@@ -770,12 +773,20 @@
   </div>
 
   <div class="modal-body">
-    <p><span>您已选择：</span> <span *ngFor="let item of tempdefaultIndustryList" class="industry-selected-span">{{item.name}}<i
-      (click)="deleteSelectedIndustry(tempdefaultIndustryList,item)" class="iconfont icon-delete"></i> </span></p>
+    <div>
+      <span>您已选择：</span>
+      <div class="inline-block vertical-t" style="width: 85%;">
+        <span *ngFor="let item of tempdefaultIndustryList" class="industry-selected-span">{{item.name}}
+          <i (click)="deleteSelectedIndustry(tempdefaultIndustryList,item)" class="iconfont icon-delete"></i>
+        </span>
+      </div>
+    </div>
+
+
     <ul class="popup-industry-list">
       <li *ngFor="let list of industries">
         <span (click)="selectThisIndustry(item)" *ngFor="let item of list"
-              [ngClass]="{'big-industry-style':item.code.toString().length < 4,'small-industry-style':item.code.toString().length > 3}">{{item.name}}</span>
+              [ngClass]="{'big-industry-style':item.code.toString().length < 4,'small-industry-style':item.code.toString().length > 3,'selected-span':item.selected}">{{item.name}}</span>
       </li>
     </ul>
   </div>
