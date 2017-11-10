@@ -679,10 +679,12 @@ export class AppComponent {
     });
   }
 
+  //行业弹出框选择行业
   selectThisIndustry(item) {
     var tempIndexArr = [];          //记录要删除的项的index
-    var isContains = false;
+    var isConnected = false;         //标记是否是大小行业的关系是则删除对应的选项之外还要添加当前选择的项
     item.selected = true;
+
     for (let i = 0; i < this.tempdefaultIndustryList.length; i++) {                //for和forEach 使用return的区别
       var v = this.tempdefaultIndustryList[i];
 
@@ -690,18 +692,18 @@ export class AppComponent {
         //不同的情况分为两种，1,完全不同和部分不同
         if (v.code.toString().length != item.code.toString().length && v.code.toString().substr(0, 2) == item.code.toString().substr(0, 2)) {
           tempIndexArr.push(i);
-          isContains = true;
+          isConnected = true;
         } else if (i == (this.tempdefaultIndustryList.length - 1)) {
           this.tempdefaultIndustryList.push(item);
           this.industrySelectedChange(this.industries, this.tempdefaultIndustryList);
-          isContains = false;
+          isConnected = false;
         }
       } else {
         return;
       }
     }
 
-    isContains == true ? this.tempdefaultIndustryList.push(item) : '';
+    isConnected == true ? this.tempdefaultIndustryList.push(item) : '';
 
     for (let i = 0; i < tempIndexArr.length; i++) {                             //不可用forEach
       var v = tempIndexArr[i];
@@ -727,23 +729,20 @@ export class AppComponent {
     })
   }
 
+  //行业弹出框选择行业，当选择的行业发生变化是行业列表标红的选项也要改变
   industrySelectedChange(industries, selectedL) {
-    for (let i = 0; i < selectedL.length; i++) {
-      var _v = selectedL[i];
-      this.industries.forEach((list, m) => {
-        for (let j = 0; j < list.length; j++) {
-          var v = list[j];
-          if (v.code.toString() == _v.code.toString()) {
-            console.log("v.code:", v.name,this.industries[m][j].name);
-            this.industries[m][j].selected = true;
-          } else {
-            this.industries[m][j].selected = false;
-          }
-        }
-      })
-    }
 
-    console.log("industries:", industries);
+    this.industries.forEach((v,i)=>{
+      v.map(item=>item.selected=false);
+    })
+
+    for (let i = 0; i < selectedL.length; i++) {
+      for(let j=0;j<this.industries.length;j++){
+        for (let k = 0; k < this.industries[j].length; k++) {
+          this.industries[j][k].code == selectedL[i].code ? this.industries[j][k].selected=true : '';
+        }
+      }
+    }
   }
 
 
