@@ -13,12 +13,19 @@ export class AppComponent {
 
   constructor(private modalService: NgbModal, @Inject('data') private data) {
 
-/*    var tempo=[{code:1,name:"1"},{code:6,name:"1"},{code:2,name:"2"},{code:3,name:"1"},{code:4,name:"1"},{code:5,name:"1"}];
-    tempo.forEach((v,i)=>{
+/*    var tempo=[{code:1,name:"1"},{code:2,name:"2"},{code:3,name:"1"},{code:4,name:"1"},{code:5,name:"3"},{code:6,name:"1"}];
+    tempo.forEach((v,j)=>{
+      console.log("1:",v.code,j);
+      v.name=="1" ? tempo.splice(j,1) : '';
+      j--;
+    })
+
+    for(let i=0;i<tempo.length;i++){
+      var v=tempo[i];
       console.log("1:",v.code,i);
       v.name=="1" ? tempo.splice(i,1) : '';
-      console.log("2",tempo.length,tempo);
-    })*/
+      i--;
+    }*/
 
     //获取行业列表
     this.data.getIndustryData().then(res => {
@@ -580,7 +587,6 @@ export class AppComponent {
   }
 
   closeResult: string;
-
   open(content) {
     this.modalService.open(content, {size: 'lg'}).result.then((result) => {
       this.sureBtnFunction(content, result);
@@ -603,7 +609,6 @@ export class AppComponent {
   }
 
   defaultCertification;
-
   openShopCertificationModal(content, item) {
     this.defaultCertification = item;
     this.selectedCertificationType = item.certificationType;
@@ -626,7 +631,6 @@ export class AppComponent {
   }
 
   defaultPerson;
-
   openPersonalInfo(content, item) {
     this.defaultPerson = item;
     this.phoneList = [];
@@ -652,11 +656,11 @@ export class AppComponent {
   }
 
   defaultIndustryList = [];
-  tempdefaultIndustryList = [];
-
+  tempdefaultIndustryList;
   openIndustryModel(content, selectedList) {
     this.defaultIndustryList = selectedList;
 
+    this.tempdefaultIndustryList=[];
     selectedList.forEach((v, i) => {
       this.tempdefaultIndustryList.push(v)
     });
@@ -676,18 +680,23 @@ export class AppComponent {
       if (v.code.toString() != item.code.toString()) {
         //不同的情况分为两种，1,完全不同和部分不同
         if(v.code.toString().length!=item.code.toString().length && v.code.toString().substr(0,2) == item.code.toString().substr(0,2)){
-          tempIndexArr.push(i);
-        }
-        if(i == (this.tempdefaultIndustryList.length - 1) && v.code.toString().length==item.code.toString().length){
+            tempIndexArr.push(i);
+        }else if(i == (this.tempdefaultIndustryList.length - 1)){
           this.tempdefaultIndustryList.push(item);
         }
       } else {
           return;
       }
-    }
-    tempIndexArr.forEach((v,i)=>{this.tempdefaultIndustryList.splice(v,1)});
 
-    console.log("default:", this.tempdefaultIndustryList, this.fitIndustry);
+    }
+    for(let i=0;i<tempIndexArr.length;i++){
+      console.log("个数：",tempIndexArr.length,i);
+      var v=tempIndexArr[i];
+      this.tempdefaultIndustryList.splice(v,1);
+      for(let j=0;j<tempIndexArr.length;j++){
+        tempIndexArr[j]=tempIndexArr[j]-1;
+      }
+    }
   }
 
   deleteSelectedIndustry(dataList, item) {

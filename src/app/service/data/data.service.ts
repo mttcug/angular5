@@ -54,6 +54,19 @@ export class DataService {
     ]
   }
 
+  getFacilities(){
+    return [
+      {code: 1, name: "可明火", checked: false},
+      {code: 2, name: "380V电压", checked: false},
+      {code: 3, name: "电梯", checked: false},
+      {code: 4, name: "暖气", checked: false},
+      {code: 5, name: "上水", checked: false},
+      {code: 6, name: "排烟", checked: false},
+      {code: 7, name: "中央空调", checked: false},
+      {code: 8, name: "天然气", checked: false},
+      {code: 9, name: "外边去", checked: false}
+    ]
+  }
 
 
   /*获取行业数据*/
