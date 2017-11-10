@@ -209,7 +209,7 @@
                                                                                               (click)="selectTransferStatus(item)"
                                                                                               class="week-checkbox"
                                                                                               type="radio"
-                                                                                              data-code="item.code">{{item.name}}</span>
+                                                                                              data-code="item.value">{{item.value_description}}</span>
       </div>
     </div>
 
@@ -286,6 +286,7 @@
         <p class="" *ngFor="let item of employee">
           <input type="text" placeholder="职位" name="position" class="inline-input form-control"
                  [(ngModel)]="item.position"> <span
+
           class="light-weight-grey">姓名</span><span class="edit-info"
                                                    (click)="openPersonalInfo(personInfo,item)">编辑</span>
           <app-date-picker [date]="item.entryDate" [placeholder]="entryTimePlaceHolder"
@@ -293,8 +294,10 @@
           <input type="text" placeholder="工作内容" class="inline-input form-control" name="workContent"
                  [(ngModel)]="item.workContent">
           <input type="checkbox" [(ngModel)]="item.isDission" name="isDimission"> <span>已离职</span>
-          <app-date-picker [date]="item.leaveDate" [placeholder]="leaveTimePlaceHolder"
+
+          <app-date-picker [date]="item.leaveDate" [placeholder]="leaveTimePlaceHolder" *ngIf="item.isDission"
                            (dateChange)="getLeaveDate($event)"></app-date-picker>
+
         </p>
       </div>
 
@@ -502,7 +505,8 @@
     <div class="block m-top-20">
       <label for="" class="line-name"><span class="input-label-name">建筑形状:</span></label>
       <select class="form-control  select-style" name="buildingShape" id="buildingShape" [(ngModel)]="buildingShape">
-        <option value="item.code" *ngFor="let item of buildingShapeList">{{item.name}}</option>
+        <option value="">请选择</option>
+        <option value="item.value" *ngFor="let item of buildingShapeList">{{item.value_description}}</option>
       </select>
     </div>
 
@@ -510,6 +514,7 @@
     <div class="block m-top-20">
       <label for="" class="line-name"><span class="input-label-name">产权类型:</span></label>
       <select class="form-control  select-style" name="stateType" id="stateType" [(ngModel)]="propertyRightType">
+        <option value="">请选择</option>
         <option value="item.code" *ngFor="let item of propertyRightTypeList">{{item.name}}</option>
       </select>
     </div>
@@ -518,6 +523,7 @@
     <div class="block m-top-20">
       <label for="" class="line-name"><span class="input-label-name">拆迁风险:</span></label>
       <select class="form-control  select-style" name="destroyRate" id="destroyRate" [(ngModel)]="destroyedRatio">
+        <option value="">请选择</option>
         <option value="item.code" *ngFor="let item of destroyedRatioList">{{item.name}}</option>
       </select>
       <input type="text" name="destroyRate" [(ngModel)]="destroyedRatioDetail" placeholder="请填写拆迁风险详情"
@@ -720,7 +726,7 @@
                                                                                  name="transferStatus"
                                                                                  (click)="selectTransferStatus(item)"
                                                                                  class="week-checkbox" type="radio"
-                                                                                 data-code="item.code">{{item.name}}</span>
+                                                                                 data-code="item.value">{{item.value_description}}</span>
       </div>
     </div>
     <div class="block m-top-20">

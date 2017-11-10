@@ -27,12 +27,28 @@ export class AppComponent {
 
     //获取城市列表
     this.data.getDistrictData().then(res => {
-      console.log("res:", res);
       res.forEach((v,i)=>{
         this.allDistricts.push(v);
         v.id.substr(-6)=='000000' ? this.cityList.push(v) : '';
       })
     });
+
+    //获取建筑形状
+    this.data.getBuildingShapeData().then(res=>{
+      this.buildingShapeList=res;
+    });
+
+    //获取转让状态列表
+    this.data.getTransferStatusData().then(res=>{
+      this.transferStatusList=res;
+    });
+
+    //获取位置描述列表
+    this.data.getPositionDesData().then(res=>{
+      console.log("res:",res);
+      this.positionDescriptionList=res;
+    });
+
   }
 
 
@@ -734,6 +750,8 @@ export class AppComponent {
       }
     }
   }
+
+
 
 
   ///////////////////////////////////////////////////////////////////////////////////////////////

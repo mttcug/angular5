@@ -82,4 +82,25 @@ export class DataService {
         return JSON.parse(res._body).result;
     })
   }
+
+  /*获取建筑形状*/
+  getBuildingShapeData(params){
+    return this.http.request("get_shape_type",params).then(res=>{
+      return JSON.parse(res._body).result;
+    })
+  }
+
+  /*获取转让状态列表*/
+  getTransferStatusData(params){
+    return this.http.request("get_transfer_status",params).then(res=>{
+      return JSON.parse(res._body).result;
+    })
+  }
+
+  /*获取位置描述*/
+  getPositionDesData(params){
+    return this.http.request("get_add_desc",params).then(res=>{
+      return JSON.parse(res._body).result;
+    })
+  }
 }
