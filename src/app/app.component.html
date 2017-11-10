@@ -310,11 +310,10 @@
       <label for="" class="line-name"><span class="required-tag">*</span><span
         class="input-label-name">所在位置:</span></label>
       <select class="form-control select-style" name="city" id="city" [(ngModel)]="city"
-              (change)="cityChange(citySelected)">
+              (change)="loadDistrict(city)">
         <option value="item.code" *ngFor="let item of cityList">{{item.name}}</option>
       </select>
-      <select class="form-control select-style" name="district" id="district" [(ngModel)]="district"
-              (change)="districtChange(districtSelected)">
+      <select class="form-control select-style" name="district" id="district" [(ngModel)]="district">
         <option value="item.code" *ngFor="let item of districtList">{{item.name}}</option>
       </select>
       <input type="text" name="detailAddress" placeholder="详细地址" name="addressDetail" [(ngModel)]="addressDetail"

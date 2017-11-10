@@ -10,27 +10,13 @@ import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 export class AppComponent {
 
   allIndustry = [];
-
+  allDistricts=[];
   constructor(private modalService: NgbModal, @Inject('data') private data) {
 
-    /*    var tempo=[{code:1,name:"1"},{code:2,name:"2"},{code:3,name:"1"},{code:4,name:"1"},{code:5,name:"3"},{code:6,name:"1"}];
-        tempo.forEach((v,j)=>{
-          console.log("1:",v.code,j);
-          v.name=="1" ? tempo.splice(j,1) : '';
-          j--;
-        })
-
-        for(let i=0;i<tempo.length;i++){
-          var v=tempo[i];
-          console.log("1:",v.code,i);
-          v.name=="1" ? tempo.splice(i,1) : '';
-          i--;
-        }*/
 
     //获取行业列表
     this.data.getIndustryData().then(res => {
       this.industries = res;                      //所有数据[[],[]],用于推荐经营，不宜经营。。。
-      console.log("行业,", res);
       res.forEach((value, i) => {
         value.forEach((v, j) => {
           j == 0 ? this.bigIndustryList.push(v) : '';
@@ -42,6 +28,10 @@ export class AppComponent {
     //获取城市列表
     this.data.getDistrictData().then(res => {
       console.log("res:", res);
+      res.forEach((v,i)=>{
+        this.allDistricts.push(v);
+        v.id.substr(-6)=='000000' ? this.cityList.push(v) : '';
+      })
     });
   }
 
@@ -404,10 +394,17 @@ export class AppComponent {
     })
   }
 
+  loadDistrict(code){
+    this.allDistricts.forEach((v,i)=>{
+      code.toString().substr(0,4) == v.id.toString().substr(0,4) ? this.districtList.push(v) : '';
+    })
+  }
+
   getStartTime(date) {
     this.startOpenDate = date;
     console.log("startOpenDate:", this.startOpenDate);
   }
+
 
   getEndTime(date) {
     this.endOpenDate = date;
@@ -579,13 +576,6 @@ export class AppComponent {
 
   }
 
-  cityChange(code) {
-
-  }
-
-  districtChange(code) {
-
-  }
 
   closeResult: string;
 
