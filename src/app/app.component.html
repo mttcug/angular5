@@ -321,10 +321,14 @@
       </select>
       <input type="text" name="detailAddress" placeholder="详细地址" name="addressDetail" [(ngModel)]="addressDetail"
              class="form-control inline-input">
-      <p><label for="" class="line-name"></label>深圳南山区 <span class="model-popup">地图定位</span> <span class="longitude ">{{longitude}}</span>
+      <p><label for="" class="line-name"></label>深圳南山区
+        <span class="model-popup" (click)="mapShow()">地图定位</span>
+        <span class="longitude ">{{longitude}}</span>
         <span class="latitude">{{latitude}}</span></p>
       <!--地图-->
-      <app-baidu-map></app-baidu-map>
+      <div [hidden]="mapBlock" class="baidu-map">
+        <app-baidu-map></app-baidu-map>
+      </div>
     </div>
 
 

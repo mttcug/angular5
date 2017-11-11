@@ -327,27 +327,16 @@ export class AppComponent {
 
 
   /*适合经营*/
-  fitIndustry = [                   //适合经营
-    {code: '1101', name: "餐馆"},
-    {code: 2, name: "娱乐1"},
-    {code: 3, name: "养生1"},
-    {code: 4, name: "美妆1"}
-  ];
+  fitIndustry = [];                   //适合经营
+
   /*推荐经营的行业*/
-  recommendableIndustry = [             //推荐经营
-    {code: 1, name: "餐馆2"},
-    {code: 2, name: "娱乐2"},
-    {code: 3, name: "养生2"},
-    {code: 4, name: "美妆2"}
-  ];
+  recommendableIndustry = [];             //推荐经营
+
 
   /*不推荐经营的行业*/
-  unRecommendableIndustry = [               //不推荐经营
-    {code: 1, name: "餐馆3"},
-    {code: 2, name: "娱乐3"},
-    {code: 3, name: "养生3"},
-    {code: 4, name: "美妆3"}
-  ];
+  unRecommendableIndustry = [];               //不推荐经营
+
+
 
   /*物业配套*/
   facilities = [];             //物业配套
@@ -556,7 +545,7 @@ export class AppComponent {
   }
 
   addPhoneNumbers() {
-    this.phoneList.push("");          //增加输入框个数
+    this.phoneList.push(" ");          //增加输入框个数
   }
 
   selectSexStatus(item) {
@@ -749,6 +738,11 @@ export class AppComponent {
         }
       }
     }
+  }
+
+  mapBlock=true;
+  mapShow(){
+    this.mapBlock=false;
   }
 
 

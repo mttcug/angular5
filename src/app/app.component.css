@@ -9,7 +9,7 @@
  /* margin-top: 20px;*/
 }
 label{
-  width: 100px;
+  width: 105px;
   display: inline-block;
   text-align: right;
 }
@@ -30,6 +30,7 @@ label{
 .model-popup,.add-item,.edit-info{
   color: #467ac1;
   text-decoration: underline;
+  cursor: pointer;
 }
 .inline-input{
   display: inline-block;
@@ -278,6 +279,17 @@ textarea{
 .release-btn{
   display: block;
   margin: 0 auto;
+}
+
+/*baidu-map*/
+.baidu-map{
+  width: 500px;
+  height: 400px;
+  display: block;
+
+  position: absolute;
+  top: 0px;
+  right: -120px;
 }
 
 
