@@ -14,7 +14,7 @@ export class AppComponent {
   constructor(private modalService: NgbModal, @Inject('data') private data) {
 
 
-    //获取行业列表
+  /*  //获取行业列表
     this.data.getIndustryData().then(res => {
       this.industries = res;                      //所有数据[[],[]],用于推荐经营，不宜经营。。。
       res.forEach((value, i) => {
@@ -47,7 +47,7 @@ export class AppComponent {
     this.data.getPositionDesData().then(res=>{
       console.log("res:",res);
       this.positionDescriptionList=res;
-    });
+    });*/
 
   }
 
@@ -72,7 +72,10 @@ export class AppComponent {
   // 经营行业
   bigIndustry = '';
   smallIndustry = '';
-  industries;
+  industries=[
+    [{code:1,name:"餐饮"},{code:1233,name:"餐饮1"},{code:12345,name:"餐饮2"},{code:1567567,name:"餐饮3"}],
+    [{code:1,name:"悦乐"},{code:1233,name:"悦乐1"},{code:12345,name:"悦乐2"},{code:1567567,name:"悦乐3"}]
+  ];
   bigIndustryList = [];
   smallIndustryList = [];
   startOpenDate = '';// 开业日期
@@ -385,6 +388,9 @@ export class AppComponent {
     wx: '',
     personInfoDetail: ''
   };
+  mapInfo={'city':this.city,'district':'','address':'','lng':'','lat':''};
+
+
 
 
   updateShopName() {

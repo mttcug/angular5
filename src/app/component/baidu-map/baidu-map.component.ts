@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit , Input, Output, EventEmitter } from '@angular/core';
 
-import { ControlAnchor, MapOptions, NavigationControlOptions, NavigationControlType, Point } from 'angular2-baidu-map';
+import { ControlAnchor, MapOptions, NavigationControlOptions, NavigationControlType, Point ,MarkerOptions } from 'angular2-baidu-map';
 
 
 @Component({
@@ -14,6 +14,9 @@ export class BaiduMapComponent implements OnInit {
   options: MapOptions;
   point: Point;
   navOptions: NavigationControlOptions;
+  public markers: Array<{ point: Point; options?: MarkerOptions }>;
+
+
 
   constructor() {
     this.options = {
@@ -24,6 +27,21 @@ export class BaiduMapComponent implements OnInit {
       },
       enableKeyboard: true
     };
+
+    this.markers=[
+      {
+        point: {
+        lat: 31.244604,
+        lng: 121.51606
+      }
+      },
+      {
+        point: {
+          lat: 31.246124,
+          lng: 121.51232
+        }
+      }
+    ];
 
     this.point = {
       lat: 39.920109,
@@ -38,6 +56,7 @@ export class BaiduMapComponent implements OnInit {
 
   mapClick(e:any){
     console.log("地图：",e);
+
   }
   ngOnInit() {
   }
