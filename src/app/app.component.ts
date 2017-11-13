@@ -602,8 +602,10 @@ export class AppComponent {
   open(content) {
     this.modalService.open(content, {size: 'lg'}).result.then((result) => {
       this.sureBtnFunction(content, result);
+      this.closeModalInit();
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+      this.closeModalInit();
     });
   }
 
@@ -615,8 +617,10 @@ export class AppComponent {
     this.tempdefinedPayWay = this.definedPayWay;
     this.modalService.open(content, {size: 'lg'}).result.then((result) => {
       this.sureBtnFunction(content, result);
+      this.closeModalInit();
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+      this.closeModalInit();
     });
   }
 
@@ -638,8 +642,10 @@ export class AppComponent {
     this.otherContent = item.otherContent;            //其他内容
     this.modalService.open(content, {size: 'lg'}).result.then((result) => {
       this.sureBtnFunction(content, result);
+      this.closeModalInit();
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+      this.closeModalInit();
     });
   }
 
@@ -664,8 +670,10 @@ export class AppComponent {
 
     this.modalService.open(content, {size: 'lg'}).result.then((result) => {
       this.sureBtnFunction(content, result);
+      this.closeModalInit();
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+      this.closeModalInit();
     });
   }
 
@@ -684,8 +692,10 @@ export class AppComponent {
 
     this.modalService.open(content, {size: 'lg'}).result.then((result) => {
       this.sureBtnFunction(content, result);
+      this.closeModalInit();
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+      this.closeModalInit();
     });
   }
 
@@ -766,6 +776,66 @@ export class AppComponent {
 
   addressSelect(data){
     console.log("point:",data);
+  }
+
+  closeModalInit(){
+    this.tempshopImages = [];
+    this.tempenvironment = [];
+
+
+    this.tempshopRent = '';
+    this.temprentMeasure = 1;
+    this.temppayWay = '';
+    this.tempPayWayCode = '';
+    this.tempdefinedPayWay = '';
+    this.temprateWay = '';
+    this.tempdefinedRateWay = '';
+    this.tempdepositWay = '';
+    this.tempdefinedDepositWay = '';
+    this.temprentDate = '';
+    this.temprentTime = '';
+    this.templeftContractTime = '';
+
+    this.temppersonProfit = '';
+    this.tempdayProfit = '';
+    this.tempconsumePersonType = '';
+    this.tempconsumeTime = '';
+    this.tempfoodAmount = '';
+    this.temptakeOutAmount = '';
+    this.tempmemberAmount = '';
+    this.tempmemberType = '';
+
+    this.temptransferStatus = '';
+    this.temptransferFee = '';
+    this.tempisNegotiable = false;
+    this.tempemptyTransfer = '';
+    this.tempemptyTransferFee = '';
+    this.temptransferStaff = '';
+    this.temptransferReason = '';
+
+    this.selectedCertificationType = 1;         //证件类型
+    this.certificationsTypeList = [];
+    this.headImageA = [];
+    this.backImageA = [];
+    this.otherImages = [];
+
+    this.certificationNumber = '';
+    this.themeName = '';
+    this.address = '';
+    this.permissionScope = '';
+    this.otherContent = '';
+
+
+    this.phoneList = [];
+    this.name = '';           //证件类型
+    this.realName = '';
+    this.sex = '';
+    this.birthdayDate = '';
+    this.contactAddress = '';
+    this.email = '';
+    this.qq = '';
+    this.wx = '';
+    this.personInfoDetail = '';
   }
 
 
@@ -868,9 +938,6 @@ export class AppComponent {
     if (modalName == 'shopImageContent') {
       this.shopImages = this.tempshopImages;
       this.environment = this.tempenvironment;
-
-      this.tempshopImages = [];
-      this.tempenvironment = [];
     }
     if (modalName == 'rentContent') {
       this.shopRent = this.tempshopRent;
@@ -885,8 +952,6 @@ export class AppComponent {
       this.rentDate = this.temprentDate;
       this.rentTime = this.temprentTime;
       this.leftContractTime = this.templeftContractTime;
-
-
     }
     if (modalName == 'profitContent') {
       this.personProfit = this.temppersonProfit;
@@ -910,7 +975,7 @@ export class AppComponent {
     if (modalName == 'industryContent') {
       this.defaultIndustryList.splice(0, this.defaultIndustryList.length);
       this.tempdefaultIndustryList.forEach((v, i) => {
-        this.defaultIndustryList.push(v)
+        this.defaultIndustryList.push(v);
       });
     }
     if (modalName == 'certificationEdit') {
@@ -929,7 +994,6 @@ export class AppComponent {
 
     }
     if (modalName == 'personInfo') {
-      this.defaultPerson.phoneList = this.phoneList;
       this.defaultPerson.phoneList = this.phoneList;
       this.defaultPerson.name = this.name;           //证件类型
       this.defaultPerson.realName = this.realName;
