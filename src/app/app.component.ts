@@ -14,10 +14,11 @@ export class AppComponent {
   constructor(private modalService: NgbModal, @Inject('data') private data) {
 
 
-  /*  //获取行业列表
+    //获取行业列表
     this.data.getIndustryData().then(res => {
-      this.industries = res;                      //所有数据[[],[]],用于推荐经营，不宜经营。。。
-      res.forEach((value, i) => {
+      this.industries = res ? res : [];
+      var result = res ? res : [];  //所有数据[[],[]],用于推荐经营，不宜经营。。。
+      result.forEach((value, i) => {
         value.forEach((v, j) => {
           j == 0 ? this.bigIndustryList.push(v) : '';
           this.allIndustry.push(v);
@@ -27,7 +28,8 @@ export class AppComponent {
 
     //获取城市列表
     this.data.getDistrictData().then(res => {
-      res.forEach((v,i)=>{
+      var result = res ? res : [];
+      result.forEach((v,i)=>{
         this.allDistricts.push(v);
         v.id.substr(-6)=='000000' ? this.cityList.push(v) : '';
       })
@@ -47,7 +49,7 @@ export class AppComponent {
     this.data.getPositionDesData().then(res=>{
       console.log("res:",res);
       this.positionDescriptionList=res;
-    });*/
+    });
 
   }
 
@@ -72,10 +74,11 @@ export class AppComponent {
   // 经营行业
   bigIndustry = '';
   smallIndustry = '';
-  industries=[
+/*  industries=[
     [{code:1,name:"餐饮"},{code:1233,name:"餐饮1"},{code:12345,name:"餐饮2"},{code:1567567,name:"餐饮3"}],
     [{code:1,name:"悦乐"},{code:1233,name:"悦乐1"},{code:12345,name:"悦乐2"},{code:1567567,name:"悦乐3"}]
-  ];
+  ];*/
+  industries;
   bigIndustryList = [];
   smallIndustryList = [];
   startOpenDate = '';// 开业日期
@@ -115,13 +118,13 @@ export class AppComponent {
   shopRent = '';  // 店铺租金
   rentMeasure = 1;
   rentMeasureList = [{code: 1, name: "元/月"}, {code: 2, name: "万元/月"}, {code: 3, name: "千元/月"}];
-  payWayList = this.data.getPayWayList()  // 支付方式&&编辑更多支付方式
+  payWayList = this.data.getPayWayList();  // 支付方式&&编辑更多支付方式
   payWay = '';
   definedPayWay = '';
   rateWay = '';  // 递增或递减
   definedRateWay = '';
   rateChoice = [
-    {code: 1, name: "递增"},
+    {code: 1, name: "不递增"},
     {code: 2, name: "递减"}
   ];
   depositWay = '';  // 押金
@@ -388,7 +391,7 @@ export class AppComponent {
     wx: '',
     personInfoDetail: ''
   };
-  mapInfo={'city':this.city,'district':'','address':'','lng':'','lat':''};
+  mapInfo = {'city':this.city,'district':'','address':'','lng':'','lat':''};
 
 
 
@@ -402,13 +405,13 @@ export class AppComponent {
   loadSmallIndustry(code) {
     this.allIndustry.forEach((v, i) => {
       code.toString().trim() === v.code.toString().substr(0, 2).trim() ? this.smallIndustryList.push(v) : '';
-    })
+    });
   }
 
   loadDistrict(code){
     this.allDistricts.forEach((v,i)=>{
       code.toString().substr(0,4) == v.id.toString().substr(0,4) ? this.districtList.push(v) : '';
-    })
+    });
   }
 
   getStartTime(date) {
@@ -445,18 +448,21 @@ export class AppComponent {
     imageUrl = newInamges[0].url;
   }
 
+  dayCheckValid=false;               //当点完整周时，其他的不可用
   selectAllWeek() {
     if (this.wholeWeek === false) {
       this.vaildTime.map((item, index) => {
         item.checked = true;
       });
+      this.dayCheckValid=true;
       this.vaildTime.forEach((v, i) => {
-        this.operateDate.push(v)
+        this.operateDate.push(v);
       });
     } else {
       this.vaildTime.map((item, index) => {
         item.checked = false;
       });
+      this.dayCheckValid=false;
       this.operateDate = [];
     }
   }
@@ -493,16 +499,19 @@ export class AppComponent {
 
   payWayCode = '';
 
+  definedWayShow=false;
   selectThisPayWay(item) {
     this.payWayCode = item.code;
     this.payWay = item.code == 0 ? this.definedPayWay : item.name;
+    this.definedWayShow = item.code == 0 ? false : true;
   }
 
   tempPayWayCode = '';
-
+  definedWayShowM=false;
   selectThisPopUpPayWay(item) {
     this.tempPayWayCode = item.code;
     this.temppayWay = item.code == 0 ? this.tempdefinedPayWay : item.name;
+    this.definedWayShowM = item.code == 0 ? false : true;
   }
 
   definedPayChange() {
@@ -755,6 +764,10 @@ export class AppComponent {
     this.mapBlock=true;
   }
 
+  addressSelect(data){
+    console.log("point:",data);
+  }
+
 
 
 
@@ -855,6 +868,9 @@ export class AppComponent {
     if (modalName == 'shopImageContent') {
       this.shopImages = this.tempshopImages;
       this.environment = this.tempenvironment;
+
+      this.tempshopImages = [];
+      this.tempenvironment = [];
     }
     if (modalName == 'rentContent') {
       this.shopRent = this.tempshopRent;
@@ -869,6 +885,8 @@ export class AppComponent {
       this.rentDate = this.temprentDate;
       this.rentTime = this.temprentTime;
       this.leftContractTime = this.templeftContractTime;
+
+
     }
     if (modalName == 'profitContent') {
       this.personProfit = this.temppersonProfit;

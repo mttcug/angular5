@@ -16,10 +16,18 @@ export class BaiduMapComponent implements OnInit {
   navOptions: NavigationControlOptions;
   public markers: Array<{ point: Point; options?: MarkerOptions }>;
 
+  @Input() info={'city':'','district':'','address':'','lng':'','lat':''};
 
+  @Output() addressData=new EventEmitter();
 
   constructor() {
+
+ /*   require(['http://api.map.baidu.com/getscript?v=2.0&ak=sIq3pmhG5n4xVuKQ8eKr1BiV0hsLP2ek'], function () {
+
+    })*/
+
     this.options = {
+      currentCity:"深圳",
       centerAndZoom: {
         lat: 39.920116,
         lng: 116.403703,
@@ -56,8 +64,11 @@ export class BaiduMapComponent implements OnInit {
 
   mapClick(e:any){
     console.log("地图：",e);
-
+    this.markers[0].point.lat=e.point.lat;
+    this.markers[0].point.lng=e.point.lng;
+    this.addressData.emit(e.point.lat);
   }
+
   ngOnInit() {
   }
 

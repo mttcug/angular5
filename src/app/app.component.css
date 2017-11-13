@@ -54,6 +54,10 @@ label{
 .selected-span{
   color: red;
 }
+
+.inline-width-240{
+  width: 240px;
+}
 /*店名*/
 .brand-name{
   color: red;

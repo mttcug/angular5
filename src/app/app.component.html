@@ -102,7 +102,7 @@
             <p class="week-list">
               <span><input type="checkbox" name="operateDate" [(ngModel)]="wholeWeek" (click)="selectAllWeek()"
                            class="m-ritght-5">整周</span><span class="divider">|</span>
-              <span *ngFor="let item of vaildTime" class="week-item"><input [(ngModel)]="item.checked"
+              <span *ngFor="let item of vaildTime" class="week-item"><input [(ngModel)]="item.checked" [disabled]="dayCheckValid"
                                                                             name="weekChecked"
                                                                             (click)="selectThisDay(item)"
                                                                             class="week-checkbox" type="checkbox"
@@ -167,7 +167,7 @@
                                                                          class="week-checkbox" type="radio"
                                                                          data-code="item.code">{{item.name}}</span>
         <input class="form-control time-imput inline-input" name="payWay" type="text" placeholder="请填写"
-               [(ngModel)]="definedPayWay" (ngModelChange)="definedPayChange()">
+               [(ngModel)]="definedPayWay" (ngModelChange)="definedPayChange()" [hidden]="definedWayShow">
       </div>
     </div>
 
@@ -218,7 +218,7 @@
     <div class="block m-top-20">
       <label for="" class="line-name"><span class="input-label-name">转让费:</span></label>
       <input class="form-control profit inline-input" name="transferFee" [(ngModel)]="transferFee" type="text"
-             placeholder="请填写">元
+             placeholder="请填写">万元
     </div>
 
 
@@ -327,7 +327,7 @@
         <span class="latitude">{{latitude}}</span></p>
       <!--地图-->
       <div [hidden]="mapBlock" class="baidu-map">
-        <app-baidu-map ></app-baidu-map>
+        <app-baidu-map [info]="mapInfo" (addressData)="addressSelect(data)"></app-baidu-map>
         <i class="iconfont icon-delete baidu-map-cancel" (click)="closeMap()"></i>
         <p><button class="form-control btn btn-secondary map-btn-control"  (click)="closeMap()">取消</button><button class="form-control btn btn-primary map-btn-control">确定</button></p>
       </div>
@@ -533,7 +533,7 @@
         <option value="item.code" *ngFor="let item of destroyedRatioList">{{item.name}}</option>
       </select>
       <input type="text" name="destroyRate" [(ngModel)]="destroyedRatioDetail" placeholder="请填写拆迁风险详情"
-             class="form-control inline-input">
+             class="form-control inline-input inline-width-240" >
     </div>
 
 
@@ -605,7 +605,7 @@
                                                                          class="week-checkbox" type="radio"
                                                                          data-code="item.code">{{item.name}}</span>
         <input class="form-control time-imput inline-input" type="text" placeholder="请填写"
-               [(ngModel)]="tempdefinedPayWay" (ngModelChange)="definedPopUpPayChange()">
+               [(ngModel)]="tempdefinedPayWay" (ngModelChange)="definedPopUpPayChange()"  [hidden]="definedWayShowM">
       </div>
     </div>
 
@@ -615,7 +615,7 @@
                                                                        name="isIncrease" (click)="selectThisRate(item)"
                                                                        class="week-checkbox" type="radio"
                                                                        data-code="item.code">{{item.name}}</span>
-      <input type="text" class="form-control inline-input" placeholder="请填写递增幅度，如每年5%" name="radioNumber"
+      <input type="text" class="form-control inline-input inline-width-240" placeholder="请填写递增幅度，如每年5%" name="radioNumber"
              [(ngModel)]="tempdefinedRateWay">
     </div>
 
