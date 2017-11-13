@@ -745,6 +745,10 @@ export class AppComponent {
     this.mapBlock=false;
   }
 
+  closeMap(){
+    this.mapBlock=true;
+  }
+
 
 
 

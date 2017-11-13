@@ -328,6 +328,8 @@
       <!--地图-->
       <div [hidden]="mapBlock" class="baidu-map">
         <app-baidu-map></app-baidu-map>
+        <i class="iconfont icon-delete baidu-map-cancel" (click)="closeMap()"></i>
+        <p><button class="form-control btn btn-secondary map-btn-control"  (click)="closeMap()">取消</button><button class="form-control btn btn-primary map-btn-control">确定</button></p>
       </div>
     </div>
 

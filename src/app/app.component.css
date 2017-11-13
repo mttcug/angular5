@@ -283,13 +283,26 @@ textarea{
 
 /*baidu-map*/
 .baidu-map{
-  width: 500px;
-  height: 400px;
+  width: 450px;
+  height: 320px;
   display: block;
 
   position: absolute;
   top: 0px;
-  right: -120px;
+  right: 10%;
+}
+.baidu-map-cancel{
+  position: absolute;
+  top: 0px;
+  right: 5px;
+  font-size: 20px;
+}
+
+.map-btn-control{
+  display: inline-block;
+  width: 20%;
+  margin-left: 20%;
+  margin-top: 15px;
 }
 
 

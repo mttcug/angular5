@@ -36,6 +36,9 @@ export class BaiduMapComponent implements OnInit {
     };
   }
 
+  mapClick(e:any){
+    console.log("地图：",e);
+  }
   ngOnInit() {
   }
 

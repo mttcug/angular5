@@ -1,7 +1,7 @@
 
 
-  <baidu-map [options]="options">
+  <baidu-map [options]="options" (clicked)="mapClick($event)">
     <marker [point]="point"></marker>
-    <control type="navigation" [options]="navOptions"></control>
+  <!--  <control type="navigation" [options]="navOptions"></control>-->
   </baidu-map>
 
