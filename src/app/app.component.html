@@ -1,3 +1,9 @@
 <app-header></app-header>
-<router-outlet></router-outlet>
+<div class="content" [ngStyle]="{'height':getSideNavHeight()+'px'}">
+  <app-side-nav></app-side-nav>
+  <div class="page-container">
+    <router-outlet></router-outlet>
+  </div>
+
+</div>
 <app-footer></app-footer>

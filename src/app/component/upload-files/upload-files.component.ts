@@ -1,4 +1,5 @@
-import {Component, OnInit, Input, Output, EventEmitter , Inject} from '@angular/core';
+import {Component, OnInit, Input, Output, EventEmitter, Inject} from '@angular/core';
+import {FileUploader} from 'ng2-file-upload';
 import 'rxjs/add/operator/toPromise';
 
 @Component({
@@ -8,7 +9,7 @@ import 'rxjs/add/operator/toPromise';
 })
 export class UploadFilesComponent implements OnInit {
 
-  constructor(@Inject('request') private http) {
+  constructor(@Inject('request') private http, @Inject('config') private configService) {
   }
 
   ngOnInit() {
@@ -21,26 +22,47 @@ export class UploadFilesComponent implements OnInit {
   @Output() uploadImages: EventEmitter<any> = new EventEmitter<any>();
 
 
+  uploader: FileUploader = new FileUploader({
+    url: this.configService.getConf.uploadApi,
+    method: "POST",
+    itemAlias: "uploadedfile"
+  });
 
-  Upload(files){
-    var params={
-      files:files
-    }
-    return this.http.request("upload",params).then(result=>{
-      return new Promise((res,rej)=>{
-        (result.message=="上传成功") ? res(result.data) : rej(result);
-      })
-    })
+
+  selectedFileOnChanged() {
+    // 这里是文件选择完成后的操作处理
+  }
+
+
+  Upload(files) {
+    var params = {
+      files: files
+    };
+    /*    return this.http.request("upload", params).then(result => {
+          return new Promise((res, rej) => {
+            (result.message == "上传成功") ? res(result.data) : rej(result);
+          });
+        });*/
+    return this.uploadService.upload(params).then(result => {
+      console.log("图片上传：", result);
+      return new Promise((res, rej) => {
+        (result.message == "上传成功") ? res(result.data) : rej(result);
+      });
+    });
   }
 
   /*添加新图片*/
   addImages(files) {
-    this.Upload(files).then(res=>{
+    var fileArr = [];
+    Array.from(files).forEach((v, i) => {
+      fileArr.push(v);
+    })
+    console.log("files:", fileArr);
+    this.Upload(fileArr).then(res => {
       this.images.concat(res);
     });
     this.uploadImages.emit(this.images);
   }
-
 
 
   /*删除图片（注：新图片需要上传和就图片格式是不一样的需要单独存储）*/

@@ -5,7 +5,7 @@ import 'rxjs/add/operator/toPromise';
 @Injectable()
 export class HttpRequestService {
 
-  constructor(private http:Http) { }
+  constructor(private http:Http ,@Inject('config') private configService) { }
 
   guide(){
     function  s4(){
@@ -15,12 +15,13 @@ export class HttpRequestService {
   }
 
   josnrpConfig={
-    rpcUrl:'http://192.168.1.234:5544/selectOption',
+    rpcUrl:this.configService.getConf.adtaApi,
     id:0,
     jsonrpc:"2.0"
   }
 
   request(method,params){
+    console.log("params:",params);
     return this.http.post(this.josnrpConfig.rpcUrl,{
       id:this.josnrpConfig.id,
       jsonrpc:this.josnrpConfig.jsonrpc,

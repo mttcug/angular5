@@ -1,12 +1,14 @@
-import { Injectable , Inject } from '@angular/core';
+import {Injectable, Inject} from '@angular/core';
 import 'rxjs/add/operator/toPromise';
+
 @Injectable()
 export class DataService {
 
-  constructor(@Inject('request') private http) { }
+  constructor(@Inject('request') private http) {
+  }
 
 
-  getWeekData(){
+  getWeekData() {
     return [
       {code: 1, name: "周一", checked: false},
       {code: 2, name: "周二", checked: false},
@@ -18,7 +20,7 @@ export class DataService {
     ];
   }
 
-  getServiceList(){
+  getServiceList() {
     return [
       {code: 1, name: "可刷卡", checked: false},
       {code: 2, name: "支付宝", checked: false},
@@ -32,7 +34,7 @@ export class DataService {
     ]
   }
 
-  getPayWayList(){
+  getPayWayList() {
     return [
       {code: 1, name: "一月一付"},
       {code: 2, name: "1月一付"},
@@ -44,7 +46,7 @@ export class DataService {
     ]
   }
 
-  getDepositList(){
+  getDepositList() {
     return [
       {code: 1, name: "1月租金", checked: false},
       {code: 2, name: "2月租金", checked: false},
@@ -54,7 +56,7 @@ export class DataService {
     ]
   }
 
-  getFacilities(){
+  getFacilities() {
     return [
       {code: 1, name: "可明火", checked: false},
       {code: 2, name: "380V电压", checked: false},
@@ -69,38 +71,42 @@ export class DataService {
   }
 
 
+
+
+
+
   /*获取行业数据*/
-  getIndustryData(params){
-      return this.http.request("get_industry",params).then(res=>{
-        return JSON.parse(res._body).result;
-    })
+  getIndustryData(params) {
+    return this.http.request("get_industry", params).then(res => {
+      return JSON.parse(res._body).result;
+    });
   }
 
   /*获取区域城市等数据*/
-  getDistrictData(params){
-      return this.http.request("get_city",params).then(res=>{
-        return JSON.parse(res._body).result;
-    })
+  getDistrictData(params) {
+    return this.http.request("get_city", params).then(res => {
+      return JSON.parse(res._body).result;
+    });
   }
 
   /*获取建筑形状*/
-  getBuildingShapeData(params){
-    return this.http.request("get_shape_type",params).then(res=>{
+  getBuildingShapeData(params) {
+    return this.http.request("get_shape_type", params).then(res => {
       return JSON.parse(res._body).result;
-    })
+    });
   }
 
   /*获取转让状态列表*/
-  getTransferStatusData(params){
-    return this.http.request("get_transfer_status",params).then(res=>{
+  getTransferStatusData(params) {
+    return this.http.request("get_transfer_status", params).then(res => {
       return JSON.parse(res._body).result;
-    })
+    });
   }
 
   /*获取位置描述*/
-  getPositionDesData(params){
-    return this.http.request("get_add_desc",params).then(res=>{
+  getPositionDesData(params) {
+    return this.http.request("get_add_desc", params).then(res => {
       return JSON.parse(res._body).result;
-    })
+    });
   }
 }

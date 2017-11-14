@@ -10,6 +10,14 @@ import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 export class AppComponent {
 
 
-  constructor(private modalService: NgbModal, @Inject('data') private data) {}
+  constructor(private modalService: NgbModal, @Inject('data') private data) {
+  }
 
+  getWindowHeight() {
+    return document.body.clientHeight;
+  }
+
+  getSideNavHeight() {
+    return this.getWindowHeight() - 100;
+  }
 }
