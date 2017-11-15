@@ -5,6 +5,7 @@
   display: inline-block;
   width: 100px;
   position: relative;
+  margin-right: 10px;
 }
 .new-image-block{
   display: inline-block;

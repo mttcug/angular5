@@ -1,7 +1,7 @@
 div{
   width:100%;
-/*  border-right: 1px solid black;*/
   height: 100%;
+  position: relative;
 }
 ul{
   list-style: none;
@@ -23,4 +23,13 @@ ul li a{
 }
 .greyBg{
   background: lightgrey;
+}
+.qq-contact-container{
+  position: absolute;
+  bottom: 30px;
+  text-align: center;
+  width: 100%;
+}
+.qq-contact{
+  cursor: pointer;
 }

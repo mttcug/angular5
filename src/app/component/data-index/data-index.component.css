@@ -1,18 +1,23 @@
-.container{
+.container {
   padding: 80px;
   margin: 0px;
 }
-.data-detail{
+
+.data-detail {
 
 }
-.data-detail ul{
-    list-style: none;
+.plat-word{
+  display: inline-block;
+  margin-bottom: 50px;
+}
+.data-detail ul {
+  list-style: none;
   padding: 0px;
 }
 
-.data-detail ul li{
+.data-detail ul li {
   display: inline-block;
-  border:1px solid black;
+  border: 1px solid black;
   margin-right: 15px;
   width: 150px;
   height: 100px;
@@ -20,10 +25,25 @@
   vertical-align: top;
 }
 
-.data-detail ul li a{
+.data-detail ul li p {
+
+  margin: 0px;
+}
+
+.data-detail ul li a {
   width: 100%;
   height: 100px;
   text-align: center;
   display: inline-block;
   line-height: 100px;
+}
+.warm-tips{
+  margin-top: 50px;
+}
+
+.number-line{
+  font-weight: 600;
+  font-size: 24px;
+  height: 60px;
+  line-height: 60px;
 }

@@ -23,4 +23,8 @@ export class SideNavComponent implements OnInit {
     this.curPage = tabName;
   }
 
+  qqContact(){
+    window.open('http://b.qq.com/webc.htm?new=0&sid=252218982&o=pupuwang.com&q=7', '_blank', 'height=502, width=644,toolbar=no,scrollbars=no,menubar=no,status=no');
+  }
+
 }

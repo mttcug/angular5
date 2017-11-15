@@ -1,4 +1,4 @@
-import {Component, Inject , OnInit} from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 
 
@@ -7,9 +7,10 @@ import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
   templateUrl: './data-collection.component.html',
   styleUrls: ['./data-collection.component.css']
 })
-export class DataCollectionComponent implements OnInit  {
+export class DataCollectionComponent implements OnInit {
   allIndustry = [];
-  allDistricts=[];
+  allDistricts = [];
+
   constructor(private modalService: NgbModal, @Inject('data') private data) {
     //获取行业列表
     this.data.getIndustryData().then(res => {
@@ -25,66 +26,70 @@ export class DataCollectionComponent implements OnInit  {
 
     //获取城市列表
     this.data.getDistrictData().then(res => {
-      console.log("城市：",res);
+      console.log("城市：", res);
       var result = res ? res : [];
-      result.forEach((v,i)=>{
+      result.forEach((v, i) => {
         this.allDistricts.push(v);
-        v.id.toString().substr(-6)=='000000' ? this.cityList.push(v) : '';
+        v.id.toString().substr(-6) == '000000' ? this.cityList.push(v) : '';
       });
     });
 
     //获取建筑形状
-    this.data.getBuildingShapeData().then(res=>{
-      this.buildingShapeList=res;
+    this.data.getBuildingShapeData().then(res => {
+      this.buildingShapeList = res;
     });
 
     //获取转让状态列表
-    this.data.getTransferStatusData().then(res=>{
-      this.transferStatusList=res;
+    this.data.getTransferStatusData().then(res => {
+      this.transferStatusList = res;
     });
 
     //获取位置描述列表
-    this.data.getPositionDesData().then(res=>{
-      this.positionDescriptionList=res;
+    this.data.getPositionDesData().then(res => {
+      this.positionDescriptionList = res;
     });
 
     //获取物业设置
-  /*  this.data.getFacilities().then(res=>{
-      this.positionDescriptionList=res;
-    });*/
+    /*  this.data.getFacilities().then(res=>{
+        this.positionDescriptionList=res;
+      });*/
 
     //是否临街
-    this.data.getBesideStreet().then(res=>{
-      this.positionList=res;
+    this.data.getBesideStreet().then(res => {
+      this.positionList = res;
     });
 
     //店铺证件类型
-    this.data.getCertificateType().then(res=>{
-      this.certificationsTypeList=res;
+    this.data.getCertificateType().then(res => {
+      this.certificationsTypeList = res;
     });
 
     //租金单位
-    this.data.getRentMeasure().then(res=>{
-      this.rentMeasureList=res;
+    this.data.getRentMeasure().then(res => {
+      this.rentMeasureList = res;
     });
 
 
     //营业状态
-    this.data.getOperateStatus().then(res=>{
-      this.operateStatusList=res;
+    this.data.getOperateStatus().then(res => {
+      this.operateStatusList = res;
     });
 
     //拆迁风险
-    this.data.getPullRisk().then(res=>{
-      this.destroyedRatioList=res;
+    this.data.getPullRisk().then(res => {
+      this.destroyedRatioList = res;
     });
 
     //产权类型
-    this.data.getPerprotyRight().then(res=>{
-      this.propertyRightTypeList=res;
+    this.data.getPerprotyRight().then(res => {
+      this.propertyRightTypeList = res;
     });
 
 
+    //物业类型和上级物业
+    this.data.getEstateType().then(res => {
+      this.superFacilityList = res;
+    });
 
 
   }
@@ -126,10 +131,7 @@ export class DataCollectionComponent implements OnInit  {
   endOpenDate = ''; // 停业日期
   shopImages = [];// 门面
   multiShops = true;
-  environment = [
-    {id: 123, url: "./app/public/images/1.png"},
-    {id: 123, url: "./app/public/images/2.jpg"}
-  ]; // 环境
+  environment = []; // 环境
   multiEnvironment = true;
   shopPhoneNumber = '';  // 前台电话
   takeOutPhone = '';  // 外卖电话
@@ -229,12 +231,7 @@ export class DataCollectionComponent implements OnInit  {
   /*店铺证件弹出框*/
   selectedCertificationType = 4;
   writeCertificationType = '';           //证件类型
-  certificationsTypeList = [
-    {id: 1, name: "营业执照"},
-    {id: 2, name: "店铺图片"},
-    {id: 3, name: "身份证件"},
-    {id: 4, name: "其他"}
-  ];
+  certificationsTypeList = [];
   headIsMulti = false;            //是否多张
   backIsMulti = false;
   otherIsMulti = true;
@@ -283,19 +280,7 @@ export class DataCollectionComponent implements OnInit  {
   /*合伙人*/
   partner = [
     {
-      name: "里欧1",
-      phoneList: ['18971154515'],
-      realName: '',
-      sex: '',
-      birthdayDate: '',
-      contactAddress: '',
-      email: '',
-      qq: '',
-      wx: '',
-      personInfoDetail: ''
-    },
-    {
-      name: "里欧2",
+      name: "",
       phoneList: [''],
       realName: '',
       sex: '',
@@ -305,7 +290,7 @@ export class DataCollectionComponent implements OnInit  {
       qq: '',
       wx: '',
       personInfoDetail: ''
-    },
+    }
   ];
 
 
@@ -371,7 +356,6 @@ export class DataCollectionComponent implements OnInit  {
   unRecommendableIndustry = [];               //不推荐经营
 
 
-
   /*物业配套*/
   facilities = this.data.getFacilities();             //物业配套
   facilitiesList = [
@@ -419,9 +403,7 @@ export class DataCollectionComponent implements OnInit  {
     wx: '',
     personInfoDetail: ''
   };
-  mapInfo = {'city':this.city,'district':'','address':'','lng':'','lat':''};
-
-
+  mapInfo = {'city': this.city, 'district': '', 'address': '', 'lng': '', 'lat': ''};
 
 
   updateShopName() {
@@ -436,10 +418,10 @@ export class DataCollectionComponent implements OnInit  {
     });
   }
 
-  loadDistrict(code){
-    console.log("code1234:",code);
-    this.allDistricts.forEach((v,i)=>{
-      code.toString().substr(0,4) == v.id.toString().substr(0,4) ? this.districtList.push(v) : '';
+  loadDistrict(code) {
+    console.log("code1234:", code);
+    this.allDistricts.forEach((v, i) => {
+      code.toString().substr(0, 4) == v.id.toString().substr(0, 4) ? this.districtList.push(v) : '';
     });
   }
 
@@ -455,6 +437,7 @@ export class DataCollectionComponent implements OnInit  {
 
   addImages(oldImages, newInamges) {
     oldImages = newInamges;
+    console.log("啊啊啊啊啊");
   }
 
   addPartner() {
@@ -477,13 +460,13 @@ export class DataCollectionComponent implements OnInit  {
     imageUrl = newInamges[0].url;
   }
 
-  dayCheckValid=false;               //当点完整周时，其他的不可用
+  dayCheckValid = false;               //当点完整周时，其他的不可用
   selectAllWeek() {
     if (this.wholeWeek === false) {
       this.vaildTime.map((item, index) => {
         item.checked = true;
       });
-      this.dayCheckValid=true;
+      this.dayCheckValid = true;
       this.vaildTime.forEach((v, i) => {
         this.operateDate.push(v);
       });
@@ -491,7 +474,7 @@ export class DataCollectionComponent implements OnInit  {
       this.vaildTime.map((item, index) => {
         item.checked = false;
       });
-      this.dayCheckValid=false;
+      this.dayCheckValid = false;
       this.operateDate = [];
     }
   }
@@ -528,7 +511,8 @@ export class DataCollectionComponent implements OnInit  {
 
   payWayCode = '';
 
-  definedWayShow=false;
+  definedWayShow = false;
+
   selectThisPayWay(item) {
     this.payWayCode = item.code;
     this.payWay = item.code == 0 ? this.definedPayWay : item.name;
@@ -536,7 +520,8 @@ export class DataCollectionComponent implements OnInit  {
   }
 
   tempPayWayCode = '';
-  definedWayShowM=false;
+  definedWayShowM = false;
+
   selectThisPopUpPayWay(item) {
     this.tempPayWayCode = item.code;
     this.temppayWay = item.code == 0 ? this.tempdefinedPayWay : item.name;
@@ -583,8 +568,10 @@ export class DataCollectionComponent implements OnInit  {
   }
 
   deleteCertification(item) {
+
     this.certifications.forEach((value, index) => {
-      value.certificationType == item.id ? this.certifications.splice(index, 1) : '';
+      console.log("证件：", value, item);
+      value.certificationType.toString() == item.certificationType.toString() ? this.certifications.splice(index, 1) : '';
     });
   }
 
@@ -629,12 +616,14 @@ export class DataCollectionComponent implements OnInit  {
   closeResult: string;
 
   open(content) {
+    this.shopImages.forEach((v, i) => {
+      this.tempshopImages.push(v);
+    });
+
     this.modalService.open(content, {size: 'lg'}).result.then((result) => {
-      this.sureBtnFunction(content, result);
-      this.closeModalInit();
+      result == '1' ? this.sureBtnFunction(content, result) : '';
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-      this.closeModalInit();
     });
   }
 
@@ -644,12 +633,18 @@ export class DataCollectionComponent implements OnInit  {
     this.temppayWay = this.payWay;
     this.tempPayWayCode = this.payWayCode;
     this.tempdefinedPayWay = this.definedPayWay;
+    this.temprateWay = this.rateWay;
+    this.tempdefinedRateWay = this.definedRateWay;
+    this.tempdepositWay = this.depositWay;
+    this.tempdefinedDepositWay = this.definedDepositWay;
+    this.temprentDate = this.rentDate;
+    this.temprentTime = this.rentTime;
+    this.templeftContractTime = this.leftContractTime;
+
     this.modalService.open(content, {size: 'lg'}).result.then((result) => {
-      this.sureBtnFunction(content, result);
-      this.closeModalInit();
+      result == '1' ? this.sureBtnFunction(content, result) : '';
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-      this.closeModalInit();
     });
   }
 
@@ -660,9 +655,13 @@ export class DataCollectionComponent implements OnInit  {
     this.selectedCertificationType = item.certificationType;
     this.writeCertificationType = '';           //证件类型
 
-    this.headImageA.push(item.headImage);            //正面图片
-    this.backImageA.push(item.backImage);            //反面图片
-    this.otherImages = item.otherImages;            //其他图片
+
+    item.headImage == '' ? this.headImageA = [] : this.headImageA.push({url: item.headImage}); //正面图片
+    item.backImage == '' ? this.headImageA = [] : this.backImageA.push({url: item.backImage}); //反面图片
+
+    item.otherImages.forEach((v, i) => {
+      this.otherImages.push(v);
+    });//其他图片
 
     this.certificationNumber = item.certificationNumber;     //证件名称
     this.themeName = item.themeName;               //主题名称
@@ -670,11 +669,11 @@ export class DataCollectionComponent implements OnInit  {
     this.permissionScope = item.permissionScope;         //许可范围
     this.otherContent = item.otherContent;            //其他内容
     this.modalService.open(content, {size: 'lg'}).result.then((result) => {
-      this.sureBtnFunction(content, result);
-      this.closeModalInit();
+      result == '1' ? this.sureBtnFunction(content, result) : '';
+
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-      this.closeModalInit();
+
     });
   }
 
@@ -698,11 +697,10 @@ export class DataCollectionComponent implements OnInit  {
 
 
     this.modalService.open(content, {size: 'lg'}).result.then((result) => {
-      this.sureBtnFunction(content, result);
-      this.closeModalInit();
+      result == '1' ? this.sureBtnFunction(content, result) : '';
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-      this.closeModalInit();
+
     });
   }
 
@@ -720,11 +718,9 @@ export class DataCollectionComponent implements OnInit  {
     this.industrySelectedChange(this.industries, this.tempdefaultIndustryList);
 
     this.modalService.open(content, {size: 'lg'}).result.then((result) => {
-      this.sureBtnFunction(content, result);
-      this.closeModalInit();
+      result == '1' ? this.sureBtnFunction(content, result) : '';
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-      this.closeModalInit();
     });
   }
 
@@ -781,33 +777,183 @@ export class DataCollectionComponent implements OnInit  {
   //行业弹出框选择行业，当选择的行业发生变化是行业列表标红的选项也要改变
   industrySelectedChange(industries, selectedL) {
 
-    this.industries.forEach((v,i)=>{
-      v.map(item=>item.selected=false);
+    this.industries.forEach((v, i) => {
+      v.map(item => item.selected = false);
     })
 
     for (let i = 0; i < selectedL.length; i++) {
-      for(let j=0;j<this.industries.length;j++){
+      for (let j = 0; j < this.industries.length; j++) {
         for (let k = 0; k < this.industries[j].length; k++) {
-          this.industries[j][k].code == selectedL[i].code ? this.industries[j][k].selected=true : '';
+          this.industries[j][k].code == selectedL[i].code ? this.industries[j][k].selected = true : '';
         }
       }
     }
   }
 
-  mapBlock=true;
-  mapShow(){
-    this.mapBlock=false;
+  mapBlock = true;
+
+  mapShow() {
+    this.mapBlock = false;
   }
 
-  closeMap(){
-    this.mapBlock=true;
+  closeMap() {
+    this.mapBlock = true;
   }
 
-  addressSelect(data){
-    console.log("point:",data);
+  addressSelect(data) {
+    console.log("point:", data);
   }
 
-  closeModalInit(){
+
+  ///////////////////////////////////////////////////////////////////////////////////////////////
+  //开始处理弹出框的值
+  ////////////////////////////////////////////////////////////////////////////////////////////////
+  /*图片弹出框*/
+  tempshopImages = [];       //此处复制方式和shopImages一样；
+  tempenvironment = [];
+
+
+  /*店铺租金弹出框*/
+  tempshopRent = '';
+  temprentMeasure = 1;
+  temppayWay = '';
+  tempdefinedPayWay = '';
+  temprateWay = '';
+  tempdefinedRateWay = '';
+  tempdepositWay = '';
+  tempdefinedDepositWay = '';
+  temprentDate = '';
+  temprentTime = '';
+  templeftContractTime = '';
+
+
+  /*店铺营业状况弹出框*/
+  temppersonProfit = '';
+  tempdayProfit = '';
+  tempconsumePersonType = '';
+  tempconsumeTime = '';
+  tempfoodAmount = '';
+  temptakeOutAmount = '';
+  tempmemberAmount = '';
+  tempmemberType = '';
+
+
+  /*转让信息弹出框*/
+  temptransferStatus = '';
+  temptransferFee = '';
+  tempisNegotiable = false;
+  tempemptyTransfer = '';
+  tempemptyTransferFee = '';
+  temptransferStaff = '';
+  temptransferReason = '';
+
+
+  /*行业列表弹出框*/
+  tempfitIndustry = [];
+  temprecommendableIndustry = [];
+  tempunRecommendableIndustry = [];
+
+
+  ////////////////////////////////////////////////////////////////////////////////////////////////
+  //公共函数
+
+
+  private getDismissReason(reason: any): string {
+    if (reason === ModalDismissReasons.ESC) {
+      return 'by pressing ESC';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      return 'by clicking on a backdrop';
+    } else {
+      return `with: ${reason}`;
+    }
+  }
+
+  //确定按钮用于传参
+  sureBtnFunction(content, result) {
+    var modalName = Object.keys(content._def.references)[0];
+    if (modalName == 'shopImageContent') {
+      this.shopImages = [];
+      this.tempshopImages.forEach((v, i) => {
+        this.shopImages.push(v);
+      });
+      this.environment = [];
+      this.tempenvironment.forEach((v, i) => {
+        this.environment.push(v);
+      });
+    }
+    if (modalName == 'rentContent') {
+      this.shopRent = this.tempshopRent;
+      this.rentMeasure = this.temprentMeasure;
+      this.payWay = this.temppayWay;
+      this.payWayCode = this.tempPayWayCode;
+      this.definedPayWay = this.tempdefinedPayWay;
+      this.rateWay = this.temprateWay;
+      this.definedRateWay = this.tempdefinedRateWay;
+      this.depositWay = this.tempdepositWay;
+      this.definedDepositWay = this.tempdefinedDepositWay;
+      this.rentDate = this.temprentDate;
+      this.rentTime = this.temprentTime;
+      this.leftContractTime = this.templeftContractTime;
+    }
+    if (modalName == 'profitContent') {
+      this.personProfit = this.temppersonProfit;
+      this.dayProfit = this.tempdayProfit;
+      this.consumePersonType = this.tempconsumePersonType;
+      this.consumeTime = this.tempconsumeTime;
+      this.foodAmount = this.tempfoodAmount;
+      this.takeOutAmount = this.temptakeOutAmount;
+      this.memberAmount = this.tempmemberAmount;
+      this.memberType = this.tempmemberType;
+    }
+    if (modalName == 'transferContent') {
+      this.transferStatus = this.temptransferStatus,
+        this.transferFee = this.temptransferFee,
+        this.isNegotiable = this.tempisNegotiable,
+        this.emptyTransfer = this.tempemptyTransfer,
+        this.emptyTransferFee = this.tempemptyTransferFee,
+        this.transferStaff = this.temptransferStaff,
+        this.transferReason = this.temptransferReason
+    }
+    if (modalName == 'industryContent') {
+      this.defaultIndustryList.splice(0, this.defaultIndustryList.length);
+      this.tempdefaultIndustryList.forEach((v, i) => {
+        this.defaultIndustryList.push(v);
+      });
+    }
+    if (modalName == 'certificationEdit') {
+      this.defaultCertification.certificationType = this.selectedCertificationType;         //证件类型
+      this.defaultCertification.name = this.certificationsTypeList.find(item => item.id == this.selectedCertificationType).name;
+      this.defaultCertification.headImage = this.headImageA[0].url;
+      this.defaultCertification.backImage = this.backImageA[0].url;
+      this.defaultCertification.otherImages = [];
+      this.otherImages.forEach((v, i) => {
+        this.defaultCertification.otherImages.push(v);
+      })
+
+      this.defaultCertification.certificationNumber = this.certificationNumber;
+      this.defaultCertification.themeName = this.themeName;
+      this.defaultCertification.address = this.address;
+      this.defaultCertification.permissionScope = this.permissionScope;
+      this.defaultCertification.otherContent = this.otherContent;
+
+    }
+    if (modalName == 'personInfo') {
+      this.defaultPerson.phoneList = this.phoneList;
+      this.defaultPerson.name = this.name;           //证件类型
+      this.defaultPerson.realName = this.realName;
+      this.defaultPerson.sex = this.sex;
+      this.defaultPerson.birthdayDate = this.birthdayDate;
+      this.defaultPerson.contactAddress = this.contactAddress;
+      this.defaultPerson.email = this.email;
+      this.defaultPerson.qq = this.qq;
+      this.defaultPerson.wx = this.wx;
+      this.defaultPerson.personInfoDetail = this.personInfoDetail;
+    }
+
+  }
+
+  //关闭按钮只负责清空所有表单值值
+  closeModalInit() {
     this.tempshopImages = [];
     this.tempenvironment = [];
 
@@ -865,176 +1011,6 @@ export class DataCollectionComponent implements OnInit  {
     this.qq = '';
     this.wx = '';
     this.personInfoDetail = '';
-  }
-
-
-
-
-  ///////////////////////////////////////////////////////////////////////////////////////////////
-  //开始处理弹出框的值
-  ////////////////////////////////////////////////////////////////////////////////////////////////
-  /*图片弹出框*/
-  tempshopImages = [{id: 1, url: "http://www.baidu.com"}, {id: 2, url: "http://www.baidu.com"}];       //此处复制方式和shopImages一样；
-  tempenvironment = [{id: 3, url: "http://www.baidu.com"}];
-  jsonShopImages = {tempshopImages: this.tempshopImages, tempenvironment: this.tempenvironment};
-
-
-  /*店铺租金弹出框*/
-  tempshopRent = '';
-  temprentMeasure = 1;
-  temppayWay = '';
-  tempdefinedPayWay = '';
-  temprateWay = '';
-  tempdefinedRateWay = '';
-  tempdepositWay = '';
-  tempdefinedDepositWay = '';
-  temprentDate = '';
-  temprentTime = '';
-  templeftContractTime = '';
-  tempRentContent = {
-    tempshopRent: this.tempshopRent,
-    temprentMeasure: this.temprentMeasure,
-    temprateWay: this.temprateWay,
-    tempdefinedRateWay: this.tempdefinedRateWay,
-    tempdepositWay: this.tempdepositWay,
-    tempdefinedDepositWay: this.tempdefinedDepositWay,
-    temprentDate: this.temprentDate,
-    temprentTime: this.temprentTime,
-    templeftContractTime: this.templeftContractTime
-  }
-
-
-  /*店铺营业状况弹出框*/
-  temppersonProfit = '';
-  tempdayProfit = '';
-  tempconsumePersonType = '';
-  tempconsumeTime = '';
-  tempfoodAmount = '';
-  temptakeOutAmount = '';
-  tempmemberAmount = '';
-  tempmemberType = '';
-
-  tempOperateStatus = {
-    temppersonProfit: this.temppersonProfit,
-    tempdayProfit: this.tempdayProfit,
-    tempconsumePersonType: this.tempconsumePersonType,
-    tempconsumeTime: this.tempconsumeTime,
-    tempfoodAmount: this.tempfoodAmount,
-    temptakeOutAmount: this.temptakeOutAmount,
-    tempmemberAmount: this.tempmemberAmount,
-    tempmemberType: this.tempmemberType
-  }
-
-  /*转让信息弹出框*/
-  temptransferStatus = '';
-  temptransferFee = '';
-  tempisNegotiable = false;
-  tempemptyTransfer = '';
-  tempemptyTransferFee = '';
-  temptransferStaff = '';
-  temptransferReason = '';
-  tempTransferContent = {
-    temptransferStatus: this.temptransferStatus,
-    temptransferFee: this.temptransferFee,
-    tempemptyTransfer: this.tempemptyTransfer,
-    tempemptyTransferFee: this.tempemptyTransferFee,
-    temptransferStaff: this.temptransferStaff,
-    temptransferReason: this.temptransferReason
-  }
-
-  /*行业列表弹出框*/
-  tempfitIndustry = [];
-  temprecommendableIndustry = [];
-  tempunRecommendableIndustry = [];
-
-
-  ////////////////////////////////////////////////////////////////////////////////////////////////
-  //公共函数
-
-
-  private getDismissReason(reason: any): string {
-    if (reason === ModalDismissReasons.ESC) {
-      return 'by pressing ESC';
-    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
-      return 'by clicking on a backdrop';
-    } else {
-      return `with: ${reason}`;
-    }
-  }
-
-  sureBtnFunction(content, result) {
-    var modalName = Object.keys(content._def.references)[0];
-    if (modalName == 'shopImageContent') {
-      this.shopImages = this.tempshopImages;
-      this.environment = this.tempenvironment;
-    }
-    if (modalName == 'rentContent') {
-      this.shopRent = this.tempshopRent;
-      this.rentMeasure = this.temprentMeasure;
-      this.payWay = this.temppayWay;
-      this.payWayCode = this.tempPayWayCode;
-      this.definedPayWay = this.tempdefinedPayWay;
-      this.rateWay = this.temprateWay;
-      this.definedRateWay = this.tempdefinedRateWay;
-      this.depositWay = this.tempdepositWay;
-      this.definedDepositWay = this.tempdefinedDepositWay;
-      this.rentDate = this.temprentDate;
-      this.rentTime = this.temprentTime;
-      this.leftContractTime = this.templeftContractTime;
-    }
-    if (modalName == 'profitContent') {
-      this.personProfit = this.temppersonProfit;
-      this.dayProfit = this.tempdayProfit;
-      this.consumePersonType = this.tempconsumePersonType;
-      this.consumeTime = this.tempconsumeTime;
-      this.foodAmount = this.tempfoodAmount;
-      this.takeOutAmount = this.temptakeOutAmount;
-      this.memberAmount = this.tempmemberAmount;
-      this.memberType = this.tempmemberType;
-    }
-    if (modalName == 'transferContent') {
-      this.transferStatus = this.temptransferStatus,
-        this.transferFee = this.temptransferFee,
-        this.isNegotiable = this.tempisNegotiable,
-        this.emptyTransfer = this.tempemptyTransfer,
-        this.emptyTransferFee = this.tempemptyTransferFee,
-        this.transferStaff = this.temptransferStaff,
-        this.transferReason = this.temptransferReason
-    }
-    if (modalName == 'industryContent') {
-      this.defaultIndustryList.splice(0, this.defaultIndustryList.length);
-      this.tempdefaultIndustryList.forEach((v, i) => {
-        this.defaultIndustryList.push(v);
-      });
-    }
-    if (modalName == 'certificationEdit') {
-      console.log("certificationEdit:", this.defaultCertification, typeof(this.defaultCertification));
-      this.defaultCertification.certificationType = this.selectedCertificationType;         //证件类型
-      this.defaultCertification.name = this.certificationsTypeList.find(item => item.id == this.selectedCertificationType).name;
-      this.defaultCertification.headImage = this.headImageA[0].url;
-      this.defaultCertification.backImage = this.backImageA[0].url;
-      this.defaultCertification.otherImages = this.otherImages;
-
-      this.defaultCertification.certificationNumber = this.certificationNumber;
-      this.defaultCertification.themeName = this.themeName;
-      this.defaultCertification.address = this.address;
-      this.defaultCertification.permissionScope = this.permissionScope;
-      this.defaultCertification.otherContent = this.otherContent;
-
-    }
-    if (modalName == 'personInfo') {
-      this.defaultPerson.phoneList = this.phoneList;
-      this.defaultPerson.name = this.name;           //证件类型
-      this.defaultPerson.realName = this.realName;
-      this.defaultPerson.sex = this.sex;
-      this.defaultPerson.birthdayDate = this.birthdayDate;
-      this.defaultPerson.contactAddress = this.contactAddress;
-      this.defaultPerson.email = this.email;
-      this.defaultPerson.qq = this.qq;
-      this.defaultPerson.wx = this.wx;
-      this.defaultPerson.personInfoDetail = this.personInfoDetail;
-    }
-
   }
 
   release() {
