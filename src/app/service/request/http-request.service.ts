@@ -1,11 +1,13 @@
 import { Injectable , Inject } from '@angular/core';
-import { Http } from  '@angular/http';
+import {  Http, Response, RequestOptions, Headers } from  '@angular/http';
 import 'rxjs/add/operator/toPromise';
 
 @Injectable()
 export class HttpRequestService {
 
-  constructor(private http:Http ,@Inject('config') private configService) { }
+  constructor(private http : Http) {
+
+  }
 
   guide(){
     function  s4(){
@@ -21,7 +23,6 @@ export class HttpRequestService {
   }
 
   request(method,params){
-    console.log("params:",params);
     return this.http.post(this.josnrpConfig.rpcUrl,{
       id:this.josnrpConfig.id,
       jsonrpc:this.josnrpConfig.jsonrpc,

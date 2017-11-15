@@ -53,7 +53,7 @@ export class UploadFilesComponent implements OnInit {
   @Output() uploadImages: EventEmitter<any> = new EventEmitter<any>();
 
 
-  Upload(files) {
+/*  Upload(files) {
     var params = {
       files: files
     };
@@ -63,12 +63,13 @@ export class UploadFilesComponent implements OnInit {
         res(result);
       });
     });
-  }
+  }*/
 
   /*添加新图片*/
+/*
   addImages(files) {
     console.log("files:", files);
-    /*      var that=this;
+    /!*      var that=this;
           console.log("files:",files);
           var con='';
           var reader = new FileReader();
@@ -76,12 +77,13 @@ export class UploadFilesComponent implements OnInit {
             con=this.result;
 
           }
-          reader.readAsDataURL(files[0]);*/
+          reader.readAsDataURL(files[0]);*!/
     this.Upload(files).then(res => {
       this.images.concat(res);
     });
     this.uploadImages.emit(this.images);
   }
+*/
 
 
   /*删除图片（注：新图片需要上传和就图片格式是不一样的需要单独存储）*/
