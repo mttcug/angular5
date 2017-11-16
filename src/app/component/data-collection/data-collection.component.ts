@@ -393,10 +393,9 @@ export class DataCollectionComponent implements OnInit {
     });
   }
 
-  loadDistrict(code) {
-    console.log("code1234:", code);
+  loadDistrict(code) {  //城市 1234000000   区1234560000
     this.allDistricts.forEach((v, i) => {
-      code.toString().substr(0, 4) == v.id.toString().substr(0, 4) ? this.districtList.push(v) : '';
+      (v.id.toString().substr(4,2)!='00' && code.toString().substr(0, 4) == v.id.toString().substr(0, 4)) ? this.districtList.push(v) : '';
     });
   }
 
@@ -672,8 +671,9 @@ export class DataCollectionComponent implements OnInit {
   openPersonalInfo(content, item) {
     this.defaultPerson = item;
     this.phoneList = [];
-    item.phoneList.forEach((v, i) => {
+    item.phoneList.forEach((v, i) => {                   //考虑深浅拷贝问题和对象复制问题和基础类型和引用类型
       let obj: any = this.copy(this.phoneNumberExample);
+      obj.number = v;
       this.phoneList.push(obj);
     });
     this.name = item.name;           //证件类型
@@ -936,9 +936,9 @@ export class DataCollectionComponent implements OnInit {
 
     }
     if (modalName == 'personInfo') {
-      var tempArr:any = [];
-      this.phoneList.forEach((v:any, i) => {
-            tempArr.push(v.number);
+      var tempArr: any = [];
+      this.phoneList.forEach((v: any, i) => {
+        tempArr.push(v.number);
       });
       this.defaultPerson.phoneList = tempArr;
       this.defaultPerson.name = this.name;           //证件类型
