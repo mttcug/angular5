@@ -1,0 +1,14 @@
+<div class="upload-block">
+  <div *ngFor="let item of images" class="old-images-block">
+    <a class="img-item-box" href="">
+      <img src="{{item.url}}" alt="">
+    </a>
+    <i class="iconfont icon-delete" (click)="deleteNewImage(item)"></i>
+  </div>
+  <div class="new-image-block" *ngIf="multiImages || images.length == 0">
+    <input  type="file" #newImages multiple accept=".jpg, .jpeg, .png" class="iconfont icon-tianjiatupian upload-btn" (change)="addImages(newImages.files)">
+<!--
+    <input type="file" ng2FileSelect  [uploader]="uploader" (change)="selectedFileOnChanged($event)" multiple  accept=".jpg, .jpeg, .png" class="iconfont icon-tianjiatupian upload-btn"/>
+-->
+  </div>
+</div>

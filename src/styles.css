@@ -62,3 +62,55 @@
   display: block;
   margin-bottom: 5px;
 }
+
+.block{
+  display: block;
+  /* margin-top: 20px;*/
+}
+
+.divider{
+  margin:0px 5px;
+}
+.required-tag{
+  color: red;
+}
+.not-finished,.light-weight-grey{
+  color:#898990;
+}
+.model-popup,.add-item,.edit-info{
+  color: #467ac1;
+  text-decoration: underline;
+  cursor: pointer;
+}
+.inline-input{
+  display: inline-block;
+  width:160px;
+}
+
+.input-style{
+  width: 160px;
+}
+.select-style{
+  display: inline-block;
+  width: 160px;
+}
+
+.short-select-style{
+  display: inline-block;
+  width: 100px;
+}
+
+.nav-tabs .nav-item .nav-link{
+  color: #495057;
+}
+
+.add-popup-btn{
+  width: 220px;
+}
+.selected-span{
+  color: red;
+}
+
+.inline-width-240{
+  width: 240px;
+}
