@@ -164,11 +164,12 @@ textarea{
 }
 /*适合经营*/
 .span-list-item{
-  width: 75px;
+/*  width: 75px;*/
+  margin-right: 10px;
   display: inline-block;
 }
 .span-list-item i{
-  margin-left: 10px;
+  margin-left: 5px;
 }
 
 /*物业配套*/

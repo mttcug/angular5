@@ -88,6 +88,9 @@ export class DataCollectionComponent implements OnInit {
 
     //物业类型和上级物业
     this.data.getEstateType().then(res => {
+      res.forEach((v,i)=>{
+        v.value_description.trim()=='商铺' ? res.splice(i,1) : '';  //去掉商铺
+      });
       this.superFacilityList = res;
     });
 
@@ -721,16 +724,20 @@ export class DataCollectionComponent implements OnInit {
     var isConnected = false;         //标记是否是大小行业的关系是则删除对应的选项之外还要添加当前选择的项
     item.selected = true;
 
+    //一个都没有的时候直接添加
+    this.tempdefaultIndustryList.length == 0 ? this.tempdefaultIndustryList.push(item) : '';
+
     for (let i = 0; i < this.tempdefaultIndustryList.length; i++) {                //for和forEach 使用return的区别
       var v = this.tempdefaultIndustryList[i];
-
       if (v.code.toString() != item.code.toString()) {
         //不同的情况分为两种，1,完全不同和部分不同
         if (v.code.toString().length != item.code.toString().length && v.code.toString().substr(0, 2) == item.code.toString().substr(0, 2)) {
           tempIndexArr.push(i);
           isConnected = true;
+
         } else if (i == (this.tempdefaultIndustryList.length - 1)) {
           this.tempdefaultIndustryList.push(item);
+
           this.industrySelectedChange(this.industries, this.tempdefaultIndustryList);
           isConnected = false;
         }
