@@ -913,9 +913,12 @@
       <label for="" class="line-name"><span class="required-tag">*</span><span
         class="input-label-name">手机号码:</span></label>
       <div class="inline-block vertical-t">
-        <input *ngFor="let item of phoneList;let i = index ;" name="phoneNumber" [(ngModel)]="phoneList[i]"
-               class="form-control  p-block"
-               type="text" placeholder="请填写">
+        <p  *ngFor="let item of phoneList;let i = index ;">
+          <input name="phoneNumber" [(ngModel)]="item.number"
+                 class="form-control  p-block"
+                 type="text" placeholder="请填写">
+        </p>
+
       </div>
       <p class="add-employee-btn add-popup-btn m-top-10" *ngIf="phoneList.length < 5" (click)="addPhoneNumbers()"><label class="line-name"></label><i
         class="iconfont icon-tianjiatupian m-ritght-5"></i><span class="light-weight-grey">添加号码</span></p>

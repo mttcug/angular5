@@ -428,7 +428,8 @@ export class DataCollectionComponent implements OnInit {
       wx: '',
       personInfoDetail: ''
     };
-    this.partner.push(obj);
+    var newObj: any = this.copy(obj);
+    this.partner.push(newObj);
   }
 
   addCertificationImages(imageUrl, newInamges) {
@@ -552,8 +553,11 @@ export class DataCollectionComponent implements OnInit {
     });
   }
 
+  phoneNumberExample = {number: ''};
+
   addPhoneNumbers() {
-    this.phoneList.push(" ");          //增加输入框个数
+    var obj: any = this.copy(this.phoneNumberExample);
+    this.phoneList.push(obj);          //增加输入框个数
   }
 
   selectSexStatus(item) {
@@ -567,7 +571,7 @@ export class DataCollectionComponent implements OnInit {
   addEmployee() {
     var obj = {
       position: '', entryDate: '', workContent: '', leaveDate: '', isDission: false,
-      name: "里欧1",
+      name: "",
       phoneList: [''],
       realName: '',
       sex: '',
@@ -578,7 +582,8 @@ export class DataCollectionComponent implements OnInit {
       wx: '',
       personInfoDetail: ''
     };
-    this.employee.push(obj);
+    var newObj: any = this.copy(obj);
+    this.employee.push(newObj);
   }
 
   getEntryDate(date) {
@@ -627,19 +632,12 @@ export class DataCollectionComponent implements OnInit {
 
   defaultCertification;
 
-  copy(obj){
-    var newObj={};
-    for(var v in obj){
-      newObj[v]=obj[v];
-    }
-    return newObj;
-  }
 
-  openShopCertificationModal(content, item,type) {  //type1编辑2添加
-    let newItem={};
-    type=='2' ? newItem=this.copy(item) : '';
-    this.defaultCertification = type=='1' ? item : newItem;
-    console.log("item:",this.defaultCertification);
+  openShopCertificationModal(content, item, type) {  //type1编辑2添加
+    let newItem = {};
+    type == '2' ? newItem = this.copy(item) : '';
+    this.defaultCertification = type == '1' ? item : newItem;
+    console.log("item:", this.defaultCertification);
 
     this.selectedCertificationType = item.certificationType;
     this.writeCertificationType = '';           //证件类型
@@ -661,8 +659,8 @@ export class DataCollectionComponent implements OnInit {
     this.modalService.open(content, {size: 'lg'}).result.then((result) => {
       result == '1' ? this.sureBtnFunction(content, result) : '';
       type == '2' ? this.certifications.push(<any>newItem) : '';
-      console.log("item2:",this.defaultCertification);
-      console.log("证件s:",this.certifications);
+      console.log("item2:", this.defaultCertification);
+      console.log("证件s:", this.certifications);
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
 
@@ -675,7 +673,8 @@ export class DataCollectionComponent implements OnInit {
     this.defaultPerson = item;
     this.phoneList = [];
     item.phoneList.forEach((v, i) => {
-      this.phoneList.push(v);
+      let obj: any = this.copy(this.phoneNumberExample);
+      this.phoneList.push(obj);
     });
     this.name = item.name;           //证件类型
     this.realName = item.realName;
@@ -848,6 +847,13 @@ export class DataCollectionComponent implements OnInit {
 
   ////////////////////////////////////////////////////////////////////////////////////////////////
   //公共函数
+  copy(obj) {
+    var newObj = {};
+    for (var v in obj) {
+      newObj[v] = obj[v];
+    }
+    return newObj;
+  }
 
 
   private getDismissReason(reason: any): string {
@@ -914,7 +920,7 @@ export class DataCollectionComponent implements OnInit {
     }
     if (modalName == 'certificationEdit') {
       this.defaultCertification.certificationType = this.selectedCertificationType;         //证件类型
-      this.defaultCertification.name = this.certificationsTypeList.find(item => item.value.toString()== this.selectedCertificationType.toString()).value_description;
+      this.defaultCertification.name = this.certificationsTypeList.find(item => item.value.toString() == this.selectedCertificationType.toString()).value_description;
       this.defaultCertification.headImage = this.headImageA[0] ? this.headImageA[0].url : '';
       this.defaultCertification.backImage = this.backImageA[0] ? this.backImageA[0].url : '';
       this.defaultCertification.otherImages = [];
@@ -930,7 +936,11 @@ export class DataCollectionComponent implements OnInit {
 
     }
     if (modalName == 'personInfo') {
-      this.defaultPerson.phoneList = this.phoneList;
+      var tempArr:any = [];
+      this.phoneList.forEach((v:any, i) => {
+            tempArr.push(v.number);
+      });
+      this.defaultPerson.phoneList = tempArr;
       this.defaultPerson.name = this.name;           //证件类型
       this.defaultPerson.realName = this.realName;
       this.defaultPerson.sex = this.sex;
