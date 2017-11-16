@@ -52,7 +52,7 @@ import { routing } from './app.routes';
     routing,
     NgbModule.forRoot(),
     FileUploadModule,
-   /* AngularEchartsModule,*/
+ /*   AngularEchartsModule,*/
     BaiduMapModule.forRoot({ak: 'fN66w00hfey6hwEyhFcYFRvvwe4a0pOG'})
   ],
   providers: [

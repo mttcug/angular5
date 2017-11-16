@@ -49,11 +49,6 @@ export class DataCollectionComponent implements OnInit {
       this.positionDescriptionList = res;
     });
 
-    //获取物业设置
-    /*  this.data.getFacilities().then(res=>{
-        this.positionDescriptionList=res;
-      });*/
-
     //是否临街
     this.data.getBesideStreet().then(res => {
       this.positionList = res;
@@ -69,7 +64,6 @@ export class DataCollectionComponent implements OnInit {
       this.rentMeasureList = res;
     });
 
-
     //营业状态
     this.data.getOperateStatus().then(res => {
       this.operateStatusList = res;
@@ -84,7 +78,6 @@ export class DataCollectionComponent implements OnInit {
     this.data.getPerprotyRight().then(res => {
       this.propertyRightTypeList = res;
     });
-
 
     //物业类型和上级物业
     this.data.getEstateType().then(res => {
@@ -150,7 +143,7 @@ export class DataCollectionComponent implements OnInit {
   serviceList = this.data.getServiceList();
   shopRent = '';  // 店铺租金
   rentMeasure = 1;
-  rentMeasureList = [{code: 1, name: "元/月"}, {code: 2, name: "万元/月"}, {code: 3, name: "千元/月"}];
+  rentMeasureList ;
   payWayList = this.data.getPayWayList();  // 支付方式&&编辑更多支付方式
   payWay = '';
   definedPayWay = '';
@@ -729,6 +722,7 @@ export class DataCollectionComponent implements OnInit {
         //不同的情况分为两种，1,完全不同和部分不同
         if (v.code.toString().length != item.code.toString().length && v.code.toString().substr(0, 2) == item.code.toString().substr(0, 2)) {
           tempIndexArr.push(i);
+          console.log("重复了：",tempIndexArr);
           isConnected = true;
         } else if (i == (this.tempdefaultIndustryList.length - 1)) {
           this.tempdefaultIndustryList.push(item);
@@ -736,13 +730,16 @@ export class DataCollectionComponent implements OnInit {
           isConnected = false;
         }
       } else {
-        return;
+        console.log("反悔了");
+        break;
       }
     }
 
     isConnected == true ? this.tempdefaultIndustryList.push(item) : '';
 
-    for (let i = 0; i < tempIndexArr.length; i++) {                             //不可用forEach
+    console.log("123:重复",);
+    for (let i = 0; i < tempIndexArr.length; i++) {
+      console.log("重复了111：",i);//不可用forEach
       var v = tempIndexArr[i];
       this.tempdefaultIndustryList.splice(v, 1);
       this.industrySelectedChange(this.industries, this.tempdefaultIndustryList);

@@ -20,12 +20,11 @@ export class SideNavComponent implements OnInit {
 
 
   colorChange() {
-    console.log("22");
     this.curPage = window.location.href.split("/")[3] ? window.location.href.split("/")[3] : '';
   }
 
   qqContact(){
-    window.open('http://b.qq.com/webc.htm?new=0&sid=252218982&o=pupuwang.com&q=7', '_blank', 'height=502, width=644,toolbar=no,scrollbars=no,menubar=no,status=no');
+    window.open('tencent://message/?uin=252218982&Site=pupuwang.com&Menu=yes', '_blank', 'height=502, width=644,toolbar=no,scrollbars=no,menubar=no,status=no');
   }
 
 
