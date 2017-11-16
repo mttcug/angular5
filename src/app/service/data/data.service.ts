@@ -4,7 +4,7 @@ import 'rxjs/add/operator/toPromise';
 @Injectable()
 export class DataService {
 
-  constructor(@Inject('request') private http) {
+  constructor(@Inject('http') private http) {
   }
 
 

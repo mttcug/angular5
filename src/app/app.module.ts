@@ -18,12 +18,15 @@ import { SideNavComponent } from './component/side-nav/side-nav.component';
 import { DataIndexComponent } from './component/data-index/data-index.component';
 import { ShopHallComponent } from './component/shop-hall/shop-hall.component';
 import { WorkManageComponent } from './component/work-manage/work-manage.component';
+import { PeripheralDataComponent } from './component/peripheral-data/peripheral-data.component';
 
-import { HttpRequestService } from './service/request/http-request.service';
+import { HttpRequestService } from './service/http/http-request.service';
 import { DataService } from './service/data/data.service';
 import { ConfigService } from './service/config/config.service';
+import { DataOperateRequestService } from './service/request/data-operate-request.service';
 
 import { routing } from './app.routes';
+
 
 
 
@@ -43,7 +46,8 @@ import { routing } from './app.routes';
     SideNavComponent,
     DataIndexComponent,
     ShopHallComponent,
-    WorkManageComponent
+    WorkManageComponent,
+    PeripheralDataComponent
   ],
   imports: [
     BrowserModule,
@@ -56,9 +60,10 @@ import { routing } from './app.routes';
     BaiduMapModule.forRoot({ak: 'fN66w00hfey6hwEyhFcYFRvvwe4a0pOG'})
   ],
   providers: [
-    {provide : 'request', useClass : HttpRequestService},
+    {provide : 'http', useClass : HttpRequestService},
     {provide : 'data' , useClass : DataService},
-    {provide : 'config' , useClass : ConfigService}
+    {provide : 'config' , useClass : ConfigService},
+    {provide : 'dataOperate' , useClass : DataOperateRequestService}
   ],
   bootstrap: [AppComponent]
 })
