@@ -63,7 +63,7 @@ import { routing } from './app.routes';
     {provide : 'http', useClass : HttpRequestService},
     {provide : 'data' , useClass : DataService},
     {provide : 'config' , useClass : ConfigService},
-    {provide : 'dataOperate' , useClass : DataOperateRequestService}
+    {provide : 'request' , useClass : DataOperateRequestService}
   ],
   bootstrap: [AppComponent]
 })

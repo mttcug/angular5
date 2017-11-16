@@ -36,6 +36,7 @@
   display: inline-block;
   line-height: 98px;
   background: lightgrey;
+  cursor: pointer;
 }
 .warm-tips{
   margin-top: 50px;

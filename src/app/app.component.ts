@@ -1,5 +1,6 @@
 import {Component, Inject} from '@angular/core';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
+import { Router, NavigationEnd } from '@angular/router';
 
 
 @Component({
@@ -20,4 +21,6 @@ export class AppComponent {
   getSideNavHeight() {
     return this.getWindowHeight() - 100;
   }
+
+
 }

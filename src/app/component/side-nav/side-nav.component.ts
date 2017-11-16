@@ -10,17 +10,18 @@ export class SideNavComponent implements OnInit {
   curPage = '';
 
   constructor() {
-
     this.curPage = window.location.href.split("/")[3] ? window.location.href.split("/")[3] : '';
+
+    setInterval(this.colorChange(),1000);
   }
 
   ngOnInit() {
   }
 
 
-  colorChange(tabName) {
+  colorChange() {
+    console.log("22");
     this.curPage = window.location.href.split("/")[3] ? window.location.href.split("/")[3] : '';
-    this.curPage = tabName;
   }
 
   qqContact(){
