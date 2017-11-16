@@ -1,6 +1,5 @@
 <div class="hall-block">
   <div class="search-block">
-    <div class="left-search-block">
       <div class="block search-line-block">
         <label>行业</label>
         <select name="" id="big-industry" class="form-control short-select-style">
@@ -15,6 +14,11 @@
         <p class="inline-p"><input type="checkbox">不宜经营</p>
       </div>
       <div class="block search-line-block">
+      <label>关键字</label>
+      <input type="text" placeholder="店名/位置" class="form-control inline-input">
+      <input type="text" placeholder="手机号码" class="form-control inline-input">
+    </div>
+      <div class="block search-line-block">
         <label>区域</label>
         <select name="" id="bigIndustry" class="form-control short-select-style">
           <option value="">请选择</option>
@@ -27,31 +31,24 @@
         <p class="inline-p">128.839</p>
       </div>
       <div class="block search-line-block">
+      <label>位置描述</label>
+      <select name="" id="position-descript" class="form-control short-select-style">
+        <option value="">请选择</option>
+      </select>
+      <p class="inline-p"><input type="checkbox">临街</p>
+    </div>
+      <div class="block search-line-block">
         <label>面积</label>
         <input type="text" placeholder="最小" class="form-control short-select-style">-
         <input type="text" placeholder="最大" class="form-control short-select-style">平米
-      </div>
-
-    </div>
-    <div class="right-search-block">
-      <div class="block search-line-block">
-        <label>关键字</label>
-        <input type="text" placeholder="店名/位置" class="form-control inline-input">
-        <input type="text" placeholder="手机号码" class="form-control inline-input">
-      </div>
-      <div class="block search-line-block">
-        <label>位置描述</label>
-        <select name="" id="position-descript" class="form-control short-select-style">
-          <option value="">请选择</option>
-        </select>
-        <p class="inline-p"><input type="checkbox">临街</p>
       </div>
       <div class="block search-line-block">
         <label>门宽</label>
         <input type="text" placeholder="最短" class="form-control short-select-style">-
         <input type="text" placeholder="最长" class="form-control short-select-style">米
       </div>
-    </div>
+      <button class="btn btn-primary special-btn">搜索</button>
+
   </div>
   <div class="block-divider greyBg"></div>
   <div class="result-block">
@@ -65,37 +62,129 @@
         <th class="p-2 p-lg-2">操作</th>
       </tr>
       <tbody>
-      <tr class="d-flex flex-row justify-content-around border-radius-5">
-        <td class="p-2 p-lg-2">南山区登良路</td>
-        <td class="p-2 p-lg-2">南山区登良路</td>
-        <td class="p-2 p-lg-2">南山区登良路</td>
-        <td class="p-2 p-lg-2">南山区登良路</td>
-        <td class="p-2 p-lg-2">南山区登良路</td>
-        <td class="p-2 p-lg-2">南山区登良路</td>
+      <tr class="d-flex flex-row justify-content-around border-radius-10 m-top-20">
+        <td class="p-2 p-lg-2">
+          <p><span>南山区</span><span class="bg-color-grey">商铺</span></p>
+          <p><span>公园道大厦1507室1234123123123123123</span></p>
+          <p><span class="color-grey">临街</span><span class="color-grey">街道转角</span></p>
+        </td>
+        <td class="p-2 p-lg-2">
+          <p><span class="color-red">158平方米</span></p>
+          <p><span class="color-grey">门宽：2.5m</span><span class="color-grey">层高：3m</span></p>
+          <p><span class="color-grey">开间：3.2m</span><span class="color-grey">进深：3.6m</span></p>
+        </td>
+        <td class="p-2 p-lg-2">
+          <p><span>肯德基（公园道店）</span></p>
+          <p><span class="color-grey">快餐</span><span class="bg-color-grey">品牌</span><span class="color-grey"><100m</span></p>
+          <p><span class="color-grey">老板：张先生</span></p>
+        </td>
+        <td class="p-2 p-lg-2">
+          <p><span class="color-red">20000元/月</span></p>
+          <p><span class="color-grey">支付：一月一付</span></p>
+          <p><span class="color-grey">租约：24月（剩12月）</span></p>
+        </td>
+        <td class="p-2 p-lg-2">
+          <p><span>转让费：<span class="color-red">230万</span></span></p>
+          <p><span class="color-grey">含家具设备等</span></p>
+          <p><span class="color-grey">可以空转</span></p>
+        </td>
+        <td class="p-2 p-lg-2">
+          <p><button class="btn btn-primary">编辑</button></p>
+          <p><button class="btn btn-primary">周边分析</button></p>
+        </td>
       </tr>
-      <tr class="d-flex flex-row justify-content-around">
-        <td>南山区登良路</td>
-        <td>南山区登良路</td>
-        <td>南山区登良路</td>
-        <td>南山区登良路</td>
-        <td>南山区登良路</td>
-        <td>南山区登良路</td>
+      <tr class="d-flex flex-row justify-content-around border-radius-10 m-top-20">
+        <td class="p-2 p-lg-2">
+          <p><span>南山区</span><span class="bg-color-grey">商铺</span></p>
+          <p><span>公园道大厦1507室1234123123123123123</span></p>
+          <p><span class="color-grey">临街</span><span class="color-grey">街道转角</span></p>
+        </td>
+        <td class="p-2 p-lg-2">
+          <p><span class="color-red">158平方米</span></p>
+          <p><span class="color-grey">门宽：2.5m</span><span class="color-grey">层高：3m</span></p>
+          <p><span class="color-grey">开间：3.2m</span><span class="color-grey">进深：3.6m</span></p>
+        </td>
+        <td class="p-2 p-lg-2">
+          <p><span>肯德基（公园道店）</span></p>
+          <p><span class="color-grey">快餐</span><span class="bg-color-grey">品牌</span><span class="color-grey"><100m</span></p>
+          <p><span class="color-grey">老板：张先生</span></p>
+        </td>
+        <td class="p-2 p-lg-2">
+          <p><span class="color-red">20000元/月</span></p>
+          <p><span class="color-grey">支付：一月一付</span></p>
+          <p><span class="color-grey">租约：24月（剩12月）</span></p>
+        </td>
+        <td class="p-2 p-lg-2">
+          <p><span>转让费：<span class="color-red">230万</span></span></p>
+          <p><span class="color-grey">含家具设备等</span></p>
+          <p><span class="color-grey">可以空转</span></p>
+        </td>
+        <td class="p-2 p-lg-2">
+          <p><button class="btn btn-primary">编辑</button></p>
+          <p><button class="btn btn-primary">周边分析</button></p>
+        </td>
       </tr>
-      <tr class="d-flex flex-row">
-        <td>南山区登良路</td>
-        <td>南山区登良路</td>
-        <td>南山区登良路</td>
-        <td>南山区登良路</td>
-        <td>南山区登良路</td>
-        <td>南山区登良路</td>
+      <tr class="d-flex flex-row justify-content-around border-radius-10 m-top-20">
+        <td class="p-2 p-lg-2">
+          <p><span>南山区</span><span class="bg-color-grey">商铺</span></p>
+          <p><span>公园道大厦1507室1234123123123123123</span></p>
+          <p><span class="color-grey">临街</span><span class="color-grey">街道转角</span></p>
+        </td>
+        <td class="p-2 p-lg-2">
+          <p><span class="color-red">158平方米</span></p>
+          <p><span class="color-grey">门宽：2.5m</span><span class="color-grey">层高：3m</span></p>
+          <p><span class="color-grey">开间：3.2m</span><span class="color-grey">进深：3.6m</span></p>
+        </td>
+        <td class="p-2 p-lg-2">
+          <p><span>肯德基（公园道店）</span></p>
+          <p><span class="color-grey">快餐</span><span class="bg-color-grey">品牌</span><span class="color-grey"><100m</span></p>
+          <p><span class="color-grey">老板：张先生</span></p>
+        </td>
+        <td class="p-2 p-lg-2">
+          <p><span class="color-red">20000元/月</span></p>
+          <p><span class="color-grey">支付：一月一付</span></p>
+          <p><span class="color-grey">租约：24月（剩12月）</span></p>
+        </td>
+        <td class="p-2 p-lg-2">
+          <p><span>转让费：<span class="color-red">230万</span></span></p>
+          <p><span class="color-grey">含家具设备等</span></p>
+          <p><span class="color-grey">可以空转</span></p>
+        </td>
+        <td class="p-2 p-lg-2">
+          <p><button class="btn btn-primary">编辑</button></p>
+          <p><button class="btn btn-primary">周边分析</button></p>
+        </td>
       </tr>
-      <tr class="d-flex flex-row">
-        <td>南山区登良路</td>
-        <td>南山区登良路</td>
-        <td>南山区登良路</td>
-        <td>南山区登良路</td>
-        <td>南山区登良路</td>
-        <td>南山区登良路</td>
+      <tr class="d-flex flex-row justify-content-around border-radius-10 m-top-20">
+        <td class="p-2 p-lg-2">
+          <p><span>南山区</span><span class="bg-color-grey">商铺</span></p>
+          <p><span>公园道大厦1507室1234123123123123123</span></p>
+          <p><span class="color-grey">临街</span><span class="color-grey">街道转角</span></p>
+        </td>
+        <td class="p-2 p-lg-2">
+          <p><span class="color-red">158平方米</span></p>
+          <p><span class="color-grey">门宽：2.5m</span><span class="color-grey">层高：3m</span></p>
+          <p><span class="color-grey">开间：3.2m</span><span class="color-grey">进深：3.6m</span></p>
+        </td>
+        <td class="p-2 p-lg-2">
+          <p><span>肯德基（公园道店）</span></p>
+          <p><span class="color-grey">快餐</span><span class="bg-color-grey">品牌</span><span class="color-grey"><100m</span></p>
+          <p><span class="color-grey">老板：张先生</span></p>
+        </td>
+        <td class="p-2 p-lg-2">
+          <p><span class="color-red">20000元/月</span></p>
+          <p><span class="color-grey">支付：一月一付</span></p>
+          <p><span class="color-grey">租约：24月（剩12月）</span></p>
+        </td>
+        <td class="p-2 p-lg-2">
+          <p><span>转让费：<span class="color-red">230万</span></span></p>
+          <p><span class="color-grey">含家具设备等</span></p>
+          <p><span class="color-grey">可以空转</span></p>
+        </td>
+        <td class="p-2 p-lg-2">
+          <p><button class="btn btn-primary">编辑</button></p>
+          <p><button class="btn btn-primary">周边分析</button></p>
+        </td>
       </tr>
       </tbody>
 

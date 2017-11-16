@@ -8,6 +8,11 @@ import { WorkManageComponent } from './component/work-manage/work-manage.compone
 export const routes: Routes = [
   {
     path: '',
+    redirectTo: '/dataIndex',
+    pathMatch: 'full'
+  },
+  {
+    path: 'dataIndex',
     component: DataIndexComponent
   },
   {

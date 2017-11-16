@@ -45,7 +45,7 @@ export class UploadFilesComponent implements OnInit {
     }
 
     this.Upload(fd).then(res => {
-      Array.from(res).forEach((v, i) => {
+      Array.from(<any>res).forEach((v, i) => {
         this.images.push(v);
       });
       this.addImages.emit(this.images);

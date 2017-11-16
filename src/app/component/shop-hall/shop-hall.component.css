@@ -1,16 +1,25 @@
 .search-block{
   overflow: hidden;
   margin: 20px;
+  position: relative;
 }
 .left-search-block,.right-search-block{
   display: block;
   float: left;
   margin: 0px;
   padding: 0px;
-  width: 50%;
+  width: 45%;
+}
+.search-btn-block{
+  width:10%;
+  float: left;
 }
 .search-line-block{
   padding-bottom: 10px;
+  width: 50%;
+  display: block;
+  float: left;
+  height: 60px;
 }
 .block-divider{
   width: 100%;
@@ -26,4 +35,42 @@
 .border-radius-5{
   border: 1px solid black;
   border-radius: 5px;
+}
+
+.border-radius-10{
+  border: 1px solid black;
+  border-radius: 10px;
+}
+table p{
+  margin:5px 0px;
+}
+.bg-color-grey{
+  background: grey;
+  padding: 5px;
+  border-radius: 2px;
+  color: white;
+  font-size: 12px;
+}
+.color-red{
+  color: red;
+}
+table span{
+  margin: 0px 5px;
+}
+.color-grey{
+  color: grey;
+}
+table td{
+  width: 16%;
+  text-align: center;
+  border-left: 1px solid lightgrey;
+  margin:10px 0px;
+}
+table td:nth-of-type(1){
+  border-left: none;
+}
+.special-btn{
+  position: absolute;
+  bottom: 20px;
+  right: 16%;
 }
