@@ -26,7 +26,7 @@ import { ConfigService } from './service/config/config.service';
 import { DataOperateRequestService } from './service/request/data-operate-request.service';
 
 import { routing } from './app.routes';
-/*import { AngularEchartsModule } from 'ngx-echarts';*/
+import { AngularEchartsModule } from 'ngx-echarts';
 
 
 @NgModule({
@@ -50,9 +50,9 @@ import { routing } from './app.routes';
     HttpModule,
     JsonpModule,
     routing,
+    AngularEchartsModule,
     NgbModule.forRoot(),
     FileUploadModule,
- /*   AngularEchartsModule,*/
     BaiduMapModule.forRoot({ak: 'fN66w00hfey6hwEyhFcYFRvvwe4a0pOG'})
   ],
   providers: [
