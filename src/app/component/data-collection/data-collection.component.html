@@ -117,9 +117,9 @@
                            (click)="selectAllDay()">24小时</span><span
               class="divider">|</span>
               <input class="form-control time-input inline-input" name="startTime" type="text" placeholder="8:00"
-                     [(ngModel)]="operateStartTime">—<input class="form-control time-input inline-input" name="endTime"
+                     [(ngModel)]="operateStartTime" [disabled]="timeChangedValid">—<input class="form-control time-input inline-input" name="endTime"
                                                             type="text" placeholder="24:00"
-                                                            [(ngModel)]="operateEndTime">
+                                                            [(ngModel)]="operateEndTime" [disabled]="timeChangedValid">
             </p>
           </ng-template>
         </ngb-tab>
@@ -203,8 +203,8 @@
     <div class="block m-top-20">
       <label for="" class="line-name"><span class="input-label-name">转让状态:</span></label>
       <div class="pay-way-list vertical-t">
-        <span *ngFor="let item of transferStatusList;let i=index;" class="select-span"><input [(ngModel)]="item.name"
-                                                                                              [value]="item.name"
+        <span *ngFor="let item of transferStatusList;" class="select-span"><input [(ngModel)]="item.value_description"
+                                                                                              [value]="item.value_description"
                                                                                               name="transferStatus"
                                                                                               (click)="selectTransferStatus(item)"
                                                                                               class="week-checkbox"
@@ -245,14 +245,15 @@
     <!--店铺证件-->
     <div class="block m-top-20">
       <label for="" class="line-name"><span class="input-label-name">店铺证件:</span></label>
-      <ul *ngIf="certifications.length > 0" class="shop-certifications vertical-t">
+      <ul class="shop-certifications vertical-t">
         <li *ngFor="let item of certifications"><span class="light-weight-grey">{{item.name}}</span><span
-          class="edit-info m-left-10 m-ritght-10" (click)="openShopCertificationModal(certificationEdit,item)">编辑</span><span
-          class="edit-info m-left-5 m-ritght-5" (click)="deleteCertification(item)">删除</span></li>
+          class="edit-info m-left-10 m-ritght-10" (click)="openShopCertificationModal(certificationEdit,item,'1')">编辑</span><span
+          class="edit-info m-left-5 m-ritght-5" (click)="deleteCertification(item)">删除</span>
+        </li>
+        <p class="add-certifications-btn add-popup-btn" *ngIf="certifications.length < 5" (click)="openShopCertificationModal(certificationEdit,objCertification,'2')">
+         <i class="iconfont icon-tianjiatupian m-ritght-5"></i><span class="light-weight-grey">添加证件</span>
+        </p>
       </ul>
-      <p class="add-certifications-btn add-popup-btn" (click)="open(certificationEdit)"><label
-        class="line-name"></label><i class="iconfont icon-tianjiatupian m-ritght-5"></i><span class="light-weight-grey">添加证件</span>
-      </p>
 
     </div>
 
@@ -734,8 +735,8 @@
     <div class="block m-top-20">
       <label for="" class="line-name"><span class="input-label-name">转让状态:</span></label>
       <div class="pay-way-list">
-        <span *ngFor="let item of transferStatusList" class="select-span"><input [(ngModel)]="item.name"
-                                                                                 [value]="item.name"
+        <span *ngFor="let item of transferStatusList" class="select-span"><input [(ngModel)]="item.value_description"
+                                                                                 [value]="item.value_description"
                                                                                  name="transferStatus"
                                                                                  (click)="selectTransferStatus(item)"
                                                                                  class="week-checkbox" type="radio"
@@ -827,6 +828,7 @@
     <div class="block m-top-20">
       <label for="" class="line-name"><span class="input-label-name">证件类型:</span></label>
       <select class="form-control  select-style" name="certifications" [(ngModel)]="selectedCertificationType">
+        <option value="">请选择</option>
         <option value="{{item.value}}" *ngFor="let item of certificationsTypeList">{{item.value_description}}</option>
       </select>
       <input class="form-control rent-input" type="text" name="writeCertificationType"
@@ -915,7 +917,7 @@
                class="form-control  p-block"
                type="text" placeholder="请填写">
       </div>
-      <p class="add-employee-btn add-popup-btn m-top-10" (click)="addPhoneNumbers()"><label class="line-name"></label><i
+      <p class="add-employee-btn add-popup-btn m-top-10" *ngIf="phoneList.length < 5" (click)="addPhoneNumbers()"><label class="line-name"></label><i
         class="iconfont icon-tianjiatupian m-ritght-5"></i><span class="light-weight-grey">添加号码</span></p>
     </div>
 

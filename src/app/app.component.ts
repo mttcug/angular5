@@ -12,6 +12,7 @@ export class AppComponent {
 
 
   constructor(private modalService: NgbModal, @Inject('data') private data) {
+
   }
 
   getWindowHeight() {

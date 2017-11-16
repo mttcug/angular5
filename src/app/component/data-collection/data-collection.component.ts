@@ -190,44 +190,19 @@ export class DataCollectionComponent implements OnInit {
   transferReason = '';            //转让原因
 
   /*店铺证件*/
-  certifications = [
-    {
-      certificationType: 1,
-      name: "营业执照",
-      headImage: '',
-      backImage: '',
-      otherImages: [],
-      certificationNumber: '',
-      themeName: '',
-      address: '',
-      permissionScope: '',
-      otherContent: ''
-    },
-    {
-      certificationType: 2,
-      name: "店铺图片",
-      headImage: '',
-      backImage: '',
-      otherImages: [],
-      certificationNumber: '',
-      themeName: '',
-      address: '',
-      permissionScope: '',
-      otherContent: ''
-    },
-    {
-      certificationType: 3,
-      name: "身份证件",
-      headImage: '',
-      backImage: '',
-      otherImages: [],
-      certificationNumber: '',
-      themeName: '',
-      address: '',
-      permissionScope: '',
-      otherContent: ''
-    }
-  ];
+  certifications = [];
+  objCertification = {
+    certificationType: '',
+    name: "",
+    headImage: '',
+    backImage: '',
+    otherImages: [],
+    certificationNumber: '',
+    themeName: '',
+    address: '',
+    permissionScope: '',
+    otherContent: ''
+  }
   /*店铺证件弹出框*/
   selectedCertificationType = 4;
   writeCertificationType = '';           //证件类型
@@ -262,7 +237,7 @@ export class DataCollectionComponent implements OnInit {
   };
   phoneList = [""];
   name = '';                       //名称
-  realName = ''                   //真实名字
+  realName = '';                   //真实名字
   /*性别*/
   sexType = [
     {code: 1, name: "男"},
@@ -489,13 +464,17 @@ export class DataCollectionComponent implements OnInit {
     }
   }
 
+  timeChangedValid = false;
+
   selectAllDay() {
     if (this.allDay === false) {
       this.operateStartTime = "00:00";
       this.operateEndTime = "24:00";
+      this.timeChangedValid = true;
     } else {
       this.operateStartTime = "";
       this.operateEndTime = "";
+      this.timeChangedValid = false;
     }
   }
 
@@ -568,9 +547,7 @@ export class DataCollectionComponent implements OnInit {
   }
 
   deleteCertification(item) {
-
     this.certifications.forEach((value, index) => {
-      console.log("证件：", value, item);
       value.certificationType.toString() == item.certificationType.toString() ? this.certifications.splice(index, 1) : '';
     });
   }
@@ -650,8 +627,20 @@ export class DataCollectionComponent implements OnInit {
 
   defaultCertification;
 
-  openShopCertificationModal(content, item) {
-    this.defaultCertification = item;
+  copy(obj){
+    var newObj={};
+    for(var v in obj){
+      newObj[v]=obj[v];
+    }
+    return newObj;
+  }
+
+  openShopCertificationModal(content, item,type) {  //type1编辑2添加
+    let newItem={};
+    type=='2' ? newItem=this.copy(item) : '';
+    this.defaultCertification = type=='1' ? item : newItem;
+    console.log("item:",this.defaultCertification);
+
     this.selectedCertificationType = item.certificationType;
     this.writeCertificationType = '';           //证件类型
 
@@ -668,9 +657,12 @@ export class DataCollectionComponent implements OnInit {
     this.address = item.address;                 //地址
     this.permissionScope = item.permissionScope;         //许可范围
     this.otherContent = item.otherContent;            //其他内容
+
     this.modalService.open(content, {size: 'lg'}).result.then((result) => {
       result == '1' ? this.sureBtnFunction(content, result) : '';
-
+      type == '2' ? this.certifications.push(<any>newItem) : '';
+      console.log("item2:",this.defaultCertification);
+      console.log("证件s:",this.certifications);
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
 
@@ -922,9 +914,9 @@ export class DataCollectionComponent implements OnInit {
     }
     if (modalName == 'certificationEdit') {
       this.defaultCertification.certificationType = this.selectedCertificationType;         //证件类型
-      this.defaultCertification.name = this.certificationsTypeList.find(item => item.id == this.selectedCertificationType).name;
-      this.defaultCertification.headImage = this.headImageA[0].url;
-      this.defaultCertification.backImage = this.backImageA[0].url;
+      this.defaultCertification.name = this.certificationsTypeList.find(item => item.value.toString()== this.selectedCertificationType.toString()).value_description;
+      this.defaultCertification.headImage = this.headImageA[0] ? this.headImageA[0].url : '';
+      this.defaultCertification.backImage = this.backImageA[0] ? this.backImageA[0].url : '';
       this.defaultCertification.otherImages = [];
       this.otherImages.forEach((v, i) => {
         this.defaultCertification.otherImages.push(v);

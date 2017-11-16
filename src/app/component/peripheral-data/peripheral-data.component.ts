@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
+
 @Component({
   selector: 'app-peripheral-data',
   templateUrl: './peripheral-data.component.html',
@@ -9,7 +10,10 @@ export class PeripheralDataComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
+
+
 
 }
+
+

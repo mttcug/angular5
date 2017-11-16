@@ -72,14 +72,10 @@ export class DataService {
 
   getFitmentLevel(){
     return [
-      {code: 1, name: "精装修"},
-      {code: 2, name: "普通装修"},
-      {code: 3, name: "简单装修"},
-      {code: 4, name: "支付宝"},
-      {code: 5, name: "wifi"},
-      {code: 6, name: "微信"},
-      {code: 7, name: "停车位"},
-      {code: 8, name: "可刷卡"},
+      {code: 1, name: "毛坯"},
+      {code: 2, name: "简装"},
+      {code: 3, name: "精装"},
+      {code: 4, name: "豪华"}
     ];
   }
 

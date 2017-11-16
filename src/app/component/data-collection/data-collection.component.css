@@ -201,7 +201,7 @@ textarea{
   display: block;
 }
 .add-certifications-btn{
-  margin-top: 5px;
+  margin-top: 0px;
 }
 .certification-list{
   display: inline-block;
@@ -292,7 +292,7 @@ textarea{
   width: 450px;
   height: 320px;
   display: block;
-
+  border:1px solid black;
   position: absolute;
   top: 0px;
   right: 10%;
