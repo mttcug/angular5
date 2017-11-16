@@ -88,8 +88,8 @@ export class DataCollectionComponent implements OnInit {
 
     //物业类型和上级物业
     this.data.getEstateType().then(res => {
-      res.forEach((v,i)=>{
-        v.value_description.trim()=='商铺' ? res.splice(i,1) : '';  //去掉商铺
+      res.forEach((v, i) => {
+        v.value_description.trim() == '商铺' ? res.splice(i, 1) : '';  //去掉商铺
       });
       this.superFacilityList = res;
     });
@@ -336,23 +336,14 @@ export class DataCollectionComponent implements OnInit {
 
   /*物业配套*/
   facilities = this.data.getFacilities();             //物业配套
-  facilitiesList = [
-    {code: 1, name: "可明火", checked: false},
-    {code: 2, name: "380V电压", checked: false},
-    {code: 3, name: "电梯", checked: false},
-    {code: 4, name: "暖气", checked: false},
-    {code: 5, name: "上水", checked: false},
-    {code: 6, name: "排烟", checked: false},
-    {code: 7, name: "中央空调", checked: false},
-    {code: 8, name: "天然气", checked: false},
-    {code: 9, name: "外边去", checked: false}
-  ];
+  facilitiesList = this.data.getFacilities();
   /*费用*/
   waterFee = '';                //水费
   facilityFee = '';             ////物业
   gasFee = '';                   //燃气
   elecFee = '';                  //电费
   rent = '';                      //租金
+  rentMeasureF = 1;
   warmFee = '';                    //暖气
 
   /*建筑形状*/
@@ -398,7 +389,7 @@ export class DataCollectionComponent implements OnInit {
 
   loadDistrict(code) {  //城市 1234000000   区1234560000
     this.allDistricts.forEach((v, i) => {
-      (v.id.toString().substr(4,2)!='00' && code.toString().substr(0, 4) == v.id.toString().substr(0, 4)) ? this.districtList.push(v) : '';
+      (v.id.toString().substr(4, 2) != '00' && code.toString().substr(0, 4) == v.id.toString().substr(0, 4)) ? this.districtList.push(v) : '';
     });
   }
 
@@ -720,6 +711,11 @@ export class DataCollectionComponent implements OnInit {
 
   //行业弹出框选择行业
   selectThisIndustry(item) {
+    if (this.tempdefaultIndustryList.length > 9) {
+      alert('最多可选择10个');
+      return;
+    }
+
     var tempIndexArr = [];          //记录要删除的项的index
     var isConnected = false;         //标记是否是大小行业的关系是则删除对应的选项之外还要添加当前选择的项
     item.selected = true;
@@ -734,10 +730,8 @@ export class DataCollectionComponent implements OnInit {
         if (v.code.toString().length != item.code.toString().length && v.code.toString().substr(0, 2) == item.code.toString().substr(0, 2)) {
           tempIndexArr.push(i);
           isConnected = true;
-
         } else if (i == (this.tempdefaultIndustryList.length - 1)) {
           this.tempdefaultIndustryList.push(item);
-
           this.industrySelectedChange(this.industries, this.tempdefaultIndustryList);
           isConnected = false;
         }

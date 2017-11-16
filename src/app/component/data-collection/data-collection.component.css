@@ -180,7 +180,10 @@ textarea{
 }
 .facility-item{
   display: inline-block;
-  width: 100px;
+  margin: 0px 20px 10px 0px;
+}
+.facility-item input[type='text']{
+  width: 80px;
 }
 /*费用成本*/
 .fee-left-inline-block,.fee-right-inline-block{
