@@ -94,47 +94,76 @@ export class PeripheralDataComponent implements OnInit {
 
     this.radarOption = {
       title: {
-        text: '基础雷达图'
+        text: ''
       },
-      tooltip: {},
       legend: {
-        data: ['预算分配（Allocated Budget）', '实际开销（Actual Spending）']
+        data: []
       },
-      radar: {
-        shape: 'circle',
-        name: {
-          textStyle: {
-            color: '#fff',
-            backgroundColor: '#999',
-            borderRadius: 3,
-            padding: [3, 5]
-          }
-        },
-        indicator: [
-          { name: '销售（sales）', max: 6500},
-          { name: '管理（Administration）', max: 16000},
-          { name: '信息技术（Information Techology）', max: 30000},
-          { name: '客服（Customer Support）', max: 38000},
-          { name: '研发（Development）', max: 52000},
-          { name: '市场（Marketing）', max: 25000}
-        ]
-      },
-      series: [{
-        name: '预算 vs 开销（Budget vs spending）',
-        type: 'radar',
-        // areaStyle: {normal: {}},
-        data : [
-          {
-            value : [4300, 10000, 28000, 35000, 50000, 19000],
-            name : '预算分配（Allocated Budget）'
+      radar: [
+        {
+          indicator: [
+            { text: '目标位置' }
+          ],
+          center: ['10%', '50%'],
+          radius: 100,
+          startAngle: 120,
+          splitNumber: 4,
+          shape: 'circle',
+          name: {
+            formatter:'[{value}]',
+            textStyle: {
+              color:'#72ACD1'
+            }
           },
-          {
-            value : [5000, 14000, 28000, 31000, 42000, 21000],
-            name : '实际开销（Actual Spending）'
+          splitArea: {
+            areaStyle: {
+              color: ['rgba(114, 172, 209, 0.2)',
+                'rgba(114, 172, 209, 0.4)', 'rgba(114, 172, 209, 0.6)',
+                'rgba(114, 172, 209, 0.8)', 'rgba(114, 172, 209, 1)'],
+              shadowColor: 'rgba(0, 0, 0, 0.3)',
+              shadowBlur: 10
+            }
+          },
+          axisLine: {
+            lineStyle: {
+              color: 'rgba(255, 255, 255, 0.5)'
+            }
+          },
+          splitLine: {
+            lineStyle: {
+              color: 'rgba(255, 255, 255, 0.5)'
+            }
           }
-        ]
-      }]
-    };
+        }
+      ],
+      series: [
+        {
+          name: '雷达图',
+          type: 'radar',
+          itemStyle: {
+            emphasis: {
+              color: 'rgba(114, 172, 209, 0.6)',
+              lineStyle: {
+                width: 4
+              }
+            }
+          },
+          data: [
+            {
+              value: [100, 8, 0.40, -80, 2000],
+              name: '图一',
+              symbol: 'circle',
+              symbolSize: 10,
+              lineStyle: {
+                normal: {
+                  type: 'dashed'
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
   }
 
 

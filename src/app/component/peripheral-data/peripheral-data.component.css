@@ -8,8 +8,18 @@
   color: gray;
 }
 
-.demo-chart {
-  height: 400px;
+.info-block{
+  padding-left: 30px;
+}
+.info-block label{
+  color: grey;
+}
+
+.radar-chart {
+  height: 300px;
+}
+.chart {
+  height: 300px;
 }
 
 .page-title{
