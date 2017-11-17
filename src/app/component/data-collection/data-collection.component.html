@@ -431,7 +431,7 @@
       <label for="" class="text-right d-inline-block m-ritght-10"><span class="input-label-name">适合经营:</span></label>
       <span class="d-inline-block m-ritght-10" *ngFor="let item of fitIndustry"><span>{{item.name}}</span><i
         class="iconfont icon-delete" (click)="deleteSelectedIndustry(fitIndustry,item)"></i></span>
-      <span class="add-item text-blue" (click)="openIndustryModel(industryContent,fitIndustry)">添加</span>
+      <span *ngIf="fitIndustry.length < 10" class="add-item text-blue" (click)="openIndustryModel(industryContent,fitIndustry)">添加</span>
     </div>
 
     <!--推荐经营行业-->
@@ -439,7 +439,7 @@
       <label for="" class="text-right d-inline-block m-ritght-10"><span class="input-label-name">推荐经营行业:</span></label>
       <span class="d-inline-block m-ritght-10" *ngFor="let item of recommendableIndustry"><span>{{item.name}}</span><i
         class="iconfont icon-delete" (click)="deleteSelectedIndustry(recommendableIndustry,item)"></i></span>
-      <span class="add-item text-blue" (click)="openIndustryModel(industryContent,recommendableIndustry)">添加</span>
+      <span *ngIf="recommendableIndustry.length < 10"  class="add-item text-blue" (click)="openIndustryModel(industryContent,recommendableIndustry)">添加</span>
     </div>
 
     <!--不宜经营行业-->
@@ -447,7 +447,7 @@
       <label for="" class="text-right d-inline-block m-ritght-10"><span class="input-label-name">不宜经营行业:</span></label>
       <span class="d-inline-block m-ritght-10" *ngFor="let item of unRecommendableIndustry"><span>{{item.name}}</span><i
         class="iconfont icon-delete" (click)="deleteSelectedIndustry(unRecommendableIndustry,item)"></i></span>
-      <span class="add-item text-blue" (click)="openIndustryModel(industryContent,unRecommendableIndustry)">添加</span>
+      <span *ngIf="unRecommendableIndustry.length < 10"  class="add-item text-blue" (click)="openIndustryModel(industryContent,unRecommendableIndustry)">添加</span>
     </div>
 
 
