@@ -4,20 +4,13 @@
 .shop-info-content,.facility-content{
   padding: 10px 150px;
 }
-.block{
-  display: block;
-  /* margin-top: 20px;*/
-}
+
 label{
   width: 105px;
   display: inline-block;
   text-align: right;
 }
-.line-name{
-  display: inline-block;
-  text-align: right;
-  margin-right: 10px;
-}
+
 .divider{
   margin:0px 5px;
 }
@@ -107,86 +100,49 @@ label{
   margin-right: 3px;
 }
 .select-span{
-  /* padding: 10px 0px;*/
   margin:10px 10px;
-  display: inline-block;
 }
 
-/*营业额*/
-.profit{
-  margin-right: 10px;
-}
-
-textarea{
-  vertical-align: middle;
-}
-
-/*证件照*/
-.photos-list{
-  display: inline-block;
-}
 
 /*物业建筑信息*/
 .left-inline-block,.right-inline-block{
-  display: inline-block;
   width: 350px;
 }
 /*适合经营*/
-.span-list-item{
-/*  width: 75px;*/
-  margin-right: 10px;
-  display: inline-block;
-}
+
 .span-list-item i{
   margin-left: 5px;
 }
 
 /*物业配套*/
 .facilities-list{
-  display: inline-block;
   width: 500px;
   padding: 8px 0px;
 }
 .facility-item{
-  display: inline-block;
   margin: 0px 20px 10px 0px;
 }
 .facility-item input[type='text']{
   width: 80px;
 }
 /*费用成本*/
-.fee-left-inline-block,.fee-right-inline-block{
-  display: inline-block;
-}
 .fee-left-inline-block label,.fee-right-inline-block label{
   width: 50px;
 }
 
 /*店铺证件*/
 .shop-certifications{
-  display: inline-block;
   list-style: none;
   margin: 0px;
   padding: 0px;
   padding-top: 6px;
 }
-.shop-certifications li{
-  display: block;
-}
+
 .add-certifications-btn{
   margin-top: 0px;
 }
-.certification-list{
-  display: inline-block;
-  vertical-align: middle;
-}
 
-.upload-block-inline{
-  display: inline-block;
-  text-align: center;
-  width: 80px;
-  margin-right: 15px;
-}
+
 
 /*行业选择弹出框*/
 .popup-industry-list{
@@ -207,7 +163,7 @@ textarea{
   margin:0px 10px;
 }
 
-/*个人信息弹出框*/
+
 
 /*行业列表弹出框*/
 

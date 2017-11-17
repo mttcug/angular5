@@ -42,6 +42,10 @@
 .m-ritght-10{
   margin-right: 10px;
 }
+
+.m-ritght-15{
+  margin-right: 15px;
+}
 .m-left-10{
   margin-left: 10px;
 }
@@ -81,6 +85,9 @@
   cursor: pointer;
 }
 
+.w-80-px{
+  width: 80px;
+}
 .w-160-px{
   width:160px;
 }
