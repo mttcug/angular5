@@ -47,22 +47,16 @@
 table p{
   margin:5px 0px;
 }
-.bg-color-grey{
-  background: grey;
+.grey-block{
   padding: 5px;
   border-radius: 2px;
-  color: white;
   font-size: 12px;
 }
-.color-red{
-  color: red;
-}
+
 table span{
   margin: 0px 5px;
 }
-.color-grey{
-  color: grey;
-}
+
 table td{
   width: 16%;
   text-align: center;

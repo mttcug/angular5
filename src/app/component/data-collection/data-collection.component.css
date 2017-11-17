@@ -24,40 +24,19 @@ label{
 .required-tag{
   color: red;
 }
-.not-finished,.light-weight-grey{
-  color:#898990;
-}
+
 .model-popup,.add-item,.edit-info{
   color: #467ac1;
   text-decoration: underline;
   cursor: pointer;
 }
-.inline-input{
-  display: inline-block;
-  width:160px;
-}
-.input-style{
-  width: 160px;
-}
-.select-style{
-  display: inline-block;
-  width: 160px;
-}
 
-.nav-tabs .nav-item .nav-link{
-  color: #495057;
-}
 
-.add-popup-btn{
-  width: 220px;
-}
 .selected-span{
   color: red;
 }
 
-.inline-width-240{
-  width: 240px;
-}
+
 /*店名*/
 .brand-name{
   color: red;
@@ -85,11 +64,7 @@ label{
 }
 
 /*营业时间*/
-.tab-block{
-  display: inline-block;
-  width: 50%;
-  vertical-align: middle;
-}
+
 .week-list{
   padding: 10px 0px;
 }
@@ -106,23 +81,17 @@ label{
 
 /*提供服务*/
 .service-list{
-  display: inline-block;
   width: 300px;
   padding: 8px 0px;
 }
 .service-item{
   margin:0px 8px;
-  display: inline-block;
   width: 80px;
 }
-/*店铺租金*/
-.rent-input{
-  width: 20%;
-  display: inline-block;
-}
+
+
 /*支付方式*/
 .pay-way-list{
-  display: inline-block;
   width: 80%;
 }
 .pay-way-item{

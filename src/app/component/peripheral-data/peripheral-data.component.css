@@ -11,9 +11,7 @@
 .info-block{
   padding-left: 30px;
 }
-.info-block label{
-  color: grey;
-}
+
 .chart {
   height: 300px;
 }
@@ -36,7 +34,7 @@
   width:30%;
 }
 .info-line-half{
-  width: 50%;
+/*  width: 50%;*/
 }
 .echart-industry-info-block{
   width: 25%;
