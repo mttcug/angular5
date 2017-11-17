@@ -1,5 +1,5 @@
 .page-container{
-  padding: 20px;
+  padding: 60px 80px;
 }
 .icon{
   font-size: 20px;
@@ -21,7 +21,38 @@
 .chart {
   height: 300px;
 }
-
+.chart-container{
+  display: block;
+  overflow: hidden;
+}
+.echart-info-block{
+  padding: 70px;
+  overflow: hidden;
+}
+.echart-harf-block{
+  display: block;
+  float: left;
+  width: 50%;
+}
+.echart-three-block{
+  width: 30%;
+  display: block;
+  float: left;
+}
+.info-line-half{
+  width: 50%;
+  float: left;
+}
+.echart-industry-info-block{
+  width: 25%;
+  display: block;
+  float: left;
+}
+.echart-seven-block{
+  width: 70%;
+  display: block;
+  float: left;
+}
 .page-title{
   font-size: 36px;
   font-weight: 600;

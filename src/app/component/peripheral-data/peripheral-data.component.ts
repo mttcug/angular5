@@ -9,12 +9,14 @@ import { Component, OnInit } from '@angular/core';
 export class PeripheralDataComponent implements OnInit {
 
   constructor() { }
-  public chartOption: any;
+ /* public chartOption: any;*/
   public radarOption: any;
+  public populationOption:any;
+  public barChartOption:any;
 
 
   ngOnInit() {
-    this.chartOption = {
+   /* this.chartOption = {
       title: {
         text: '堆叠区域图'
       },
@@ -90,7 +92,7 @@ export class PeripheralDataComponent implements OnInit {
           data:[820, 932, 901, 934, 1290, 1330, 1320]
         }
       ]
-    }
+    }*/
 
     this.radarOption = {
       title: {
@@ -104,7 +106,7 @@ export class PeripheralDataComponent implements OnInit {
           indicator: [
             { text: '目标位置' }
           ],
-          center: ['10%', '50%'],
+          center: ['50%', '50%'],
           radius: 100,
           startAngle: 120,
           splitNumber: 4,
@@ -161,6 +163,82 @@ export class PeripheralDataComponent implements OnInit {
               }
             }
           ]
+        }
+      ]
+    }
+
+    this.populationOption={
+      title : {
+        text: '',
+        subtext: '',
+        x:'center'
+      },
+      tooltip : {
+        trigger: 'item',
+        formatter: "{a} <br/>{b} : {c} ({d}%)"
+      },
+      legend: {
+        orient: 'vertical',
+        left: 'left',
+        data: []
+      },
+      series : [
+        {
+          name: '',
+          type: 'pie',
+          radius : '60%',
+          center: ['50%', '50%'],
+          data:[
+            {value:335, name:'居住'},
+            {value:310, name:'工作'},
+            {value:234, name:'上学'},
+            {value:135, name:'流动'}
+          ],
+          itemStyle: {
+            emphasis: {
+              shadowBlur: 10,
+              shadowOffsetX: 0,
+              shadowColor: 'rgba(0, 0, 0, 0.5)'
+            }
+          }
+        }
+      ]
+    }
+
+    this.barChartOption={
+      color: ['#3398DB'],
+      tooltip : {
+        trigger: 'axis',
+        axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+          type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+        }
+      },
+      grid: {
+        left: '3%',
+        right: '4%',
+        bottom: '3%',
+        containLabel: true
+      },
+      xAxis : [
+        {
+          type : 'category',
+          data : ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+          axisTick: {
+            alignWithLabel: true
+          }
+        }
+      ],
+      yAxis : [
+        {
+          type : 'value'
+        }
+      ],
+      series : [
+        {
+          name:'直接访问',
+          type:'bar',
+          barWidth: '60%',
+          data:[10, 52, 200, 334, 390, 330, 220]
         }
       ]
     }
