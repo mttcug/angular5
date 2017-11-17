@@ -2,10 +2,10 @@
   padding: 60px 80px;
 }
 .icon{
-  font-size: 20px;
   margin-right: 10px;
   vertical-align: top;
-  color: gray;
+  color: black;
+  font-size: 26px;
 }
 
 .info-block{
@@ -14,13 +14,13 @@
 .info-block label{
   color: grey;
 }
-
-.radar-chart {
-  height: 300px;
-}
 .chart {
   height: 300px;
 }
+.radar-chart ,.people-chart,.peripheral-chart,.industry-chart{
+  height: 300px;
+}
+
 .chart-container{
   display: block;
   overflow: hidden;
@@ -30,23 +30,16 @@
   overflow: hidden;
 }
 .echart-harf-block{
-  display: block;
-  float: left;
   width: 50%;
 }
 .echart-three-block{
-  width: 30%;
-  display: block;
-  float: left;
+  width:30%;
 }
 .info-line-half{
   width: 50%;
-  float: left;
 }
 .echart-industry-info-block{
   width: 25%;
-  display: block;
-  float: left;
 }
 .echart-seven-block{
   width: 70%;
@@ -56,4 +49,13 @@
 .page-title{
   font-size: 36px;
   font-weight: 600;
+}
+.header-block .title-info{
+  margin:0px 10px;
+  display: inline-block;
+}
+.title-line{
+  font-weight: 600;
+  font-size: 16px;
+  vertical-align: middle;
 }

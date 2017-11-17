@@ -1,12 +1,13 @@
 <div class="page-container">
   <div class="header-block">
     <p class="inline-p page-title">周边分析</p>
-    <p class="inline-p"><span>火锅店</span><span>经度：113.789</span><span>维度：456.789</span></p>
-    <p class="inline-p"><i class="iconfont icon-shuaxin"></i>刷新</p>
+    <p class="inline-p m-left-10"><span class="title-info">火锅店</span><span class="title-info">经度：113.789</span><span
+      class="title-info">维度：456.789</span></p>
+    <p class="inline-p m-left-10"><i class="iconfont icon-shuaxin"></i>刷新</p>
   </div>
   <div>
-    <div class="block">
-      <p><i class="icon iconfont icon-gongjiaoche"></i>交通区位</p>
+    <div class="block m-top-20">
+      <p class="title-line"><i class="icon iconfont icon-gongjiaoche"></i>交通区位</p>
       <div class="info-block">
         <label for="">500米内的地铁站</label>
         <ol>
@@ -21,48 +22,45 @@
         </ol>
       </div>
     </div>
-    <div class="block">
-      <p><i class="icon iconfont icon-renwu"></i>聚客来源</p>
-
-        <div  class="chart-container">
-          <div echarts [options]="radarOption" class="radar-chart echart-three-block"></div>
-          <div class="echart-six-block echart-info-block">
-            <p class="info-line-half"><label for="">住宅小区：</label><span>2108</span><span> > </span></p>
-            <p class="info-line-half"><label for="">学校：</label><span>3132</span><span> > </span></p>
-            <p class="info-line-half"><label for="">写字楼：</label><span>786</span><span> > </span></p>
-            <p class="info-line-half"><label for="">医院：</label><span>987</span><span> > </span></p>
-            <p class="info-line-half"><label for="">商场：</label><span>786</span><span> > </span></p>
-            <p class="info-line-half"><label for="">交通枢纽：</label><span>987</span><span> > </span></p>
-          </div>
+    <div class="block m-top-20">
+      <p class="title-line"><i class="icon iconfont icon-renwu"></i>聚客来源</p>
+      <div class="chart-container">
+        <div echarts [options]="radarOption" class="people-chart echart-three-block float-left"></div>
+        <div class="echart-six-block echart-info-block float-left">
+          <p class="info-line-half float-left"><label for="">住宅小区：</label><span>2108</span><span> > </span></p>
+          <p class="info-line-half float-left"><label for="">学校：</label><span>3132</span><span> > </span></p>
+          <p class="info-line-half float-left"><label for="">写字楼：</label><span>786</span><span> > </span></p>
+          <p class="info-line-half float-left"><label for="">医院：</label><span>987</span><span> > </span></p>
+          <p class="info-line-half float-left"><label for="">商场：</label><span>786</span><span> > </span></p>
+          <p class="info-line-half float-left"><label for="">交通枢纽：</label><span>987</span><span> > </span></p>
         </div>
-
-
+      </div>
     </div>
-    <div class="block">
-      <p><i class="icon iconfont icon-tubiao"></i>周边人口</p>
+    <div class="block m-top-20">
+      <p class="title-line"><i class="icon iconfont icon-tubiao"></i>周边人口</p>
 
-        <div  class="chart-container">
-          <div echarts [options]="populationOption" class="radar-chart echart-harf-block"></div>
-          <div class="echart-harf-block echart-info-block">
-            <p><label for="">工作：</label><span>2108</span></p>
-            <p><label for="">居住：</label><span>3132</span></p>
-            <p><label for="">上学：</label><span>786</span></p>
-            <p><label for="">流动：</label><span>987</span></p>
-          </div>
-        </div>
-
-    </div>
-    <div class="block">
-      <p><i class="icon iconfont icon-home-active"></i>周边业态</p>
-      <div  class="chart-container">
-        <div echarts [options]="barChartOption"  class="radar-chart echart-harf-block"></div>
-        <div class="echart-industry-info-block echart-info-block">
+      <div class="chart-container">
+        <div echarts [options]="populationOption" class="peripheral-chart echart-harf-block float-left"></div>
+        <div class="echart-harf-block echart-info-block float-left">
           <p><label for="">工作：</label><span>2108</span></p>
           <p><label for="">居住：</label><span>3132</span></p>
           <p><label for="">上学：</label><span>786</span></p>
           <p><label for="">流动：</label><span>987</span></p>
         </div>
-        <div class="echart-industry-info-block echart-info-block">
+      </div>
+
+    </div>
+    <div class="block m-top-20">
+      <p class="title-line"><i class="icon iconfont icon-home-active"></i>周边业态</p>
+      <div class="chart-container">
+        <div echarts [options]="barChartOption" class="industry-chart echart-harf-block float-left"></div>
+        <div class="echart-industry-info-block echart-info-block float-left">
+          <p><label for="">工作：</label><span>2108</span></p>
+          <p><label for="">居住：</label><span>3132</span></p>
+          <p><label for="">上学：</label><span>786</span></p>
+          <p><label for="">流动：</label><span>987</span></p>
+        </div>
+        <div class="echart-industry-info-block echart-info-block float-left">
           <p><label for="">工作：</label><span>2108</span></p>
           <p><label for="">居住：</label><span>3132</span></p>
           <p><label for="">上学：</label><span>786</span></p>
@@ -72,6 +70,8 @@
     </div>
   </div>
 
+  <div class="popUp">
 
+  </div>
 </div>
 

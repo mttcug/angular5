@@ -22,6 +22,11 @@ export const routes: Routes = [
     pathMatch: 'full'
   },
   {
+    path: 'shopHall/dataCollection',      //重首页跳转到发布页面的时候
+    redirectTo: '/dataCollection',
+    pathMatch: 'full'
+  },
+  {
     path: 'dataCollection',
     component: DataCollectionComponent
   },

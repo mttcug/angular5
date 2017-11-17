@@ -4,10 +4,20 @@ p{
   border-bottom: 1px solid black;
   margin: 0px;
   padding: 0px 80px;
+  background: lightcoral;
 }
 .company-logo{
-  font-size: 24px;
+  font-size: 30px;
+  color: white;
 }
 .plat-intro{
-  margin-left: 15px;
+  margin-left: 20px;
+  font-size: 20px;
+}
+.modal_activate_btn{
+  text-decoration: underline;
+  color: #467ac1;
+}
+.city{
+  margin-left: 20px;
 }

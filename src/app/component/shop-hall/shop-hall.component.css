@@ -1,3 +1,6 @@
+.hall-block{
+  padding: 30px 50px;
+}
 .search-block{
   overflow: hidden;
   margin: 20px;
@@ -16,7 +19,7 @@
 }
 .search-line-block{
   padding-bottom: 10px;
-  width: 50%;
+  width: 40%;
   display: block;
   float: left;
   height: 60px;

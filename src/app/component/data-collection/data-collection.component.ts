@@ -587,6 +587,9 @@ export class DataCollectionComponent implements OnInit {
     this.shopImages.forEach((v, i) => {
       this.tempshopImages.push(v);
     });
+    this.environment.forEach((v, i) => {
+      this.tempenvironment.push(v);
+    });
 
     this.modalService.open(content, {size: 'lg'}).result.then((result) => {
       result == '1' ? this.sureBtnFunction(content, result) : '';
@@ -722,7 +725,6 @@ export class DataCollectionComponent implements OnInit {
         //不同的情况分为两种，1,完全不同和部分不同
         if (v.code.toString().length != item.code.toString().length && v.code.toString().substr(0, 2) == item.code.toString().substr(0, 2)) {
           tempIndexArr.push(i);
-          console.log("重复了：",tempIndexArr);
           isConnected = true;
         } else if (i == (this.tempdefaultIndustryList.length - 1)) {
           this.tempdefaultIndustryList.push(item);
@@ -730,16 +732,14 @@ export class DataCollectionComponent implements OnInit {
           isConnected = false;
         }
       } else {
-        console.log("反悔了");
         break;
       }
     }
 
     isConnected == true ? this.tempdefaultIndustryList.push(item) : '';
 
-    console.log("123:重复",);
     for (let i = 0; i < tempIndexArr.length; i++) {
-      console.log("重复了111：",i);//不可用forEach
+      //不可用forEach
       var v = tempIndexArr[i];
       this.tempdefaultIndustryList.splice(v, 1);
       this.industrySelectedChange(this.industries, this.tempdefaultIndustryList);
