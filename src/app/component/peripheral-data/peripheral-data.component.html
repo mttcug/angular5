@@ -1,1 +1,45 @@
-<div echarts [options]="echartsOption" class="echartsStyle"></div>
+<div class="page-container">
+  <div class="header-block">
+    <p class="inline-p page-title">周边分析</p>
+    <p class="inline-p"><span>火锅店</span><span>经度：113.789</span><span>维度：456.789</span></p>
+    <p class="inline-p"><i class="iconfont icon-shuaxin"></i>刷新</p>
+  </div>
+  <div>
+    <div class="block">
+      <p><i class="icon iconfont icon-gongjiaoche"></i>交通区位</p>
+      <div>
+        <label for="">500米内的地铁站</label>
+        <ol>
+          <li>等量（地铁二号线）</li>
+          <li>南山（地铁5号线）</li>
+        </ol>
+      </div>
+      <div>
+        <label for="">300米内的地铁站</label>
+        <ol>
+          <li>等量（地铁二号线）</li>
+        </ol>
+      </div>
+    </div>
+    <div class="block">
+      <p><i class="icon iconfont icon-renwu"></i>j聚客来源</p>
+      <div>
+        <p>
+
+        </p>
+      </div>
+
+    </div>
+    <div class="block">
+      <p><i class="icon iconfont icon-tubiao"></i>周边人口</p>
+
+    </div>
+    <div class="block">
+      <p><i class="icon iconfont icon-home-active"></i>周边业态</p>
+
+    </div>
+  </div>
+
+  <div echarts [options]="chartOption" class="demo-chart"></div>
+</div>
+

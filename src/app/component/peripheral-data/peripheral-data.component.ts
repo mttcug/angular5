@@ -9,82 +9,132 @@ import { Component, OnInit } from '@angular/core';
 export class PeripheralDataComponent implements OnInit {
 
   constructor() { }
-  public echartOption: any;
+  public chartOption: any;
+  public radarOption: any;
 
 
   ngOnInit() {
-    this.echartOption = {
-      backgroundColor: '#2c343c',
-
+    this.chartOption = {
       title: {
-        text: 'Customized Pie',
-        left: 'center',
-        top: 20,
-        textStyle: {
-          color: '#ccc'
+        text: '堆叠区域图'
+      },
+      tooltip : {
+        trigger: 'axis'
+      },
+      legend: {
+        data:['邮件营销','联盟广告','视频广告','直接访问','搜索引擎']
+      },
+      toolbox: {
+        feature: {
+          saveAsImage: {}
         }
       },
-
-      tooltip: {
-        trigger: 'item',
-        formatter: "{a} <br/>{b} : {c} ({d}%)"
+      grid: {
+        left: '3%',
+        right: '4%',
+        bottom: '3%',
+        containLabel: true
       },
-
-      visualMap: {
-        show: false,
-        min: 80,
-        max: 600,
-        inRange: {
-          colorLightness: [0, 1]
-        }
-      },
-      series: [
+      xAxis : [
         {
-          name: '访问来源',
-          type: 'pie',
-          radius: '55%',
-          center: ['50%', '50%'],
-          data: [
-            { value: 335, name: '直接访问' },
-            { value: 310, name: '邮件营销' },
-            { value: 274, name: '联盟广告' },
-            { value: 235, name: '视频广告' },
-            { value: 400, name: '搜索引擎' }
-          ].sort(function(a, b) { return a.value - b.value; }),
-          roseType: 'radius',
+          type : 'category',
+          boundaryGap : false,
+          data : ['周一','周二','周三','周四','周五','周六','周日']
+        }
+      ],
+      yAxis : [
+        {
+          type : 'value'
+        }
+      ],
+      series : [
+        {
+          name:'邮件营销',
+          type:'line',
+          stack: '总量',
+          areaStyle: {normal: {}},
+          data:[120, 132, 101, 134, 90, 230, 210]
+        },
+        {
+          name:'联盟广告',
+          type:'line',
+          stack: '总量',
+          areaStyle: {normal: {}},
+          data:[220, 182, 191, 234, 290, 330, 310]
+        },
+        {
+          name:'视频广告',
+          type:'line',
+          stack: '总量',
+          areaStyle: {normal: {}},
+          data:[150, 232, 201, 154, 190, 330, 410]
+        },
+        {
+          name:'直接访问',
+          type:'line',
+          stack: '总量',
+          areaStyle: {normal: {}},
+          data:[320, 332, 301, 334, 390, 330, 320]
+        },
+        {
+          name:'搜索引擎',
+          type:'line',
+          stack: '总量',
           label: {
             normal: {
-              textStyle: {
-                color: 'rgba(255, 255, 255, 0.3)'
-              }
+              show: true,
+              position: 'top'
             }
           },
-          labelLine: {
-            normal: {
-              lineStyle: {
-                color: 'rgba(255, 255, 255, 0.3)'
-              },
-              smooth: 0.2,
-              length: 10,
-              length2: 20
-            }
-          },
-          itemStyle: {
-            normal: {
-              color: '#c23531',
-              shadowBlur: 200,
-              shadowColor: 'rgba(0, 0, 0, 0.5)'
-            }
-          },
-
-          animationType: 'scale',
-          animationEasing: 'elasticOut',
-          animationDelay: function(idx) {
-            return Math.random() * 200;
-          }
+          areaStyle: {normal: {}},
+          data:[820, 932, 901, 934, 1290, 1330, 1320]
         }
       ]
     }
+
+    this.radarOption = {
+      title: {
+        text: '基础雷达图'
+      },
+      tooltip: {},
+      legend: {
+        data: ['预算分配（Allocated Budget）', '实际开销（Actual Spending）']
+      },
+      radar: {
+        shape: 'circle',
+        name: {
+          textStyle: {
+            color: '#fff',
+            backgroundColor: '#999',
+            borderRadius: 3,
+            padding: [3, 5]
+          }
+        },
+        indicator: [
+          { name: '销售（sales）', max: 6500},
+          { name: '管理（Administration）', max: 16000},
+          { name: '信息技术（Information Techology）', max: 30000},
+          { name: '客服（Customer Support）', max: 38000},
+          { name: '研发（Development）', max: 52000},
+          { name: '市场（Marketing）', max: 25000}
+        ]
+      },
+      series: [{
+        name: '预算 vs 开销（Budget vs spending）',
+        type: 'radar',
+        // areaStyle: {normal: {}},
+        data : [
+          {
+            value : [4300, 10000, 28000, 35000, 50000, 19000],
+            name : '预算分配（Allocated Budget）'
+          },
+          {
+            value : [5000, 14000, 28000, 31000, 42000, 21000],
+            name : '实际开销（Actual Spending）'
+          }
+        ]
+      }]
+    };
   }
 
 

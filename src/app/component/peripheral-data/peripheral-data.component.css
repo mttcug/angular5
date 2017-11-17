@@ -1,3 +1,18 @@
-.echartsStyle{
-  height: 200px;
+.page-container{
+  padding: 20px;
+}
+.icon{
+  font-size: 20px;
+  margin-right: 10px;
+  vertical-align: top;
+  color: gray;
+}
+
+.demo-chart {
+  height: 400px;
+}
+
+.page-title{
+  font-size: 36px;
+  font-weight: 600;
 }

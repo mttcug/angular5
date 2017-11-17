@@ -11,8 +11,6 @@ export class SideNavComponent implements OnInit {
 
   constructor() {
     this.curPage = window.location.href.split("/")[3] ? window.location.href.split("/")[3] : '';
-
-    setInterval(this.colorChange(),1000);
   }
 
   ngOnInit() {
