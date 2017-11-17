@@ -100,17 +100,7 @@ export class DataCollectionComponent implements OnInit {
   brandName = '';
   subShopName = '';
   operateType = '';
-  operateMode = [{
-    code: 1,
-    name: "银行"
-  },
-    {
-      code: 2,
-      name: "啥地方是否"
-    }, {
-      code: 3,
-      name: "123"
-    }];
+  operateMode = this.data.getOperateType();
   // 经营行业
   bigIndustry = '';
   smallIndustry = '';

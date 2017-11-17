@@ -7,6 +7,16 @@ export class DataService {
   constructor(@Inject('http') private http) {
   }
 
+  getOperateType() {
+    return [
+      {code: 1, name: "连锁"},
+      {code: 2, name: "直营"},
+      {code: 3, name: "代理"},
+      {code: 4, name: "经销"},
+      {code: 5, name: "特许"},
+      {code: 6, name: "其他"}
+    ];
+  }
 
   getWeekData() {
     return [
