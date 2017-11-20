@@ -1,6 +1,6 @@
 <div>
   <ul>
-    <li (click)="colorChange()" [ngClass]="{'greyBg': curPage=='dataIndex'}"><a [routerLink]="['']">首页</a></li>
+    <li (click)="colorChange()" [ngClass]="{'greyBg': curPage=='dataIndex' || curPage==''}"><a [routerLink]="['']">首页</a></li>
     <li (click)="colorChange()" [ngClass]="{'greyBg': curPage=='shopHall'}"><a [routerLink]="['shopHall']">店铺大厅</a></li>
     <li (click)="colorChange()" [ngClass]="{'greyBg': curPage=='workManage'}"><a [routerLink]="['workManage']">工作管理</a></li>
     <li (click)="colorChange()" [ngClass]="{'greyBg': curPage=='dataCollection'}"><a [routerLink]="['dataCollection']">我的发布</a></li>
