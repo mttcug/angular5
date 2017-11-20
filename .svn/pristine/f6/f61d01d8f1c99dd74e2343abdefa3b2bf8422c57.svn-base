@@ -159,13 +159,13 @@
     <!--店铺租金-->
     <div class="d-block m-top-20">
       <label class="text-right d-inline-block m-ritght-10"><span class="input-label-name">店铺租金:</span></label>
-      <input class="form-control d-inline-block w-160-px" name="shopRent"     type="text" placeholder="6位整数+2位小数"
-             [(ngModel)]="shopRent">
+      <input class="form-control d-inline-block w-160-px" name="shopRent" type="text" placeholder="6位整数+2位小数"
+             [(ngModel)]="shopRent"
+             pattern="\d{1,4}">
       <select class="form-control  d-inline-block w-160-px" name="shopRentMeasure" id="rentMeasure"
               [(ngModel)]="rentMeasure">
         <option value="{{item.value}}" *ngFor="let item of rentMeasureList">{{item.value_description}}</option>
       </select>
-
     </div>
 
     <!--支付方式-->

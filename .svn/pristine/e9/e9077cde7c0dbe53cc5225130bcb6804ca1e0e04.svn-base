@@ -1,5 +1,13 @@
 import {Component, OnInit, Input, Output, EventEmitter, OnDestroy, ElementRef} from '@angular/core';
 
+import {
+  ControlAnchor,
+  MapOptions,
+  NavigationControlOptions,
+  NavigationControlType,
+  Point,
+  MarkerOptions
+} from 'angular2-baidu-map';
 
 import {loader} from './loader';
 import {BAIDU_MAP_STYLE} from './map';
@@ -44,18 +52,12 @@ export class BaiduMapComponent implements OnInit {
     const container = this.elementRef.nativeElement.querySelector('.baidu-map-container');
     const map = new BMap.Map(container);
 
-
-    //添加比列尺
-    map.addControl(new BMap.ScaleControl({offset: new BMap.Size(100, 20)}));
-   /* map.addControl(new BMap.NavigationControl());*/
-
-
     //地址解析
     var myGeo = new BMap.Geocoder();
     myGeo.getPoint(this.address, function (point) {
       console.log("addressMap:",that.address);
       if (point) {
-        map.centerAndZoom(point, 15);
+        map.centerAndZoom(point, 16);
         map.addOverlay(new BMap.Marker(point));
       } else {
         alert("您选择地址没有解析到结果!");
@@ -80,8 +82,30 @@ export class BaiduMapComponent implements OnInit {
         that.data.address = addComp;
         that.getLocation.emit(that.data);
       });
+
+
+
     });
+
+
+ /*   this.mapObj = map;*/
+
   }
+
+
+
+/*  ngOnDestroy() {
+    if (this.mapObj) {
+      console.log('destroyed', this.mapObj);
+      this.mapObj.clearOverlays();
+    }
+  }*/
+
+
+
+
+
+
 }
 
 

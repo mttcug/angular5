@@ -2,6 +2,3 @@
   width: 450px;
   height: 320px;
 }
-.baidu-map-container .anchorBL{
-  display: none;
-}

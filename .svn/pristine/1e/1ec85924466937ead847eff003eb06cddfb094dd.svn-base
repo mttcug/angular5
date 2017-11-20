@@ -1,0 +1,27 @@
+<p>
+<span class="company-logo">铺铺旺</span>
+  <span class="plat-intro">大数据平台</span>
+  <span class="city">深圳</span>
+  <span (click)="openCityListModal(cityListModal)" class="modal_activate_btn text text-blue">切换</span>
+</p>
+
+<ng-template #cityListModal let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">城市切换</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p>
+      <a href="">深圳</a>
+    </p>
+    <p>
+      <a href="">咸阳</a>
+    </p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="c('0')">取消</button>
+    <button type="button" class="btn btn-outline-dark" (click)="c('1')">确定</button>
+  </div>
+</ng-template>

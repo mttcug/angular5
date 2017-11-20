@@ -1,4 +1,4 @@
-export const loader = function(ak: string,  callback: Function) {
+export const loader = function (ak: string, callback: Function) {
   const MAP_URL = `https://api.map.baidu.com/api?v=2.0&ak=${ak}&callback=baidumapinit&s=1`;
 
   const baiduMap: MapObjct = window['baiduMap'];
@@ -10,19 +10,18 @@ export const loader = function(ak: string,  callback: Function) {
     return callback();
   }
 
-  window['baiduMap'] = { status: MapStatus.LOADING, callbacks: [] };
-  window['baidumapinit'] = function() {
+  window['baiduMap'] = {status: MapStatus.LOADING, callbacks: []};
+  window['baidumapinit'] = function () {
     window['baiduMap'].status = MapStatus.LOADED;
     callback();
     window['baiduMap'].callbacks.forEach((cb: Function) => cb());
     window['baiduMap'].callbacks = [];
   };
 
-  const createTag = function() {
+  const createTag = function () {
     const script = document.createElement('script');
     script.type = 'text/javascript';
     script.src = MAP_URL;
- /*  script.src='https://api.map.baidu.com/getscript?v=2.0&ak=sIq3pmhG5n4xVuKQ8eKr1BiV0hsLP2ek';*/
     document.body.appendChild(script);
   };
   createTag();
