@@ -133,7 +133,7 @@ export class DataCollectionComponent implements OnInit {
   serviceList = this.data.getServiceList();
   shopRent = '';  // 店铺租金
   rentMeasure = 1;
-  rentMeasureList ;
+  rentMeasureList;
   payWayList = this.data.getPayWayList();  // 支付方式&&编辑更多支付方式
   payWay = '';
   definedPayWay = '';
@@ -274,14 +274,26 @@ export class DataCollectionComponent implements OnInit {
   }];
 
   /*所在位置*/
-  city = '';           //城市
-  district = '';       //区域
+
   cityList = [];
   districtList = [];
-  addressDetail = '';
 
+
+  city = '';           //城市
+  district = '';       //区域
+  addressDetail = '';
+  tempcity='';
+  tempdistrict='';
+  tempaddressDetail='';
+
+  mapAddress = '';  //将城市区域拼接起来的地址将传递给地图进行地址解析
+
+  shopAddress='';
   longitude = '';                       //经度
   latitude = '';                       //纬度
+  tempshopAddress='';
+  templongitude = '';                       //经度
+  templatitude = '';                       //纬度
 
   /*位置描述*/
   positionDescription = '';       //位置描述
@@ -374,6 +386,15 @@ export class DataCollectionComponent implements OnInit {
     this.allDistricts.forEach((v, i) => {
       (v.id.toString().substr(4, 2) != '00' && code.toString().substr(0, 4) == v.id.toString().substr(0, 4)) ? this.districtList.push(v) : '';
     });
+    this.shopAddress=this.getWholeAddress();
+  }
+
+  DistrictChange(){
+    this.shopAddress=this.getWholeAddress();
+  }
+
+  addressChange(){
+    this.shopAddress=this.getWholeAddress();
   }
 
   getStartTime(date) {
@@ -388,7 +409,6 @@ export class DataCollectionComponent implements OnInit {
 
   addImages(oldImages, newInamges) {
     oldImages = newInamges;
-    console.log("啊啊啊啊啊");
   }
 
   addPartner() {
@@ -769,18 +789,50 @@ export class DataCollectionComponent implements OnInit {
     }
   }
 
-  mapBlock = true;
+  getWholeAddress(){
+    let tempCity = this.allDistricts.find(item => item.id.toString() == this.city.toString());
+    let tempDistrict = this.allDistricts.find(item => item.id.toString() == this.district.toString());
+    let city = tempCity ? tempCity.name : '';
+    let district = tempDistrict ? tempDistrict.name : '';
+    let addressDetail = this.addressDetail;
+    return city + district + addressDetail != '' ? city + district + addressDetail : '深圳';
+  }
+
+  mapBlock = false;
 
   mapShow() {
-    this.mapBlock = false;
+    this.mapBlock = true; //显示地图
+    //获取地址传给map
+    this.mapAddress = this.getWholeAddress();
   }
 
   closeMap() {
-    this.mapBlock = true;
+    this.mapBlock = false;
   }
 
-  addressSelect(data) {
-    console.log("point:", data);
+
+  geoLocation(e) {
+    this.templatitude = e.point.lat;
+    this.templongitude = e.point.lng;
+
+    this.tempcity=this.allDistricts.find(item=>item.name==e.address.city) ? this.allDistricts.find(item=>item.name==e.address.city).id : '';
+    this.tempdistrict=this.allDistricts.find(item=>item.name.trim()==e.address.district.trim()) ? this.allDistricts.find(item=>item.name==e.address.district).id : '';
+    this.tempaddressDetail=e.address.street;
+
+    this.tempshopAddress=e.address.city+e.address.district+e.address.street;
+  }
+
+  sureLocation() {
+    this.latitude = this.templatitude;
+    this.longitude = this.templongitude;
+    this.shopAddress=this.tempshopAddress;
+
+    this.city=this.tempcity;
+    this.loadDistrict(this.city);
+    this.district=this.tempdistrict;
+    this.addressDetail=this.tempaddressDetail;
+
+    this.mapBlock = false;
   }
 
 

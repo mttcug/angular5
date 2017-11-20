@@ -11,7 +11,7 @@ export const BAIDU_MAP_STYLE = [
     featureType: 'water',
     elementType: 'all',
     stylers: {
-      color: '#0000ff',
+  /*    color: '#0000ff',*/
       weight: '1',
       lightness: 24
     }
@@ -20,14 +20,14 @@ export const BAIDU_MAP_STYLE = [
     featureType: 'label',
     elementType: 'labels',
     stylers: {
-      visibility: 'off'
+      visibility: 'on'
     }
   },
   {
     featureType: 'poi',
     elementType: 'labels',
     stylers: {
-      visibility: 'off'
+      visibility: 'on'
     }
   },
   {
@@ -46,7 +46,7 @@ export const BAIDU_MAP_STYLE = [
     featureType: 'water',
     elementType: 'all',
     stylers: {
-      color: '#cccccc',
+    /*  color: '#cccccc',*/
       lightness: 18,
       saturation: -24,
       visibility: 'on'
@@ -56,14 +56,14 @@ export const BAIDU_MAP_STYLE = [
     featureType: 'railway',
     elementType: 'all',
     stylers: {
-      visibility: 'off'
+      visibility: 'on'
     }
   },
   {
     featureType: 'road',
     elementType: 'labels',
     stylers: {
-      visibility: 'off'
+      visibility: 'on'
     }
   }
 ];
