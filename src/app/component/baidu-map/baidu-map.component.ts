@@ -39,7 +39,6 @@ export class BaiduMapComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    console.log("change:",changes);
     loader(this.apiKey, this.initMap.bind(this));
   }
 
@@ -50,7 +49,6 @@ export class BaiduMapComponent implements OnInit, OnChanges {
 
 
   initMap() {
-    console.log("3");
     var that = this;
     const container = this.elementRef.nativeElement.querySelector('.baidu-map-container');
      const map = new BMap.Map(container);
@@ -60,7 +58,6 @@ export class BaiduMapComponent implements OnInit, OnChanges {
 
     //地址解析
     var myGeo = new BMap.Geocoder();
-    console.log("1");
     myGeo.getPoint(this.address, function (point) {
       if (point) {
         map.centerAndZoom(point, that.zoom);

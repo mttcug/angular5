@@ -22,13 +22,21 @@ export class HttpRequestService {
     jsonrpc:"2.0"
   }
 
+
+
   request(method,params){
+    //将登陆验证放在请求头部authorization
+    let authHeader = new Headers();
+    authHeader.append('Authorization', 'XWWEB_SESSION_ID');
+
+    let options = new RequestOptions({ headers: authHeader });
+
     return this.http.post(this.josnrpConfig.rpcUrl,{
       id:this.josnrpConfig.id,
       jsonrpc:this.josnrpConfig.jsonrpc,
       method:method,
       params:params
-    }).toPromise();
+    },options).toPromise();
   }
 
 

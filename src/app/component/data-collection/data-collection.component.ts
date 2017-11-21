@@ -835,6 +835,17 @@ export class DataCollectionComponent implements OnInit {
     this.mapBlock = false;
   }
 
+  patternNorm(val,patStr){
+    var reg=new RegExp(patStr);
+    console.log("value:",val,reg,"正则表达式：",reg.test(val));
+    if(!reg.test(val)){
+      var point_i=Array.from(val.toString()).findIndex(ele=>ele=='.');
+      val = point_i ? val.toString().substr(0,6) : val.toString().substr(0,6) + '.' + val.toString().substr(point_i,2);
+      console.log('point_i:',point_i,"val:",val,"buildingArea:",this.buildingArea);
+      return val;
+    }
+  }
+
 
   ///////////////////////////////////////////////////////////////////////////////////////////////
   //开始处理弹出框的值

@@ -19,6 +19,7 @@ import { DataIndexComponent } from './component/data-index/data-index.component'
 import { ShopHallComponent } from './component/shop-hall/shop-hall.component';
 import { WorkManageComponent } from './component/work-manage/work-manage.component';
 import { PeripheralDataComponent } from './component/peripheral-data/peripheral-data.component';
+import { RejectedPageComponent } from './component/rejected-page/rejected-page.component';
 
 import { HttpRequestService } from './service/http/http-request.service';
 import { DataService } from './service/data/data.service';
@@ -27,6 +28,7 @@ import { DataOperateRequestService } from './service/request/data-operate-reques
 
 import { routing } from './app.routes';
 import { AngularEchartsModule } from 'ngx-echarts';
+
 
 
 @NgModule({
@@ -42,7 +44,8 @@ import { AngularEchartsModule } from 'ngx-echarts';
     DataIndexComponent,
     ShopHallComponent,
     WorkManageComponent,
-    PeripheralDataComponent
+    PeripheralDataComponent,
+    RejectedPageComponent
   ],
   imports: [
     BrowserModule,

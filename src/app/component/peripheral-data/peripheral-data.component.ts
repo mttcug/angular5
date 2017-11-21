@@ -244,8 +244,6 @@ export class PeripheralDataComponent implements OnInit {
     }
   }
 
-
-
 }
 
 

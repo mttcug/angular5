@@ -304,9 +304,11 @@
     <div class="map-modal-block">
       <div class="choice-block d-block">
         <span>筛选范围:</span>
-      <ul class="d-inline-block">
-        <li *ngFor="let item of zoomList"><input name="item.name" type="radio" value={{item.code}} [(ngModel)]="item.code" (click)="zoomChange(item)">{{item.name}}</li>
-      </ul>
+        <ul class="d-inline-block">
+          <li *ngFor="let item of zoomList"><input name="item.name" type="radio" value={{item.code}}
+                                                   [(ngModel)]='item.code' (click)="zoomChange(item)">{{item.name}}
+          </li>.
+        </ul>
       </div>
       <div class="map-container">
         <app-baidu-map [address]="mapAddress" [zoom]="zoomLevel" (getLocation)="geoLocation($event)"></app-baidu-map>

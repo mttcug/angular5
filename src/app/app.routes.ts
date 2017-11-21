@@ -1,9 +1,10 @@
-import {Routes, RouterModule } from '@angular/router';
-import { DataIndexComponent } from './component/data-index/data-index.component';
+import {Routes, RouterModule} from '@angular/router';
+import {DataIndexComponent} from './component/data-index/data-index.component';
 import {DataCollectionComponent} from './component/data-collection/data-collection.component';
-import { ShopHallComponent } from './component/shop-hall/shop-hall.component';
-import { WorkManageComponent } from './component/work-manage/work-manage.component';
-import { PeripheralDataComponent } from './component/peripheral-data/peripheral-data.component';
+import {ShopHallComponent} from './component/shop-hall/shop-hall.component';
+import {WorkManageComponent} from './component/work-manage/work-manage.component';
+import {PeripheralDataComponent} from './component/peripheral-data/peripheral-data.component';
+import {RejectedPageComponent} from './component/rejected-page/rejected-page.component';
 
 
 export const routes: Routes = [
@@ -37,6 +38,10 @@ export const routes: Routes = [
   {
     path: 'workManage',
     component: WorkManageComponent
+  },
+  {
+    path: 'reject',
+    component: RejectedPageComponent
   },
   {
     path: 'shopHall/peripheralData',
