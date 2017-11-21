@@ -40,7 +40,7 @@ export class BaiduMapComponent implements OnInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges) {
     console.log("change:",changes);
-    this.initMap.bind(this);
+    loader(this.apiKey, this.initMap.bind(this));
   }
 
   data = {
