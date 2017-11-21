@@ -28,7 +28,7 @@ import { DataOperateRequestService } from './service/request/data-operate-reques
 
 import { routing } from './app.routes';
 import { AngularEchartsModule } from 'ngx-echarts';
-import { CityNamePipe } from './pipe/location/city-name.pipe';
+import { CityNamePipe } from './pipe/location/city-name/city-name.pipe';
 
 
 

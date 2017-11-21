@@ -26,7 +26,7 @@ export class HttpRequestService {
 
   request(method,params){
     //将登陆验证放在请求头部authorization
-    let authHeader = new Headers();
+/*    let authHeader = new Headers();
     authHeader.append('Authorization', 'XWWEB_SESSION_ID');
 
     let options = new RequestOptions({ headers: authHeader });
@@ -36,7 +36,14 @@ export class HttpRequestService {
       jsonrpc:this.josnrpConfig.jsonrpc,
       method:method,
       params:params
-    },options).toPromise();
+    },options).toPromise();*/
+
+    return this.http.post(this.josnrpConfig.rpcUrl,{
+      id:this.josnrpConfig.id,
+      jsonrpc:this.josnrpConfig.jsonrpc,
+      method:method,
+      params:params
+    }).toPromise();
   }
 
 
