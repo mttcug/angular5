@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit ,Inject} from '@angular/core';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
@@ -8,10 +8,27 @@ import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor(private modalService:NgbModal) { }
+  allDistricts=[];
+  cityList=[];
+  constructor(private modalService:NgbModal, @Inject('data') private data) {
+
+    //获取城市列表
+    this.data.getDistrictData().then(res => {
+      var result = res ? res : [];
+      result.forEach((v, i) => {
+        this.allDistricts.push(v);
+        v.id.toString().substr(-6) == '000000' ? this.cityList.push(v) : '';
+      });
+    });
+
+  }
 
   ngOnInit() {
   }
+
+  city='深圳';
+
+
 
 
   closeResult: string;

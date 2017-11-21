@@ -72,7 +72,7 @@ export class ShopHallComponent implements OnInit {
   maxdoorWidth = '';
 
   mapAddress = '深圳南山区';
-  zoomLevel = 15;
+  zoomLevel = 14;
   zoomList = [
     {code: 15, name: '500米'},
     {code: 14, name: '1公里'},

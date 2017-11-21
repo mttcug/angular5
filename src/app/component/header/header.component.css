@@ -1,4 +1,4 @@
-p{
+.title-line{
   height: 100px;
   line-height: 100px;
   border-bottom: 1px solid black;
@@ -20,4 +20,21 @@ p{
 
 .city{
   margin-left: 20px;
+}
+.city-list-container{
+  padding: 20px 50px;
+
+}
+.city-list-container ul{
+  list-style: none;
+  padding: 0px;
+}
+.city-list-container li{
+  height: 50px;
+  line-height: 50px;
+}
+.city-list-container li a{
+  text-decoration: underline;
+  color:#467ac1;
+  cursor: pointer;
 }

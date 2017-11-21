@@ -1,8 +1,8 @@
-<p>
+<p class="title-line">
 <span class="company-logo">铺铺旺</span>
   <span class="plat-intro">大数据平台</span>
-  <span class="city">深圳</span>
-  <span (click)="openCityListModal(cityListModal)" class="modal_activate_btn text text-blue">切换</span>
+  <span class="city">{{city}}</span>
+  <span (click)="openCityListModal(cityListModal)" class="modal_activate_btn text text-blue cursor-hand">切换</span>
 </p>
 
 <ng-template #cityListModal let-c="close" let-d="dismiss">
@@ -13,12 +13,12 @@
     </button>
   </div>
   <div class="modal-body">
-    <p>
-      <a href="">深圳</a>
-    </p>
-    <p>
-      <a href="">咸阳</a>
-    </p>
+   <div class="city-list-container">
+     <ul>
+       <li *ngFor="let item of cityList"><a>{{item.name}}</a></li>
+     </ul>
+     <p class="text-muted">其他城市暂未开放</p>
+   </div>
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-outline-dark" (click)="c('0')">取消</button>
