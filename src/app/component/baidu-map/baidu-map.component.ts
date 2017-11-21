@@ -1,4 +1,14 @@
-import {Component, OnInit, Input, Output, EventEmitter, OnDestroy, ElementRef} from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Input,
+  Output,
+  EventEmitter,
+  OnDestroy,
+  ElementRef,
+  OnChanges,
+  SimpleChanges
+} from '@angular/core';
 
 
 import {loader} from './loader';
@@ -12,50 +22,48 @@ declare const BMap: any;
   templateUrl: './baidu-map.component.html',
   styleUrls: ['./baidu-map.component.css']
 })
-export class BaiduMapComponent implements OnInit {
+export class BaiduMapComponent implements OnInit, OnChanges {
 
-  @Input() address: string ;
+  @Input() address: string;
   @Input() apiKey: string = 'sIq3pmhG5n4xVuKQ8eKr1BiV0hsLP2ek';
   @Input() center: any;
-  @Input() zoom = 11;
+  @Input() zoom = 15;
 
   @Output() getLocation: EventEmitter<any> = new EventEmitter();
-
-/*  mapObj: any;
-  styleJson: any;*/
-
 
   constructor(private elementRef: ElementRef) {
   }
 
-
   ngOnInit() {
-    /*this.styleJson = BAIDU_MAP_STYLE;*/
     loader(this.apiKey, this.initMap.bind(this));
   }
 
-  data={
-    point:'',
-    address:''
+  ngOnChanges(changes: SimpleChanges) {
+    console.log("change:",changes);
+    this.initMap.bind(this);
+  }
+
+  data = {
+    point: '',
+    address: ''
   };
 
+
   initMap() {
+    console.log("3");
     var that = this;
     const container = this.elementRef.nativeElement.querySelector('.baidu-map-container');
-    const map = new BMap.Map(container);
-
+     const map = new BMap.Map(container);
 
     //添加比列尺
     map.addControl(new BMap.ScaleControl({offset: new BMap.Size(100, 20)}));
-   /* map.addControl(new BMap.NavigationControl());*/
-
 
     //地址解析
     var myGeo = new BMap.Geocoder();
+    console.log("1");
     myGeo.getPoint(this.address, function (point) {
-      console.log("addressMap:",that.address);
       if (point) {
-        map.centerAndZoom(point, 15);
+        map.centerAndZoom(point, that.zoom);
         map.addOverlay(new BMap.Marker(point));
       } else {
         alert("您选择地址没有解析到结果!");

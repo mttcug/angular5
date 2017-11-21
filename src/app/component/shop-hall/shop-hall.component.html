@@ -1,53 +1,61 @@
 <div class="hall-block">
   <div class="search-block">
-      <div class="d-block search-line-block">
-        <label>行业</label>
-        <select name="" id="big-industry" class="form-control w-100-px d-inline-block">
-          <option value="">请选择</option>
-          <option value="">请选择</option>
-        </select>
-        <select name="" id="small-industry" class="form-control w-100-px d-inline-block">
-          <option value="">请选择</option>
-        </select>
-        <p class="d-inline-block"><input type="checkbox">当前经营</p>
-        <p class="d-inline-block"><input type="checkbox">适合经营</p>
-        <p class="d-inline-block"><input type="checkbox">不宜经营</p>
-      </div>
-      <div class="d-block search-line-block">
-      <label>关键字</label>
-      <input type="text" placeholder="店名/位置" class="form-control d-inline-block w-160-px">
-      <input type="text" placeholder="手机号码" class="form-control d-inline-block w-160-px">
-    </div>
-      <div class="d-block search-line-block">
-        <label>区域</label>
-        <select name="" id="bigIndustry" class="form-control w-100-px d-inline-block">
-          <option value="">请选择</option>
-        </select>
-        <select name="" id="smallIndustry" class="form-control w-100-px d-inline-block">
-          <option value="">请选择</option>
-        </select>
-        <p class="d-inline-block">地图定位</p>
-        <p class="d-inline-block">198.267</p>
-        <p class="d-inline-block">128.839</p>
-      </div>
-      <div class="d-block search-line-block">
-      <label>位置描述</label>
-      <select name="" id="position-descript" class="form-control w-100-px d-inline-block">
+    <div class="d-block search-line-block">
+      <label>行业</label>
+      <select name="" id="big-industry" class="form-control w-130-px d-inline-block" [(ngModel)]="bigIndustry"
+              (change)="loadSmallIndustry(bigIndustry)">
         <option value="">请选择</option>
+        <option value='{{item.code}}' *ngFor="let item of bigIndustryList">{{item.name}}</option>
+      </select>
+      <select name="" id="small-industry" class="form-control w-130-px d-inline-block" [(ngModel)]="smallIndustry">
+        <option value="">请选择</option>
+        <option value='{{item.code}}' *ngFor="let item of smallIndustryList">{{item.name}}</option>
+      </select>
+      <p class="d-inline-block"><input type="checkbox" [(ngModel)]="currentIndustry">当前经营</p>
+      <p class="d-inline-block"><input type="checkbox" [(ngModel)]="fitIndustry">适合经营</p>
+      <p class="d-inline-block"><input type="checkbox" [(ngModel)]="unfitIndustry">不宜经营</p>
+    </div>
+    <div class="d-block search-line-block">
+      <label>关键字</label>
+      <input type="text" placeholder="店名/位置" class="form-control d-inline-block w-160-px" [(ngModel)]="shopName">
+      <input type="text" placeholder="手机号码" class="form-control d-inline-block w-160-px" [(ngModel)]="shopPhoneNumber">
+    </div>
+    <div class="d-block search-line-block">
+      <label>区域</label>
+      <select name="" id="bigIndustry" class="form-control w-130-px d-inline-block" [(ngModel)]="city"
+              (change)="loadDistrict(city)">
+        <option value="">请选择</option>
+        <option value="{{item.id}}" *ngFor="let item of cityList">{{item.name}}</option>
+      </select>
+      <select name="" id="smallIndustry" class="form-control w-130-px d-inline-block" [(ngModel)]="district">
+        <option value="">请选择</option>
+        <option value="{{item.id}}" *ngFor="let item of districtList">{{item.name}}</option>
+      </select>
+      <p class="d-inline-block text-blue text-underline" (click)="open(mapModal)">地图定位</p>
+      <p class="d-inline-block">{{latitude}}</p>
+      <p class="d-inline-block">{{longitude}}</p>
+      <i *ngIf="latitude!=''" class="iconfont icon-delete" (click)="deletePosition()"></i>
+    </div>
+    <div class="d-block search-line-block">
+      <label>位置描述</label>
+      <select name="" id="position-descript" class="form-control w-130-px d-inline-block"
+              [(ngModel)]="positionDescription">
+        <option value="">请选择</option>
+        <option value="item.value" *ngFor="let item of positionDescriptionList">{{item.value_description}}</option>
       </select>
       <p class="d-inline-block"><input type="checkbox">临街</p>
     </div>
-      <div class="d-block search-line-block">
-        <label>面积</label>
-        <input type="text" placeholder="最小" class="form-control w-100-px d-inline-block">-
-        <input type="text" placeholder="最大" class="form-control w-100-px d-inline-block">平米
-      </div>
-      <div class="d-block search-line-block">
-        <label>门宽</label>
-        <input type="text" placeholder="最短" class="form-control w-100-px d-inline-block">-
-        <input type="text" placeholder="最长" class="form-control w-100-px d-inline-block">米
-      </div>
-      <button class="btn btn-primary special-btn">搜索</button>
+    <div class="d-block search-line-block">
+      <label>面积</label>
+      <input type="text" placeholder="最小" class="form-control w-130-px d-inline-block" [(ngModel)]="minArea">-
+      <input type="text" placeholder="最大" class="form-control w-130-px d-inline-block" [(ngModel)]="maxArea">平米
+    </div>
+    <div class="d-block search-line-block">
+      <label>门宽</label>
+      <input type="text" placeholder="最短" class="form-control w-130-px d-inline-block" [(ngModel)]="mindoorWidth">-
+      <input type="text" placeholder="最长" class="form-control w-130-px d-inline-block" [(ngModel)]="maxdoorWidth">米
+    </div>
+    <button class="btn btn-primary special-btn">搜索</button>
 
   </div>
   <div class="block-divider greyBg"></div>
@@ -75,7 +83,8 @@
         </td>
         <td class="p-2 p-lg-2">
           <p><span>肯德基（公园道店）</span></p>
-          <p><span class="text-muted">快餐</span><span class="grey-block bg-grey text-white">品牌</span><span class="text-muted"><100m</span></p>
+          <p><span class="text-muted">快餐</span><span class="grey-block bg-grey text-white">品牌</span><span
+            class="text-muted"><100m</span></p>
           <p><span class="text-muted">老板：张先生</span></p>
         </td>
         <td class="p-2 p-lg-2">
@@ -89,8 +98,12 @@
           <p><span class="text-muted">可以空转</span></p>
         </td>
         <td class="p-2 p-lg-2">
-          <p><button class="btn btn-primary"><a [routerLink]="['dataCollection']">编辑</a></button></p>
-          <p><button class="btn btn-primary"><a [routerLink]="['peripheralData']">周边分析</a></button></p>
+          <p>
+            <button class="btn btn-primary"><a [routerLink]="['dataCollection']">编辑</a></button>
+          </p>
+          <p>
+            <button class="btn btn-primary"><a [routerLink]="['peripheralData']">周边分析</a></button>
+          </p>
         </td>
       </tr>
       <tr class="d-flex flex-row justify-content-around border-radius-10 m-top-20">
@@ -106,7 +119,8 @@
         </td>
         <td class="p-2 p-lg-2">
           <p><span>肯德基（公园道店）</span></p>
-          <p><span class="text-muted">快餐</span><span class="grey-block bg-grey text-white">品牌</span><span class="text-muted"><100m</span></p>
+          <p><span class="text-muted">快餐</span><span class="grey-block bg-grey text-white">品牌</span><span
+            class="text-muted"><100m</span></p>
           <p><span class="text-muted">老板：张先生</span></p>
         </td>
         <td class="p-2 p-lg-2">
@@ -120,8 +134,12 @@
           <p><span class="text-muted">可以空转</span></p>
         </td>
         <td class="p-2 p-lg-2">
-          <p><button class="btn btn-primary"><a [routerLink]="['dataCollection']">编辑</a></button></p>
-          <p><button class="btn btn-primary"><a [routerLink]="['peripheralData']">周边分析</a></button></p>
+          <p>
+            <button class="btn btn-primary"><a [routerLink]="['dataCollection']">编辑</a></button>
+          </p>
+          <p>
+            <button class="btn btn-primary"><a [routerLink]="['peripheralData']">周边分析</a></button>
+          </p>
         </td>
       </tr>
       <tr class="d-flex flex-row justify-content-around border-radius-10 m-top-20">
@@ -137,7 +155,8 @@
         </td>
         <td class="p-2 p-lg-2">
           <p><span>肯德基（公园道店）</span></p>
-          <p><span class="text-muted">快餐</span><span class="grey-block bg-grey text-white">品牌</span><span class="text-muted"><100m</span></p>
+          <p><span class="text-muted">快餐</span><span class="grey-block bg-grey text-white">品牌</span><span
+            class="text-muted"><100m</span></p>
           <p><span class="text-muted">老板：张先生</span></p>
         </td>
         <td class="p-2 p-lg-2">
@@ -151,8 +170,12 @@
           <p><span class="text-muted">可以空转</span></p>
         </td>
         <td class="p-2 p-lg-2">
-          <p><button class="btn btn-primary"><a [routerLink]="['dataCollection']">编辑</a></button></p>
-          <p><button class="btn btn-primary"><a [routerLink]="['peripheralData']">周边分析</a></button></p>
+          <p>
+            <button class="btn btn-primary"><a [routerLink]="['dataCollection']">编辑</a></button>
+          </p>
+          <p>
+            <button class="btn btn-primary"><a [routerLink]="['peripheralData']">周边分析</a></button>
+          </p>
         </td>
       </tr>
       <tr class="d-flex flex-row justify-content-around border-radius-10 m-top-20">
@@ -168,7 +191,8 @@
         </td>
         <td class="p-2 p-lg-2">
           <p><span>肯德基（公园道店）</span></p>
-          <p><span class="text-muted">快餐</span><span class="grey-block bg-grey text-white">品牌</span><span class="text-muted"><100m</span></p>
+          <p><span class="text-muted">快餐</span><span class="grey-block bg-grey text-white">品牌</span><span
+            class="text-muted"><100m</span></p>
           <p><span class="text-muted">老板：张先生</span></p>
         </td>
         <td class="p-2 p-lg-2">
@@ -182,8 +206,12 @@
           <p><span class="text-muted">可以空转</span></p>
         </td>
         <td class="p-2 p-lg-2">
-          <p><button class="btn btn-primary"><a [routerLink]="['dataCollection']">编辑</a></button></p>
-          <p><button class="btn btn-primary"><a [routerLink]="['peripheralData']">周边分析</a></button></p>
+          <p>
+            <button class="btn btn-primary"><a [routerLink]="['dataCollection']">编辑</a></button>
+          </p>
+          <p>
+            <button class="btn btn-primary"><a [routerLink]="['peripheralData']">周边分析</a></button>
+          </p>
         </td>
       </tr>
       <tr class="d-flex flex-row justify-content-around border-radius-10 m-top-20">
@@ -199,7 +227,8 @@
         </td>
         <td class="p-2 p-lg-2">
           <p><span>肯德基（公园道店）</span></p>
-          <p><span class="text-muted">快餐</span><span class="grey-block bg-grey text-white">品牌</span><span class="text-muted"><100m</span></p>
+          <p><span class="text-muted">快餐</span><span class="grey-block bg-grey text-white">品牌</span><span
+            class="text-muted"><100m</span></p>
           <p><span class="text-muted">老板：张先生</span></p>
         </td>
         <td class="p-2 p-lg-2">
@@ -213,8 +242,12 @@
           <p><span class="text-muted">可以空转</span></p>
         </td>
         <td class="p-2 p-lg-2">
-          <p><button class="btn btn-primary"><a [routerLink]="['dataCollection']">编辑</a></button></p>
-          <p><button class="btn btn-primary"><a [routerLink]="['peripheralData']">周边分析</a></button></p>
+          <p>
+            <button class="btn btn-primary"><a [routerLink]="['dataCollection']">编辑</a></button>
+          </p>
+          <p>
+            <button class="btn btn-primary"><a [routerLink]="['peripheralData']">周边分析</a></button>
+          </p>
         </td>
       </tr>
       <tr class="d-flex flex-row justify-content-around border-radius-10 m-top-20">
@@ -230,7 +263,8 @@
         </td>
         <td class="p-2 p-lg-2">
           <p><span>肯德基（公园道店）</span></p>
-          <p><span class="text-muted">快餐</span><span class="grey-block bg-grey text-white">品牌</span><span class="text-muted"><100m</span></p>
+          <p><span class="text-muted">快餐</span><span class="grey-block bg-grey text-white">品牌</span><span
+            class="text-muted"><100m</span></p>
           <p><span class="text-muted">老板：张先生</span></p>
         </td>
         <td class="p-2 p-lg-2">
@@ -244,8 +278,12 @@
           <p><span class="text-muted">可以空转</span></p>
         </td>
         <td class="p-2 p-lg-2">
-          <p><button class="btn btn-primary"><a [routerLink]="['dataCollection']">编辑</a></button></p>
-          <p><button class="btn btn-primary"><a [routerLink]="['peripheralData']">周边分析</a></button></p>
+          <p>
+            <button class="btn btn-primary"><a [routerLink]="['dataCollection']">编辑</a></button>
+          </p>
+          <p>
+            <button class="btn btn-primary"><a [routerLink]="['peripheralData']">周边分析</a></button>
+          </p>
         </td>
       </tr>
       </tbody>
@@ -253,3 +291,30 @@
     </table>
   </div>
 </div>
+
+<ng-template #mapModal let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">地图定位</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+
+  <div class="modal-body">
+    <div class="map-modal-block">
+      <div class="choice-block d-block">
+        <span>筛选范围:</span>
+      <ul class="d-inline-block">
+        <li *ngFor="let item of zoomList"><input name="item.name" type="radio" value={{item.code}} [(ngModel)]="item.code" (click)="zoomChange(item)">{{item.name}}</li>
+      </ul>
+      </div>
+      <div class="map-container">
+        <app-baidu-map [address]="mapAddress" [zoom]="zoomLevel" (getLocation)="geoLocation($event)"></app-baidu-map>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="c('0')">取消</button>
+    <button type="button" class="btn btn-outline-dark" (click)="c('1')">确定</button>
+  </div>
+</ng-template>

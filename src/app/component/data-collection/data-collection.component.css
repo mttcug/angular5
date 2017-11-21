@@ -218,15 +218,17 @@ label{
 
 /*baidu-map*/
 .baidu-map{
-  width: 452px;
-  height: 395px;
+  width: 500px;
+  height: 420px;
+  padding: 25px;
   display: block;
   border:1px solid black;
   position: absolute;
   top: 0px;
   right: 10%;
-  border-radius: 0px 0px 10px 10px;
+  border-radius: 10px 10px 10px 10px;
   border-color: lightgray;
+  box-shadow: 2px 2px 2px lightgrey;
 }
 .baidu-map-cancel{
   position: absolute;

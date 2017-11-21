@@ -19,7 +19,7 @@
 }
 .search-line-block{
   padding-bottom: 10px;
-  width: 40%;
+  width: 45%;
   display: block;
   float: left;
   height: 60px;
@@ -77,4 +77,27 @@ table .btn a{
   display: block;
   color: white;
   text-decoration: none;
+}
+
+.map-modal-block{
+  padding: 20px 50px;
+  text-align: center;
+}
+
+.map-modal-block ul{
+  display: block;
+  list-style: none;
+  padding-left: 0px;
+}
+
+.map-modal-block ul li{
+display: inline-block;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+.map-container{
+  width: 450px;
+  height: 320px;
+  margin:0 auto;
+  margin-top: 10px;
 }
