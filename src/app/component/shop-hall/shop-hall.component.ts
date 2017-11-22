@@ -11,7 +11,7 @@ export class ShopHallComponent implements OnInit {
   allIndustry = [];
   allDistricts = [];
 
-  constructor(private modalService: NgbModal, @Inject('data') private data) {
+  constructor(private modalService: NgbModal, @Inject('data') private data, @Inject('operate') private operate) {
     //获取行业列表
     this.data.getIndustryData().then(res => {
       var result = res ? res : [];  //所有数据[[],[]],用于推荐经营，不宜经营。。。
@@ -36,10 +36,41 @@ export class ShopHallComponent implements OnInit {
     //获取位置描述列表
     this.data.getPositionDesData().then(res => {
       this.positionDescriptionList = res;
+
     });
+
   }
 
   ngOnInit() {
+
+    //获取列表数据
+    var params = {
+      page_no: this.pageNo,
+      page_size: this.pageSize
+    };
+    this.bigIndustry ? ( this.smallIndustry ? params['industry'] = this.smallIndustry : params['industry'] = this.bigIndustry ) : '';
+    this.unfitIndustry ? ( this.fitIndustry ? (this.currentIndustry ? params['industry_type'] = '不宜经营,适合经营,当前经营' : params['industry_type'] = '不宜经营,适合经营') : params['industry_type'] = '不宜经营') : params['industry_type'] = '当前经营';
+    this.shopName ? params['keyword'] = this.shopName : '';
+    this.shopPhoneNumber ? params['mobile'] = this.shopPhoneNumber : '';
+    this.bigIndustry ? ( this.smallIndustry ? params['district'] = this.smallIndustry : params['district'] = this.bigIndustry ) : '';
+    this.longitude ? params['longitude'] = this.longitude : '';
+    this.latitude ? params['latitude'] = this.latitude : '';
+
+    this.zoomList.find(item => item.code.toString() == this.zoomLevel.toString()) ? params['distance_range'] = this.zoomList.find(item => item.code.toString() == this.zoomLevel.toString()).name : params['distance_range'] = '一公里';
+
+    this.positionDescriptionList.find(item => item.code.toString() == this.positionDescription.toString()) ? params['location_type'] = this.positionDescriptionList.find(item => item.code.toString() == this.positionDescription.toString()).name : '';
+
+    this.nearStreet ? params['near_street'] = "是" : params['near_street'] = '否';
+    this.minArea ? params['min_area'] = this.minArea : '';
+    this.maxArea ? params['max_area'] = this.maxArea : '';
+    this.mindoorWidth ? params['min_door_width'] = this.maxArea : '';
+    this.maxdoorWidth ? params['max_door_width'] = this.maxArea : '';
+
+
+    this.operate.getshopList(params).then(res => {
+
+    })
+
   }
 
   bigIndustry = '';
@@ -64,6 +95,7 @@ export class ShopHallComponent implements OnInit {
 
   positionDescription = '';
   positionDescriptionList = [];
+  nearStreet = false;
 
   minArea = '';
   maxArea = '';
@@ -80,22 +112,26 @@ export class ShopHallComponent implements OnInit {
     {code: 12, name: '3公里'},
   ];
 
+  pageNo = 0;
+  pageSize = 10;
+
 
   zoomChange(item) {
     console.log("item:", item);
     this.zoomLevel = item.code;
   }
 
-  templng='';
-  templat='';
-  tempcityName='';
-  tempdistrictName='';
+  templng = '';
+  templat = '';
+  tempcityName = '';
+  tempdistrictName = '';
+
   geoLocation(e) {
     console.log("e");
-    this.templng=e.point.lng;
-    this.templat=e.point.lat;
-    this.tempcityName=e.address.city;
-    this.tempdistrictName=e.address.district;
+    this.templng = e.point.lng;
+    this.templat = e.point.lat;
+    this.tempcityName = e.address.city;
+    this.tempdistrictName = e.address.district;
   }
 
   loadSmallIndustry(code) {
@@ -110,9 +146,9 @@ export class ShopHallComponent implements OnInit {
     });
   }
 
-  deletePosition(){
-    this.longitude='';
-    this.latitude='';
+  deletePosition() {
+    this.longitude = '';
+    this.latitude = '';
   }
 
 
@@ -120,12 +156,12 @@ export class ShopHallComponent implements OnInit {
 
   open(content) {
     this.modalService.open(content, {size: 'lg'}).result.then((result) => {
-      if(result == '1'){
-        this.longitude=this.templng;
-        this.latitude=this.templat;
-        this.city=this.allDistricts.find(item=>item.name==this.tempcityName) ? this.allDistricts.find(item=>item.name==this.tempcityName).id : '';
+      if (result == '1') {
+        this.longitude = this.templng;
+        this.latitude = this.templat;
+        this.city = this.allDistricts.find(item => item.name == this.tempcityName) ? this.allDistricts.find(item => item.name == this.tempcityName).id : '';
         this.loadDistrict(this.city);
-        this.district=this.allDistricts.find(item=>item.name==this.tempdistrictName) ? this.allDistricts.find(item=>item.name==this.tempdistrictName).id : '';
+        this.district = this.allDistricts.find(item => item.name == this.tempdistrictName) ? this.allDistricts.find(item => item.name == this.tempdistrictName).id : '';
       }
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;

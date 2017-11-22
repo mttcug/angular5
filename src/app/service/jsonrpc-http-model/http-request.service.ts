@@ -16,35 +16,46 @@ export class HttpRequestService {
     return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4() ;
   }
 
-  josnrpConfig={
-    rpcUrl:this.configService.getConf().dataApi,
+  jsonrpConfig={
+    staticRpcUrl:this.configService.getConf().dataApi,
+    operateRpcUrl:this.configService.getConf().listApi,
     id:0,
     jsonrpc:"2.0"
   }
 
 
 
-  request(method,params){
+  staticRequest(method,params){
     //将登陆验证放在请求头部authorization
 /*    let authHeader = new Headers();
     authHeader.append('Authorization', 'XWWEB_SESSION_ID');
 
     let options = new RequestOptions({ headers: authHeader });
 
-    return this.http.post(this.josnrpConfig.rpcUrl,{
-      id:this.josnrpConfig.id,
-      jsonrpc:this.josnrpConfig.jsonrpc,
+    return this.http.post(this.jsonrpConfig.rpcUrl,{
+      id:this.jsonrpConfig.id,
+      jsonrpc:this.jsonrpConfig.jsonrpc,
       method:method,
       params:params
     },options).toPromise();*/
 
-    return this.http.post(this.josnrpConfig.rpcUrl,{
-      id:this.josnrpConfig.id,
-      jsonrpc:this.josnrpConfig.jsonrpc,
+    return this.http.post(this.jsonrpConfig.staticRpcUrl,{
+      id:this.jsonrpConfig.id,
+      jsonrpc:this.jsonrpConfig.jsonrpc,
       method:method,
       params:params
     }).toPromise();
   }
+
+  operateRequest(method,params){
+    return this.http.post(this.jsonrpConfig.operateRpcUrl,{
+      id:this.jsonrpConfig.id,
+      jsonrpc:this.jsonrpConfig.jsonrpc,
+      method:method,
+      params:params
+    }).toPromise();
+  }
+
 
 
 }

@@ -13,26 +13,41 @@ export class DataCollectionComponent implements OnInit {
 
   constructor(private modalService: NgbModal, @Inject('data') private data) {
     //获取行业列表
-    this.data.getIndustryData().then(res => {
-      this.industries = res ? res : [];
-      var result = res ? res : [];  //所有数据[[],[]],用于推荐经营，不宜经营。。。
-      result.forEach((value, i) => {
-        value.forEach((v, j) => {
-          j == 0 ? this.bigIndustryList.push(v) : '';
-          this.allIndustry.push(v);
-        });
-      });
-    });
-
-    //获取城市列表
-    this.data.getDistrictData().then(res => {
-      console.log("城市：", res);
-      var result = res ? res : [];
-      result.forEach((v, i) => {
+    let industrySession=sessionStorage.getItem("industry");
+    if(industrySession){
+      JSON.parse(industrySession).forEach((v, i) => {
         this.allDistricts.push(v);
         v.id.toString().substr(-6) == '000000' ? this.cityList.push(v) : '';
       });
-    });
+    }else {
+      this.data.getIndustryData().then(res => {
+        this.industries = res ? res : [];
+        var result = res ? res : [];  //所有数据[[],[]],用于推荐经营，不宜经营。。。
+        result.forEach((value, i) => {
+          value.forEach((v, j) => {
+            j == 0 ? this.bigIndustryList.push(v) : '';
+            this.allIndustry.push(v);
+          });
+        });
+      });
+    }
+
+    //获取城市列表
+    let districtSession=sessionStorage.getItem("district");
+    if(districtSession){
+      JSON.parse(districtSession).forEach((v, i) => {
+        this.allDistricts.push(v);
+        v.id.toString().substr(-6) == '000000' ? this.cityList.push(v) : '';
+      });
+    }else {
+      this.data.getDistrictData().then(res => {
+        var result = res ? res : [];
+        result.forEach((v, i) => {
+          this.allDistricts.push(v);
+          v.id.toString().substr(-6) == '000000' ? this.cityList.push(v) : '';
+        });
+      });
+    }
 
     //获取建筑形状
     this.data.getBuildingShapeData().then(res => {

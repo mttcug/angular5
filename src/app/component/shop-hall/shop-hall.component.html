@@ -43,7 +43,7 @@
         <option value="">请选择</option>
         <option value="item.value" *ngFor="let item of positionDescriptionList">{{item.value_description}}</option>
       </select>
-      <p class="d-inline-block"><input type="checkbox">临街</p>
+      <p class="d-inline-block"><input type="checkbox" [(ngModel)]="nearStreet">临街</p>
     </div>
     <div class="d-block search-line-block">
       <label>面积</label>

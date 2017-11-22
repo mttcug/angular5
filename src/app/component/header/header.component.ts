@@ -14,25 +14,46 @@ export class HeaderComponent implements OnInit {
   constructor(private modalService: NgbModal, @Inject('data') private data) {
 
     //获取城市列表
-    this.data.getDistrictData().then(res => {
-      var result = res ? res : [];
-      result.forEach((v, i) => {
+    let district=sessionStorage.getItem("district");
+    if(district){
+      JSON.parse(district).forEach((v, i) => {
         this.allDistricts.push(v);
         v.id.toString().substr(-6) == '000000' ? this.cityList.push(v) : '';
       });
-    });
+    }else{
+      this.data.getDistrictData().then(res => {
+        var result = res ? res : [];
+        result.forEach((v, i) => {
+          this.allDistricts.push(v);
+          v.id.toString().substr(-6) == '000000' ? this.cityList.push(v) : '';
+        });
+      });
+    }
 
   }
 
+
   ngOnInit() {
+
+    //初始化城市列表弹出框选中的标为红色
+    this.seleectedColorChange(this.currentCity);
+
   }
 
   currentCity = '4403000000';
 
   tempCurrentCity = '';
 
-  cityChange(item) {
-    this.tempCurrentCity = item.name;
+  cityItemClick(item) {
+    this.tempCurrentCity = item.id;
+    this.seleectedColorChange(item.id);
+  }
+
+
+  seleectedColorChange(selectedCityId){
+    this.cityList.forEach((v,i)=>{
+      v.selected = v.id.toString()==selectedCityId.toString() ? true : false ;
+    })
   }
 
 

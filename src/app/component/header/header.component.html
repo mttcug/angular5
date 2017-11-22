@@ -1,7 +1,7 @@
 <p class="title-line">
 <span class="company-logo">铺铺旺</span>
   <span class="plat-intro">大数据平台</span>
-  <span class="city">{{currentCity|cityName}}</span>
+  <span class="city">{{currentCity | cityName}}</span>
   <span (click)="openCityListModal(cityListModal)" class="modal_activate_btn text text-blue cursor-hand">切换</span>
 </p>
 
@@ -15,7 +15,7 @@
   <div class="modal-body">
    <div class="city-list-container">
      <ul>
-       <li *ngFor="let item of cityList"><a (click)="cityChange(item)">{{item.name}}</a></li>
+       <li *ngFor="let item of cityList"><a (click)="cityItemClick(item)" [ngClass]="{'text-danger':item.selected}">{{item.name}}</a></li>
      </ul>
      <p class="text-muted">其他城市暂未开放</p>
    </div>

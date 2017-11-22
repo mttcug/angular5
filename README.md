@@ -38,3 +38,11 @@ bootstrap4  ----
 angular5  ----
 ngModelChange  ----
 ngOnChange 监听变化 setter/getter  ----
+
+
+## service
+http 封装的jsonrpc请求  图片上传没有使用jsonrpc，上传请求在上传组件中中
+data 里面是下拉列表要使用的数据包括封装的行业和区域等的请求
+request 里面是请求列表数据和修改表单的请求
+
+所有请求中只有行业和区域数据被缓存在app.component中

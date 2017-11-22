@@ -21,10 +21,10 @@ import { WorkManageComponent } from './component/work-manage/work-manage.compone
 import { PeripheralDataComponent } from './component/peripheral-data/peripheral-data.component';
 import { RejectedPageComponent } from './component/rejected-page/rejected-page.component';
 
-import { HttpRequestService } from './service/http/http-request.service';
-import { DataService } from './service/data/data.service';
+import { HttpRequestService } from './service/jsonrpc-http-model/http-request.service';
+import { DataService } from './service/static-data-request/data.service';
 import { ConfigService } from './service/config/config.service';
-import { DataOperateRequestService } from './service/request/data-operate-request.service';
+import { DataOperateRequestService } from './service/data-operate-request/data-operate-request.service';
 
 import { routing } from './app.routes';
 import { AngularEchartsModule } from 'ngx-echarts';
@@ -64,7 +64,7 @@ import { CityNamePipe } from './pipe/location/city-name/city-name.pipe';
     {provide : 'http', useClass : HttpRequestService},
     {provide : 'data' , useClass : DataService},
     {provide : 'config' , useClass : ConfigService},
-    {provide : 'request' , useClass : DataOperateRequestService}
+    {provide : 'operate' , useClass : DataOperateRequestService}
   ],
   bootstrap: [AppComponent]
 })

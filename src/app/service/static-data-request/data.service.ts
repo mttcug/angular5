@@ -104,85 +104,86 @@ export class DataService {
 
   /*获取行业数据*/
   getIndustryData(params) {
-    return this.http.request("get_industry", params).then(res => {
+    return this.http.staticRequest("get_industry", params).then(res => {
       console.log("行业：",res);
       return JSON.parse(res._body).result;
     });
   }
 
+
   /*获取区域城市等数据*/
   getDistrictData(params) {
-    return this.http.request("get_city", params).then(res => {
+    return this.http.staticRequest("get_city", params).then(res => {
       return JSON.parse(res._body).result;
     });
   }
 
   /*获取建筑形状*/
   getBuildingShapeData(params) {
-    return this.http.request("get_shape_type", params).then(res => {
+    return this.http.staticRequest("get_shape_type", params).then(res => {
       return JSON.parse(res._body).result;
     });
   }
 
   /*获取转让状态列表*/
   getTransferStatusData(params) {
-    return this.http.request("get_transfer_status", params).then(res => {
+    return this.http.staticRequest("get_transfer_status", params).then(res => {
       return JSON.parse(res._body).result;
     });
   }
 
   /*获取位置描述*/
   getPositionDesData(params) {
-    return this.http.request("get_add_desc", params).then(res => {
+    return this.http.staticRequest("get_add_desc", params).then(res => {
       return JSON.parse(res._body).result;
     });
   }
 
   /*获取位置描述*/
   getBesideStreet(params) {
-    return this.http.request("beside_street", params).then(res => {
+    return this.http.staticRequest("beside_street", params).then(res => {
       return JSON.parse(res._body).result;
     });
   }
 
   /*店铺证件类型*/
   getCertificateType(params) {
-    return this.http.request("certificate_type", params).then(res => {
+    return this.http.staticRequest("certificate_type", params).then(res => {
       return JSON.parse(res._body).result;
     });
   }
 
   /*租金单位*/
   getRentMeasure(params) {
-    return this.http.request("rent_utils", params).then(res => {
+    return this.http.staticRequest("rent_utils", params).then(res => {
       return JSON.parse(res._body).result;
     });
   }
 
   /*营业状态*/
   getOperateStatus(params) {
-    return this.http.request("get_business_status", params).then(res => {
+    return this.http.staticRequest("get_business_status", params).then(res => {
       return JSON.parse(res._body).result;
     });
   }
 
   /*拆迁风险*/
   getPullRisk(params) {
-    return this.http.request("pull_risk", params).then(res => {
+    return this.http.staticRequest("pull_risk", params).then(res => {
       return JSON.parse(res._body).result;
     });
   }
 
   /*产权类型*/
   getPerprotyRight(params) {
-    return this.http.request("property_right", params).then(res => {
+    return this.http.staticRequest("property_right", params).then(res => {
       return JSON.parse(res._body).result;
     });
   }
 
   /*物业类型和上级物业*/
   getEstateType(params) {
-    return this.http.request("get_estate_type", params).then(res => {
+    return this.http.staticRequest("get_estate_type", params).then(res => {
       return JSON.parse(res._body).result;
     });
   }
