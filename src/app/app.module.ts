@@ -8,9 +8,9 @@ import { FileUploadModule } from 'ng2-file-upload';
 
 
 import { AppComponent } from './app.component';
-import { DatePickerComponent } from './component/date-picker/date-picker.component';
-import { UploadFilesComponent } from './component/upload-files/upload-files.component';
-import { BaiduMapComponent } from './component/baidu-map/baidu-map.component';
+import { DatePickerComponent } from './component/common/date-picker/date-picker.component';
+import { UploadFilesComponent } from './component/common/upload-files/upload-files.component';
+import { BaiduMapComponent } from './component/common/baidu-map/baidu-map.component';
 import { DataCollectionComponent } from './component/data-collection/data-collection.component';
 import { HeaderComponent } from  './component/header/header.component';
 import { FooterComponent } from './component/footer/footer.component';
@@ -20,15 +20,19 @@ import { ShopHallComponent } from './component/shop-hall/shop-hall.component';
 import { WorkManageComponent } from './component/work-manage/work-manage.component';
 import { PeripheralDataComponent } from './component/peripheral-data/peripheral-data.component';
 import { RejectedPageComponent } from './component/rejected-page/rejected-page.component';
+import { GeolocationComponent } from './component/common/geolocation/geolocation.component';
 
-import { HttpRequestService } from './service/jsonrpc-http-model/http-request.service';
-import { DataService } from './service/static-data-request/data.service';
+import { HttpRequestService } from './service/http-model/http-request.service';
+import { DataService } from './service/data-request/data.service';
 import { ConfigService } from './service/config/config.service';
-import { DataOperateRequestService } from './service/data-operate-request/data-operate-request.service';
+import { DataOperateRequestService } from './service/operate-request/data-operate-request.service';
 
 import { routing } from './app.routes';
 import { AngularEchartsModule } from 'ngx-echarts';
-import { CityNamePipe } from './pipe/location/city-name/city-name.pipe';
+import { LocationPipe } from './pipe/location/location.pipe';
+import { RentUnitPipe } from './pipe/rent-unit/rent-unit.pipe';
+import { IndustryPipe } from './pipe/industry/industry.pipe';
+
 
 
 
@@ -47,7 +51,10 @@ import { CityNamePipe } from './pipe/location/city-name/city-name.pipe';
     WorkManageComponent,
     PeripheralDataComponent,
     RejectedPageComponent,
-    CityNamePipe
+    LocationPipe,
+    RentUnitPipe,
+    IndustryPipe,
+    GeolocationComponent
   ],
   imports: [
     BrowserModule,

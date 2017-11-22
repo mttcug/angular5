@@ -13,41 +13,25 @@ export class DataCollectionComponent implements OnInit {
 
   constructor(private modalService: NgbModal, @Inject('data') private data) {
     //获取行业列表
-    let industrySession=sessionStorage.getItem("industry");
-    if(industrySession){
-      JSON.parse(industrySession).forEach((v, i) => {
-        this.allDistricts.push(v);
-        v.id.toString().substr(-6) == '000000' ? this.cityList.push(v) : '';
-      });
-    }else {
-      this.data.getIndustryData().then(res => {
-        this.industries = res ? res : [];
-        var result = res ? res : [];  //所有数据[[],[]],用于推荐经营，不宜经营。。。
-        result.forEach((value, i) => {
-          value.forEach((v, j) => {
-            j == 0 ? this.bigIndustryList.push(v) : '';
-            this.allIndustry.push(v);
-          });
+    this.data.getIndustryData().then(res => {
+      this.industries = res ? res : [];
+      var result = res ? res : [];  //所有数据[[],[]],用于推荐经营，不宜经营。。。
+      result.forEach((value, i) => {
+        value.forEach((v, j) => {
+          j == 0 ? this.bigIndustryList.push(v) : '';
+          this.allIndustry.push(v);
         });
       });
-    }
+    });
 
     //获取城市列表
-    let districtSession=sessionStorage.getItem("district");
-    if(districtSession){
-      JSON.parse(districtSession).forEach((v, i) => {
+    this.data.getDistrictData().then(res => {
+      var result = res ? res : [];
+      result.forEach((v, i) => {
         this.allDistricts.push(v);
         v.id.toString().substr(-6) == '000000' ? this.cityList.push(v) : '';
       });
-    }else {
-      this.data.getDistrictData().then(res => {
-        var result = res ? res : [];
-        result.forEach((v, i) => {
-          this.allDistricts.push(v);
-          v.id.toString().substr(-6) == '000000' ? this.cityList.push(v) : '';
-        });
-      });
-    }
+    });
 
     //获取建筑形状
     this.data.getBuildingShapeData().then(res => {
@@ -297,16 +281,16 @@ export class DataCollectionComponent implements OnInit {
   city = '';           //城市
   district = '';       //区域
   addressDetail = '';
-  tempcity='';
-  tempdistrict='';
-  tempaddressDetail='';
+  tempcity = '';
+  tempdistrict = '';
+  tempaddressDetail = '';
 
   mapAddress = '';  //将城市区域拼接起来的地址将传递给地图进行地址解析
 
-  shopAddress='';
+  shopAddress = '';
   longitude = '';                       //经度
   latitude = '';                       //纬度
-  tempshopAddress='';
+  tempshopAddress = '';
   templongitude = '';                       //经度
   templatitude = '';                       //纬度
 
@@ -401,15 +385,15 @@ export class DataCollectionComponent implements OnInit {
     this.allDistricts.forEach((v, i) => {
       (v.id.toString().substr(4, 2) != '00' && code.toString().substr(0, 4) == v.id.toString().substr(0, 4)) ? this.districtList.push(v) : '';
     });
-    this.shopAddress=this.getWholeAddress();
+    this.shopAddress = this.getWholeAddress();
   }
 
-  DistrictChange(){
-    this.shopAddress=this.getWholeAddress();
+  DistrictChange() {
+    this.shopAddress = this.getWholeAddress();
   }
 
-  addressChange(){
-    this.shopAddress=this.getWholeAddress();
+  addressChange() {
+    this.shopAddress = this.getWholeAddress();
   }
 
   getStartTime(date) {
@@ -804,7 +788,7 @@ export class DataCollectionComponent implements OnInit {
     }
   }
 
-  getWholeAddress(){
+  getWholeAddress() {
     let tempCity = this.allDistricts.find(item => item.id.toString() == this.city.toString());
     let tempDistrict = this.allDistricts.find(item => item.id.toString() == this.district.toString());
     let city = tempCity ? tempCity.name : '';
@@ -830,26 +814,25 @@ export class DataCollectionComponent implements OnInit {
     this.templatitude = e.point.lat;
     this.templongitude = e.point.lng;
 
-    this.tempcity=this.allDistricts.find(item=>item.name==e.address.city) ? this.allDistricts.find(item=>item.name==e.address.city).id : '';
-    this.tempdistrict=this.allDistricts.find(item=>item.name.trim()==e.address.district.trim()) ? this.allDistricts.find(item=>item.name==e.address.district).id : '';
-    this.tempaddressDetail=e.address.street;
+    this.tempcity = this.allDistricts.find(item => item.name == e.address.city) ? this.allDistricts.find(item => item.name == e.address.city).id : '';
+    this.tempdistrict = this.allDistricts.find(item => item.name.trim() == e.address.district.trim()) ? this.allDistricts.find(item => item.name == e.address.district).id : '';
+    this.tempaddressDetail = e.address.street;
 
-    this.tempshopAddress=e.address.city+e.address.district+e.address.street;
+    this.tempshopAddress = e.address.city + e.address.district + e.address.street;
   }
 
   sureLocation() {
     this.latitude = this.templatitude;
     this.longitude = this.templongitude;
-    this.shopAddress=this.tempshopAddress;
+    this.shopAddress = this.tempshopAddress;
 
-    this.city=this.tempcity;
+    this.city = this.tempcity;
     this.loadDistrict(this.city);
-    this.district=this.tempdistrict;
-    this.addressDetail=this.tempaddressDetail;
+    this.district = this.tempdistrict;
+    this.addressDetail = this.tempaddressDetail;
 
     this.mapBlock = false;
   }
-
 
 
   ///////////////////////////////////////////////////////////////////////////////////////////////

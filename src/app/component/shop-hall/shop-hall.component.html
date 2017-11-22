@@ -31,9 +31,9 @@
         <option value="">请选择</option>
         <option value="{{item.id}}" *ngFor="let item of districtList">{{item.name}}</option>
       </select>
-      <p class="d-inline-block text-blue text-underline" (click)="open(mapModal)">地图定位</p>
-      <p class="d-inline-block">{{latitude}}</p>
-      <p class="d-inline-block">{{longitude}}</p>
+      <p class="d-inline-block text-blue m-left-10 m-ritght-5 text-underline cursor-hand" (click)="open(mapModal)">地图定位</p>
+      <p class="d-inline-block m-h-5">{{latitude}}</p>
+      <p class="d-inline-block m-h-5">{{longitude}}</p>
       <i *ngIf="latitude!=''" class="iconfont icon-delete" (click)="deletePosition()"></i>
     </div>
     <div class="d-block search-line-block">
@@ -43,7 +43,7 @@
         <option value="">请选择</option>
         <option value="item.value" *ngFor="let item of positionDescriptionList">{{item.value_description}}</option>
       </select>
-      <p class="d-inline-block"><input type="checkbox" [(ngModel)]="nearStreet">临街</p>
+      <p class="d-inline-block m-left-10"><input type="checkbox" [(ngModel)]="nearStreet">临街</p>
     </div>
     <div class="d-block search-line-block">
       <label>面积</label>
@@ -55,7 +55,7 @@
       <input type="text" placeholder="最短" class="form-control w-130-px d-inline-block" [(ngModel)]="mindoorWidth">-
       <input type="text" placeholder="最长" class="form-control w-130-px d-inline-block" [(ngModel)]="maxdoorWidth">米
     </div>
-    <button class="btn btn-primary special-btn">搜索</button>
+    <button class="btn btn-primary special-btn" (click)="search()">搜索</button>
 
   </div>
   <div class="block-divider greyBg"></div>
@@ -290,6 +290,11 @@
 
     </table>
   </div>
+  <div class="page-container text-right">
+    <ngb-pagination class="d-inline-block" (pageChange)="pageChange($event)" [collectionSize]="totalResultCount" [(page)]="pageNo" aria-label="Default pagination" [maxSize]="5"  [boundaryLinks]="true"></ngb-pagination>
+
+  </div>
+
 </div>
 
 <ng-template #mapModal let-c="close" let-d="dismiss">

@@ -105,7 +105,6 @@ export class DataService {
   /*获取行业数据*/
   getIndustryData(params) {
     return this.http.staticRequest("get_industry", params).then(res => {
-      console.log("行业：",res);
       return JSON.parse(res._body).result;
     });
   }

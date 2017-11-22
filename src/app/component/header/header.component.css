@@ -1,7 +1,7 @@
 .title-line{
   height: 100px;
   line-height: 100px;
-  border-bottom: 1px solid black;
+  border-bottom: 1px solid rgba(0,0,0,.125);
   margin: 0px;
   padding: 0px 80px;
   background: lightcoral;

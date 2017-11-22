@@ -11,19 +11,29 @@ import { Router, NavigationEnd } from '@angular/router';
 export class AppComponent {
 
 
+  allIndustry=[];
   constructor(private modalService: NgbModal, @Inject('data') private data) {
 
     //行业和区域缓存起来以备不时之需
     //获取行业列表
     this.data.getIndustryData().then(res => {
-      var result = res ? res : [];  //所有数据[[],[]],用于推荐经营，不宜经营。。。
-      sessionStorage.setItem("industry",JSON.stringify(result));
+       //所有数据[[],[]],用于推荐经营，不宜经营。。。
+      res.forEach((value, i) => {
+        value.forEach((v, j) => {
+          this.allIndustry.push(v);
+        });
+      });
+      sessionStorage.setItem("industry",JSON.stringify(this.allIndustry));
     });
 
     //获取城市列表
     this.data.getDistrictData().then(res => {
-      var result = res ? res : [];
-      sessionStorage.setItem("district",JSON.stringify(result));
+      sessionStorage.setItem("district",JSON.stringify(res));
+    });
+
+    //租金单位
+    this.data.getRentMeasure().then(res => {
+      sessionStorage.setItem("rentUnit",JSON.stringify(res));
     });
 
   }
