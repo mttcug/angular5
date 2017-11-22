@@ -43,8 +43,9 @@ export class HeaderComponent implements OnInit {
   currentCity = '深圳';
 
   getCurrentCity(e) {
+    console.log("e1:",this.currentCity);
     this.currentCity = e.address.city;
-    console.log("e:",this.currentCity);
+    console.log("e2:",this.currentCity);
   }
 
 

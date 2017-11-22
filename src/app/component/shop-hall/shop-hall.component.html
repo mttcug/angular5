@@ -32,9 +32,9 @@
         <option value="{{item.id}}" *ngFor="let item of districtList">{{item.name}}</option>
       </select>
       <p class="d-inline-block text-blue m-left-10 m-ritght-5 text-underline cursor-hand" (click)="open(mapModal)">地图定位</p>
-      <p class="d-inline-block m-h-5">{{latitude}}</p>
-      <p class="d-inline-block m-h-5">{{longitude}}</p>
-      <i *ngIf="latitude!=''" class="iconfont icon-delete" (click)="deletePosition()"></i>
+      <p class="d-inline-block m-h-5 text-muted">{{latitude}}</p>
+      <p class="d-inline-block m-h-5 text-muted">{{longitude}}</p>
+      <i *ngIf="latitude!=''" class="iconfont icon-delete text-muted" (click)="deletePosition()"></i>
     </div>
     <div class="d-block search-line-block">
       <label>位置描述</label>
@@ -77,7 +77,7 @@
           <p><span class="text-muted">临街</span><span class="text-muted">街道转角</span></p>
         </td>
         <td class="p-2 p-lg-2">
-          <p><span class="color-red">158平方米</span></p>
+          <p><span class="text-danger">158平方米</span></p>
           <p><span class="text-muted">门宽：2.5m</span><span class="text-muted">层高：3m</span></p>
           <p><span class="text-muted">开间：3.2m</span><span class="text-muted">进深：3.6m</span></p>
         </td>
