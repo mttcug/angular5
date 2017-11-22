@@ -1,7 +1,11 @@
 <p class="title-line">
 <span class="company-logo">铺铺旺</span>
   <span class="plat-intro">大数据平台</span>
-  <span class="city"><i class="iconfont icon-location-dealer"></i>{{currentCity | location}}</span>
+
+  <span class="city">
+      <app-geolocation (getLocation)="getCurrentCity($event)"></app-geolocation>
+    {{currentCity}}
+  </span>
   <span (click)="openCityListModal(cityListModal)" class="modal_activate_btn text text-blue cursor-hand">切换</span>
 </p>
 

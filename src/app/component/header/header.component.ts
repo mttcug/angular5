@@ -14,13 +14,13 @@ export class HeaderComponent implements OnInit {
   constructor(private modalService: NgbModal, @Inject('data') private data) {
 
     //获取城市列表
-    let district=sessionStorage.getItem("district");
-    if(district){
+    let district = sessionStorage.getItem("district");
+    if (district) {
       JSON.parse(district).forEach((v, i) => {
         this.allDistricts.push(v);
         v.id.toString().substr(-6) == '000000' ? this.cityList.push(v) : '';
       });
-    }else{
+    } else {
       this.data.getDistrictData().then(res => {
         var result = res ? res : [];
         result.forEach((v, i) => {
@@ -34,25 +34,31 @@ export class HeaderComponent implements OnInit {
 
 
   ngOnInit() {
-
     //初始化城市列表弹出框选中的标为红色
-    this.seleectedColorChange(this.currentCity);
+
 
   }
 
-  currentCity = '4403000000';
 
-  tempCurrentCity = '';
+  currentCity = '深圳';
+
+  getCurrentCity(e) {
+    this.currentCity = e.address.city;
+    console.log("e:",this.currentCity);
+  }
+
+
+  tempCurrentCity: string;
 
   cityItemClick(item) {
-    this.tempCurrentCity = item.id;
-    this.seleectedColorChange(item.id);
+    this.tempCurrentCity = item.name;
+    this.selectedColorChange(item.name);
   }
 
 
-  seleectedColorChange(selectedCityId){
-    this.cityList.forEach((v,i)=>{
-      v.selected = v.id.toString()==selectedCityId.toString() ? true : false ;
+  selectedColorChange(selectedCity) {
+    this.cityList.forEach((v, i) => {
+      v.selected = v.name.toString() == selectedCity.toString() ? true : false;
     })
   }
 
