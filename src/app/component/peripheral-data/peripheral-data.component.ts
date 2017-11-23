@@ -93,78 +93,77 @@ export class PeripheralDataComponent implements OnInit {
         }
       ]
     }*/
+    var data1 = [];
+    var data2 = [];
+    var data3 = [];
+
+    for (var i = 0; i < 70; i++) {
+      data1.push([Math.random() * 5, Math.random() * 360]);
+      data2.push([Math.random() * 5, Math.random() * 360]);
+      data3.push([Math.random() * 10, Math.random() * 360]);
+    }
 
     this.radarOption = {
+
       title: {
-        text: ''
+        text: '',
+        left: 'center'
       },
       legend: {
-        data: []
+        data: ['scatter', 'scatter2', 'scatter3'],
+        top: 10
       },
-      radar: [
+      polar: {
+
+      },
+      angleAxis: {
+        type: 'value'
+      },
+      radiusAxis: {
+        axisAngle: 0
+      },
+      dataZoom: [
         {
-          indicator: [
-            { text: '目标位置' }
-          ],
-          center: ['50%', '50%'],
-          radius: 100,
-          startAngle: 120,
-          splitNumber: 4,
-          shape: 'circle',
-          name: {
-            formatter:'[{value}]',
-            textStyle: {
-              color:'#72ACD1'
-            }
-          },
-          splitArea: {
-            areaStyle: {
-              color: ['rgba(114, 172, 209, 0.2)',
-                'rgba(114, 172, 209, 0.4)', 'rgba(114, 172, 209, 0.6)',
-                'rgba(114, 172, 209, 0.8)', 'rgba(114, 172, 209, 1)'],
-              shadowColor: 'rgba(0, 0, 0, 0.3)',
-              shadowBlur: 10
-            }
-          },
-          axisLine: {
-            lineStyle: {
-              color: 'rgba(255, 255, 255, 0.5)'
-            }
-          },
-          splitLine: {
-            lineStyle: {
-              color: 'rgba(255, 255, 255, 0.5)'
-            }
-          }
+          type: 'slider',
+          radiusAxisIndex: 0,
+          bottom: 0,
+          start: 20,
+          end: 80
+        },
+        {
+          type: 'inside',
+          radiusAxisIndex: 0,
+          start: 20,
+          end: 80
         }
       ],
-      series: [
-        {
-          name: '雷达图',
-          type: 'radar',
-          itemStyle: {
-            emphasis: {
-              color: 'rgba(114, 172, 209, 0.6)',
-              lineStyle: {
-                width: 4
-              }
-            }
-          },
-          data: [
-            {
-              value: [100, 8, 0.40, -80, 2000],
-              name: '图一',
-              symbol: 'circle',
-              symbolSize: 10,
-              lineStyle: {
-                normal: {
-                  type: 'dashed'
-                }
-              }
-            }
-          ]
-        }
-      ]
+      series: [{
+        coordinateSystem: 'polar',
+        // FIXME
+        // 现在必须得设置这个，能不能polar和catesian一样，要不然很多特殊处理。
+        angleAxisIndex: 0,
+        radiusAxisIndex: 0,
+        name: 'scatter',
+        type: 'scatter',
+        symbolSize: 10,
+        data: data1
+      }, {
+        coordinateSystem: 'polar',
+        angleAxisIndex: 0,
+        radiusAxisIndex: 0,
+        name: 'scatter2',
+        type: 'scatter',
+        symbolSize: 10,
+        data: data2
+      }, {
+        coordinateSystem: 'polar',
+        angleAxisIndex: 0,
+        radiusAxisIndex: 0,
+        name: 'scatter3',
+        type: 'scatter',
+        symbolSize: 10,
+        data: data3
+      }]
     }
 
     this.populationOption={

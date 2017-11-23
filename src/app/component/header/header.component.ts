@@ -15,7 +15,9 @@ export class HeaderComponent implements OnInit {
 
     //获取城市列表
     let district = sessionStorage.getItem("district");
+    console.log("district:",district);
     if (district) {
+      console.log("district:",district);
       JSON.parse(district).forEach((v, i) => {
         this.allDistricts.push(v);
         v.id.toString().substr(-6) == '000000' ? this.cityList.push(v) : '';
@@ -40,12 +42,10 @@ export class HeaderComponent implements OnInit {
   }
 
 
-  currentCity = '深圳';
+  currentCity = '';
 
   getCurrentCity(e) {
-    console.log("e1:",this.currentCity);
     this.currentCity = e.address.city;
-    console.log("e2:",this.currentCity);
   }
 
 

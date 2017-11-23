@@ -15,7 +15,16 @@
 .chart {
   height: 300px;
 }
-.radar-chart ,.people-chart,.peripheral-chart,.industry-chart{
+.radar-chart{
+  height: 500px;
+}
+.radar-chart > div{
+  height: 300px;
+}
+.radar-chart > div > canvas{
+  height: 300px;
+}
+.people-chart,.peripheral-chart,.industry-chart{
   height: 300px;
 }
 
