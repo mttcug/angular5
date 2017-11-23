@@ -92,10 +92,9 @@ export class DataCollectionComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log("1");
     let queryParams:Params=this.route.params;
-
-    console.log("id:",queryParams.value.id);
+    let oppoId=queryParams.value.id;
+    oppoId!='undefined' ? this.getShopInfo(oppoId) : '';
   }
 
 
@@ -373,6 +372,10 @@ export class DataCollectionComponent implements OnInit {
     personInfoDetail: ''
   };
   mapInfo = {'city': this.city, 'district': '', 'address': '', 'lng': '', 'lat': ''};
+
+  getShopInfo(id){
+
+  }
 
 
   updateShopName() {

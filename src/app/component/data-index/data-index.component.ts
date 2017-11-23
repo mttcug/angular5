@@ -15,7 +15,7 @@ export class DataIndexComponent implements OnInit {
   }
 
   navigateRelease() {
-    this.router.navigate(['dataCollection','undefined']);
+    this.router.navigate(['dataCollection','undefined']);  //多参数this.router.navigate(["comment",{id:this.blog.id,title:this.blog.title}],{relativeTo:this.aRoute})
   }
 
 }
