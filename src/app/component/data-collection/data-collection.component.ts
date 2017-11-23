@@ -28,6 +28,7 @@ export class DataCollectionComponent implements OnInit {
   rateChoice = [];
   emptyTransferList = [];
   sexType = [];
+  memberTypeList=[];
 
   constructor(private modalService: NgbModal, @Inject('data') private data, private route: ActivatedRoute) {
     //获取行业列表
@@ -133,6 +134,9 @@ export class DataCollectionComponent implements OnInit {
 
     //获取性别列表
     this.sexType = this.data.getSexTypeList();
+
+    //获取会员类型
+    this.memberTypeList=this.data.getMemberType();
   }
 
   ngOnInit() {
@@ -340,7 +344,7 @@ export class DataCollectionComponent implements OnInit {
   unRecommendableIndustry = [];               //不推荐经营
 
 
-  facilities = '';             //物业配套
+  facilities = [];             //物业配套
 
   waterFee = '';                //水费
   facilityFee = '';             ////物业
@@ -362,7 +366,7 @@ export class DataCollectionComponent implements OnInit {
 
 
   houseOwner = {
-    name: "里欧1",
+    name: "",
     phoneList: [''],
     realName: '',
     sex: '',
@@ -375,49 +379,50 @@ export class DataCollectionComponent implements OnInit {
   };
   mapInfo = {'city': this.city, 'district': '', 'address': '', 'lng': '', 'lat': ''};
 
-  getShopInfo(id) {
+  //如果是修改则需要获取该店铺信息
+  getShopInfo(id) {}
 
-  }
 
-
+  //该店铺是品牌时填写品牌名称时店铺名称需要随着改变
   updateShopName() {
     this.shopName = this.subShopName == '' ? this.brandName : this.brandName + "(" + this.subShopName + ")";
   }
 
+  //根据大行业加载小行业
   loadSmallIndustry(code) {
+    this.smallIndustry='';
+    this.smallIndustryList=[];
     this.allIndustry.forEach((v, i) => {
-      code.toString().trim() === v.code.toString().substr(0, 2).trim() ? this.smallIndustryList.push(v) : '';
+      (code.toString().length!=v.code.toString().length)  && code.toString().trim() === v.code.toString().substr(0, 2).trim() ? this.smallIndustryList.push(v) : '';
     });
   }
 
+  //根据城市加载相应区域
   loadDistrict(code) {  //城市 1234000000   区1234560000
+    this.district='';
+    this.districtList=[];
     this.allDistricts.forEach((v, i) => {
       (v.id.toString().substr(4, 2) != '00' && code.toString().substr(0, 4) == v.id.toString().substr(0, 4)) ? this.districtList.push(v) : '';
     });
     this.shopAddress = this.getWholeAddress();
   }
 
-  DistrictChange() {
-    this.shopAddress = this.getWholeAddress();
-  }
-
-  addressChange() {
-    this.shopAddress = this.getWholeAddress();
-  }
-
+  //获取开业时间
   getStartTime(date) {
     this.startOpenDate = date;
   }
 
-
+  //获取停业时间
   getEndTime(date) {
     this.endOpenDate = date;
   }
 
+  //添加店铺照片
   addImages(oldImages, newInamges) {
     oldImages = newInamges;
   }
 
+  //添加合伙人
   addPartner() {
     var obj = {
       name: "",
@@ -435,11 +440,13 @@ export class DataCollectionComponent implements OnInit {
     this.partner.push(newObj);
   }
 
+  //添加店铺证件
   addCertificationImages(imageUrl, newInamges) {
     imageUrl = newInamges[0].url;
   }
 
-  dayCheckValid = false;               //当点完整周时，其他的不可用
+  //当点完整周时，其他的不可用
+  dayCheckValid = false;
   selectAllWeek() {
     if (this.wholeWeek === false) {
       this.vaildTime.map((item, index) => {
@@ -458,6 +465,7 @@ export class DataCollectionComponent implements OnInit {
     }
   }
 
+  //选择某一天点击事件
   selectThisDay(item) {
     if (item.checked === true) {
       this.operateDate.push(item);
@@ -468,20 +476,21 @@ export class DataCollectionComponent implements OnInit {
     }
   }
 
-  timeChangedValid = false;
-
+  //选择一整天则时间不可填写
+  canChangeTime = false;
   selectAllDay() {
     if (this.allDay === false) {
       this.operateStartTime = "00:00";
       this.operateEndTime = "24:00";
-      this.timeChangedValid = true;
+      this.canChangeTime = true;
     } else {
       this.operateStartTime = "";
       this.operateEndTime = "";
-      this.timeChangedValid = false;
+      this.canChangeTime = false;
     }
   }
 
+  //选择提供的服务
   selectThisService(item) {
     if (item.checked === false) {
       this.serviceProvided.push(item);
@@ -492,24 +501,24 @@ export class DataCollectionComponent implements OnInit {
     }
   }
 
+  //选择支付方式
   payWayCode = '';
-
   definedWayShow = false;
-
   selectThisPayWay(item) {
     this.payWayCode = item.code;
     this.payWay = item.code == 0 ? this.definedPayWay : item.name;
     this.definedWayShow = item.code == 0 ? false : true;
   }
 
+  //弹出框选择支付方式
   tempPayWayCode = '';
   definedWayShowM = false;
-
   selectThisPopUpPayWay(item) {
     this.tempPayWayCode = item.code;
     this.temppayWay = item.code == 0 ? this.tempdefinedPayWay : item.name;
     this.definedWayShowM = item.code == 0 ? false : true;
   }
+
 
   definedPayChange() {
     if (this.payWayCode.toString() == '0') {
@@ -517,6 +526,7 @@ export class DataCollectionComponent implements OnInit {
     }
   }
 
+  //支付方式改变时
   definedPopUpPayChange() {
     if (this.tempPayWayCode.toString() == '0') {
       this.temppayWay = this.tempdefinedPayWay;
@@ -528,7 +538,6 @@ export class DataCollectionComponent implements OnInit {
   }
 
   depositWayCode;
-
   selectThisDepositWay(item) {
     this.depositWayCode = item.code;
     this.tempdepositWay = item.code == 0 ? this.tempdefinedDepositWay : item.name;
@@ -556,8 +565,8 @@ export class DataCollectionComponent implements OnInit {
     });
   }
 
+  //添加电话号码
   phoneNumberExample = {number: ''};
-
   addPhoneNumbers() {
     var obj: any = this.copy(this.phoneNumberExample);
     this.phoneList.push(obj);          //增加输入框个数
@@ -600,7 +609,8 @@ export class DataCollectionComponent implements OnInit {
 
   closeResult: string;
 
-  open(content) {
+  //打开编辑店铺图片弹出框
+  openEditShopImagesModal(content) {
     this.shopImages.forEach((v, i) => {
       this.tempshopImages.push(v);
     });
@@ -615,6 +625,7 @@ export class DataCollectionComponent implements OnInit {
     });
   }
 
+  //打开更多租金信息弹出框
   openRentModal(content) {
     this.tempshopRent = this.shopRent;
     this.temprentMeasure = this.rentMeasure;
@@ -636,14 +647,38 @@ export class DataCollectionComponent implements OnInit {
     });
   }
 
+  //打开店铺转让内容弹出框
+  openTransferInfoModal(content) {
+    this.temptransferStatus = this.transferStatus;
+    this.temptransferFee = this.transferFee;
+    this.tempisNegotiable = this.isNegotiable;
+    this.tempemptyTransfer = this.emptyTransfer;
+
+    this.modalService.open(content, {size: 'lg'}).result.then((result) => {
+      result == '1' ? this.sureBtnFunction(content, result) : '';
+    }, (reason) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    });
+  }
+
+  //打开营业内容弹出框
+  openOperateContentModal(content) {
+    this.temppersonProfit = this.personProfit;
+    this.tempdayProfit = this.dayProfit;
+
+    this.modalService.open(content, {size: 'lg'}).result.then((result) => {
+      result == '1' ? this.sureBtnFunction(content, result) : '';
+    }, (reason) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    });
+  }
+
+  //打开店铺证件弹出框
   defaultCertification;
-
-
   openShopCertificationModal(content, item, type) {  //type1编辑2添加
     let newItem = {};
     type == '2' ? newItem = this.copy(item) : '';
     this.defaultCertification = type == '1' ? item : newItem;
-    console.log("item:", this.defaultCertification);
 
     this.selectedCertificationType = item.certificationType;
     this.writeCertificationType = '';           //证件类型
@@ -673,8 +708,8 @@ export class DataCollectionComponent implements OnInit {
     });
   }
 
+  //打开个人信息弹出框
   defaultPerson;
-
   openPersonalInfo(content, item) {
     this.defaultPerson = item;
     this.phoneList = [];
@@ -702,9 +737,9 @@ export class DataCollectionComponent implements OnInit {
     });
   }
 
+  //打开行业弹出框
   defaultIndustryList = [];
   tempdefaultIndustryList;
-
   openIndustryModel(content, selectedList) {
     this.defaultIndustryList = selectedList;
 
@@ -766,6 +801,7 @@ export class DataCollectionComponent implements OnInit {
     }
   }
 
+  //删除选中的行业
   deleteSelectedIndustry(dataList, item) {
     dataList.forEach((value, index) => {
       value.code == item.code ? dataList.splice(index, 1) : '';
@@ -773,9 +809,9 @@ export class DataCollectionComponent implements OnInit {
     });
   }
 
+  //勾选物业设施
   selectThisFacility(item) {
     this.facilities.forEach((v, i) => {
-      console.log("123", item.code, v.code, v.code.toString() === item.code.toString());
       v.code.toString() === item.code.toString() ? this.facilities.splice(i, 1) : i == this.facilities.length ? this.facilities.push(item) : '';
     })
   }
@@ -796,17 +832,18 @@ export class DataCollectionComponent implements OnInit {
     }
   }
 
+  //获取地图所需要的完成地址
   getWholeAddress() {
     let tempCity = this.allDistricts.find(item => item.id.toString() == this.city.toString());
     let tempDistrict = this.allDistricts.find(item => item.id.toString() == this.district.toString());
     let city = tempCity ? tempCity.name : '';
     let district = tempDistrict ? tempDistrict.name : '';
     let addressDetail = this.addressDetail;
-    return city + district + addressDetail != '' ? city + district + addressDetail : '深圳';
+    return city + district + addressDetail != '' ? city + district + addressDetail : sessionStorage.getItem("curCity");
   }
 
+  //控制地图显示或是隐藏
   mapBlock = false;
-
   mapShow() {
     this.mapBlock = true; //显示地图
     //获取地址传给map
@@ -817,7 +854,7 @@ export class DataCollectionComponent implements OnInit {
     this.mapBlock = false;
   }
 
-
+  //获取地图点击事件获取到的信息
   geoLocation(e) {
     this.templatitude = e.point.lat;
     this.templongitude = e.point.lng;
@@ -829,6 +866,7 @@ export class DataCollectionComponent implements OnInit {
     this.tempshopAddress = e.address.city + e.address.district + e.address.street;
   }
 
+  //地图确定按钮
   sureLocation() {
     this.latitude = this.templatitude;
     this.longitude = this.templongitude;

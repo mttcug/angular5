@@ -24,7 +24,7 @@ declare const BMap: any;
 })
 export class BaiduMapComponent implements OnInit, OnChanges {
 
-  @Input() address: string;
+  @Input() address: string = '深圳';
   @Input() apiKey: string = 'sIq3pmhG5n4xVuKQ8eKr1BiV0hsLP2ek';
   @Input() center: any;
   @Input() zoom = 15;
@@ -51,7 +51,7 @@ export class BaiduMapComponent implements OnInit, OnChanges {
   initMap() {
     var that = this;
     const container = this.elementRef.nativeElement.querySelector('.baidu-map-container');
-     const map = new BMap.Map(container);
+    const map = new BMap.Map(container);
 
     //添加比列尺
     map.addControl(new BMap.ScaleControl({offset: new BMap.Size(100, 20)}));

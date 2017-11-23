@@ -29,9 +29,12 @@ import { DataOperateRequestService } from './service/operate-request/data-operat
 
 import { routing } from './app.routes';
 import { AngularEchartsModule } from 'ngx-echarts';
-import { LocationPipe } from './pipe/location/location.pipe';
 import { RentUnitPipe } from './pipe/rent-unit/rent-unit.pipe';
 import { IndustryPipe } from './pipe/industry/industry.pipe';
+import { NearStreetPipe } from './pipe/near-street/near-street.pipe';
+import { LocationTypePipe } from './pipe/location-type/location-type.pipe';
+import { SuperFacilityPipe } from './pipe/super-facility/super-facility.pipe';
+import { DistrictPipe } from './pipe/district/district.pipe';
 
 
 
@@ -51,10 +54,13 @@ import { IndustryPipe } from './pipe/industry/industry.pipe';
     WorkManageComponent,
     PeripheralDataComponent,
     RejectedPageComponent,
-    LocationPipe,
     RentUnitPipe,
     IndustryPipe,
-    GeolocationComponent
+    GeolocationComponent,
+    NearStreetPipe,
+    LocationTypePipe,
+    SuperFacilityPipe,
+    DistrictPipe
   ],
   imports: [
     BrowserModule,

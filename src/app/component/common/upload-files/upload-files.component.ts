@@ -1,6 +1,5 @@
 import {Component, OnInit, Input, Output, EventEmitter, Inject} from '@angular/core';
 import {Http, Response, Headers} from '@angular/http';
-import {FileUploader} from 'ng2-file-upload';
 import 'rxjs/add/operator/toPromise';
 
 @Component({
@@ -11,8 +10,7 @@ import 'rxjs/add/operator/toPromise';
 export class UploadFilesComponent implements OnInit {
 
 
-  constructor(private http: Http, @Inject('config') private configService, @Inject('request') private HR) {
-
+  constructor(private http: Http, @Inject('config') private configService) {
   }
 
 
@@ -26,6 +24,7 @@ export class UploadFilesComponent implements OnInit {
   @Output() addImages: EventEmitter<any> = new EventEmitter<any>();
 
 
+  //上传功能
   Upload(files) {
     var params = {
       files: files
@@ -37,13 +36,13 @@ export class UploadFilesComponent implements OnInit {
     });
   }
 
-  /*添加新图片*/
+
+  // 添加新图片
   imagesChanges(files): any {
     var fd = new FormData();
     for (let i = 0; i < files.length; i++) {
       fd.append(i.toString(), files[i]);
     }
-
     this.Upload(fd).then(res => {
       Array.from(<any>res).forEach((v, i) => {
         this.images.push(v);
@@ -53,7 +52,7 @@ export class UploadFilesComponent implements OnInit {
   }
 
 
-  /*删除图片（注：新图片需要上传和就图片格式是不一样的需要单独存储）*/
+  // 删除图片（注：新图片需要上传和就图片格式是不一样的需要单独存储）
   deleteNewImage(item) {
     this.images.forEach((v, i) => {
       item.url.toString().trim() == v.url.toString().trim() ? this.images.splice(i, 1) : '';

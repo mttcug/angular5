@@ -80,7 +80,7 @@
           <img src="{{item.url}}" alt="">
         </a>
       </div>
-      <span (click)="open(shopImageContent)" class="model-popup text-blue">编辑>></span>
+      <span (click)="openEditShopImagesModal(shopImageContent)" class="model-popup text-blue">编辑>></span>
     </div>
 
     <!--前台电话-->
@@ -123,10 +123,10 @@
               class="divider">|</span>
               <input class="form-control time-input d-inline-block w-160-px" name="startTime" type="text"
                      placeholder="8:00"
-                     [(ngModel)]="operateStartTime" [disabled]="timeChangedValid">—<input
+                     [(ngModel)]="operateStartTime" [disabled]="canChangeTime">—<input
               class="form-control time-input d-inline-block w-160-px" name="endTime"
               type="text" placeholder="24:00"
-              [(ngModel)]="operateEndTime" [disabled]="timeChangedValid">
+              [(ngModel)]="operateEndTime" [disabled]="canChangeTime">
             </p>
           </ng-template>
         </ngb-tab>
@@ -210,7 +210,7 @@
     <!--编辑更多营业状况内容-->
     <div class="d-block m-top-20">
       <p class="model-popup text-blue"><label for="" class="text-right d-inline-block m-ritght-10"></label><span
-        (click)="open(profitContent)">编辑更多营业状况内容</span></p>
+        (click)="openOperateContentModal(profitContent)">编辑更多营业状况内容</span></p>
     </div>
 
 
@@ -256,7 +256,7 @@
     <!--编辑更多转让内容-->
     <div class="d-block m-top-20" *ngIf="this.transferStatus.value=='2'">
       <p class="model-popup text-blue"><label for="" class="text-right d-inline-block m-ritght-10"></label><span
-        (click)="open(transferContent)">编辑更多转让内容</span></p>
+        (click)="openTransferInfoModal(transferContent)">编辑更多转让内容</span></p>
     </div>
 
 
@@ -340,14 +340,13 @@
         <option value="">请选择</option>
         <option value="{{item.id}}" *ngFor="let item of cityList">{{item.name}}</option>
       </select>
-      <select class="form-control d-inline-block w-160-px" name="district" id="district" [(ngModel)]="district"
-              (change)="DistrictChange()">
+      <select class="form-control d-inline-block w-160-px" name="district" id="district" [(ngModel)]="district">
         <option value="">请选择</option>
         <option value="{{item.id}}" *ngFor="let item of districtList">{{item.name}}</option>
       </select>
       <input type="text" name="detailAddress" placeholder="详细地址" name="addressDetail" [(ngModel)]="addressDetail"
              maxlength="30"
-             class="form-control d-inline-block w-160-px" (blur)="addressChange()">
+             class="form-control d-inline-block w-160-px">
       <p><label for="" class="text-right d-inline-block m-ritght-10"></label>{{shopAddress}}
         <span class="model-popup text-blue" (click)="mapShow()">地图定位</span>
         <span class="longitude ">{{longitude}}</span>
@@ -790,9 +789,8 @@
     <div class="d-block m-top-20">
       <label for="" class="text-right d-inline-block m-ritght-10"><span class="input-label-name">会员类型:</span></label>
       <select class="form-control  d-inline-block w-160-px m-ritght-10" name="" [(ngModel)]="tempmemberType">
-        <option>1</option>
-        <option>2</option>
-        <option>3</option>
+        <option value="">请选择</option>
+        <option value="{{item.code}}" *ngFor="let item of memberTypeList">{{item.name}}</option>
       </select>
     </div>
   </div>

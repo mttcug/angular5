@@ -36,6 +36,21 @@ export class AppComponent {
       sessionStorage.setItem("rentUnit",JSON.stringify(res));
     });
 
+    /*获取位置描述*/
+    this.data.getPositionDesData().then(res=>{
+      sessionStorage.setItem("locationType",JSON.stringify(res));
+    })
+
+    /*获取是否临街*/
+    this.data.getBesideStreet().then(res=>{
+      sessionStorage.setItem("nearStreet",JSON.stringify(res));
+    })
+
+    //获取上级物业
+    this.data.getEstateType().then(res => {
+      sessionStorage.setItem("superFacility",JSON.stringify(res));
+    });
+
   }
 
   getWindowHeight() {

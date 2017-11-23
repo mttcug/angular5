@@ -75,13 +75,13 @@ export class ShopHallComponent implements OnInit {
   mindoorWidth = '';
   maxdoorWidth = '';
 
-  mapAddress = '深圳南山区';
+  mapAddress = '';
   zoomLevel = 14;
   zoomList = [
-    {code: 15, name: '500米'},
-    {code: 14, name: '1公里'},
-    {code: 13, name: '2公里'},
-    {code: 12, name: '3公里'}
+    {code: 15, name: '500米',value:0.5},
+    {code: 14, name: '1公里',value:1},
+    {code: 13, name: '2公里',value:2},
+    {code: 12, name: '3公里',value:3}
   ];
 
   pageNo = 0;
@@ -119,13 +119,18 @@ export class ShopHallComponent implements OnInit {
 
   //根据大行业加载相应小行业
   loadSmallIndustry(code) {
+    this.smallIndustry='';
+    this.smallIndustryList=[];
     this.allIndustry.forEach((v, i) => {
-      code.toString().trim() === v.code.toString().substr(0, 2).trim() ? this.smallIndustryList.push(v) : '';
+      console.log("rrr:",code,v.code,(code.toString().length != v.code.toString().length)  && code.toString().trim() === v.code.toString().substr(0, 2).trim());
+      (code.toString().length != v.code.toString().length)  && code.toString().trim() === v.code.toString().substr(0, 2).trim() ? this.smallIndustryList.push(v) : '';
     });
   }
 
   //根据城市加载相应区域
   loadDistrict(code) {  //城市 1234000000   区1234560000
+    this.district='';
+    this.districtList=[];
     this.allDistricts.forEach((v, i) => {
       (v.id.toString().substr(4, 2) != '00' && code.toString().substr(0, 4) == v.id.toString().substr(0, 4)) ? this.districtList.push(v) : '';
     });
@@ -151,9 +156,9 @@ export class ShopHallComponent implements OnInit {
     this.bigIndustry ? ( this.smallIndustry ? params['district'] = this.smallIndustry : params['district'] = this.bigIndustry ) : '';
     this.longitude ? params['longitude'] = this.longitude : '';
     this.latitude ? params['latitude'] = this.latitude : '';
-    this.zoomList.find(item => item.code.toString() == this.zoomLevel.toString()) ? params['distance_range'] = this.zoomList.find(item => item.code.toString() == this.zoomLevel.toString()).name : params['distance_range'] = '一公里';
+    this.zoomList.find(item => item.code.toString() == this.zoomLevel.toString()) ? params['distance_range'] = this.zoomList.find(item => item.code.toString() == this.zoomLevel.toString()).value : params['distance_range'] = 1;
     this.positionDescription != '' ? params['location_type'] = this.positionDescription : '';
-    this.nearStreet ? params['near_street'] = "是" : params['near_street'] = '否';
+    this.nearStreet ? params['near_street'] = '1' : params['near_street'] = '2';
     this.minArea ? params['min_area'] = this.minArea : '';
     this.maxArea ? params['max_area'] = this.maxArea : '';
     this.mindoorWidth ? params['min_door_width'] = this.maxArea : '';
@@ -163,6 +168,7 @@ export class ShopHallComponent implements OnInit {
 
 
     this.operate.getshopList(params).then(res => {
+      console.log("Listparams",res);
       this.infoList = res;
     })
   }
@@ -170,6 +176,12 @@ export class ShopHallComponent implements OnInit {
   //打开地图弹出框
   closeResult: string;
   open(content) {
+    //地址
+    var cityName=this.allDistricts.find(item=>item.id.toString()==this.city.toString())?this.allDistricts.find(item=>item.id.toString()==this.city.toString()).name : '';
+    var districtName=this.allDistricts.find(item=>item.id.toString()==this.district.toString())?this.allDistricts.find(item=>item.id.toString()==this.district.toString()).name : '';
+
+    this.mapAddress= (cityName+districtName ) ? (cityName+districtName ) : sessionStorage.getItem("curCity");
+
     this.modalService.open(content, {size: 'lg'}).result.then((result) => {
       if (result == '1') {
         this.longitude = this.templng;

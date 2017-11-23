@@ -4,7 +4,7 @@
 
   <span class="city">
       <app-geolocation (getLocation)="getCurrentCity($event)"></app-geolocation>
-    {{currentCity}}
+    <span *ngIf="currentCity!=''">{{currentCity}}</span>
   </span>
   <span (click)="openCityListModal(cityListModal)" class="modal_activate_btn text text-blue cursor-hand">切换</span>
 </p>

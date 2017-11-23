@@ -1,4 +1,4 @@
-import {Component, OnInit, Inject} from '@angular/core';
+import {Component, OnInit, Inject,  OnChanges,SimpleChanges} from '@angular/core';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
@@ -6,7 +6,7 @@ import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent implements OnInit ,OnChanges {
 
   allDistricts = [];
   cityList = [];
@@ -36,16 +36,24 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit() {}
 
+  ngOnChanges(changes: SimpleChanges) {
+    console.log("changes:",changes);
+  }
 
 
-  currentCity = '';
+
+  currentCity:string = '';
 
   tempCurrentCity: string;
 
   //定位到当前城市
   getCurrentCity(e) {
     this.currentCity = e.address.city;
+    sessionStorage.setItem("curCity",this.currentCity);
+    console.log("当前城市：",this.currentCity);
   }
+
+
 
   //切换城市弹出框内城市列表点击事件
   cityItemClick(item) {
@@ -66,6 +74,7 @@ export class HeaderComponent implements OnInit {
   openCityListModal(content) {
     this.modalService.open(content, {size: 'lg'}).result.then((result) => {
       result == '1' ? this.currentCity = this.tempCurrentCity : '';
+      sessionStorage.setItem("curCity",this.currentCity);
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
     });

@@ -115,6 +115,14 @@ export class DataService {
     ]
   }
 
+  getMemberType(){
+    return [
+      {code:1,name:'会员卡'},
+      {code:1,name:'注册会员'},
+      {code:1,name:'储值卡'}
+    ]
+  }
+
 
 
 
@@ -160,7 +168,7 @@ export class DataService {
     });
   }
 
-  /*获取位置描述*/
+  /*获取是否临街*/
   getBesideStreet(params) {
     return this.http.staticRequest("beside_street", params).then(res => {
       return JSON.parse(res._body).result;
