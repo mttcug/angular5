@@ -1,6 +1,6 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
-import {ActivatedRoute,Params} from '@angular/router';
+import {ActivatedRoute, Params} from '@angular/router';
 
 
 @Component({
@@ -9,11 +9,27 @@ import {ActivatedRoute,Params} from '@angular/router';
   styleUrls: ['./data-collection.component.css']
 })
 export class DataCollectionComponent implements OnInit {
+
   allIndustry = [];
   allDistricts = [];
+  bigIndustryList = [];
+  smallIndustryList = [];
+  cityList = [];
+  districtList = [];
+  transferStatusList = [];
+  operateStatusList = []; // 经营状态
+  operateMode = [];
+  vaildTime = [];
+  fitmentLevelList = [];
+  serviceList = [];
+  payWayList = [];
+  depositList = [];
+  facilitiesList = [];
+  rateChoice = [];
+  emptyTransferList = [];
+  sexType = [];
 
-
-  constructor(private modalService: NgbModal, @Inject('data') private data,private route: ActivatedRoute) {
+  constructor(private modalService: NgbModal, @Inject('data') private data, private route: ActivatedRoute) {
     //获取行业列表
     this.data.getIndustryData().then(res => {
       this.industries = res ? res : [];
@@ -88,35 +104,59 @@ export class DataCollectionComponent implements OnInit {
       this.superFacilityList = res;
     });
 
+    //经营模式
+    this.operateMode = this.data.getOperateType();
 
+    //获取星期列表
+    this.vaildTime = this.data.getWeekData();
+
+    //获取装修级别列表
+    this.fitmentLevelList = this.data.getFitmentLevel();
+
+    //获取服务列表
+    this.serviceList = this.data.getServiceList();
+
+    //获取支付方式列表
+    this.payWayList = this.data.getPayWayList();
+
+    //押金方式列表
+    this.depositList = this.data.getDepositList();
+
+    //物业设施列表
+    this.facilitiesList = this.data.getFacilities();
+
+    //获取是否上涨列表
+    this.rateChoice = this.data.getRateChoiceList();
+
+    //获取是否空转列表
+    this.emptyTransferList = this.data.getEmptyChoice();
+
+    //获取性别列表
+    this.sexType = this.data.getSexTypeList();
   }
 
   ngOnInit() {
-    let queryParams:Params=this.route.params;
-    let oppoId=queryParams.value.id;
-    oppoId!='undefined' ? this.getShopInfo(oppoId) : '';
+    let queryParams: Params = this.route.params;
+    let oppoId = queryParams.value.id;
+    oppoId != 'undefined' ? this.getShopInfo(oppoId) : '';
   }
 
 
-  /*品牌名称*/
+  // 品牌名称
   shopName = '';
   isBrandName = false;
   brandName = '';
   subShopName = '';
   operateType = '';
-  operateMode = this.data.getOperateType();
+
   // 经营行业
   bigIndustry = '';
   smallIndustry = '';
-  /*  industries=[
-      [{code:1,name:"餐饮"},{code:1233,name:"餐饮1"},{code:12345,name:"餐饮2"},{code:1567567,name:"餐饮3"}],
-      [{code:1,name:"悦乐"},{code:1233,name:"悦乐1"},{code:12345,name:"悦乐2"},{code:1567567,name:"悦乐3"}]
-    ];*/
+
   industries;
-  bigIndustryList = [];
-  smallIndustryList = [];
+
   startOpenDate = '';// 开业日期
-  operateStatusList = []; // 经营状态
+
   operateStatus = 1;
   endOpenDate = ''; // 停业日期
   shopImages = [];// 门面
@@ -126,30 +166,27 @@ export class DataCollectionComponent implements OnInit {
   shopPhoneNumber = '';  // 前台电话
   takeOutPhone = '';  // 外卖电话
   wholeWeek = false;  // 营业时间
-  vaildTime = this.data.getWeekData();  //星期列表
+
   operateDate = [];
   allDay = false;
   operateStartTime = '';
   operateEndTime = '';
   fitmentLevelStatus = '';  // 装修档次
-  fitmentLevelList = this.data.getFitmentLevel();
+
   serviceProvided = [];  // 提供服务
-  serviceList = this.data.getServiceList();
+
   shopRent = '';  // 店铺租金
   rentMeasure = 1;
   rentMeasureList;
-  payWayList = this.data.getPayWayList();  // 支付方式&&编辑更多支付方式
+
   payWay = '';
   definedPayWay = '';
   rateWay = '';  // 递增或递减
   definedRateWay = '';
-  rateChoice = [
-    {code: 1, name: "不递增"},
-    {code: 2, name: "递减"}
-  ];
+
   depositWay = '';  // 押金
   definedDepositWay = '';
-  deposit = this.data.getDepositList();
+
   rentDate = '';           //租期
   rentTime = '';           //租约
   leftContractTime = '';  //剩余合同期
@@ -162,24 +199,16 @@ export class DataCollectionComponent implements OnInit {
   memberAmount = ''; //会员数
   memberType = '';  //会员类型
   transferStatus = ''          //转让状态
-  transferStatusList = [
-    {code: 1, name: "不转让"},
-    {code: 2, name: "转让中"},
-    {code: 3, name: "转让成功"},
-    {code: 4, name: "租约到期"}
-  ];
+
   transferFee = '';              //转让费
   isNegotiable = false;
   emptyTransfer = '';           //可否空转
-  emptyTransferList = [
-    {code: 1, name: "可空转"},
-    {code: 2, name: "不可空转"}
-  ];
+
   emptyTransferFee = '';          //空转转让费
   transferStaff = '';           //转让内容
   transferReason = '';            //转让原因
 
-  /*店铺证件*/
+
   certifications = [];
   objCertification = {
     certificationType: '',
@@ -193,7 +222,7 @@ export class DataCollectionComponent implements OnInit {
     permissionScope: '',
     otherContent: ''
   }
-  /*店铺证件弹出框*/
+
   selectedCertificationType = 4;
   writeCertificationType = '';           //证件类型
   certificationsTypeList = [];
@@ -212,7 +241,6 @@ export class DataCollectionComponent implements OnInit {
   permissionScope = '';         //许可范围
   otherContent = '';            //其他内容
 
-  /*店铺老板 && 个人信息弹出框*/
   shopBoss = {
     name: '',
     phoneList: [""],
@@ -228,21 +256,16 @@ export class DataCollectionComponent implements OnInit {
   phoneList = [""];
   name = '';                       //名称
   realName = '';                   //真实名字
-  /*性别*/
-  sexType = [
-    {code: 1, name: "男"},
-    {code: 2, name: "女"},
-    {code: 3, name: "其他"}
-  ];
+
   sex = '';            //性别
-  /*出生日期*/
+
   birthdayDate = '';
   contactAddress = '';            //联系地址
   email = '';                     //电子邮件
   qq = '';                        //qq
   wx = '';                        //微信
   personInfoDetail = '';          //详细描述
-  /*合伙人*/
+
   partner = [
     {
       name: "",
@@ -258,8 +281,6 @@ export class DataCollectionComponent implements OnInit {
     }
   ];
 
-
-  /*店铺员工*/
   entryTimePlaceHolder = '入职时间';
   leaveTimePlaceHolder = '离职时间';
   isDission = false;
@@ -276,11 +297,6 @@ export class DataCollectionComponent implements OnInit {
     wx: '',
     personInfoDetail: ''
   }];
-
-  /*所在位置*/
-
-  cityList = [];
-  districtList = [];
 
 
   city = '';           //城市
@@ -299,15 +315,13 @@ export class DataCollectionComponent implements OnInit {
   templongitude = '';                       //经度
   templatitude = '';                       //纬度
 
-  /*位置描述*/
+
   positionDescription = '';       //位置描述
   positionDescriptionList = [];
 
-  /*是否临街*/
   isNearStreet = '';                //是否临街
   positionList = [];
 
-  /*上级物业*/
   superFacility = '';                //上级物业
   superFacilityList = [];
   shopCityName = '';                 //商城名称
@@ -321,22 +335,13 @@ export class DataCollectionComponent implements OnInit {
   floorHeight = '';                   //层高
   floorAmount = '';                  //总层数
 
-
-  /*适合经营*/
   fitIndustry = [];                   //适合经营
-
-  /*推荐经营的行业*/
   recommendableIndustry = [];             //推荐经营
-
-
-  /*不推荐经营的行业*/
   unRecommendableIndustry = [];               //不推荐经营
 
 
-  /*物业配套*/
-  facilities = this.data.getFacilities();             //物业配套
-  facilitiesList = this.data.getFacilities();
-  /*费用*/
+  facilities = '';             //物业配套
+
   waterFee = '';                //水费
   facilityFee = '';             ////物业
   gasFee = '';                   //燃气
@@ -345,20 +350,17 @@ export class DataCollectionComponent implements OnInit {
   rentMeasureF = 1;
   warmFee = '';                    //暖气
 
-  /*建筑形状*/
   buildingShape = '';
   buildingShapeList = [];
 
-  /*产权类型*/
   propertyRightType = '';
   propertyRightTypeList = [];
 
-  /*拆迁风险*/
   destroyedRatio = '';
   destroyedRatioList = [];
   destroyedRatioDetail = '';
 
-  /*房东*/
+
   houseOwner = {
     name: "里欧1",
     phoneList: [''],
@@ -373,15 +375,13 @@ export class DataCollectionComponent implements OnInit {
   };
   mapInfo = {'city': this.city, 'district': '', 'address': '', 'lng': '', 'lat': ''};
 
-  getShopInfo(id){
+  getShopInfo(id) {
 
   }
 
 
   updateShopName() {
-    console.log("ooo", this.subShopName);
     this.shopName = this.subShopName == '' ? this.brandName : this.brandName + "(" + this.subShopName + ")";
-    console.log("shopName:", this.shopName);
   }
 
   loadSmallIndustry(code) {
@@ -407,7 +407,6 @@ export class DataCollectionComponent implements OnInit {
 
   getStartTime(date) {
     this.startOpenDate = date;
-    console.log("startOpenDate:", this.startOpenDate);
   }
 
 

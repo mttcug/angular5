@@ -11,6 +11,7 @@ export class HeaderComponent implements OnInit {
   allDistricts = [];
   cityList = [];
 
+
   constructor(private modalService: NgbModal, @Inject('data') private data) {
 
     //获取城市列表
@@ -33,28 +34,26 @@ export class HeaderComponent implements OnInit {
   }
 
 
-  ngOnInit() {
-    //初始化城市列表弹出框选中的标为红色
+  ngOnInit() {}
 
-
-  }
 
 
   currentCity = '';
 
+  tempCurrentCity: string;
+
+  //定位到当前城市
   getCurrentCity(e) {
     this.currentCity = e.address.city;
   }
 
-
-  tempCurrentCity: string;
-
+  //切换城市弹出框内城市列表点击事件
   cityItemClick(item) {
     this.tempCurrentCity = item.name;
     this.selectedColorChange(item.name);
   }
 
-
+  //切换城市弹出框标记被选中的城市
   selectedColorChange(selectedCity) {
     this.cityList.forEach((v, i) => {
       v.selected = v.name.toString() == selectedCity.toString() ? true : false;
@@ -63,7 +62,7 @@ export class HeaderComponent implements OnInit {
 
 
   closeResult: string;
-
+  //点击切换城市按钮弹出城市列表弹出框
   openCityListModal(content) {
     this.modalService.open(content, {size: 'lg'}).result.then((result) => {
       result == '1' ? this.currentCity = this.tempCurrentCity : '';

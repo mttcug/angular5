@@ -36,7 +36,6 @@ export class ShopHallComponent implements OnInit {
     this.data.getPositionDesData().then(res => {
       this.positionDescriptionList = res;
     });
-
   }
 
   ngOnInit() {
@@ -44,7 +43,7 @@ export class ShopHallComponent implements OnInit {
   }
 
 
-  infoList = [];
+  infoList = [];                      //信息列表
 
   bigIndustry = '';
   smallIndustry = '';
@@ -82,59 +81,64 @@ export class ShopHallComponent implements OnInit {
     {code: 15, name: '500米'},
     {code: 14, name: '1公里'},
     {code: 13, name: '2公里'},
-    {code: 12, name: '3公里'},
+    {code: 12, name: '3公里'}
   ];
 
   pageNo = 0;
   pageSize = 10;
   totalResultCount = 90;
 
-  pageChange(e) {
-
-  }
-
-  search() {
-    this.getList();
-  }
-
-
-  zoomChange(item) {
-    console.log("item:", item);
-    this.zoomLevel = item.code;
-  }
-
+  //临时变量
   templng = '';
   templat = '';
   tempcityName = '';
   tempdistrictName = '';
 
+
+
+  //分页点击事件
+  pageChange(e) {}
+
+  //查询信息获取列表事件
+  search() {
+    this.getList();
+  }
+
+  //地图比例尺发生改变时间
+  zoomChange(item) {
+    this.zoomLevel = item.code;
+  }
+
+  //地图点击事件获取点和地址位置信息
   geoLocation(e) {
-    console.log("e");
     this.templng = e.point.lng;
     this.templat = e.point.lat;
     this.tempcityName = e.address.city;
     this.tempdistrictName = e.address.district;
   }
 
+  //根据大行业加载相应小行业
   loadSmallIndustry(code) {
     this.allIndustry.forEach((v, i) => {
       code.toString().trim() === v.code.toString().substr(0, 2).trim() ? this.smallIndustryList.push(v) : '';
     });
   }
 
+  //根据城市加载相应区域
   loadDistrict(code) {  //城市 1234000000   区1234560000
     this.allDistricts.forEach((v, i) => {
       (v.id.toString().substr(4, 2) != '00' && code.toString().substr(0, 4) == v.id.toString().substr(0, 4)) ? this.districtList.push(v) : '';
     });
   }
 
+  //删除经纬度信息
   deletePosition() {
     this.longitude = '';
     this.latitude = '';
   }
 
+//获取列表数据
   getList() {
-    //获取列表数据
     var params = {
       page_no: this.pageNo,
       page_size: this.pageSize
@@ -163,9 +167,8 @@ export class ShopHallComponent implements OnInit {
     })
   }
 
-
+  //打开地图弹出框
   closeResult: string;
-
   open(content) {
     this.modalService.open(content, {size: 'lg'}).result.then((result) => {
       if (result == '1') {

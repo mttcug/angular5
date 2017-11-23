@@ -702,7 +702,7 @@
     <div class="d-block m-top-20">
       <label for="" class="text-right d-inline-block m-ritght-10"><span class="input-label-name">押金:</span></label>
       <div class="pay-way-list align-top d-inline-block">
-        <span *ngFor="let item of deposit" class="select-span d-inline-block"><input [(ngModel)]="item.name"
+        <span *ngFor="let item of depositList" class="select-span d-inline-block"><input [(ngModel)]="item.name"
                                                                                      [value]="item.name"
                                                                                      name="depositCheck"
                                                                                      (click)="selectThisDepositWay(item)"

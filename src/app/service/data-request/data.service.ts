@@ -93,6 +93,28 @@ export class DataService {
     ];
   }
 
+  getRateChoiceList(){
+    return [
+      {code: 1, name: "不递增"},
+      {code: 2, name: "递减"}
+    ]
+  }
+
+  getEmptyChoice(){
+    return [
+      {code: 1, name: "可空转"},
+      {code: 2, name: "不可空转"}
+    ]
+  }
+
+  getSexTypeList(){
+    return [
+      {code: 1, name: "男"},
+      {code: 2, name: "女"},
+      {code: 3, name: "其他"}
+    ]
+  }
+
 
 
 
