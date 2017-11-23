@@ -121,7 +121,9 @@
 .w-220-px{
   width: 220px;
 }
-
+.w-30{
+  width: 30%;
+}
 
 .selected-span{
   color: red;

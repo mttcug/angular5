@@ -1,5 +1,6 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
+import {ActivatedRoute,Params} from '@angular/router';
 
 
 @Component({
@@ -11,7 +12,8 @@ export class DataCollectionComponent implements OnInit {
   allIndustry = [];
   allDistricts = [];
 
-  constructor(private modalService: NgbModal, @Inject('data') private data) {
+
+  constructor(private modalService: NgbModal, @Inject('data') private data,private route: ActivatedRoute) {
     //获取行业列表
     this.data.getIndustryData().then(res => {
       this.industries = res ? res : [];
@@ -90,6 +92,10 @@ export class DataCollectionComponent implements OnInit {
   }
 
   ngOnInit() {
+    console.log("1");
+    let queryParams:Params=this.route.params;
+
+    console.log("id:",queryParams.value.id);
   }
 
 

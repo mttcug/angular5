@@ -25,7 +25,6 @@ export class ShopHallComponent implements OnInit {
 
     //获取城市列表
     this.data.getDistrictData().then(res => {
-      console.log("城市：", res);
       var result = res ? res : [];
       result.forEach((v, i) => {
         this.allDistricts.push(v);
@@ -41,40 +40,11 @@ export class ShopHallComponent implements OnInit {
   }
 
   ngOnInit() {
-
-
-
+    this.getList();
   }
 
-  getList(){
-    //获取列表数据
-    var params = {
-      page_no: this.pageNo,
-      page_size: this.pageSize
 
-    };
-    this.bigIndustry ? ( this.smallIndustry ? params['industry'] = this.smallIndustry : params['industry'] = this.bigIndustry ) : '';
-    this.unfitIndustry ? ( this.fitIndustry ? (this.currentIndustry ? params['industry_type'] = '不宜经营,适合经营,当前经营' : params['industry_type'] = '不宜经营,适合经营') : params['industry_type'] = '不宜经营') : params['industry_type'] = '当前经营';
-    this.shopName ? params['keyword'] = this.shopName : '';
-    this.shopPhoneNumber ? params['mobile'] = this.shopPhoneNumber : '';
-    this.bigIndustry ? ( this.smallIndustry ? params['district'] = this.smallIndustry : params['district'] = this.bigIndustry ) : '';
-    this.longitude ? params['longitude'] = this.longitude : '';
-    this.latitude ? params['latitude'] = this.latitude : '';
-    this.zoomList.find(item => item.code.toString() == this.zoomLevel.toString()) ? params['distance_range'] = this.zoomList.find(item => item.code.toString() == this.zoomLevel.toString()).name : params['distance_range'] = '一公里';
-    this.positionDescriptionList.find(item => item.code.toString() == this.positionDescription.toString()) ? params['location_type'] = this.positionDescriptionList.find(item => item.code.toString() == this.positionDescription.toString()).name : '';
-    this.nearStreet ? params['near_street'] = "是" : params['near_street'] = '否';
-    this.minArea ? params['min_area'] = this.minArea : '';
-    this.maxArea ? params['max_area'] = this.maxArea : '';
-    this.mindoorWidth ? params['min_door_width'] = this.maxArea : '';
-    this.maxdoorWidth ? params['max_door_width'] = this.maxArea : '';
-
-
-    this.operate.getshopList(params).then(res => {
-      this.infoList=res;
-    })
-  }
-
-  infoList=[];
+  infoList = [];
 
   bigIndustry = '';
   smallIndustry = '';
@@ -93,8 +63,8 @@ export class ShopHallComponent implements OnInit {
   cityList = [];
   districtList = [];
 
-  latitude = '38.907';
-  longitude = '119.087';
+  latitude = '';
+  longitude = '';
 
   positionDescription = '';
   positionDescriptionList = [];
@@ -117,13 +87,13 @@ export class ShopHallComponent implements OnInit {
 
   pageNo = 0;
   pageSize = 10;
-  totalResultCount=90;
+  totalResultCount = 90;
 
-  pageChange(e){
+  pageChange(e) {
 
   }
 
-  search(){
+  search() {
     this.getList();
   }
 
@@ -163,7 +133,35 @@ export class ShopHallComponent implements OnInit {
     this.latitude = '';
   }
 
+  getList() {
+    //获取列表数据
+    var params = {
+      page_no: this.pageNo,
+      page_size: this.pageSize
 
+    };
+    this.bigIndustry ? ( this.smallIndustry ? params['industry'] = this.smallIndustry : params['industry'] = this.bigIndustry ) : '';
+    this.unfitIndustry ? ( this.fitIndustry ? (this.currentIndustry ? params['industry_type'] = '不宜经营,适合经营,当前经营' : params['industry_type'] = '不宜经营,适合经营') : params['industry_type'] = '不宜经营') : params['industry_type'] = '当前经营';
+    this.shopName ? params['keyword'] = this.shopName : '';
+    this.shopPhoneNumber ? params['mobile'] = this.shopPhoneNumber : '';
+    this.bigIndustry ? ( this.smallIndustry ? params['district'] = this.smallIndustry : params['district'] = this.bigIndustry ) : '';
+    this.longitude ? params['longitude'] = this.longitude : '';
+    this.latitude ? params['latitude'] = this.latitude : '';
+    this.zoomList.find(item => item.code.toString() == this.zoomLevel.toString()) ? params['distance_range'] = this.zoomList.find(item => item.code.toString() == this.zoomLevel.toString()).name : params['distance_range'] = '一公里';
+    this.positionDescription != '' ? params['location_type'] = this.positionDescription : '';
+    this.nearStreet ? params['near_street'] = "是" : params['near_street'] = '否';
+    this.minArea ? params['min_area'] = this.minArea : '';
+    this.maxArea ? params['max_area'] = this.maxArea : '';
+    this.mindoorWidth ? params['min_door_width'] = this.maxArea : '';
+    this.maxdoorWidth ? params['max_door_width'] = this.maxArea : '';
+
+    console.log("参数：", params);
+
+
+    this.operate.getshopList(params).then(res => {
+      this.infoList = res;
+    })
+  }
 
 
   closeResult: string;

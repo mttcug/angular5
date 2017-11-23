@@ -18,17 +18,17 @@ export const routes: Routes = [
     component: DataIndexComponent
   },
   {
-    path: 'dataIndex/dataCollection',      //重首页跳转到发布页面的时候
-    redirectTo: '/dataCollection',
+    path: 'dataIndex/dataCollection/:id',      //重首页跳转到发布页面的时候
+    redirectTo: '/dataCollection/:id',
     pathMatch: 'full'
   },
   {
-    path: 'shopHall/dataCollection',      //重首页跳转到发布页面的时候
-    redirectTo: '/dataCollection',
+    path: 'shopHall/dataCollection/:id',      //店铺大厅跳转到发布页面的时候
+    redirectTo: '/dataCollection/:id',
     pathMatch: 'full'
   },
   {
-    path: 'dataCollection',
+    path: 'dataCollection/:id',
     component: DataCollectionComponent
   },
   {

@@ -18,12 +18,7 @@
 .radar-chart{
   height: 500px;
 }
-.radar-chart > div{
-  height: 300px;
-}
-.radar-chart > div > canvas{
-  height: 300px;
-}
+
 .people-chart,.peripheral-chart,.industry-chart{
   height: 300px;
 }
@@ -33,17 +28,24 @@
   overflow: hidden;
 }
 .echart-info-block{
-  padding: 70px;
   overflow: hidden;
 }
-.echart-harf-block{
+
+
+.radar-chart-connect-info-block{
   width: 50%;
+  padding: 150px 85px;
 }
-.echart-three-block{
-  width:30%;
+.peripheral-chart-connect-info-block,.industry-chart-connect-info-block{
+  padding: 70px;
 }
-.info-line-half{
-/*  width: 50%;*/
+.radar-chart-connect-info-block label{
+  width: 90px;
+  background: lightblue;
+}
+.radar-chart-connect-info-block span{
+  width: 60px;
+  margin-left: 20px;
 }
 .echart-industry-info-block{
   width: 25%;

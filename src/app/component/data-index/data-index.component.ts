@@ -15,7 +15,7 @@ export class DataIndexComponent implements OnInit {
   }
 
   navigateRelease() {
-    this.router.navigate(['dataCollection']);
+    this.router.navigate(['dataCollection','undefined']);
   }
 
 }

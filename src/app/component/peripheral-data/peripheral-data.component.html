@@ -25,14 +25,14 @@
     <div class="d-block m-top-20">
       <p class="title-line"><i class="icon iconfont icon-renwu"></i>聚客来源</p>
       <div class="chart-container">
-        <div echarts [options]="radarOption" class="radar-chart echart-three-block float-left"></div>
-        <div class="echart-six-block echart-info-block float-left">
-          <p class="info-line-half float-left"><label for="">住宅小区：</label><span>2108</span><span> > </span></p>
-          <p class="info-line-half float-left"><label for="">学校：</label><span>3132</span><span> > </span></p>
-          <p class="info-line-half float-left"><label for="">写字楼：</label><span>786</span><span> > </span></p>
-          <p class="info-line-half float-left"><label for="">医院：</label><span>987</span><span> > </span></p>
-          <p class="info-line-half float-left"><label for="">商场：</label><span>786</span><span> > </span></p>
-          <p class="info-line-half float-left"><label for="">交通枢纽：</label><span>987</span><span> > </span></p>
+        <div echarts [options]="radarOption" class="radar-chart w-30 float-left"></div>
+        <div class="echart-info-block float-left radar-chart-connect-info-block" >
+          <p class="w-50 float-left"><label for="">住宅小区：</label><span>2108</span><span (click)="openConnectInfoModal(infoDetail)" class="cursor-hand text-blue"> > </span></p>
+          <p class="w-50 float-left"><label for="">学校：</label><span>3132</span><span (click)="openConnectInfoModal(infoDetail)" class="cursor-hand text-blue"> > </span></p>
+          <p class="w-50 float-left"><label for="">写字楼：</label><span>786</span><span (click)="openConnectInfoModal(infoDetail)" class="cursor-hand text-blue"> > </span></p>
+          <p class="w-50 float-left"><label for="">医院：</label><span>987</span><span (click)="openConnectInfoModal(infoDetail)" class="cursor-hand text-blue"> > </span></p>
+          <p class="w-50 float-left"><label for="">商场：</label><span>786</span><span (click)="openConnectInfoModal(infoDetail)" class="cursor-hand text-blue"> > </span></p>
+          <p class="w-50 float-left"><label for="">交通枢纽：</label><span>987</span><span (click)="openConnectInfoModal(infoDetail)" class="cursor-hand text-blue"> > </span></p>
         </div>
       </div>
     </div>
@@ -41,7 +41,7 @@
 
       <div class="chart-container">
         <div echarts [options]="populationOption" class="peripheral-chart w-50 float-left"></div>
-        <div class="w-50 echart-info-block float-left">
+        <div class="w-50 echart-info-block float-left peripheral-chart-connect-info-block">
           <p><label for="">工作：</label><span>2108</span></p>
           <p><label for="">居住：</label><span>3132</span></p>
           <p><label for="">上学：</label><span>786</span></p>
@@ -54,13 +54,13 @@
       <p class="title-line"><i class="icon iconfont icon-home-active"></i>周边业态</p>
       <div class="chart-container">
         <div echarts [options]="barChartOption" class="industry-chart w-50 float-left"></div>
-        <div class="w-25 echart-info-block float-left">
+        <div class="w-25 echart-info-block float-left industry-chart-connect-info-block">
           <p><label for="">工作：</label><span>2108</span></p>
           <p><label for="">居住：</label><span>3132</span></p>
           <p><label for="">上学：</label><span>786</span></p>
           <p><label for="">流动：</label><span>987</span></p>
         </div>
-        <div class="w-25 echart-info-block float-left">
+        <div class="w-25 echart-info-block float-left industry-chart-connect-info-block">
           <p><label for="">工作：</label><span>2108</span></p>
           <p><label for="">居住：</label><span>3132</span></p>
           <p><label for="">上学：</label><span>786</span></p>
@@ -70,8 +70,27 @@
     </div>
   </div>
 
-  <div class="popUp">
 
-  </div>
 </div>
+
+<ng-template #infoDetail let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">详细信息</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="city-list-container">
+      <ul>
+        <li *ngFor="let item of cityList"><a (click)="cityItemClick(item)" [ngClass]="{'text-danger':item.selected}">{{item.name}}</a></li>
+      </ul>
+      <p class="text-muted">其他城市暂未开放</p>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="c('0')">取消</button>
+    <button type="button" class="btn btn-outline-dark" (click)="c('1')">确定</button>
+  </div>
+</ng-template>
 
