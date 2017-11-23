@@ -1,9 +1,9 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-  name: 'location'
+  name: 'district'
 })
-export class LocationPipe implements PipeTransform {
+export class DistrictPipe implements PipeTransform {
 
   transform(value: any, args?: any): any {
     let data=JSON.parse(sessionStorage.getItem("district"));
