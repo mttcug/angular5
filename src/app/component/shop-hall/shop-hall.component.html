@@ -2,12 +2,12 @@
   <div class="search-block">
     <div class="d-block search-line-block">
       <label>行业</label>
-      <select name="" id="big-industry" class="form-control w-130-px d-inline-block" [(ngModel)]="bigIndustry"
+      <select name="" id="big-industry" class="form-control w-20 d-inline-block" [(ngModel)]="bigIndustry"
               (change)="loadSmallIndustry(bigIndustry)">
         <option value="">请选择</option>
         <option value='{{item.code}}' *ngFor="let item of bigIndustryList">{{item.name}}</option>
       </select>
-      <select name="" id="small-industry" class="form-control w-130-px d-inline-block" [(ngModel)]="smallIndustry">
+      <select name="" id="small-industry" class="form-control w-20 d-inline-block" [(ngModel)]="smallIndustry">
         <option value="">请选择</option>
         <option value='{{item.code}}' *ngFor="let item of smallIndustryList">{{item.name}}</option>
       </select>
@@ -17,17 +17,17 @@
     </div>
     <div class="d-block search-line-block">
       <label>关键字</label>
-      <input type="text" placeholder="店名/位置" class="form-control d-inline-block w-160-px" [(ngModel)]="shopName">
-      <input type="text" placeholder="手机号码" class="form-control d-inline-block w-160-px" [(ngModel)]="shopPhoneNumber">
+      <input type="text" placeholder="店名/位置" class="form-control d-inline-block w-20" [(ngModel)]="shopName">
+      <input type="text" placeholder="手机号码" class="form-control d-inline-block w-20" [(ngModel)]="shopPhoneNumber">
     </div>
     <div class="d-block search-line-block">
       <label>区域</label>
-      <select name="" id="bigIndustry" class="form-control w-130-px d-inline-block" [(ngModel)]="city"
+      <select name="" id="bigIndustry" class="form-control  d-inline-block w-20 " [(ngModel)]="city"
               (change)="loadDistrict(city)">
         <option value="">请选择</option>
         <option value="{{item.id}}" *ngFor="let item of cityList">{{item.name}}</option>
       </select>
-      <select name="" id="smallIndustry" class="form-control w-130-px d-inline-block" [(ngModel)]="district">
+      <select name="" id="smallIndustry" class="form-control w-20 d-inline-block" [(ngModel)]="district">
         <option value="">请选择</option>
         <option value="{{item.id}}" *ngFor="let item of districtList">{{item.name}}</option>
       </select>
@@ -38,7 +38,7 @@
     </div>
     <div class="d-block search-line-block">
       <label>位置描述</label>
-      <select name="" id="position-descript" class="form-control w-130-px d-inline-block"
+      <select name="" id="position-descript" class="form-control w-20 d-inline-block"
               [(ngModel)]="positionDescription">
         <option value="">请选择</option>
         <option value="item.value" *ngFor="let item of positionDescriptionList">{{item.value_description}}</option>
@@ -47,13 +47,13 @@
     </div>
     <div class="d-block search-line-block">
       <label>面积</label>
-      <input type="text" placeholder="最小" class="form-control w-130-px d-inline-block" [(ngModel)]="minArea">-
-      <input type="text" placeholder="最大" class="form-control w-130-px d-inline-block" [(ngModel)]="maxArea">平米
+      <input type="text" placeholder="最小" class="form-control w-20 d-inline-block" [(ngModel)]="minArea">-
+      <input type="text" placeholder="最大" class="form-control w-20 d-inline-block" [(ngModel)]="maxArea">平米
     </div>
     <div class="d-block search-line-block">
       <label>门宽</label>
-      <input type="text" placeholder="最短" class="form-control w-130-px d-inline-block" [(ngModel)]="mindoorWidth">-
-      <input type="text" placeholder="最长" class="form-control w-130-px d-inline-block" [(ngModel)]="maxdoorWidth">米
+      <input type="text" placeholder="最短" class="form-control w-20 d-inline-block" [(ngModel)]="mindoorWidth">-
+      <input type="text" placeholder="最长" class="form-control w-20 d-inline-block" [(ngModel)]="maxdoorWidth">米
     </div>
     <button class="btn btn-primary special-btn" (click)="search()">搜索</button>
 

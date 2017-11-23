@@ -290,7 +290,7 @@ export class DataCollectionComponent implements OnInit {
   isDission = false;
   employee = [{
     position: '', entryDate: '', workContent: '', leaveDate: '', isDission: false,
-    name: "里欧1",
+    name: "",
     phoneList: [''],
     realName: '',
     sex: '',

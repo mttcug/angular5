@@ -125,6 +125,10 @@
   width: 30%;
 }
 
+.w-20{
+  width: 20%;
+}
+
 .selected-span{
   color: red;
 }

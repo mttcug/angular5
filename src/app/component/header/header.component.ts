@@ -44,8 +44,6 @@ export class HeaderComponent implements OnInit ,OnChanges {
 
   currentCity:string = '';
 
-  tempCurrentCity: string;
-
   //定位到当前城市
   getCurrentCity(e) {
     this.currentCity = e.address.city;
@@ -57,7 +55,8 @@ export class HeaderComponent implements OnInit ,OnChanges {
 
   //切换城市弹出框内城市列表点击事件
   cityItemClick(item) {
-    this.tempCurrentCity = item.name;
+    this.currentCity = item.name;
+    sessionStorage.setItem("curCity",this.currentCity);
     this.selectedColorChange(item.name);
   }
 
@@ -73,8 +72,6 @@ export class HeaderComponent implements OnInit ,OnChanges {
   //点击切换城市按钮弹出城市列表弹出框
   openCityListModal(content) {
     this.modalService.open(content, {size: 'lg'}).result.then((result) => {
-      result == '1' ? this.currentCity = this.tempCurrentCity : '';
-      sessionStorage.setItem("curCity",this.currentCity);
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
     });
