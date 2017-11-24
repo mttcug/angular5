@@ -52,10 +52,9 @@ export class BaiduMapComponent implements OnInit, OnChanges {
     var that = this;
     const container = this.elementRef.nativeElement.querySelector('.baidu-map-container');
     const map = new BMap.Map(container);
-    console.log("address:",this.address);
 
     //添加比列尺
-    map.addControl(new BMap.ScaleControl({offset: new BMap.Size(100, 20)}));
+        map.addControl(new BMap.ScaleControl({offset: new BMap.Size(100, 20)}));
 
     //地址解析
     var myGeo = new BMap.Geocoder();

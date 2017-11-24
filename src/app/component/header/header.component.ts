@@ -1,4 +1,4 @@
-import {Component, OnInit, Inject} from '@angular/core';
+import {Component, OnInit, Inject,ChangeDetectorRef} from '@angular/core';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
@@ -12,7 +12,8 @@ export class HeaderComponent implements OnInit {
   cityList = [];
 
 
-  constructor(private modalService: NgbModal, @Inject('data') private data) {
+  constructor(private modalService: NgbModal, @Inject('data') private data,private cd: ChangeDetectorRef) {
+
     console.log("headerComponent");
     //获取城市列表
     let district = sessionStorage.getItem("district");
@@ -34,19 +35,25 @@ export class HeaderComponent implements OnInit {
   }
 
 
-  ngOnInit() {
+  ngOnInit() {//暂时不用百度地图定位，暂时默认为深圳
+    var item= this.allDistricts.find(item => item.name == '深圳市');
+    sessionStorage.setItem("curCity", JSON.stringify(item));
+    this.selectedColorChange(this.currentCity);
   }
 
 
-  currentCity: string = '';
+  currentCity: string = sessionStorage.getItem("curCity") ? JSON.parse(sessionStorage.getItem("curCity")).name : '';
+
 
   //通过定位获取当前城市并缓存 对应不上配置城市默认深圳
   getCurrentCity(e) {
-    var aim = this.allDistricts.find(item => item.name == e.address.city);
+   /* var aim = this.allDistricts.find(item => item.name == e.address.city);
     aim ? '' : aim = this.allDistricts.find(item => item.name == '深圳市');
     sessionStorage.setItem("curCity", JSON.stringify(aim));
-    this.currentCity=aim.name;
-    this.selectedColorChange(this.currentCity);
+    this.currentCity == '' ? this.currentCity=aim.name : '';
+    this.cd.markForCheck();
+    console.log("aim.name:",aim.name);
+    this.selectedColorChange(this.currentCity);*/
   }
 
 
@@ -57,7 +64,9 @@ export class HeaderComponent implements OnInit {
     this.currentCity = item.name;
     sessionStorage.setItem("curCity", JSON.stringify(item));
     this.selectedColorChange(item.name);
+    window.location.href=window.location.href;
   }
+
 
   //切换城市弹出框标记被选中的城市
   selectedColorChange(selectedCity) {

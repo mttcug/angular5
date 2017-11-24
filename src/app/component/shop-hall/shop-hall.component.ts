@@ -13,7 +13,7 @@ export class ShopHallComponent implements OnInit {
   allDistricts = [];
 
   constructor(private modalService: NgbModal, @Inject('data') private data, @Inject('operate') private operate) {
-    console.log("shopHallComponent");
+    console.log("shopHallComponent",sessionStorage.getItem('curCity'));
 
     //获取行业列表
     if(sessionStorage.getItem("industry")){

@@ -864,7 +864,6 @@ export class DataCollectionComponent implements OnInit {
   geoLocation(e) {
     this.templatitude = e.point.lat;
     this.templongitude = e.point.lng;
-
     this.tempcity = this.allDistricts.find(item => item.name == e.address.city) ? this.allDistricts.find(item => item.name == e.address.city).id : '';
     this.tempdistrict = this.allDistricts.find(item => item.name.trim() == e.address.district.trim()) ? this.allDistricts.find(item => item.name == e.address.district).id : '';
     this.tempaddressDetail = e.address.street;
@@ -881,7 +880,6 @@ export class DataCollectionComponent implements OnInit {
     this.loadDistrict(this.city);
     this.district = this.tempdistrict;
     this.addressDetail = this.tempaddressDetail;
-
     this.shopAddress = this.getWholeAddress();
 
     this.mapBlock = false;
