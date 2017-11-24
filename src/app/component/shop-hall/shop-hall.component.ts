@@ -9,29 +9,45 @@ import {any} from "codelyzer/util/function";
 })
 export class ShopHallComponent implements OnInit {
 
-  allIndustry = [];
+  allIndustry =[];
   allDistricts = [];
 
   constructor(private modalService: NgbModal, @Inject('data') private data, @Inject('operate') private operate) {
+    console.log("shopHallComponent");
+
     //获取行业列表
-    this.data.getIndustryData().then(res => {
-      var result = res ? res : [];  //所有数据[[],[]],用于推荐经营，不宜经营。。。
-      result.forEach((value, i) => {
-        value.forEach((v, j) => {
-          j == 0 ? this.bigIndustryList.push(v) : '';
-          this.allIndustry.push(v);
+    if(sessionStorage.getItem("industry")){
+      var result=JSON.parse(sessionStorage.getItem("industry"));
+      this.allIndustry=result;
+      this.bigIndustryList=this.getBigIndustry();
+    }else{
+      this.data.getIndustryData().then(res => {
+        var result = res ? res : [];  //所有数据[[],[]],用于推荐经营，不宜经营。。。
+        result.forEach((value, i) => {
+          value.forEach((v, j) => {
+            this.allIndustry.push(v);
+          });
         });
+        this.bigIndustryList=this.getBigIndustry();
       });
-    });
+    }
+
 
     //获取城市列表
-    this.data.getDistrictData().then(res => {
-      var result = res ? res : [];
-      result.forEach((v, i) => {
-        this.allDistricts.push(v);
-        v.id.toString().substr(-6) == '000000' ? this.cityList.push(v) : '';
+    if(sessionStorage.getItem("district")){
+      var result=JSON.parse(sessionStorage.getItem("district"));
+      this.allDistricts=result;
+      this.cityList=this.getCityList();
+      this.districtList = this.cityCanSelect ? [] : this.getSomeDistrict(this.city);
+    }else{
+      this.data.getDistrictData().then(res => {
+        var result = res ? res : [];
+        result.forEach((v, i) => {this.allDistricts.push(v);});
+        this.cityList=this.getCityList();
+        this.districtList = this.cityCanSelect ? [] : this.getSomeDistrict(this.city);
       });
-    });
+    }
+
 
     //获取位置描述列表
     this.data.getPositionDesData().then(res => {
@@ -59,11 +75,11 @@ export class ShopHallComponent implements OnInit {
   shopName = '';
   shopPhoneNumber = '';
 
-  city = JSON.parse(sessionStorage.getItem('curCity')).flag == 1 ? JSON.parse(sessionStorage.getItem('curCity')).id : '';
+  city = JSON.parse(sessionStorage.getItem('curCity')).id ;
   district = '';
-  cityCanSelect = JSON.parse(sessionStorage.getItem('curCity')).flag == 1 ? false : true;
+  cityCanSelect = false;
   cityList = [];
-  districtList = this.cityCanSelect ? [] : this.getSomeDistrict(this.city);
+  districtList = [];
 
   latitude = '';
   longitude = '';
@@ -99,8 +115,7 @@ export class ShopHallComponent implements OnInit {
 
 
   //分页点击事件
-  pageChange(e) {
-  }
+  pageChange(e) {}
 
   //查询信息获取列表事件
   search() {
@@ -120,36 +135,47 @@ export class ShopHallComponent implements OnInit {
     this.tempdistrictName = e.address.district;
   }
 
+  //获取大行业
+  getBigIndustry(){
+    var tempC=[];
+    this.allIndustry.forEach((value, i) => {
+      value.code.toString().length==2 ? tempC.push(value) : '';
+    });
+    return tempC;
+  }
+
   //根据大行业加载相应小行业  此处由于头部已经定位到市所以该处市不能下拉选择
   loadSmallIndustry(code) {
     this.smallIndustry = '';
     this.smallIndustryList = [];
     this.allIndustry.forEach((v, i) => {
-      console.log("rrr:", code, v.code, (code.toString().length != v.code.toString().length) && code.toString().trim() === v.code.toString().substr(0, 2).trim());
       (code.toString().length != v.code.toString().length) && code.toString().trim() === v.code.toString().substr(0, 2).trim() ? this.smallIndustryList.push(v) : '';
     });
+  }
+
+  //获取城市列表
+  getCityList(){
+    var tempC=[];
+    this.allDistricts.forEach((v, i) => {
+      v.id.toString().substr(-6) == '000000' ? tempC.push(v) : '';
+    });
+    return tempC;
   }
 
   //根据城市加载相应区域
   loadDistrict(code) {  //城市 1234000000   区1234560000
     this.district = '';
-    this.districtList=[];
+    this.districtList = [];
     this.allDistricts.forEach((v, i) => {
       (v.id.toString().substr(4, 2) != '00' && code.toString().substr(0, 4) == v.id.toString().substr(0, 4)) ? this.districtList.push(v) : '';
     });
   }
 
-  getSomeDistrict(code){
-    var tempcontainer=[];
-   /* this.allDistricts.forEach((v, i) => {
-      console.log("v.code:",v.id,i);
+  getSomeDistrict(code) {
+    var tempcontainer = [];
+    this.allDistricts.forEach((v, i) => {
       (v.id.toString().substr(4, 2) != '00' && code.toString().substr(0, 4) == v.id.toString().substr(0, 4)) ? tempcontainer.push(v) : '';
-    });*/
-    for(let i=0;i<this.allDistricts.length;i++){
-      var v=this.allDistricts[i];
-      console.log("v.code1:",v.id,i);
-    }
-    console.log("tempcontainer1:",code,tempcontainer,this.allDistricts);
+    });
     return tempcontainer;
   }
 
@@ -164,7 +190,6 @@ export class ShopHallComponent implements OnInit {
     var params = {
       page_no: this.pageNo,
       page_size: this.pageSize
-
     };
     this.bigIndustry ? ( this.smallIndustry ? params['industry'] = this.smallIndustry : params['industry'] = this.bigIndustry ) : '';
     this.unfitIndustry ? ( this.fitIndustry ? (this.currentIndustry ? params['industry_type'] = '不宜经营,适合经营,当前经营' : params['industry_type'] = '不宜经营,适合经营') : params['industry_type'] = '不宜经营') : params['industry_type'] = '当前经营';
@@ -181,11 +206,10 @@ export class ShopHallComponent implements OnInit {
     this.mindoorWidth ? params['min_door_width'] = this.maxArea : '';
     this.maxdoorWidth ? params['max_door_width'] = this.maxArea : '';
 
-    console.log("参数：", params);
+
 
 
     this.operate.getshopList(params).then(res => {
-      console.log("Listparams", res);
       this.infoList = res;
     })
   }

@@ -13,7 +13,7 @@ export class HeaderComponent implements OnInit {
 
 
   constructor(private modalService: NgbModal, @Inject('data') private data) {
-    console.log("lalalPPPPL:",sessionStorage.getItem("curCity"));
+    console.log("headerComponent");
     //获取城市列表
     let district = sessionStorage.getItem("district");
     if (district) {
@@ -38,14 +38,12 @@ export class HeaderComponent implements OnInit {
   }
 
 
- /* currentCity: string = sessionStorage.getItem("curCity").name;*/
-  currentCity: string = '深圳市';
+  currentCity: string = JSON.parse(sessionStorage.getItem("curCity")).name;
 
 
   //切换城市弹出框内城市列表点击事件
   cityItemClick(item) {
     this.currentCity = item;
-    item.flag=1;
     sessionStorage.setItem("curCity", JSON.stringify(this.currentCity));
     this.selectedColorChange(item.name);
   }

@@ -15,7 +15,7 @@ export class AppComponent {
   allDistrict = [];
 
   constructor(private modalService: NgbModal, @Inject('data') private data) {
-
+  console.log("appComponent");
     //行业和区域缓存起来以备不时之需
     //获取行业列表
     this.data.getIndustryData().then(res => {
@@ -56,12 +56,10 @@ export class AppComponent {
 
   }
 
-  //通过定位获取当前城市并缓存  flag=0表示定位的城市不在数据库中，1则代表在
+  //通过定位获取当前城市并缓存 对应不上配置城市默认深圳
   getCurrentCity(e) {
-    var aim = this.allDistrict.find(item => item.name == '深圳市');
-    console.log("aim:",aim);
-    var v = {flag: 0, name: e.address.city};
-    aim ? aim.flag = 1 : aim = v;
+    var aim = this.allDistrict.find(item => item.name == e.address.city);
+    aim ? '' : aim = this.allDistrict.find(item => item.name == '深圳市');
     sessionStorage.setItem("curCity", JSON.stringify(aim));
   }
 

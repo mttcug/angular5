@@ -31,7 +31,6 @@ export class GeolocationComponent implements OnInit {
     geolocation.getCurrentPosition(function(r){
       that.getLocation.emit(r);
     },{enableHighAccuracy: true});
-
   }
 
 }
