@@ -1,4 +1,4 @@
-import {Component, OnInit, Inject,  OnChanges,SimpleChanges} from '@angular/core';
+import {Component, OnInit, Inject} from '@angular/core';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
@@ -6,14 +6,14 @@ import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
 })
-export class HeaderComponent implements OnInit ,OnChanges {
+export class HeaderComponent implements OnInit {
 
   allDistricts = [];
   cityList = [];
 
 
   constructor(private modalService: NgbModal, @Inject('data') private data) {
-
+    console.log("lalalPPPPL:",sessionStorage.getItem("curCity"));
     //获取城市列表
     let district = sessionStorage.getItem("district");
     if (district) {
@@ -34,29 +34,19 @@ export class HeaderComponent implements OnInit ,OnChanges {
   }
 
 
-  ngOnInit() {}
-
-  ngOnChanges(changes: SimpleChanges) {
-    console.log("changes:",changes);
+  ngOnInit() {
   }
 
 
-
-  currentCity:string = '';
-
-  //定位到当前城市
-  getCurrentCity(e) {
-    this.currentCity = e.address.city;
-    sessionStorage.setItem("curCity",this.currentCity);
-    console.log("当前城市：",this.currentCity);
-  }
-
+ /* currentCity: string = sessionStorage.getItem("curCity").name;*/
+  currentCity: string = '深圳市';
 
 
   //切换城市弹出框内城市列表点击事件
   cityItemClick(item) {
-    this.currentCity = item.name;
-    sessionStorage.setItem("curCity",this.currentCity);
+    this.currentCity = item;
+    item.flag=1;
+    sessionStorage.setItem("curCity", JSON.stringify(this.currentCity));
     this.selectedColorChange(item.name);
   }
 
@@ -69,9 +59,11 @@ export class HeaderComponent implements OnInit ,OnChanges {
 
 
   closeResult: string;
+
   //点击切换城市按钮弹出城市列表弹出框
   openCityListModal(content) {
     this.modalService.open(content, {size: 'lg'}).result.then((result) => {
+      this.cityItemClick(result);
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
     });

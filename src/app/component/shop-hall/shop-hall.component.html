@@ -22,7 +22,7 @@
     </div>
     <div class="d-block search-line-block">
       <label>区域</label>
-      <select name="" id="bigIndustry" class="form-control  d-inline-block w-20 " [(ngModel)]="city"
+      <select name="" id="bigIndustry" class="form-control  d-inline-block w-20 " [(ngModel)]="city" [disabled]="!cityCanSelect"
               (change)="loadDistrict(city)">
         <option value="">请选择</option>
         <option value="{{item.id}}" *ngFor="let item of cityList">{{item.name}}</option>
@@ -70,7 +70,8 @@
         <th class="p-2 p-lg-2">操作</th>
       </tr>
       <tbody>
-     <!-- <tr  *ngFor="let item of infoList.estate_list" class="d-flex flex-row justify-content-around border-radius-10 m-top-20">
+<!--
+      <tr  *ngFor="let item of infoList.estate_list" class="d-flex flex-row justify-content-around border-radius-10 m-top-20">
         <td class="p-2 p-lg-2">
           <p><span>{{item.estate_building.district}}</span><span class="grey-block bg-grey text-white">{{item.estate_building.estate_type | superFacility}}</span></p>
           <p><span>{{item.estate_building.address}}</span></p>
@@ -106,7 +107,8 @@
             <button class="btn btn-primary"><a [routerLink]="['peripheralData']">周边分析</a></button>
           </p>
         </td>
-      </tr>-->
+      </tr>
+-->
       <tr class="d-flex flex-row justify-content-around border-radius-10 m-top-20">
         <td class="p-2 p-lg-2">
           <p><span>南山区</span><span class="grey-block bg-grey text-white">商铺</span></p>

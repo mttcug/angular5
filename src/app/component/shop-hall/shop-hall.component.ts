@@ -1,5 +1,6 @@
 import {Component, OnInit, Inject} from '@angular/core';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
+import {any} from "codelyzer/util/function";
 
 @Component({
   selector: 'app-shop-hall',
@@ -36,6 +37,7 @@ export class ShopHallComponent implements OnInit {
     this.data.getPositionDesData().then(res => {
       this.positionDescriptionList = res;
     });
+
   }
 
   ngOnInit() {
@@ -57,10 +59,11 @@ export class ShopHallComponent implements OnInit {
   shopName = '';
   shopPhoneNumber = '';
 
-  city = '';
+  city = JSON.parse(sessionStorage.getItem('curCity')).flag == 1 ? JSON.parse(sessionStorage.getItem('curCity')).id : '';
   district = '';
+  cityCanSelect = JSON.parse(sessionStorage.getItem('curCity')).flag == 1 ? false : true;
   cityList = [];
-  districtList = [];
+  districtList = this.cityCanSelect ? [] : this.getSomeDistrict(this.city);
 
   latitude = '';
   longitude = '';
@@ -78,10 +81,10 @@ export class ShopHallComponent implements OnInit {
   mapAddress = '';
   zoomLevel = 14;
   zoomList = [
-    {code: 15, name: '500米',value:0.5},
-    {code: 14, name: '1公里',value:1},
-    {code: 13, name: '2公里',value:2},
-    {code: 12, name: '3公里',value:3}
+    {code: 15, name: '500米', value: 0.5},
+    {code: 14, name: '1公里', value: 1},
+    {code: 13, name: '2公里', value: 2},
+    {code: 12, name: '5公里', value: 5}
   ];
 
   pageNo = 0;
@@ -95,9 +98,9 @@ export class ShopHallComponent implements OnInit {
   tempdistrictName = '';
 
 
-
   //分页点击事件
-  pageChange(e) {}
+  pageChange(e) {
+  }
 
   //查询信息获取列表事件
   search() {
@@ -117,23 +120,37 @@ export class ShopHallComponent implements OnInit {
     this.tempdistrictName = e.address.district;
   }
 
-  //根据大行业加载相应小行业
+  //根据大行业加载相应小行业  此处由于头部已经定位到市所以该处市不能下拉选择
   loadSmallIndustry(code) {
-    this.smallIndustry='';
-    this.smallIndustryList=[];
+    this.smallIndustry = '';
+    this.smallIndustryList = [];
     this.allIndustry.forEach((v, i) => {
-      console.log("rrr:",code,v.code,(code.toString().length != v.code.toString().length)  && code.toString().trim() === v.code.toString().substr(0, 2).trim());
-      (code.toString().length != v.code.toString().length)  && code.toString().trim() === v.code.toString().substr(0, 2).trim() ? this.smallIndustryList.push(v) : '';
+      console.log("rrr:", code, v.code, (code.toString().length != v.code.toString().length) && code.toString().trim() === v.code.toString().substr(0, 2).trim());
+      (code.toString().length != v.code.toString().length) && code.toString().trim() === v.code.toString().substr(0, 2).trim() ? this.smallIndustryList.push(v) : '';
     });
   }
 
   //根据城市加载相应区域
   loadDistrict(code) {  //城市 1234000000   区1234560000
-    this.district='';
+    this.district = '';
     this.districtList=[];
     this.allDistricts.forEach((v, i) => {
       (v.id.toString().substr(4, 2) != '00' && code.toString().substr(0, 4) == v.id.toString().substr(0, 4)) ? this.districtList.push(v) : '';
     });
+  }
+
+  getSomeDistrict(code){
+    var tempcontainer=[];
+   /* this.allDistricts.forEach((v, i) => {
+      console.log("v.code:",v.id,i);
+      (v.id.toString().substr(4, 2) != '00' && code.toString().substr(0, 4) == v.id.toString().substr(0, 4)) ? tempcontainer.push(v) : '';
+    });*/
+    for(let i=0;i<this.allDistricts.length;i++){
+      var v=this.allDistricts[i];
+      console.log("v.code1:",v.id,i);
+    }
+    console.log("tempcontainer1:",code,tempcontainer,this.allDistricts);
+    return tempcontainer;
   }
 
   //删除经纬度信息
@@ -168,19 +185,20 @@ export class ShopHallComponent implements OnInit {
 
 
     this.operate.getshopList(params).then(res => {
-      console.log("Listparams",res);
+      console.log("Listparams", res);
       this.infoList = res;
     })
   }
 
   //打开地图弹出框
   closeResult: string;
+
   open(content) {
     //地址
-    var cityName=this.allDistricts.find(item=>item.id.toString()==this.city.toString())?this.allDistricts.find(item=>item.id.toString()==this.city.toString()).name : '';
-    var districtName=this.allDistricts.find(item=>item.id.toString()==this.district.toString())?this.allDistricts.find(item=>item.id.toString()==this.district.toString()).name : '';
+    var cityName = this.allDistricts.find(item => item.id.toString() == this.city.toString()) ? this.allDistricts.find(item => item.id.toString() == this.city.toString()).name : '';
+    var districtName = this.allDistricts.find(item => item.id.toString() == this.district.toString()) ? this.allDistricts.find(item => item.id.toString() == this.district.toString()).name : '';
 
-    this.mapAddress= (cityName+districtName ) ? (cityName+districtName ) : sessionStorage.getItem("curCity");
+    this.mapAddress = (cityName + districtName ) ? (cityName + districtName ) : sessionStorage.getItem("curCity");
 
     this.modalService.open(content, {size: 'lg'}).result.then((result) => {
       if (result == '1') {
