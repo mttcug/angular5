@@ -56,12 +56,6 @@ export class AppComponent {
 
   }
 
-  //通过定位获取当前城市并缓存 对应不上配置城市默认深圳
-  getCurrentCity(e) {
-    var aim = this.allDistrict.find(item => item.name == e.address.city);
-    aim ? '' : aim = this.allDistrict.find(item => item.name == '深圳市');
-    sessionStorage.setItem("curCity", JSON.stringify(aim));
-  }
 
 
   getWindowHeight() {

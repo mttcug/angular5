@@ -399,11 +399,17 @@ export class DataCollectionComponent implements OnInit {
 
   //根据城市加载相应区域
   loadDistrict(code) {  //城市 1234000000   区1234560000
+
     this.district='';
     this.districtList=[];
     this.allDistricts.forEach((v, i) => {
       (v.id.toString().substr(4, 2) != '00' && code.toString().substr(0, 4) == v.id.toString().substr(0, 4)) ? this.districtList.push(v) : '';
     });
+
+    this.shopAddress = this.getWholeAddress();
+  }
+
+  mapAddressChange(){
     this.shopAddress = this.getWholeAddress();
   }
 
@@ -834,12 +840,12 @@ export class DataCollectionComponent implements OnInit {
 
   //获取地图所需要的完成地址
   getWholeAddress() {
-    let tempCity = this.allDistricts.find(item => item.id.toString() == this.city.toString());
-    let tempDistrict = this.allDistricts.find(item => item.id.toString() == this.district.toString());
-    let city = tempCity ? tempCity.name : '';
-    let district = tempDistrict ? tempDistrict.name : '';
+    let tempCityC = this.allDistricts.find(item => item.id.toString() == this.city.toString());
+    let tempDistrictC = this.allDistricts.find(item => item.id.toString() == this.district.toString());
+    let city = tempCityC ? tempCityC.name : '';
+    let district = tempDistrictC ? tempDistrictC.name : '';
     let addressDetail = this.addressDetail;
-    return city + district + addressDetail != '' ? city + district + addressDetail : sessionStorage.getItem("curCity");
+    return city + district + addressDetail != '' ? city + district + addressDetail : JSON.parse(sessionStorage.getItem("curCity")).name;
   }
 
   //控制地图显示或是隐藏
@@ -870,12 +876,13 @@ export class DataCollectionComponent implements OnInit {
   sureLocation() {
     this.latitude = this.templatitude;
     this.longitude = this.templongitude;
-    this.shopAddress = this.tempshopAddress;
 
     this.city = this.tempcity;
     this.loadDistrict(this.city);
     this.district = this.tempdistrict;
     this.addressDetail = this.tempaddressDetail;
+
+    this.shopAddress = this.getWholeAddress();
 
     this.mapBlock = false;
   }

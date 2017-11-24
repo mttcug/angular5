@@ -38,13 +38,24 @@ export class HeaderComponent implements OnInit {
   }
 
 
-  currentCity: string = JSON.parse(sessionStorage.getItem("curCity")).name;
+  currentCity: string = '';
+
+  //通过定位获取当前城市并缓存 对应不上配置城市默认深圳
+  getCurrentCity(e) {
+    var aim = this.allDistricts.find(item => item.name == e.address.city);
+    aim ? '' : aim = this.allDistricts.find(item => item.name == '深圳市');
+    sessionStorage.setItem("curCity", JSON.stringify(aim));
+    this.currentCity=aim.name;
+    this.selectedColorChange(this.currentCity);
+  }
+
+
 
 
   //切换城市弹出框内城市列表点击事件
   cityItemClick(item) {
-    this.currentCity = item;
-    sessionStorage.setItem("curCity", JSON.stringify(this.currentCity));
+    this.currentCity = item.name;
+    sessionStorage.setItem("curCity", JSON.stringify(item));
     this.selectedColorChange(item.name);
   }
 

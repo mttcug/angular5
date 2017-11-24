@@ -222,7 +222,7 @@ export class ShopHallComponent implements OnInit {
     var cityName = this.allDistricts.find(item => item.id.toString() == this.city.toString()) ? this.allDistricts.find(item => item.id.toString() == this.city.toString()).name : '';
     var districtName = this.allDistricts.find(item => item.id.toString() == this.district.toString()) ? this.allDistricts.find(item => item.id.toString() == this.district.toString()).name : '';
 
-    this.mapAddress = (cityName + districtName ) ? (cityName + districtName ) : sessionStorage.getItem("curCity");
+    this.mapAddress = (cityName + districtName ) ? (cityName + districtName ) : JSON.parse(sessionStorage.getItem("curCity")).name;
 
     this.modalService.open(content, {size: 'lg'}).result.then((result) => {
       if (result == '1') {
