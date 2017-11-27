@@ -212,7 +212,7 @@ export class ShopHallComponent implements OnInit {
 
 
     this.ShopHallService.getshopList(params).then(res => {
-      this.infoList = res;
+      this.infoList = res ? res : [];
     })
   }
 

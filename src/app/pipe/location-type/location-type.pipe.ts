@@ -1,4 +1,4 @@
-import { Pipe, PipeTransform } from '@angular/core';
+import {Pipe, PipeTransform} from '@angular/core';
 
 @Pipe({
   name: 'locationType'
@@ -6,10 +6,10 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class LocationTypePipe implements PipeTransform {
 
   transform(value: any, args?: any): any {
-    let data=JSON.parse(sessionStorage.getItem("nearStreet"));
-    console.log("是否临街：",data);
-    let item=data.find(item=>item.vaule.toString()==value.toString());
+    let data:any = JSON.parse(sessionStorage.getItem("locationType"));
+
+    let item = data.find(v => v.value == value.toString());
+    console.log("结交：",item);
     return item ? item.value_description : '';
   }
-
 }
