@@ -1,5 +1,6 @@
 import { Component, OnInit , Inject} from '@angular/core';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
+import {ActivatedRoute, Params} from '@angular/router';
 
 
 @Component({
@@ -9,21 +10,59 @@ import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 })
 export class PeripheralDataComponent implements OnInit {
 
-  constructor(private modalService: NgbModal, @Inject('data') private data) { }
   public radarOption: any;
   public populationOption:any;
   public barChartOption:any;
 
+  constructor(private modalService: NgbModal, @Inject('data') private data, private route: ActivatedRoute,@Inject('PeripheralDataService') private PeripheralDataService) {
+    let queryParams: Params = this.route.params;
+    let oppoId = queryParams.value.id;
+    oppoId != 'undefined' ? this.getInfo(oppoId) : '';
+
+    //周边数据-交通信息
+    this.PeripheralDataService.getPeripheralTraffic().then(res=>{
+
+    })
+
+    //周边数据-聚客来源
+    this.PeripheralDataService.getPeripheralCustom().then(res=>{
+
+    })
+
+    //周边数据-周边人口
+    this.PeripheralDataService.getPeripheralPerson().then(res=>{
+
+    })
+
+    //周边数据-周边业态
+    this.PeripheralDataService.getPeripheralIndustry().then(res=>{
+
+    })
+
+
+  }
+
+
+
+
 
   ngOnInit() {
+
+
     var data1 = [];
     var data2 = [];
     var data3 = [];
+    var data4 = [];
+    var data5 = [];
+    var data6 = [];
 
     for (var i = 0; i < 70; i++) {
       data1.push([Math.random() * 5, Math.random() * 360]);
       data2.push([Math.random() * 5, Math.random() * 360]);
       data3.push([Math.random() * 10, Math.random() * 360]);
+      data4.push([Math.random() * 5, Math.random() * 360]);
+      data5.push([Math.random() * 5, Math.random() * 360]);
+      data6.push([Math.random() * 10, Math.random() * 360]);
     }
 
     this.radarOption = {
@@ -33,7 +72,7 @@ export class PeripheralDataComponent implements OnInit {
         left: 'center'
       },
       legend: {
-        data: ['scatter', 'scatter2', 'scatter3'],
+        data: ['住宅小区', '写字楼', '商场','学校', '医院', '交通枢纽'],
         top: 10
       },
       polar: {
@@ -66,7 +105,7 @@ export class PeripheralDataComponent implements OnInit {
         // 现在必须得设置这个，能不能polar和catesian一样，要不然很多特殊处理。
         angleAxisIndex: 0,
         radiusAxisIndex: 0,
-        name: 'scatter',
+        name: '住宅小区',
         type: 'scatter',
         symbolSize: 10,
         data: data1
@@ -74,7 +113,7 @@ export class PeripheralDataComponent implements OnInit {
         coordinateSystem: 'polar',
         angleAxisIndex: 0,
         radiusAxisIndex: 0,
-        name: 'scatter2',
+        name: '写字楼',
         type: 'scatter',
         symbolSize: 10,
         data: data2
@@ -82,10 +121,34 @@ export class PeripheralDataComponent implements OnInit {
         coordinateSystem: 'polar',
         angleAxisIndex: 0,
         radiusAxisIndex: 0,
-        name: 'scatter3',
+        name: '商场',
         type: 'scatter',
         symbolSize: 10,
         data: data3
+      }, {
+        coordinateSystem: 'polar',
+        angleAxisIndex: 0,
+        radiusAxisIndex: 0,
+        name: '学校',
+        type: 'scatter',
+        symbolSize: 10,
+        data: data4
+      }, {
+        coordinateSystem: 'polar',
+        angleAxisIndex: 0,
+        radiusAxisIndex: 0,
+        name: '医院',
+        type: 'scatter',
+        symbolSize: 10,
+        data: data5
+      }, {
+        coordinateSystem: 'polar',
+        angleAxisIndex: 0,
+        radiusAxisIndex: 0,
+        name: '交通枢纽',
+        type: 'scatter',
+        symbolSize: 10,
+        data: data6
       }]
     }
 
@@ -164,6 +227,10 @@ export class PeripheralDataComponent implements OnInit {
         }
       ]
     }
+  }
+
+  getInfo(id){
+
   }
 
 

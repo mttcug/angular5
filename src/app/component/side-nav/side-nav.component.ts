@@ -9,8 +9,8 @@ export class SideNavComponent implements OnInit {
 
   curPage = '';
 
-  constructor(@Inject('config') private conf,@Inject('curPageService') private curPageService) {
-    this.curPage = this.curPageService.getCurPage();
+  constructor(@Inject('config') private conf,@Inject('CurrentPageService') private CurrentPageService) {
+    this.curPage = this.CurrentPageService.getCurPage();
   }
 
   ngOnInit() {}
@@ -18,7 +18,7 @@ export class SideNavComponent implements OnInit {
 
   //被点击的tab被标记（颜色标记）
   colorChange() {
-    this.curPage = this.curPageService.getCurPage();
+    this.curPage = this.CurrentPageService.getCurPage();
   }
 
   //qq联系跳转页面

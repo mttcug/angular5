@@ -28,9 +28,12 @@ import { ConfigService } from './service/config/config.service';
 import { DataOperateRequestService } from './service/operate/data-operate-request.service';
 import { CurrentPageService } from './service/current-page/current-page.service';
 import { CurrentCityService } from './service/current-city/current-city.service';
+import { DataCollectionService } from './service/data-collection/data-collection.service';
+import { ShopHallService } from './service/shop-hall/shop-hall.service';
+import { PeripheralDataService } from './service/peripheral-data/peripheral-data.service';
 
 
-import { routing } from './app.routes';
+import { appRoutes } from './app.routes';
 import { AngularEchartsModule } from 'ngx-echarts';
 import { RentUnitPipe } from './pipe/rent-unit/rent-unit.pipe';
 import { IndustryPipe } from './pipe/industry/industry.pipe';
@@ -38,6 +41,7 @@ import { NearStreetPipe } from './pipe/near-street/near-street.pipe';
 import { LocationTypePipe } from './pipe/location-type/location-type.pipe';
 import { SuperFacilityPipe } from './pipe/super-facility/super-facility.pipe';
 import { DistrictPipe } from './pipe/district/district.pipe';
+import { ToolDirective } from './directive/tool.directive';
 
 
 
@@ -63,14 +67,15 @@ import { DistrictPipe } from './pipe/district/district.pipe';
     NearStreetPipe,
     LocationTypePipe,
     SuperFacilityPipe,
-    DistrictPipe
+    DistrictPipe,
+    ToolDirective
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
     JsonpModule,
-    routing,
+    appRoutes,
     AngularEchartsModule,
     NgbModule.forRoot(),
     FileUploadModule,
@@ -81,8 +86,11 @@ import { DistrictPipe } from './pipe/district/district.pipe';
     {provide : 'data' , useClass : DataService},
     {provide : 'config' , useClass : ConfigService},
     {provide : 'operate' , useClass : DataOperateRequestService},
-    {provide : 'curPageService' , useClass : CurrentPageService},
-    {provide : 'curCityService' , useClass : CurrentCityService}
+    {provide : 'CurrentPageService' , useClass : CurrentPageService},
+    {provide : 'CurrentCityService' , useClass : CurrentCityService},
+    {provide : 'DataCollectionService' , useClass : DataCollectionService},
+    {provide : 'ShopHallService' , useClass : ShopHallService},
+    {provide : 'PeripheralDataService' , useClass : PeripheralDataService}
   ],
   bootstrap: [AppComponent]
 })

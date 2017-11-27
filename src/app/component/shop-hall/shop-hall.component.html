@@ -101,10 +101,10 @@
         </td>
         <td class="p-2 p-lg-2">
           <p>
-            <button class="btn btn-primary"><a [routerLink]="['dataCollection/1']">编辑</a></button>
+            <button class="btn btn-primary"><a [routerLink]="['dataCollection/{{estate_id}}']">编辑</a></button>
           </p>
           <p>
-            <button class="btn btn-primary"><a [routerLink]="['peripheralData']">周边分析</a></button>
+            <button class="btn btn-primary"><a [routerLink]="['peripheralData/{{estate_id}}']">周边分析</a></button>
           </p>
         </td>
       </tr>
@@ -138,10 +138,10 @@
         </td>
         <td class="p-2 p-lg-2">
           <p>
-            <button class="btn btn-primary"><a [routerLink]="['dataCollection']">编辑</a></button>
+            <button class="btn btn-primary"><a [routerLink]="['dataCollection/1']">编辑</a></button>
           </p>
           <p>
-            <button class="btn btn-primary"><a [routerLink]="['peripheralData']">周边分析</a></button>
+            <button class="btn btn-primary"><a [routerLink]="['peripheralData/1']">周边分析</a></button>
           </p>
         </td>
       </tr>
@@ -177,7 +177,7 @@
             <button class="btn btn-primary"><a [routerLink]="['dataCollection/1']">编辑</a></button>
           </p>
           <p>
-            <button class="btn btn-primary"><a [routerLink]="['peripheralData']">周边分析</a></button>
+            <button class="btn btn-primary"><a [routerLink]="['peripheralData/1']">周边分析</a></button>
           </p>
         </td>
       </tr>
@@ -313,7 +313,7 @@
       <div class="choice-block d-block">
         <span>筛选范围:</span>
         <ul class="d-inline-block">
-          <li *ngFor="let item of zoomList"><input name="mapRatio" type="radio" value={{item.code}}
+          <li *ngFor="let item of zoomList"><input name="mapLevelList" type="radio" value='item.code'
                                                    [(ngModel)]='item.code' (click)="zoomChange(item)">{{item.name}}
           </li>.
         </ul>

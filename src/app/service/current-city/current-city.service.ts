@@ -5,7 +5,7 @@ export class CurrentCityService {
 
   allDistricts = [];
 
-  constructor(@Inject('data') private data) {
+  constructor(@Inject('data') private data,@Inject('config') private configService) {
     //获取城市列表
     let district = sessionStorage.getItem("district");
     if (district) {
@@ -27,7 +27,7 @@ export class CurrentCityService {
     if (sessionStorage.getItem("curCity")) {
       return JSON.parse(sessionStorage.getItem("curCity")).name;
     } else {
-      var item = this.allDistricts.find(item => item.name == '深圳市');
+      var item = this.allDistricts.find(item => item.name == this.configService.getConf().defaultCity);
       sessionStorage.setItem("curCity", JSON.stringify(item));
       return item.name;
     }

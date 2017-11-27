@@ -44,8 +44,8 @@ export const routes: Routes = [
     component: RejectedPageComponent
   },
   {
-    path: 'shopHall/peripheralData',
+    path: 'shopHall/peripheralData/:id',
     component: PeripheralDataComponent
   }
 ]
-export const routing = RouterModule.forRoot(routes);
+export const appRoutes = RouterModule.forRoot(routes);

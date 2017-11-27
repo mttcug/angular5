@@ -16,7 +16,7 @@ export class HeaderComponent implements OnInit {
   currentCity: string ='';
 
 
-  constructor(private modalService: NgbModal, @Inject('data') private data,private router: Router,@Inject('config') private conf,@Inject('curPageService') private curPageService,@Inject('curCityService') private curCityService) {
+  constructor(private modalService: NgbModal, @Inject('data') private data,private router: Router,@Inject('config') private conf,@Inject('CurrentPageService') private CurrentPageService,@Inject('CurrentCityService') private CurrentCityService) {
 
     console.log("headerComponent");
 
@@ -42,7 +42,7 @@ export class HeaderComponent implements OnInit {
 
 
   ngOnInit() {//暂时不用百度地图定位，暂时默认为深圳
-    this.currentCity=this.curCityService.getCurCity();
+    this.currentCity=this.CurrentCityService.getCurCity();
     this.selectedColorChange(this.currentCity);
   }
 
@@ -61,17 +61,14 @@ export class HeaderComponent implements OnInit {
   //切换城市弹出框内城市列表点击事件
   cityItemClick(item) {
     this.currentCity = item.name;
-    this.curCityService.setCurCity(item);
+    this.CurrentCityService.setCurCity(item);
     this.selectedColorChange(item.name);
+    window.location.reload();                              //所有页面缓存的城市都需要刷新
 
     //判断当前城市是否是店铺大厅，是则刷新页面改变选择的城市
-
-    if(this.curPageService.getCurPage()=='shopHall'){
-      console.log("路哟城市：");
-
-      //路由重定位问题
-  /*    this.router.reload();*/
-    }
+   /* if(this.CurrentPageService.getCurPage()=='shopHall'){
+      this.router.navigate(['shopHall']);
+    }*/
   }
 
 

@@ -20,6 +20,7 @@ export class JsonrpcRequestModelService {
     staticDataUrl:this.configService.getConf().dataApi,
     shopListUrl:this.configService.getConf().shopListApi,
     collectInfoUrl:this.configService.getConf().collectInfoApi,
+    peripheralInfoUrl:this.configService.getConf().peripheralDataApi,
     id:0,
     jsonrpc:"2.0"
   }
@@ -48,7 +49,7 @@ export class JsonrpcRequestModelService {
     }).toPromise();
   }
 
-  showInfoRequest(method,params){
+  shopInfoRequest(method,params){
     return this.http.post(this.jsonrpConfig.shopListUrl,{
       id:this.jsonrpConfig.id,
       jsonrpc:this.jsonrpConfig.jsonrpc,
@@ -58,7 +59,6 @@ export class JsonrpcRequestModelService {
   }
 
   collectInfoRequest(method,params){
-    console.log("collectInfoRequest:",this.configService.getConf.collectInfoApi,this.jsonrpConfig.collectInfoUrl);
     return this.http.post(this.jsonrpConfig.collectInfoUrl,{
       id:this.jsonrpConfig.id,
       jsonrpc:this.jsonrpConfig.jsonrpc,
@@ -66,6 +66,17 @@ export class JsonrpcRequestModelService {
       params:params
     }).toPromise();
   }
+
+  peripheralInfoRequest(method,params){
+    return this.http.post(this.jsonrpConfig.peripheralInfoUrl,{
+      id:this.jsonrpConfig.id,
+      jsonrpc:this.jsonrpConfig.jsonrpc,
+      method:method,
+      params:params
+    }).toPromise();
+  }
+
+
 
 
 }

@@ -30,7 +30,7 @@ export class DataCollectionComponent implements OnInit {
   sexType = [];
   memberTypeList=[];
 
-  constructor(private modalService: NgbModal, @Inject('data') private data, private route: ActivatedRoute, @Inject('operate') private operate) {
+  constructor(private modalService: NgbModal, @Inject('data') private data, private route: ActivatedRoute, @Inject('DataCollectionService') private DataCollectionService) {
     //获取行业列表
     this.data.getIndustryData().then(res => {
       this.industries = res ? res : [];
@@ -288,7 +288,8 @@ export class DataCollectionComponent implements OnInit {
       email: '',
       qq: '',
       wx: '',
-      personInfoDetail: ''
+      personInfoDetail: '',
+      stockRatio:''
     }
   ];
 
@@ -447,7 +448,8 @@ export class DataCollectionComponent implements OnInit {
       email: '',
       qq: '',
       wx: '',
-      personInfoDetail: ''
+      personInfoDetail: '',
+      stockRatio:''
     };
     var newObj: any = this.copy(obj);
     this.partner.push(newObj);
@@ -1193,7 +1195,7 @@ export class DataCollectionComponent implements OnInit {
       houseOwner: this.houseOwner                            //房主
     }
     console.log("params:", params);
-    this.operate.releaseInfo(params).then(res=>{
+    this.DataCollectionService.releaseInfo(params).then(res=>{
       console.log("发布信息：",res);
     })
   }

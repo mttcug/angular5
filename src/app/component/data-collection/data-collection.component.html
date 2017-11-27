@@ -292,7 +292,7 @@
           <span>{{item.name}}</span><span>{{item.phoneList[0]}}</span> <span class="edit-info text-blue"
                                                                              (click)="openPersonalInfo(personInfo,item)">编辑</span>
           <input type="text" name="stockRatio" placeholder="参股比例" maxlength="10"
-                 class="d-inline-block w-160-px form-control">
+                 class="d-inline-block w-160-px form-control" [(ngModel)]="item.stockRatio">
         </p>
       </div>
       <p *ngIf="partner.length < 5" class="add-partner-btn  w-220-px" (click)="addPartner()"><label
