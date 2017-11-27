@@ -1,5 +1,7 @@
 import {Component, OnInit, Inject,ChangeDetectorRef} from '@angular/core';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
+import {inject} from "@angular/core/testing";
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -11,10 +13,14 @@ export class HeaderComponent implements OnInit {
   allDistricts = [];
   cityList = [];
 
+  currentCity: string ='';
 
-  constructor(private modalService: NgbModal, @Inject('data') private data,private cd: ChangeDetectorRef) {
+
+  constructor(private modalService: NgbModal, @Inject('data') private data,private router: Router,@Inject('config') private conf,@Inject('curPageService') private curPageService,@Inject('curCityService') private curCityService) {
 
     console.log("headerComponent");
+
+
     //获取城市列表
     let district = sessionStorage.getItem("district");
     if (district) {
@@ -36,14 +42,9 @@ export class HeaderComponent implements OnInit {
 
 
   ngOnInit() {//暂时不用百度地图定位，暂时默认为深圳
-    var item= this.allDistricts.find(item => item.name == '深圳市');
-    sessionStorage.setItem("curCity", JSON.stringify(item));
+    this.currentCity=this.curCityService.getCurCity();
     this.selectedColorChange(this.currentCity);
   }
-
-
-  currentCity: string = sessionStorage.getItem("curCity") ? JSON.parse(sessionStorage.getItem("curCity")).name : '';
-
 
   //通过定位获取当前城市并缓存 对应不上配置城市默认深圳
   getCurrentCity(e) {
@@ -57,14 +58,20 @@ export class HeaderComponent implements OnInit {
   }
 
 
-
-
   //切换城市弹出框内城市列表点击事件
   cityItemClick(item) {
     this.currentCity = item.name;
-    sessionStorage.setItem("curCity", JSON.stringify(item));
+    this.curCityService.setCurCity(item);
     this.selectedColorChange(item.name);
-    window.location.href=window.location.href;
+
+    //判断当前城市是否是店铺大厅，是则刷新页面改变选择的城市
+
+    if(this.curPageService.getCurPage()=='shopHall'){
+      console.log("路哟城市：");
+
+      //路由重定位问题
+  /*    this.router.reload();*/
+    }
   }
 
 
@@ -74,6 +81,8 @@ export class HeaderComponent implements OnInit {
       v.selected = v.name.toString() == selectedCity.toString() ? true : false;
     })
   }
+
+
 
 
   closeResult: string;

@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, Inject, Injectable} from '@angular/core';
 
 @Component({
   selector: 'app-side-nav',
@@ -8,10 +8,9 @@ import {Component, OnInit} from '@angular/core';
 export class SideNavComponent implements OnInit {
 
   curPage = '';
-  keyIndex=3;//从url中截取路由字段
 
-  constructor() {
-    this.curPage = window.location.href.split("/")[this.keyIndex] ? window.location.href.split("/")[this.keyIndex] : '';
+  constructor(@Inject('config') private conf,@Inject('curPageService') private curPageService) {
+    this.curPage = this.curPageService.getCurPage();
   }
 
   ngOnInit() {}
@@ -19,7 +18,7 @@ export class SideNavComponent implements OnInit {
 
   //被点击的tab被标记（颜色标记）
   colorChange() {
-    this.curPage = window.location.href.split("/")[this.keyIndex] ? window.location.href.split("/")[this.keyIndex] : '';
+    this.curPage = this.curPageService.getCurPage();
   }
 
   //qq联系跳转页面

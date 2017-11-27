@@ -22,10 +22,13 @@ import { PeripheralDataComponent } from './component/peripheral-data/peripheral-
 import { RejectedPageComponent } from './component/rejected-page/rejected-page.component';
 import { GeolocationComponent } from './component/common/geolocation/geolocation.component';
 
-import { HttpRequestService } from './service/http-model/http-request.service';
-import { DataService } from './service/data-request/data.service';
+import { JsonrpcRequestModelService } from './service/jsonrpc/jsonrpc-request-model.service';
+import { DataService } from './service/data/data.service';
 import { ConfigService } from './service/config/config.service';
-import { DataOperateRequestService } from './service/operate-request/data-operate-request.service';
+import { DataOperateRequestService } from './service/operate/data-operate-request.service';
+import { CurrentPageService } from './service/current-page/current-page.service';
+import { CurrentCityService } from './service/current-city/current-city.service';
+
 
 import { routing } from './app.routes';
 import { AngularEchartsModule } from 'ngx-echarts';
@@ -74,10 +77,12 @@ import { DistrictPipe } from './pipe/district/district.pipe';
     BaiduMapModule.forRoot({ak: 'fN66w00hfey6hwEyhFcYFRvvwe4a0pOG'})
   ],
   providers: [
-    {provide : 'http', useClass : HttpRequestService},
+    {provide : 'http', useClass : JsonrpcRequestModelService},
     {provide : 'data' , useClass : DataService},
     {provide : 'config' , useClass : ConfigService},
-    {provide : 'operate' , useClass : DataOperateRequestService}
+    {provide : 'operate' , useClass : DataOperateRequestService},
+    {provide : 'curPageService' , useClass : CurrentPageService},
+    {provide : 'curCityService' , useClass : CurrentCityService}
   ],
   bootstrap: [AppComponent]
 })

@@ -3,7 +3,7 @@ import {  Http, Response, RequestOptions, Headers } from  '@angular/http';
 import 'rxjs/add/operator/toPromise';
 
 @Injectable()
-export class HttpRequestService {
+export class JsonrpcRequestModelService {
 
   constructor(private http : Http,@Inject('config') private configService) {
 
@@ -17,8 +17,9 @@ export class HttpRequestService {
   }
 
   jsonrpConfig={
-    staticRpcUrl:this.configService.getConf().dataApi,
-    operateRpcUrl:this.configService.getConf().listApi,
+    staticDataUrl:this.configService.getConf().dataApi,
+    shopListUrl:this.configService.getConf().shopListApi,
+    collectInfoUrl:this.configService.getConf().collectInfoApi,
     id:0,
     jsonrpc:"2.0"
   }
@@ -27,28 +28,19 @@ export class HttpRequestService {
 
   staticRequest(method,params){
     //将登陆验证放在请求头部authorization
-/*    let authHeader = new Headers();
-    authHeader.append('Authorization', 'XWWEB_SESSION_ID');
+    /*    let authHeader = new Headers();
+        authHeader.append('Authorization', 'XWWEB_SESSION_ID');
 
-    let options = new RequestOptions({ headers: authHeader });
+        let options = new RequestOptions({ headers: authHeader });
 
-    return this.http.post(this.jsonrpConfig.rpcUrl,{
-      id:this.jsonrpConfig.id,
-      jsonrpc:this.jsonrpConfig.jsonrpc,
-      method:method,
-      params:params
-    },options).toPromise();*/
+        return this.http.post(this.jsonrpConfig.rpcUrl,{
+          id:this.jsonrpConfig.id,
+          jsonrpc:this.jsonrpConfig.jsonrpc,
+          method:method,
+          params:params
+        },options).toPromise();*/
 
-    return this.http.post(this.jsonrpConfig.staticRpcUrl,{
-      id:this.jsonrpConfig.id,
-      jsonrpc:this.jsonrpConfig.jsonrpc,
-      method:method,
-      params:params
-    }).toPromise();
-  }
-
-  operateRequest(method,params){
-    return this.http.post(this.jsonrpConfig.operateRpcUrl,{
+    return this.http.post(this.jsonrpConfig.staticDataUrl,{
       id:this.jsonrpConfig.id,
       jsonrpc:this.jsonrpConfig.jsonrpc,
       method:method,
@@ -56,6 +48,24 @@ export class HttpRequestService {
     }).toPromise();
   }
 
+  showInfoRequest(method,params){
+    return this.http.post(this.jsonrpConfig.shopListUrl,{
+      id:this.jsonrpConfig.id,
+      jsonrpc:this.jsonrpConfig.jsonrpc,
+      method:method,
+      params:params
+    }).toPromise();
+  }
+
+  collectInfoRequest(method,params){
+    console.log("collectInfoRequest:",this.configService.getConf.collectInfoApi,this.jsonrpConfig.collectInfoUrl);
+    return this.http.post(this.jsonrpConfig.collectInfoUrl,{
+      id:this.jsonrpConfig.id,
+      jsonrpc:this.jsonrpConfig.jsonrpc,
+      method:method,
+      params:params
+    }).toPromise();
+  }
 
 
 }
