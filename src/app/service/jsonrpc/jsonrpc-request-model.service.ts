@@ -21,6 +21,7 @@ export class JsonrpcRequestModelService {
     shopListUrl:this.configService.getConf().shopListApi,
     collectInfoUrl:this.configService.getConf().collectInfoApi,
     peripheralInfoUrl:this.configService.getConf().peripheralDataApi,
+    homePageDataUrl:this.configService.getConf().homePageDataApi,
     id:0,
     jsonrpc:"2.0"
   }
@@ -69,6 +70,16 @@ export class JsonrpcRequestModelService {
 
   peripheralInfoRequest(method,params){
     return this.http.post(this.jsonrpConfig.peripheralInfoUrl,{
+      id:this.jsonrpConfig.id,
+      jsonrpc:this.jsonrpConfig.jsonrpc,
+      method:method,
+      params:params
+    }).toPromise();
+  }
+
+
+  homePageRequest(method,params){
+    return this.http.post(this.jsonrpConfig.homePageDataUrl,{
       id:this.jsonrpConfig.id,
       jsonrpc:this.jsonrpConfig.jsonrpc,
       method:method,

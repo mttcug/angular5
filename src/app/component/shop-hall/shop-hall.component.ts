@@ -115,7 +115,9 @@ export class ShopHallComponent implements OnInit {
 
 
   //分页点击事件
-  pageChange(e) {}
+  pageChange(e) {
+    this.getList();
+  }
 
   //查询信息获取列表事件
   search() {
@@ -188,7 +190,7 @@ export class ShopHallComponent implements OnInit {
 //获取列表数据
   getList() {
     var params = {
-      page_no: this.pageNo,
+      page_no: this.pageNo-1,
       page_size: this.pageSize
     };
     this.bigIndustry ? ( this.smallIndustry ? params['industry'] = this.smallIndustry : params['industry'] = this.bigIndustry ) : '';

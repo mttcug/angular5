@@ -1,4 +1,6 @@
 import {Component, OnInit, Inject, Injectable} from '@angular/core';
+import {ActivatedRoute, Params ,Router} from '@angular/router';
+import 'rxjs/add/operator/toPromise';
 
 @Component({
   selector: 'app-side-nav',
@@ -9,11 +11,15 @@ export class SideNavComponent implements OnInit {
 
   curPage = '';
 
-  constructor(@Inject('config') private conf,@Inject('CurrentPageService') private CurrentPageService) {
+  constructor(@Inject('config') private conf, private router: Router,@Inject('CurrentPageService') private CurrentPageService) {
     this.curPage = this.CurrentPageService.getCurPage();
+
+    this.router.setUpLocationChangeListener();
   }
 
   ngOnInit() {}
+
+
 
 
   //被点击的tab被标记（颜色标记）

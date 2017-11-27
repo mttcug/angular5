@@ -8,17 +8,21 @@ import {Router} from '@angular/router';
 })
 export class DataIndexComponent implements OnInit {
 
-  data = [];
+  shopCount='';
+  bossCount=''
 
-  constructor(private router: Router, @Inject('operate') private operate) {
-  }
-
-  ngOnInit() {
-    //获取数据
-    this.operate.getDataCountInfo().then(res => {
-      console.log("数据数量结果：",res);
+  constructor(private router: Router, @Inject('HomePageService') private HomePageService) {
+    //获取店铺数据
+    this.HomePageService.getShopCount().then(res => {
+      this.shopCount=res;
+    });
+    //获取老板数据
+    this.HomePageService.getBossCount().then(res => {
+      this.bossCount=res;
     });
   }
+
+  ngOnInit() {}
 
 
   //跳转到添加信息页面

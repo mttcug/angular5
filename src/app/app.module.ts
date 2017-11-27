@@ -31,6 +31,7 @@ import { CurrentCityService } from './service/current-city/current-city.service'
 import { DataCollectionService } from './service/data-collection/data-collection.service';
 import { ShopHallService } from './service/shop-hall/shop-hall.service';
 import { PeripheralDataService } from './service/peripheral-data/peripheral-data.service';
+import { HomePageService } from './service/home-page/home-page.service';
 
 
 import { appRoutes } from './app.routes';
@@ -90,7 +91,8 @@ import { ToolDirective } from './directive/tool.directive';
     {provide : 'CurrentCityService' , useClass : CurrentCityService},
     {provide : 'DataCollectionService' , useClass : DataCollectionService},
     {provide : 'ShopHallService' , useClass : ShopHallService},
-    {provide : 'PeripheralDataService' , useClass : PeripheralDataService}
+    {provide : 'PeripheralDataService' , useClass : PeripheralDataService},
+    {provide : 'HomePageService' , useClass : HomePageService}
   ],
   bootstrap: [AppComponent]
 })

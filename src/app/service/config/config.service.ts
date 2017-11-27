@@ -17,7 +17,7 @@ export class ConfigService {
       shopListApi:'http://bigdata-api.xwkj.local/shop/list/',  //请求回去列表数据的链接
       collectInfoApi:'http://bigdata-api.xwkj.local/shop/',     //发布信息
       peripheralDataApi:'http://bigdata-api.xwkj.local/surrounding/',    //周边环境
-
+      homePageDataApi:'http://bigdata-api.xwkj.local/index',    //周边环境
     };
   }
 }
