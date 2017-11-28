@@ -153,11 +153,16 @@ export class DataCollectionComponent implements OnInit {
 
     var oppoId = this.route.snapshot.queryParams['id'];
     console.log("oppoId:",oppoId);
+    /*
+        this.route.queryParams.subscribe((params:Params)=> {
+          let Eparams = params;
+          console.log("Eparams:",Eparams);
+        })*/
 
-    this.route.queryParams.subscribe((params:Params)=> {
-      let Eparams = params;
-      console.log("Eparams:",Eparams);
-    })
+ /*   this.route.queryParams.subscribe((queryParams:Params) => {
+      var oppoId = queryParams.id;
+      console.log("Eparams:",queryParams,oppoId);
+    })*/
 
    /* this.route.params.subscribe((params:Params)=>{
       var oppoId=params["id"];
