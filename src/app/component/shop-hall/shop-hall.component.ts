@@ -12,8 +12,8 @@ export class ShopHallComponent implements OnInit {
   allIndustry =[];
   allDistricts = [];
 
-  constructor(private modalService: NgbModal, @Inject('data') private data, @Inject('ShopHallService') private ShopHallService) {
-    console.log("shopHallComponent",sessionStorage.getItem('curCity'));
+  constructor(private modalService: NgbModal, @Inject('data') private data, @Inject('ShopHallService') private ShopHallService,@Inject('CurrentCityService') private CurrentCityService) {
+
 
     //获取行业列表
     if(sessionStorage.getItem("industry")){
@@ -54,6 +54,7 @@ export class ShopHallComponent implements OnInit {
       this.positionDescriptionList = res;
     });
 
+    this.city=this.CurrentCityService.getCurCity().id;
   }
 
   ngOnInit() {
@@ -75,7 +76,7 @@ export class ShopHallComponent implements OnInit {
   shopName = '';
   shopPhoneNumber = '';
 
-  city = JSON.parse(sessionStorage.getItem('curCity')).id ;
+  city = '';
   district = '';
   cityCanSelect = false;
   cityList = [];

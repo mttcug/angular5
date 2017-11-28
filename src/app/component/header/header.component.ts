@@ -42,7 +42,7 @@ export class HeaderComponent implements OnInit {
 
 
   ngOnInit() {//暂时不用百度地图定位，暂时默认为深圳
-    this.currentCity=this.CurrentCityService.getCurCity();
+    this.currentCity=this.CurrentCityService.getCurCity().name;
     this.selectedColorChange(this.currentCity);
   }
 
@@ -75,7 +75,7 @@ export class HeaderComponent implements OnInit {
   //切换城市弹出框标记被选中的城市
   selectedColorChange(selectedCity) {
     this.cityList.forEach((v, i) => {
-      v.selected = v.name.toString() == selectedCity.toString() ? true : false;
+      v.selected = v.name.toString() == selectedCity ? true : false;
     })
   }
 

@@ -100,7 +100,7 @@
         </td>
         <td class="p-2 p-lg-2">
           <p>
-            <button class="btn btn-primary"><a [routerLink]="['dataCollection/1']">编辑</a></button>
+            <button class="btn btn-primary"><a [routerLink]="['dataCollection']"  [queryParams]="{id:item.estate_id}">编辑</a></button>
           </p>
           <p>
             <button class="btn btn-primary"><a [routerLink]="['peripheralData/1']">周边分析</a></button>

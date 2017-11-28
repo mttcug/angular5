@@ -1,5 +1,10 @@
 import {Component, OnInit, Inject, Injectable} from '@angular/core';
-import {ActivatedRoute, Params ,Router} from '@angular/router';
+import {ActivatedRoute, Params ,Router, NavigationEnd} from '@angular/router';
+
+import 'rxjs/add/operator/filter';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/mergeMap';
+
 import 'rxjs/add/operator/toPromise';
 
 @Component({
@@ -11,10 +16,22 @@ export class SideNavComponent implements OnInit {
 
   curPage = '';
 
-  constructor(@Inject('config') private conf, private router: Router,@Inject('CurrentPageService') private CurrentPageService) {
+  constructor(@Inject('config') private conf, private router: Router,@Inject('CurrentPageService') private CurrentPageService,  private activatedRoute :ActivatedRoute) {
+
     this.curPage = this.CurrentPageService.getCurPage();
 
-    this.router.setUpLocationChangeListener();
+    //监听路由变化
+    this.router.events
+      .filter(event => event instanceof NavigationEnd)
+      .map(() => this.activatedRoute)
+      .map(route => {
+        while (route.firstChild) route = route.firstChild;
+        return route;
+      })
+      .subscribe((event) => {
+        console.log('路由变化:', event);
+        this.colorChange();
+      });
   }
 
   ngOnInit() {}

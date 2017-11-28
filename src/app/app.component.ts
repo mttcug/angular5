@@ -1,6 +1,7 @@
 import {Component, Inject} from '@angular/core';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
-import {Router, NavigationEnd} from '@angular/router';
+import {Router, NavigationEnd, Params,ActivatedRoute } from '@angular/router';
+
 
 
 @Component({
@@ -53,7 +54,6 @@ export class AppComponent {
     this.data.getEstateType().then(res => {
       sessionStorage.setItem("superFacility", JSON.stringify(res));
     });
-
   }
 
 

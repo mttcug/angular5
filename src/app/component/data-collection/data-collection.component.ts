@@ -140,9 +140,9 @@ export class DataCollectionComponent implements OnInit {
   }
 
   ngOnInit() {
-    let queryParams: Params = this.route.params;
+ /*   let queryParams: Params = this.route.params;
     let oppoId = queryParams.value.id;
-    oppoId != 'undefined' ? this.getShopInfo(oppoId) : '';
+    oppoId != 'undefined' ? this.getShopInfo(oppoId) : '';*/
 
    /* this.oppoId = this.route.paramMap
       .switchMap((params: ParamMap) =>
@@ -150,6 +150,19 @@ export class DataCollectionComponent implements OnInit {
 
    /* let id = this.route.snapshot.paramMap.get('id');
     this.hero$ = this.service.getHero(id);*/
+
+    var oppoId = this.route.snapshot.queryParams['id'];
+    console.log("oppoId:",oppoId);
+
+    this.route.queryParams.subscribe((params:Params)=> {
+      let Eparams = params;
+      console.log("Eparams:",Eparams);
+    })
+
+   /* this.route.params.subscribe((params:Params)=>{
+      var oppoId=params["id"];
+      console.log("oppoId:",oppoId);
+    })*/
   }
 
 

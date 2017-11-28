@@ -1,4 +1,5 @@
 import {Injectable, Inject} from '@angular/core';
+import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class CurrentCityService {
@@ -23,15 +24,16 @@ export class CurrentCityService {
   }
 
 
-  getCurCity() {
-    if (sessionStorage.getItem("curCity")) {
-      return JSON.parse(sessionStorage.getItem("curCity")).name;
+   getCurCity() {
+    if (sessionStorage.getItem("curCity") && sessionStorage.getItem("curCity")!='undefined') {
+      return JSON.parse(sessionStorage.getItem("curCity"));
     } else {
-      var item = this.allDistricts.find(item => item.name == this.configService.getConf().defaultCity);
-      sessionStorage.setItem("curCity", JSON.stringify(item));
-      return item.name;
+        var item = this.allDistricts.find(item => item.name.toString().trim() == this.configService.getConf().defaultCity);
+        sessionStorage.setItem("curCity", JSON.stringify(item));
+        return item ? item : '';
+      }
     }
-  }
+
 
   setCurCity(cityItem) {
     sessionStorage.setItem("curCity", JSON.stringify(cityItem));
