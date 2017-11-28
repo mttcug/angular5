@@ -1,6 +1,6 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
-import {ActivatedRoute, Params} from '@angular/router';
+import {ActivatedRoute, Params, Router} from '@angular/router';
 
 
 @Component({
@@ -30,7 +30,7 @@ export class DataCollectionComponent implements OnInit {
   sexType = [];
   memberTypeList=[];
 
-  constructor(private modalService: NgbModal, @Inject('data') private data, private route: ActivatedRoute, @Inject('DataCollectionService') private DataCollectionService) {
+  constructor(private modalService: NgbModal, private router: Router,@Inject('data') private data, private route: ActivatedRoute, @Inject('DataCollectionService') private DataCollectionService) {
     //获取行业列表
     this.data.getIndustryData().then(res => {
       this.industries = res ? res : [];
@@ -140,9 +140,10 @@ export class DataCollectionComponent implements OnInit {
   }
 
   ngOnInit() {
- /*   let queryParams: Params = this.route.params;
+  /*  let queryParams: Params = this.route.params;
     let oppoId = queryParams.value.id;
-    oppoId != 'undefined' ? this.getShopInfo(oppoId) : '';*/
+    oppoId != 'undefined' ? this.getShopInfo(oppoId) : '1';
+    console.log("oppid:",this.route.params,oppoId);*/
 
    /* this.oppoId = this.route.paramMap
       .switchMap((params: ParamMap) =>
@@ -151,18 +152,24 @@ export class DataCollectionComponent implements OnInit {
    /* let id = this.route.snapshot.paramMap.get('id');
     this.hero$ = this.service.getHero(id);*/
 
-    var oppoId = this.route.snapshot.queryParams['id'];
-    console.log("oppoId:",oppoId);
-    /*
-        this.route.queryParams.subscribe((params:Params)=> {
-          let Eparams = params;
-          console.log("Eparams:",Eparams);
-        })*/
+   /* var oppoId = this.route.snapshot.queryParams['id'];
+    console.log("oppoId:",oppoId);*/
 
- /*   this.route.queryParams.subscribe((queryParams:Params) => {
+  /*  this.router.routerState.queryParams.subscribe(
+      params => console.log('queryParams', params['id']));*/
+
+ /*   this.route.queryParams
+      .subscribe((params:Params) => {
+        console.log(params); // {order: "popular"}
+
+        var oppo_id = params.id;
+        console.log("oppoid:",oppo_id); // popular
+      });*/
+
+    this.route.queryParams.subscribe((queryParams:Params) => {
       var oppoId = queryParams.id;
       console.log("Eparams:",queryParams,oppoId);
-    })*/
+    });
 
    /* this.route.params.subscribe((params:Params)=>{
       var oppoId=params["id"];

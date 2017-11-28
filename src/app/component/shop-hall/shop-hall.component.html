@@ -69,7 +69,8 @@
         <th class="p-2 p-lg-2">转让情况</th>
         <th class="p-2 p-lg-2">操作</th>
       </tr>
-      <tbody *ngIf="infoList.estate_list">
+      <tbody><!-- *ngIf="infoList.estate_list"-->
+<!--
       <tr *ngFor="let item of infoList.estate_list" class="d-flex flex-row justify-content-around border-radius-10 m-top-20">
         <td class="p-2 p-lg-2">
           <p><span>{{item.estate_building.district}}</span><span class="grey-block bg-grey text-white">{{item.estate_building.estate_type | superFacility}}</span></p>
@@ -107,6 +108,7 @@
           </p>
         </td>
       </tr>
+-->
       <tr class="d-flex flex-row justify-content-around border-radius-10 m-top-20">
         <td class="p-2 p-lg-2">
           <p><span>南山区</span><span class="grey-block bg-grey text-white">商铺</span></p>
@@ -136,10 +138,10 @@
         </td>
         <td class="p-2 p-lg-2">
           <p>
-            <button class="btn btn-primary"><a [routerLink]="['dataCollection/1']">编辑</a></button>
+            <span class="btn btn-primary"><a [routerLink]="['/dataCollection']" [queryParams]="{id:'1'}"  routerLinkActive="active"  queryParamsHandling="merge">编辑</a></span>
           </p>
           <p>
-            <button class="btn btn-primary"><a [routerLink]="['peripheralData/1']">周边分析</a></button>
+            <span class="btn btn-primary"><a [routerLink]="['peripheralData/1']">周边分析</a></span>
           </p>
         </td>
       </tr>

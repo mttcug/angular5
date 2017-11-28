@@ -1,6 +1,5 @@
 import {Component, OnInit, Inject} from '@angular/core';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
-import {any} from "codelyzer/util/function";
 
 @Component({
   selector: 'app-shop-hall',

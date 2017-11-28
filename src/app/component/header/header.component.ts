@@ -76,7 +76,7 @@ export class HeaderComponent implements OnInit {
   selectedColorChange(selectedCity) {
     this.cityList.forEach((v, i) => {
       v.selected = v.name.toString() == selectedCity ? true : false;
-    })
+    });
   }
 
 
