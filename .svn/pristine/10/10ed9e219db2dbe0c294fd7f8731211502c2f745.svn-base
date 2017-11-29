@@ -140,11 +140,41 @@ export class DataCollectionComponent implements OnInit {
   }
 
   ngOnInit() {
-    //获取参数
+  /*  let queryParams: Params = this.route.params;
+    let oppoId = queryParams.value.id;
+    oppoId != 'undefined' ? this.getShopInfo(oppoId) : '1';
+    console.log("oppid:",this.route.params,oppoId);*/
+
+   /* this.oppoId = this.route.paramMap
+      .switchMap((params: ParamMap) =>
+        return (params.get('id')));*/
+
+   /* let id = this.route.snapshot.paramMap.get('id');
+    this.hero$ = this.service.getHero(id);*/
+
+   /* var oppoId = this.route.snapshot.queryParams['id'];
+    console.log("oppoId:",oppoId);*/
+
+  /*  this.router.routerState.queryParams.subscribe(
+      params => console.log('queryParams', params['id']));*/
+
+ /*   this.route.queryParams
+      .subscribe((params:Params) => {
+        console.log(params); // {order: "popular"}
+
+        var oppo_id = params.id;
+        console.log("oppoid:",oppo_id); // popular
+      });*/
+
     this.route.queryParams.subscribe((queryParams:Params) => {
       var oppoId = queryParams.id;
       console.log("Eparams:",queryParams,oppoId);
     });
+
+   /* this.route.params.subscribe((params:Params)=>{
+      var oppoId=params["id"];
+      console.log("oppoId:",oppoId);
+    })*/
   }
 
 

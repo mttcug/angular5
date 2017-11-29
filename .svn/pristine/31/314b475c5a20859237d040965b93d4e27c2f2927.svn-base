@@ -37,15 +37,12 @@ export class ShopHallComponent implements OnInit {
       var result=JSON.parse(sessionStorage.getItem("district"));
       this.allDistricts=result;
       this.cityList=this.getCityList();
-      console.log("city11:",this.city);
-      this.loadDistrict(this.city);
       this.districtList = this.cityCanSelect ? [] : this.getSomeDistrict(this.city);
     }else{
       this.data.getDistrictData().then(res => {
         var result = res ? res : [];
         result.forEach((v, i) => {this.allDistricts.push(v);});
         this.cityList=this.getCityList();
-        this.loadDistrict(this.city);
         this.districtList = this.cityCanSelect ? [] : this.getSomeDistrict(this.city);
       });
     }

@@ -42,4 +42,5 @@ export class DataIndexComponent implements OnInit {
     // rest方式     this.router.navigate(['dataCollection', '1']);  //多参数this.router.navigate(["comment",{id:this.blog.id,title:this.blog.title}],{relativeTo:this.aRoute})
     this.router.navigate(['dataCollection'], {queryParams: {id: ''}});
   }
+
 }

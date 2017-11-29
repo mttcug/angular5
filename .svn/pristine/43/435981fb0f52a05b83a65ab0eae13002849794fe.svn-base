@@ -1,0 +1,33 @@
+app-header{
+  display: block;
+}
+app-side-nav{
+  height: 100%;
+  display:block;
+}
+
+.content{
+  position: relative;
+  overflow: hidden;
+}
+app-side-nav{
+  width: 12%;
+  display: block;
+  float: left;
+}
+/*router-outlet{
+
+}*/
+
+.page-container{
+  display: block;
+  vertical-align: top;
+  float: left;
+  width:88%;
+  height: 100%;
+  border-left: 1px solid rgba(0,0,0,.125);
+  overflow: scroll;
+}
+app-footer{
+
+}
