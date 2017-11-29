@@ -22,7 +22,4 @@ export class DatePickerComponent implements OnInit {
     this.dateChange.emit(date);
   }
 
-
-
-
 }

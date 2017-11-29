@@ -1,9 +1,9 @@
 import { Directive } from '@angular/core';
 
 @Directive({
-  selector: '[appTool]'
+  selector: '[appUpload]'
 })
-export class ToolDirective {
+export class UploadDirective {
 
   constructor() { }
 

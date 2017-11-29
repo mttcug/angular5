@@ -27,7 +27,7 @@
           class="input-label-name">运营模式：</span></label>
           <select class="form-control d-inline-block w-160-px" name="operateType" id="" [(ngModel)]="operateType">
             <option value="">请选择</option>
-            <option value="item.code" *ngFor="let item of operateMode">{{item.name}}</option>
+            <option value={{item.code}} *ngFor="let item of operateMode">{{item.name}}</option>
           </select>
         </p>
       </div>
@@ -139,7 +139,7 @@
       <select class="form-control  d-inline-block w-160-px" name="fitmentLevel" id="fitmentLevel"
               [(ngModel)]="fitmentLevelStatus">
         <option value="">请选择</option>
-        <option value="{{item.code}}" *ngFor="let item of fitmentLevelList">{{item.name}}</option>
+        <option value={{item.code}} *ngFor="let item of fitmentLevelList">{{item.name}}</option>
       </select>
     </div>
 
@@ -372,7 +372,7 @@
       <select class="form-control  d-inline-block w-160-px" name="position" id="position"
               [(ngModel)]="positionDescription">
         <option value="">请选择</option>
-        <option value="item.value" *ngFor="let item of positionDescriptionList">{{item.value_description}}</option>
+        <option value={{item.value}} *ngFor="let item of positionDescriptionList">{{item.value_description}}</option>
       </select>
     </div>
 
@@ -382,7 +382,7 @@
       <select class="form-control  d-inline-block w-160-px" name="nearStreet" id="nearStreet"
               [(ngModel)]="isNearStreet">
         <option value="">请选择</option>
-        <option value="item.value" *ngFor="let item of positionList">{{item.value_description}}</option>
+        <option value={{item.value}} *ngFor="let item of positionList">{{item.value_description}}</option>
       </select>
     </div>
 
@@ -393,7 +393,7 @@
       <select class="form-control  d-inline-block w-160-px" name="facilities" id="facilities"
               [(ngModel)]="superFacility">
         <option value="">请选择</option>
-        <option value="item.value" *ngFor="let item of superFacilityList">{{item.value_description}}</option>
+        <option value={{item.value}} *ngFor="let item of superFacilityList">{{item.value_description}}</option>
       </select>
 
       <input *ngIf="superFacility!=''" class="form-control d-inline-block w-160-px m-left-10"
@@ -583,7 +583,7 @@
       <select class="form-control  d-inline-block w-160-px" name="buildingShape" id="buildingShape"
               [(ngModel)]="buildingShape">
         <option value="">请选择</option>
-        <option value="item.value" *ngFor="let item of buildingShapeList">{{item.value_description}}</option>
+        <option value={{item.value}} *ngFor="let item of buildingShapeList">{{item.value_description}}</option>
       </select>
     </div>
 
@@ -593,7 +593,7 @@
       <select class="form-control  d-inline-block w-160-px" name="stateType" id="stateType"
               [(ngModel)]="propertyRightType">
         <option value="">请选择</option>
-        <option value="item.value" *ngFor="let item of propertyRightTypeList">{{item.value_description}}</option>
+        <option value={{item.value}} *ngFor="let item of propertyRightTypeList">{{item.value_description}}</option>
       </select>
     </div>
 
@@ -603,7 +603,7 @@
       <select class="form-control  d-inline-block w-160-px" name="destroyRate" id="destroyRate"
               [(ngModel)]="destroyedRatio">
         <option value="">请选择</option>
-        <option value="item.value" *ngFor="let item of destroyedRatioList">{{item.value_description}}</option>
+        <option value={{item.value}} *ngFor="let item of destroyedRatioList">{{item.value_description}}</option>
       </select>
       <input type="text" name="destroyRate" [(ngModel)]="destroyedRatioDetail" maxlength="300" placeholder="请填写拆迁风险详情"
              class="form-control d-inline-block w-160-px w-240-px">

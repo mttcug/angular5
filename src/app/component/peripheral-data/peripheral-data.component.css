@@ -16,7 +16,7 @@
   height: 300px;
 }
 .radar-chart{
-  height: 500px;
+  height: 300px;
 }
 
 .people-chart,.peripheral-chart,.industry-chart{
@@ -34,7 +34,7 @@
 
 .radar-chart-connect-info-block{
   width: 50%;
-  padding: 150px 85px;
+  padding: 20px 85px;
 }
 .peripheral-chart-connect-info-block,.industry-chart-connect-info-block{
   padding: 70px;
@@ -71,8 +71,8 @@
 
 .detailModal{
   width: 275px;
-  height: 330px;
-  top: 25%;
+/*  height: 330px;*/
+  top: 55px;
   right: 0px;
   border: 1px solid rgba(0,0,0,.125);
   border-radius: 5px;
@@ -87,6 +87,9 @@
 .detailModal ul{
   list-style: none;
   padding: 0px;
+  height: 275px;
+  margin-bottom: 0px;
+  overflow-y: scroll;
 }
 .detailModal li{
   padding: 8px;
@@ -96,6 +99,9 @@
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
-  width: 180px;
+  width: 175px;
   display: inline-block;
+}
+ol {
+  list-style: none;
 }

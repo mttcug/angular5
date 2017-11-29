@@ -35,4 +35,12 @@ export class PeripheralDataService {
     })
   }
 
+
+  //和本店相关数据--行业经纬度的查询
+  getSelfInfo(params){
+    return this.http.peripheralInfoRequest("header",params).then(res=>{
+      return JSON.parse(res._body).result;
+    })
+  }
+
 }

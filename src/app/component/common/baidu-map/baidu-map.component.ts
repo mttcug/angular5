@@ -54,7 +54,7 @@ export class BaiduMapComponent implements OnInit, OnChanges {
     const map = new BMap.Map(container);
 
     //添加比列尺
-        map.addControl(new BMap.ScaleControl({offset: new BMap.Size(100, 20)}));
+    map.addControl(new BMap.ScaleControl({offset: new BMap.Size(100, 20)}));
 
     //地址解析
     var myGeo = new BMap.Geocoder();
@@ -68,9 +68,6 @@ export class BaiduMapComponent implements OnInit, OnChanges {
     });
 
     map.enableScrollWheelZoom(true);
-    /* map.setMapStyle({
-       styleJson: this.styleJson,
-     });*/
 
     map.addEventListener("click", (e) => {
       var pt = e.point;

@@ -28,7 +28,7 @@ export class CurrentCityService {
     if (sessionStorage.getItem("curCity") && sessionStorage.getItem("curCity")!='undefined') {
       return JSON.parse(sessionStorage.getItem("curCity"));
     } else {
-        var item = this.allDistricts.find(item => item.name.toString().trim() == this.configService.getConf().defaultCity);
+        var item = this.configService.getConf().defaultCity;
         sessionStorage.setItem("curCity", JSON.stringify(item));
         return item ? item : '';
       }

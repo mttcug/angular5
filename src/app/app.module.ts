@@ -42,7 +42,7 @@ import { NearStreetPipe } from './pipe/near-street/near-street.pipe';
 import { LocationTypePipe } from './pipe/location-type/location-type.pipe';
 import { SuperFacilityPipe } from './pipe/super-facility/super-facility.pipe';
 import { DistrictPipe } from './pipe/district/district.pipe';
-import { ToolDirective } from './directive/tool.directive';
+import { UploadDirective } from './directive/upload/upload.directive';
 
 
 
@@ -69,7 +69,7 @@ import { ToolDirective } from './directive/tool.directive';
     LocationTypePipe,
     SuperFacilityPipe,
     DistrictPipe,
-    ToolDirective
+    UploadDirective
   ],
   imports: [
     BrowserModule,

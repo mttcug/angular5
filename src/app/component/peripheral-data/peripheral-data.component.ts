@@ -1,7 +1,5 @@
 import {Component, OnInit, Inject} from '@angular/core';
-import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import {ActivatedRoute, Params} from '@angular/router';
-import {any} from "codelyzer/util/function";
 
 
 @Component({
@@ -12,10 +10,14 @@ import {any} from "codelyzer/util/function";
 export class PeripheralDataComponent implements OnInit {
 
 
+  shopInfo={};
   trafficInfo = [];
   population = [];
   customer = [];
   industryInfo = [];
+
+  industryNameArr = [];
+  industryCountArr = [];
 
   public radarOption: any;
   public populationOption: any;
@@ -24,16 +26,29 @@ export class PeripheralDataComponent implements OnInit {
   detailModelHidden = true;
   tempDetailInfoContainer = [];
 
-  constructor(private modalService: NgbModal, @Inject('data') private data, private route: ActivatedRoute, @Inject('PeripheralDataService') private PeripheralDataService) {
+  oppo_Id = '';
+
+  constructor(@Inject('data') private data, private route: ActivatedRoute, @Inject('PeripheralDataService') private PeripheralDataService) {
 
     //获取参数oppo_Id
     let queryParams: Params = this.route.params;
-    let oppoId = queryParams.value.id;
-    oppoId != 'undefined' ? this.getInfo(oppoId) : '';
+    this.oppo_Id = queryParams.value.id;
+    this.oppo_Id != 'undefined' ? this.getInfo(this.oppo_Id) : '';
+  }
 
+
+  ngOnInit() {
+  }
+
+  getInfo(oppo_id) {
     let params = {
-      shop_id: oppoId
+      shop_id: oppo_id
     }
+    //头部本店信息
+    this.PeripheralDataService.getSelfInfo(params).then(res=>{
+      this.shopInfo=res;
+      console.log("shopInfo:",this.shopInfo);
+    })
 
     //周边数据-交通信息
     this.PeripheralDataService.getPeripheralTraffic(params).then(res => {
@@ -43,10 +58,11 @@ export class PeripheralDataComponent implements OnInit {
     //周边数据-聚客来源
     this.PeripheralDataService.getPeripheralCustom(params).then(res => {
       this.customer = res;
-      var dataName=[];
-      this.customer['FrontFour'].forEach((v,i)=>{
+      var dataName = [];
+      this.customer['FrontFour'].forEach((v, i) => {
         dataName.push(v.name);
       });
+      console.log("dataName:",dataName);
 
 
       var data1 = [];
@@ -54,10 +70,14 @@ export class PeripheralDataComponent implements OnInit {
       var data3 = [];
       var data4 = [];
 
-        data1.push([this.customer['FrontFour'][0]['longitude'], this.customer['FrontFour'][0]['latitude']]);
-        data2.push([this.customer['FrontFour'][1]['longitude'], this.customer['FrontFour'][1]['latitude']]);
-        data3.push([this.customer['FrontFour'][2]['longitude'], this.customer['FrontFour'][2]['latitude']]);
-        data4.push([this.customer['FrontFour'][3]['longitude'], this.customer['FrontFour'][3]['latitude']]);
+      data1.push([this.customer['FrontFour'][0]['distance'], Math.abs(this.customer['FrontFour'][0]['longitude']-this.shopInfo['lng'])*111319.55]);
+      data2.push([this.customer['FrontFour'][1]['distance'], Math.abs(this.customer['FrontFour'][1]['longitude']-this.shopInfo['lng'])*111319.55]);
+      data3.push([this.customer['FrontFour'][2]['distance'], Math.abs(this.customer['FrontFour'][2]['longitude']-this.shopInfo['lng'])*111319.55]);
+      data4.push([this.customer['FrontFour'][3]['distance'], Math.abs(this.customer['FrontFour'][3]['longitude']-this.shopInfo['lng'])*111319.55]);
+      console.log("data:",[this.customer['FrontFour'][0]['distance'], Math.abs(this.customer['FrontFour'][0]['longitude']-this.shopInfo['lng'])*111319.55]);
+      console.log("data1:",[this.customer['FrontFour'][1]['distance'], Math.abs(this.customer['FrontFour'][1]['longitude']-this.shopInfo['lng'])*111319.55]);
+      console.log("data2:",[this.customer['FrontFour'][2]['distance'], Math.abs(this.customer['FrontFour'][2]['longitude']-this.shopInfo['lng'])*111319.55]);
+      console.log("data3:",[this.customer['FrontFour'][3]['distance'], Math.abs(this.customer['FrontFour'][3]['longitude']-this.shopInfo['lng'])*111319.55]);
 
 
       this.radarOption = {
@@ -66,37 +86,37 @@ export class PeripheralDataComponent implements OnInit {
           text: '',
           left: 'center'
         },
+        tooltip: {
+          trigger: 'item',
+          axisPointer: {            // 坐标轴指示器，坐标轴触发有效
+            type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+          }
+        },
+        radar:{
+          center:["30%",'50%']
+        },
         legend: {
           data: dataName,
-          top: 10
+          zlevel:100,
+          right: 0,
+          orient:'vertical'
         },
         polar: {},
         angleAxis: {
-          type: 'value'
+          type: 'value',
+          min: 0,   //73
+          max: 100
         },
         radiusAxis: {
-          axisAngle: 0
+          axisAngle: 0,
+          min: 0,
+          max: 100
         },
-        dataZoom: [
-          {
-            type: 'slider',
-            radiusAxisIndex: 0,
-            bottom: 0,
-            start: 20,
-            end: 80
-          },
-          {
-            type: 'inside',
-            radiusAxisIndex: 0,
-            start: 20,
-            end: 80
-          }
-        ],
         series: [{
           coordinateSystem: 'polar',
           angleAxisIndex: 0,
           radiusAxisIndex: 0,
-          name: '住宅小区',
+          name: this.customer['FrontFour'][0]['name'],
           type: 'scatter',
           symbolSize: 10,
           data: data1
@@ -104,7 +124,7 @@ export class PeripheralDataComponent implements OnInit {
           coordinateSystem: 'polar',
           angleAxisIndex: 0,
           radiusAxisIndex: 0,
-          name: '写字楼',
+          name: this.customer['FrontFour'][1]['name'],
           type: 'scatter',
           symbolSize: 10,
           data: data2
@@ -112,7 +132,7 @@ export class PeripheralDataComponent implements OnInit {
           coordinateSystem: 'polar',
           angleAxisIndex: 0,
           radiusAxisIndex: 0,
-          name: '商场',
+          name: this.customer['FrontFour'][2]['name'],
           type: 'scatter',
           symbolSize: 10,
           data: data3
@@ -120,7 +140,7 @@ export class PeripheralDataComponent implements OnInit {
           coordinateSystem: 'polar',
           angleAxisIndex: 0,
           radiusAxisIndex: 0,
-          name: '学校',
+          name: this.customer['FrontFour'][3]['name'],
           type: 'scatter',
           symbolSize: 10,
           data: data4
@@ -129,7 +149,6 @@ export class PeripheralDataComponent implements OnInit {
     })
 
     //周边数据-周边人口
-
     this.PeripheralDataService.getPeripheralPerson(params).then(res => {
       this.population = res;
       this.populationOption = {
@@ -174,12 +193,10 @@ export class PeripheralDataComponent implements OnInit {
     //周边数据-周边业态
     this.PeripheralDataService.getPeripheralIndustry(params).then(res => {
       this.industryInfo = res;
-      var industryNameArr = [];
-      var industryCountArr = [];
 
       for (let v in this.industryInfo['shop_num_per_industry']) {
-        industryNameArr.push(v);
-        industryCountArr.push(this.industryInfo['shop_num_per_industry'][v]);
+        this.industryNameArr.push(v);
+        this.industryCountArr.push(this.industryInfo['shop_num_per_industry'][v]);
       }
       this.barChartOption = {
         color: ['#3398DB'],
@@ -198,7 +215,7 @@ export class PeripheralDataComponent implements OnInit {
         xAxis: [
           {
             type: 'category',
-            data: industryNameArr,
+            data: this.industryNameArr,
             axisTick: {
               alignWithLabel: true
             }
@@ -214,49 +231,24 @@ export class PeripheralDataComponent implements OnInit {
             name: '直接访问',
             type: 'bar',
             barWidth: '60%',
-            data: industryCountArr
+            data: this.industryCountArr
           }
         ]
       }
     })
   }
 
-
-  ngOnInit() {
-  }
-
-  getInfo(id) {
-
-  }
-
-  openDetailModal(title,detailInfoList) {
+  //聚客来源数据点击弹出详细信息
+  openDetailModal(title, detailInfoList) {
     this.detailModelHidden = false;
     this.tempDetailInfoContainer = detailInfoList;
-    this.tempDetailInfoContainer['title']=title;
+    this.tempDetailInfoContainer['title'] = title;
   }
 
-  closeDetail(){
+
+  closeDetail() {
     this.detailModelHidden = true;
   }
-
-
-  /*  closeResult: string;
-    openConnectInfoModal(content) {
-      this.modalService.open(content, {size: 'lg'}).result.then((result) => {
-        /!*result == '1' ? this.currentCity = this.tempCurrentCity : '';*!/
-      }, (reason) => {
-        this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-      });
-    }
-    private getDismissReason(reason: any): string {
-      if (reason === ModalDismissReasons.ESC) {
-        return 'by pressing ESC';
-      } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
-        return 'by clicking on a backdrop';
-      } else {
-        return `with: ${reason}`;
-      }
-    }*/
 
 }
 
