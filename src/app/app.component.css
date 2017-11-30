@@ -1,33 +1,19 @@
-app-header{
+app-header {
   display: block;
 }
-app-side-nav{
-  height: 100%;
-  display:block;
-}
 
-.content{
-  position: relative;
+.content {
   overflow: hidden;
 }
-app-side-nav{
+
+app-side-nav {
   width: 12%;
-  display: block;
-  float: left;
+  border-right: 1px solid rgba(0, 0, 0, .125);
 }
-/*router-outlet{
 
-}*/
-
-.page-container{
-  display: block;
-  vertical-align: top;
-  float: left;
-  width:88%;
-  height: 100%;
-  border-left: 1px solid rgba(0,0,0,.125);
-  overflow: scroll;
+.page-container {
+  width: 88%;
+  overflow-y: scroll;
+  overflow-x: hidden;
 }
-app-footer{
 
-}

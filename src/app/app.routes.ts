@@ -5,6 +5,7 @@ import {ShopHallComponent} from './component/shop-hall/shop-hall.component';
 import {WorkManageComponent} from './component/work-manage/work-manage.component';
 import {PeripheralDataComponent} from './component/peripheral-data/peripheral-data.component';
 import {RejectedPageComponent} from './component/rejected-page/rejected-page.component';
+import { CollectCompleteComponent } from './component/collect-complete/collect-complete.component';
 
 
 export const routes: Routes = [
@@ -46,6 +47,10 @@ export const routes: Routes = [
   {
     path: 'shopHall/peripheralData/:id',
     component: PeripheralDataComponent
+  },
+  {
+    path: 'glancePostedInfoItem',
+    component: CollectCompleteComponent
   }
 ]
 export const appRoutes = RouterModule.forRoot(routes);

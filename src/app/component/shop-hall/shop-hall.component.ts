@@ -36,7 +36,7 @@ export class ShopHallComponent implements OnInit {
     if (sessionStorage.getItem("district")) {
       var result = JSON.parse(sessionStorage.getItem("district"));
       this.allDistricts = result;
-      this.city=this.CurrentCityService.getCurCity().id;
+      this.city = this.CurrentCityService.getCurCity().id;
       this.loadDistrict(this.CurrentCityService.getCurCity().id);
     } else {
       this.data.getDistrictData().then(res => {
@@ -44,7 +44,7 @@ export class ShopHallComponent implements OnInit {
         result.forEach((v, i) => {
           this.allDistricts.push(v);
         });
-        this.city=this.CurrentCityService.getCurCity().id;
+        this.city = this.CurrentCityService.getCurCity().id;
         this.loadDistrict(this.CurrentCityService.getCurCity().id);
       });
     }
@@ -98,6 +98,7 @@ export class ShopHallComponent implements OnInit {
 
   mapAddress = '';
   zoomLevel = 14;
+  tempzoomLevel = 14;
   zoomList = [
     {code: 15, name: '500米', value: 0.5},
     {code: 14, name: '1公里', value: 1},
@@ -128,7 +129,8 @@ export class ShopHallComponent implements OnInit {
 
   //地图比例尺发生改变时间
   zoomChange(level) {
-    this.zoomLevel = level;
+    this.tempzoomLevel = level;
+    console.log("zoomLevel:", this.zoomLevel);
   }
 
   //地图点击事件获取点和地址位置信息
@@ -184,7 +186,7 @@ export class ShopHallComponent implements OnInit {
 //获取列表数据
   getList() {
     var params = {
-      city:parseInt(this.CurrentCityService.getCurCity().id),
+      city: parseInt(this.CurrentCityService.getCurCity().id),
       page_no: this.pageNo - 1,
       page_size: this.pageSize
     };
@@ -204,8 +206,6 @@ export class ShopHallComponent implements OnInit {
     this.mindoorWidth ? params['min_door_width'] = parseInt(this.maxArea) : '';
     this.maxdoorWidth ? params['max_door_width'] = parseInt(this.maxArea) : '';
 
-    console.log("分页params:", params);
-
     this.ShopHallService.getshopList(params).then(res => {
       this.infoList = res ? res : [];
     })
@@ -215,6 +215,7 @@ export class ShopHallComponent implements OnInit {
   closeResult: string;
 
   open(content) {
+    console.log("zoomLevel2:", this.zoomLevel);
     //地址
     var cityName = this.CurrentCityService.getCurCity().name;
     var districtName = this.allDistricts.find(item => item.id.toString() == this.district.toString()) ? this.allDistricts.find(item => item.id.toString() == this.district.toString()).name : '';
@@ -223,11 +224,18 @@ export class ShopHallComponent implements OnInit {
 
     this.modalService.open(content, {size: 'lg'}).result.then((result) => {
       if (result == '1') {
+        this.zoomLevel = this.tempzoomLevel;
+
         this.longitude = this.templng;
         this.latitude = this.templat;
-        this.city = this.allDistricts.find(item => item.name == this.tempcityName) ? this.allDistricts.find(item => item.name == this.tempcityName).id : '';
-        this.loadDistrict(this.city);
-        this.district = this.allDistricts.find(item => item.name == this.tempdistrictName) ? this.allDistricts.find(item => item.name == this.tempdistrictName).id : '';
+        /*          地图定位的时候经纬度改变但是区域并不跟着改变
+                this.city = this.allDistricts.find(item => item.name == this.tempcityName) ? this.allDistricts.find(item => item.name == this.tempcityName).id : '';
+                this.loadDistrict(this.city);
+                this.district = this.allDistricts.find(item => item.name == this.tempdistrictName) ? this.allDistricts.find(item => item.name == this.tempdistrictName).id : '';
+        */
+      }
+      if (result == '1') {
+        this.tempzoomLevel = 14;
       }
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;

@@ -21,6 +21,7 @@ import { WorkManageComponent } from './component/work-manage/work-manage.compone
 import { PeripheralDataComponent } from './component/peripheral-data/peripheral-data.component';
 import { RejectedPageComponent } from './component/rejected-page/rejected-page.component';
 import { GeolocationComponent } from './component/common/geolocation/geolocation.component';
+import { CollectCompleteComponent } from './component/collect-complete/collect-complete.component';
 
 import { JsonrpcRequestModelService } from './service/jsonrpc/jsonrpc-request-model.service';
 import { DataService } from './service/data/data.service';
@@ -43,6 +44,8 @@ import { LocationTypePipe } from './pipe/location-type/location-type.pipe';
 import { SuperFacilityPipe } from './pipe/super-facility/super-facility.pipe';
 import { DistrictPipe } from './pipe/district/district.pipe';
 import { UploadDirective } from './directive/upload/upload.directive';
+import { TransferStatusPipe } from './pipe/transfer-status/transfer-status.pipe';
+
 
 
 
@@ -69,7 +72,9 @@ import { UploadDirective } from './directive/upload/upload.directive';
     LocationTypePipe,
     SuperFacilityPipe,
     DistrictPipe,
-    UploadDirective
+    UploadDirective,
+    CollectCompleteComponent,
+    TransferStatusPipe
   ],
   imports: [
     BrowserModule,

@@ -53,6 +53,13 @@ export class AppComponent {
     this.data.getEstateType().then(res => {
       sessionStorage.setItem("superFacility", JSON.stringify(res));
     });
+
+    //获取转让状态列表
+    this.data.getTransferStatusData().then(res => {
+      console.log("转让状态：",res);
+      sessionStorage.setItem("transferStatus", JSON.stringify(res));
+    });
+
   }
 
 

@@ -118,7 +118,7 @@
           </p>
         </td>
         <td class="p-2 p-lg-2">
-          <p><span class="text-danger">{{item.estate_rent.rent}}{{item.estate_rent.rent_unit | rentUnit}}</span></p>
+          <p *ngIf="item.estate_rent.rent"><span class="text-danger">{{item.estate_rent.rent}}{{item.estate_rent.rent_unit | rentUnit}}</span></p>
           <p><span class="text-muted">支付：<span
             *ngIf="item.estate_rent.pay_way">{{item.estate_rent.pay_way}}</span> <span
             *ngIf="!item.estate_rent.pay_way">-</span></span></p>
@@ -128,21 +128,21 @@
           </p>
         </td>
         <td class="p-2 p-lg-2">
-          <p *ngIf="item.estate_transfer.transfer_fee"><span>转让费：<span class="text-danger">{{item.estate_transfer.transfer_fee}}万</span></span>
+          <p *ngIf="item.estate_transfer.transfer_status == '2'"><span>转让费：<span class="text-danger">{{item.estate_transfer.transfer_fee}}万</span></span>
           </p>
-          <p *ngIf="item.estate_transfer.transfer_content"><span class="text-muted">{{item.estate_transfer.transfer_content}}</span>
+          <p *ngIf="item.estate_transfer.transfer_status == '2'"><span class="text-muted">{{item.estate_transfer.transfer_content}}</span>
           </p>
-          <p>
+          <p *ngIf="item.estate_transfer.transfer_status == '2'">
             <span class="text-muted" *ngIf="item.estate_transfer.is_empty_transfer">可空转</span>
             <span class="text-muted" *ngIf="!item.estate_transfer.is_empty_transfer">不可空转</span>
           </p>
         </td>
         <td class="p-2 p-lg-2">
-          <p>
+          <p *ngIf="item.estate_id">
             <button class="btn btn-primary"><a [routerLink]="['/dataCollection']"
                                                [queryParams]="{id:item.estate_id}">编辑</a></button>
           </p>
-          <p>
+          <p *ngIf="item.estate_id">
             <button class="btn btn-primary"><a [routerLink]="['peripheralData/'+item.estate_id]">周边分析</a></button>
           </p>
         </td>
@@ -175,14 +175,14 @@
         <ul class="d-inline-block">
           <!--<li *ngFor="let item of zoomList"><input name='mapZoomLevel' type="radio" value={{item.code}}
                                                    [(ngModel)]="item.code" (click)="zoomChange(item)">{{item.name}}-->
-          <li><input name='mapZoomLevel' type="radio" value='15' (click)="zoomChange(15)">500米</li>
-          <li><input name='mapZoomLevel' type="radio" value='14' checked="checked" (click)="zoomChange(14)">1公里</li>
-          <li><input name='mapZoomLevel' type="radio" value='13' (click)="zoomChange(13)">2公里</li>
-          <li><input name='mapZoomLevel' type="radio" value='12' (click)="zoomChange(12)">5公里</li>
+          <li><input name='mapZoomLevel' type="radio" value='15' [checked]="tempzoomLevel==15" (click)="zoomChange(15)">500米</li>
+          <li><input name='mapZoomLevel' type="radio" value='14' [checked]="tempzoomLevel==14" (click)="zoomChange(14)">1公里</li>
+          <li><input name='mapZoomLevel' type="radio" value='13' [checked]="tempzoomLevel==13" (click)="zoomChange(13)">2公里</li>
+          <li><input name='mapZoomLevel' type="radio" value='12' [checked]="tempzoomLevel==12" (click)="zoomChange(12)">5公里</li>
         </ul>
       </div>
       <div class="map-container">
-        <app-baidu-map [address]="mapAddress" [zoom]="zoomLevel" (getLocation)="geoLocation($event)"></app-baidu-map>
+        <app-baidu-map [address]="mapAddress" [zoom]="tempzoomLevel" (getLocation)="geoLocation($event)"></app-baidu-map>
       </div>
     </div>
   </div>

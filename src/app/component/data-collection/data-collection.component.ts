@@ -28,9 +28,9 @@ export class DataCollectionComponent implements OnInit {
   rateChoice = [];
   emptyTransferList = [];
   sexType = [];
-  memberTypeList=[];
+  memberTypeList = [];
 
-  constructor(private modalService: NgbModal, private router: Router,@Inject('data') private data, private route: ActivatedRoute, @Inject('DataCollectionService') private DataCollectionService) {
+  constructor(private modalService: NgbModal, private router: Router, @Inject('data') private data, private route: ActivatedRoute, @Inject('DataCollectionService') private DataCollectionService) {
     //获取行业列表
     this.data.getIndustryData().then(res => {
       this.industries = res ? res : [];
@@ -136,14 +136,14 @@ export class DataCollectionComponent implements OnInit {
     this.sexType = this.data.getSexTypeList();
 
     //获取会员类型
-    this.memberTypeList=this.data.getMemberType();
+    this.memberTypeList = this.data.getMemberType();
   }
 
   ngOnInit() {
-    //获取参数
-    this.route.queryParams.subscribe((queryParams:Params) => {
+    //获取参数并判断时发布还是修改信息，修改则请求相应数据
+    this.route.queryParams.subscribe((queryParams: Params) => {
       var oppoId = queryParams.id;
-      console.log("Eparams:",queryParams,oppoId);
+      oppoId != '' ? this.getShopInfo(oppoId) : '';
     });
   }
 
@@ -284,7 +284,7 @@ export class DataCollectionComponent implements OnInit {
       qq: '',
       wx: '',
       personInfoDetail: '',
-      stockRatio:''
+      stockRatio: ''
     }
   ];
 
@@ -383,8 +383,9 @@ export class DataCollectionComponent implements OnInit {
   mapInfo = {'city': this.city, 'district': '', 'address': '', 'lng': '', 'lat': ''};
 
   //如果是修改则需要获取该店铺信息
-  getShopInfo(id) {}
+  getShopInfo(id) {
 
+  }
 
   //该店铺是品牌时填写品牌名称时店铺名称需要随着改变
   updateShopName() {
@@ -393,18 +394,17 @@ export class DataCollectionComponent implements OnInit {
 
   //根据大行业加载小行业
   loadSmallIndustry(code) {
-    this.smallIndustry='';
-    this.smallIndustryList=[];
+    this.smallIndustry = '';
+    this.smallIndustryList = [];
     this.allIndustry.forEach((v, i) => {
-      (code.toString().length!=v.code.toString().length)  && code.toString().trim() === v.code.toString().substr(0, 2).trim() ? this.smallIndustryList.push(v) : '';
+      (code.toString().length != v.code.toString().length) && code.toString().trim() === v.code.toString().substr(0, 2).trim() ? this.smallIndustryList.push(v) : '';
     });
   }
 
   //根据城市加载相应区域
   loadDistrict(code) {  //城市 1234000000   区1234560000
-
-    this.district='';
-    this.districtList=[];
+    this.district = '';
+    this.districtList = [];
     this.allDistricts.forEach((v, i) => {
       (v.id.toString().substr(4, 2) != '00' && code.toString().substr(0, 4) == v.id.toString().substr(0, 4)) ? this.districtList.push(v) : '';
     });
@@ -412,7 +412,7 @@ export class DataCollectionComponent implements OnInit {
     this.shopAddress = this.getWholeAddress();
   }
 
-  mapAddressChange(){
+  mapAddressChange() {
     this.shopAddress = this.getWholeAddress();
   }
 
@@ -444,7 +444,7 @@ export class DataCollectionComponent implements OnInit {
       qq: '',
       wx: '',
       personInfoDetail: '',
-      stockRatio:''
+      stockRatio: ''
     };
     var newObj: any = this.copy(obj);
     this.partner.push(newObj);
@@ -457,6 +457,7 @@ export class DataCollectionComponent implements OnInit {
 
   //当点完整周时，其他的不可用
   dayCheckValid = false;
+
   selectAllWeek() {
     if (this.wholeWeek === false) {
       this.vaildTime.map((item, index) => {
@@ -488,6 +489,7 @@ export class DataCollectionComponent implements OnInit {
 
   //选择一整天则时间不可填写
   canChangeTime = false;
+
   selectAllDay() {
     if (this.allDay === false) {
       this.operateStartTime = "00:00";
@@ -514,6 +516,7 @@ export class DataCollectionComponent implements OnInit {
   //选择支付方式
   payWayCode = '';
   definedWayShow = false;
+
   selectThisPayWay(item) {
     this.payWayCode = item.code;
     this.payWay = item.code == 0 ? this.definedPayWay : item.name;
@@ -523,6 +526,7 @@ export class DataCollectionComponent implements OnInit {
   //弹出框选择支付方式
   tempPayWayCode = '';
   definedWayShowM = false;
+
   selectThisPopUpPayWay(item) {
     this.tempPayWayCode = item.code;
     this.temppayWay = item.code == 0 ? this.tempdefinedPayWay : item.name;
@@ -548,6 +552,7 @@ export class DataCollectionComponent implements OnInit {
   }
 
   depositWayCode;
+
   selectThisDepositWay(item) {
     this.depositWayCode = item.code;
     this.tempdepositWay = item.code == 0 ? this.tempdefinedDepositWay : item.name;
@@ -577,6 +582,7 @@ export class DataCollectionComponent implements OnInit {
 
   //添加电话号码
   phoneNumberExample = {number: ''};
+
   addPhoneNumbers() {
     var obj: any = this.copy(this.phoneNumberExample);
     this.phoneList.push(obj);          //增加输入框个数
@@ -685,6 +691,7 @@ export class DataCollectionComponent implements OnInit {
 
   //打开店铺证件弹出框
   defaultCertification;
+
   openShopCertificationModal(content, item, type) {  //type1编辑2添加
     let newItem = {};
     type == '2' ? newItem = this.copy(item) : '';
@@ -710,8 +717,6 @@ export class DataCollectionComponent implements OnInit {
     this.modalService.open(content, {size: 'lg'}).result.then((result) => {
       result == '1' ? this.sureBtnFunction(content, result) : '';
       type == '2' ? this.certifications.push(<any>newItem) : '';
-      console.log("item2:", this.defaultCertification);
-      console.log("证件s:", this.certifications);
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
 
@@ -720,6 +725,7 @@ export class DataCollectionComponent implements OnInit {
 
   //打开个人信息弹出框
   defaultPerson;
+
   openPersonalInfo(content, item) {
     this.defaultPerson = item;
     this.phoneList = [];
@@ -750,6 +756,7 @@ export class DataCollectionComponent implements OnInit {
   //打开行业弹出框
   defaultIndustryList = [];
   tempdefaultIndustryList;
+
   openIndustryModel(content, selectedList) {
     this.defaultIndustryList = selectedList;
 
@@ -854,6 +861,7 @@ export class DataCollectionComponent implements OnInit {
 
   //控制地图显示或是隐藏
   mapBlock = false;
+
   mapShow() {
     this.mapBlock = true; //显示地图
     //获取地址传给map
@@ -1110,6 +1118,7 @@ export class DataCollectionComponent implements OnInit {
   }
 
   release() {
+    this.router.navigate(['glancePostedInfoItem']);
     var params = {
       shopName: this.shopName,                           //店名
       brandName: this.brandName,                         //品牌名称
@@ -1190,8 +1199,8 @@ export class DataCollectionComponent implements OnInit {
       houseOwner: this.houseOwner                            //房主
     }
     console.log("params:", params);
-    this.DataCollectionService.releaseInfo(params).then(res=>{
-      console.log("发布信息：",res);
+    this.DataCollectionService.releaseInfo(params).then(res => {
+      console.log("发布信息：", res);
     })
   }
 

@@ -51,7 +51,6 @@ export class PeripheralDataComponent implements OnInit {
     //头部本店信息
     this.PeripheralDataService.getSelfInfo(params).then(res => {
       this.shopInfo = res;
-      console.log("shopInfo:", this.shopInfo);
     })
 
     //周边数据-交通信息
@@ -63,13 +62,16 @@ export class PeripheralDataComponent implements OnInit {
     this.PeripheralDataService.getPeripheralCustom(params).then(res => {
 
       this.customer = res;
+
       this.radarShow = this.customer['FrontFour'].length > 0 ? true : false;
-      console.log("test:", this.customer['FrontFour'].length);
       var dataName = [];
+
+
       var tempRadarDataContainer = [];
       var tempMathY = [];
       var tempMathX = [];
 
+      //准备雷达图用的数据
       this.customer['FrontFour'].forEach((v, i) => {
         dataName.push(v.name);
         var tempE = {
@@ -79,9 +81,8 @@ export class PeripheralDataComponent implements OnInit {
           name: v.name,
           type: 'scatter',
           symbolSize: 10,
-          data: [v.distance, Math.round(Math.abs(v.longitude - this.shopInfo['lng']) * 111319.55)]
+          data: [[v.distance, Math.round(Math.abs(v.longitude - this.shopInfo['lng']) * 111319.55)]]
         };
-        console.log(i + ":", [v.distance, Math.round(Math.abs(v.longitude - this.shopInfo['lng']) * 111319.55)]);
         tempRadarDataContainer.push(tempE);
         tempMathX.push(v.distance);
         tempMathY.push(Math.round(Math.abs(v.longitude - this.shopInfo['lng']) * 111319.55));
@@ -91,7 +92,6 @@ export class PeripheralDataComponent implements OnInit {
       var zoomYMax = Math.max.apply(Math, tempMathY);
       var zoomXMin = 0;
       var zoomXMax = Math.max.apply(Math, tempMathX);
-      console.log("zoomYMin:", zoomYMin, zoomYMax, tempRadarDataContainer);
 
       this.radarOption = {
         title: {
@@ -116,18 +116,17 @@ export class PeripheralDataComponent implements OnInit {
         polar: {},
         angleAxis: {
           type: 'value',
-          min: 20,   //73
-          max: 200
+          min: zoomXMin,   //73
+          max: zoomXMax+100
         },
         radiusAxis: {
           axisAngle: 0,
-          min: 40,
-          max: 200
+          min: zoomXMin,
+          max: zoomXMax+100
         },
         series: tempRadarDataContainer
       }
 
-      console.log("radarOption:",this.radarOption);
 
 
 

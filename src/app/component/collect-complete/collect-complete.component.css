@@ -1,0 +1,23 @@
+.page-container{
+  padding: 50px;
+}
+.finish-page-title{
+  text-align: center;
+  font-size: 36px;
+  font-weight: 800;
+}
+.shop-mes{
+  padding: 10px 50px;
+  border-radius: 5px;
+  border: 1px solid rgba(0,0,0,.125);
+}
+.shop-mes p{
+  margin: 0.8rem;
+}
+.shop-glance{
+  margin-top: 50px;
+  padding: 0px 250px;
+}
+.detail-items{
+  margin:20px 0px;
+}

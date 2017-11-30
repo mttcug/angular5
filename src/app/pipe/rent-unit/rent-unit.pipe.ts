@@ -10,5 +10,4 @@ export class RentUnitPipe implements PipeTransform {
     let item=data.find(item=>item.value.toString()==value.toString());
     return item ? item.value_description : '';
   }
-
 }
