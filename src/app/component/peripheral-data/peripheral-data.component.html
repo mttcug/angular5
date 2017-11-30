@@ -28,7 +28,7 @@
     <div class="d-block m-top-20 position-relative" *ngIf="customer">
       <p class="title-line"><i class="icon iconfont icon-renwu"></i>聚客来源</p>
       <div class="chart-container">
-        <div echarts [options]="radarOption" class="radar-chart w-40 float-left"></div>
+        <div *ngIf="customer.FrontFour" echarts [options]="radarOption" class="radar-chart w-40 float-left"></div>
         <div class="echart-info-block float-left radar-chart-connect-info-block" >
           <p class="w-50 float-left" *ngIf="customer.housing"><label for="">住宅小区：</label><span>{{customer.housing.length}}个</span><span (click)="openDetailModal('住宅小区',customer.housing)" class="cursor-hand text-blue"> > </span></p>
           <p class="w-50 float-left" *ngIf="customer.schools"><label for="">学校：</label><span>{{customer.schools.length}}个</span><span (click)="openDetailModal('学校',customer.schools)" class="cursor-hand text-blue"> > </span></p>
@@ -36,7 +36,7 @@
           <p class="w-50 float-left" *ngIf="customer.hospitals"><label for="">医院：</label><span>{{customer.hospitals.length}}个</span><span (click)="openDetailModal('医院',customer.hospitals)" class="cursor-hand text-blue"> > </span></p>
           <p class="w-50 float-left" *ngIf="customer.markets"><label for="">商场：</label><span>{{customer.markets.length}}个</span><span (click)="openDetailModal('商场',customer.markets)" class="cursor-hand text-blue"> > </span></p>
           <p class="w-50 float-left" *ngIf="customer.traffic_hinge"><label for="">交通枢纽：</label><span>{{customer.traffic_hinge.length}}个</span><span (click)="openDetailModal('交通枢纽',customer.traffic_hinge)" class="cursor-hand text-blue"> > </span></p>
-          <p class="w-50 float-left" *ngIf="customer.shops"><label for="">商铺：</label><span>{{customer.customer.shops.length}}个</span><span (click)="openDetailModal('商铺',customer.shops)" class="cursor-hand text-blue"> > </span></p>
+          <p class="w-50 float-left" *ngIf="customer.shops"><label for="">商铺：</label><span>{{customer.shops.length}}个</span><span (click)="openDetailModal('商铺',customer.shops)" class="cursor-hand text-blue"> > </span></p>
           <p class="w-50 float-left" *ngIf="customer.scenic"><label for="">景区：</label><span>{{customer.scenic.length}}个</span><span (click)="openDetailModal('景区',customer.scenic)" class="cursor-hand text-blue"> > </span></p>
           <p class="w-50 float-left" *ngIf="customer.amusement_park"><label for="">游乐园：</label><span>{{customer.amusement_park.length}}个</span><span (click)="openDetailModal('游乐园',customer.amusement_park)" class="cursor-hand text-blue"> > </span></p>
           <p class="w-50 float-left" *ngIf="customer.parks"><label for="">公园：</label><span>{{customer.parks.length}}个</span><span (click)="openDetailModal('公园',customer.parks)" class="cursor-hand text-blue"> > </span></p>
@@ -74,11 +74,13 @@
         <div class="w-25 echart-info-block float-left industry-chart-connect-info-block">
           <p class="text-muted">协同行业</p>
           <p *ngFor=" let item of industryInfo.cooperative_shops"><label for="">{{item.name}}</label><span class="text-muted d-inline-block m-h-5">({{item.industry}})</span><span class="d-inline-block m-h-5">{{item.distance}}m</span></p>
+          <p *ngIf="industryInfo.cooperative_shops.length == 0"><span class="text-muted">暂无</span></p>
         </div>
         <div class="w-25 echart-info-block float-left industry-chart-connect-info-block">
           <p class="text-muted">竞争业态</p>
           <p *ngFor=" let item of industryInfo.competitive_shops"><label for="">{{item.name}}</label><span class="text-muted d-inline-block m-h-5">({{item.industry}})</span><span class="d-inline-block m-h-5">{{item.distance}}m</span></p>
-          </div>
+          <p *ngIf="industryInfo.competitive_shops.length == 0"><span class="text-muted">暂无</span></p>
+        </div>
       </div>
     </div>
   </div>

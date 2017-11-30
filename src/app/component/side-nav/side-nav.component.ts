@@ -29,7 +29,6 @@ export class SideNavComponent implements OnInit {
         return route;
       })
       .subscribe((event) => {
-        console.log('路由变化:');
         this.colorChange();
       });
   }

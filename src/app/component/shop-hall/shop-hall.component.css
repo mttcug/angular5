@@ -111,4 +111,8 @@ table .no-data{
   line-height: 350px;
   font-size: 30px;
 }
+.d-inline-block span{
+  padding: 0px;
+  margin: 0px;
+}
 

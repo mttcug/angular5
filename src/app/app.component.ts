@@ -16,7 +16,6 @@ export class AppComponent {
   allDistrict = [];
 
   constructor(private modalService: NgbModal, @Inject('data') private data) {
-  console.log("appComponent");
     //行业和区域缓存起来以备不时之需
     //获取行业列表
     this.data.getIndustryData().then(res => {

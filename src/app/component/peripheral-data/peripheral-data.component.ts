@@ -57,29 +57,25 @@ export class PeripheralDataComponent implements OnInit {
 
     //周边数据-聚客来源
     this.PeripheralDataService.getPeripheralCustom(params).then(res => {
+
       this.customer = res;
       var dataName = [];
+      var tempRadarDataContainer=[];
+
       this.customer['FrontFour'].forEach((v, i) => {
         dataName.push(v.name);
+        var tempE={
+          coordinateSystem: 'polar',
+            angleAxisIndex: 0,
+          radiusAxisIndex: 0,
+          name: v.name,
+          type: 'scatter',
+          symbolSize: 10,
+          data: [v.distance,Math.abs(v.longitude-this.shopInfo['lng'])*111319.55]
+        };
+        console.log("i:",[v.distance,Math.abs(v.longitude-this.shopInfo['lng'])*111319.55]);
+        tempRadarDataContainer.push(tempE);
       });
-      console.log("dataName:",dataName);
-
-
-      var data1 = [];
-      var data2 = [];
-      var data3 = [];
-      var data4 = [];
-
-      data1.push([this.customer['FrontFour'][0]['distance'], Math.abs(this.customer['FrontFour'][0]['longitude']-this.shopInfo['lng'])*111319.55]);
-      data2.push([this.customer['FrontFour'][1]['distance'], Math.abs(this.customer['FrontFour'][1]['longitude']-this.shopInfo['lng'])*111319.55]);
-      data3.push([this.customer['FrontFour'][2]['distance'], Math.abs(this.customer['FrontFour'][2]['longitude']-this.shopInfo['lng'])*111319.55]);
-      data4.push([this.customer['FrontFour'][3]['distance'], Math.abs(this.customer['FrontFour'][3]['longitude']-this.shopInfo['lng'])*111319.55]);
-      console.log("data:",[this.customer['FrontFour'][0]['distance'], Math.abs(this.customer['FrontFour'][0]['longitude']-this.shopInfo['lng'])*111319.55]);
-      console.log("data1:",[this.customer['FrontFour'][1]['distance'], Math.abs(this.customer['FrontFour'][1]['longitude']-this.shopInfo['lng'])*111319.55]);
-      console.log("data2:",[this.customer['FrontFour'][2]['distance'], Math.abs(this.customer['FrontFour'][2]['longitude']-this.shopInfo['lng'])*111319.55]);
-      console.log("data3:",[this.customer['FrontFour'][3]['distance'], Math.abs(this.customer['FrontFour'][3]['longitude']-this.shopInfo['lng'])*111319.55]);
-
-
       this.radarOption = {
 
         title: {
@@ -112,40 +108,9 @@ export class PeripheralDataComponent implements OnInit {
           min: 0,
           max: 100
         },
-        series: [{
-          coordinateSystem: 'polar',
-          angleAxisIndex: 0,
-          radiusAxisIndex: 0,
-          name: this.customer['FrontFour'][0]['name'],
-          type: 'scatter',
-          symbolSize: 10,
-          data: data1
-        }, {
-          coordinateSystem: 'polar',
-          angleAxisIndex: 0,
-          radiusAxisIndex: 0,
-          name: this.customer['FrontFour'][1]['name'],
-          type: 'scatter',
-          symbolSize: 10,
-          data: data2
-        }, {
-          coordinateSystem: 'polar',
-          angleAxisIndex: 0,
-          radiusAxisIndex: 0,
-          name: this.customer['FrontFour'][2]['name'],
-          type: 'scatter',
-          symbolSize: 10,
-          data: data3
-        }, {
-          coordinateSystem: 'polar',
-          angleAxisIndex: 0,
-          radiusAxisIndex: 0,
-          name: this.customer['FrontFour'][3]['name'],
-          type: 'scatter',
-          symbolSize: 10,
-          data: data4
-        }]
+        series: tempRadarDataContainer
       }
+
     })
 
     //周边数据-周边人口

@@ -153,8 +153,8 @@
       </tbody>
     </table>
   </div>
-  <div class="page-container text-right" *ngIf="infoList.estate_list && infoList.estate_list.length > pageSize">
-    <ngb-pagination class="d-inline-block" (pageChange)="pageChange($event)" [collectionSize]="totalResultCount"
+  <div class="page-container text-right" *ngIf="infoList.total_page > 1">
+    <ngb-pagination class="d-inline-block" (pageChange)="pageChange($event)" [collectionSize]="infoList.total_num"
                     [(page)]="pageNo" aria-label="Default pagination" [maxSize]="5"
                     [boundaryLinks]="true"></ngb-pagination>
   </div>

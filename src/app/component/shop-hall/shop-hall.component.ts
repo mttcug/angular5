@@ -36,7 +36,7 @@ export class ShopHallComponent implements OnInit {
     if (sessionStorage.getItem("district")) {
       var result = JSON.parse(sessionStorage.getItem("district"));
       this.allDistricts = result;
-      // this.city=this.CurrentCityService.getCurCity().id;
+      this.city=this.CurrentCityService.getCurCity().id;
       this.loadDistrict(this.CurrentCityService.getCurCity().id);
     } else {
       this.data.getDistrictData().then(res => {
@@ -44,7 +44,7 @@ export class ShopHallComponent implements OnInit {
         result.forEach((v, i) => {
           this.allDistricts.push(v);
         });
-        // this.city=this.CurrentCityService.getCurCity().id;
+        this.city=this.CurrentCityService.getCurCity().id;
         this.loadDistrict(this.CurrentCityService.getCurCity().id);
       });
     }
@@ -107,7 +107,6 @@ export class ShopHallComponent implements OnInit {
 
   pageNo = 1;
   pageSize = 10;
-  totalResultCount = 0;
 
   //临时变量
   templng = '';
@@ -118,7 +117,6 @@ export class ShopHallComponent implements OnInit {
 
   //分页点击事件
   pageChange(e) {
-    console.log("翻页：", e);
     this.pageNo = e;
     this.getList();
   }
@@ -186,30 +184,30 @@ export class ShopHallComponent implements OnInit {
 //获取列表数据
   getList() {
     var params = {
+      city:parseInt(this.CurrentCityService.getCurCity().id),
       page_no: this.pageNo - 1,
       page_size: this.pageSize
     };
-    this.bigIndustry ? ( this.smallIndustry ? params['industry'] = this.smallIndustry : params['industry'] = this.bigIndustry ) : '';
+
+    this.bigIndustry ? ( this.smallIndustry ? params['industry'] = parseInt(this.smallIndustry) : params['industry'] = parseInt(this.bigIndustry) ) : '';
     this.unfitIndustry ? ( this.fitIndustry ? (this.currentIndustry ? params['industry_type'] = '不宜经营,适合经营,当前经营' : params['industry_type'] = '不宜经营,适合经营') : params['industry_type'] = '不宜经营') : params['industry_type'] = '当前经营';
     this.shopName ? params['keyword'] = this.shopName : '';
     this.shopPhoneNumber ? params['mobile'] = this.shopPhoneNumber : '';
-    this.bigIndustry ? ( this.smallIndustry ? params['industry'] = this.smallIndustry : params['industry'] = this.bigIndustry ) : '';
+    this.district ? params['district'] = parseInt(this.district) : '';
     this.longitude ? params['longitude'] = this.longitude : '';
     this.latitude ? params['latitude'] = this.latitude : '';
     this.zoomList.find(item => item.code.toString() == this.zoomLevel.toString()) ? params['distance_range'] = this.zoomList.find(item => item.code.toString() == this.zoomLevel.toString()).value : params['distance_range'] = 1;
     this.positionDescription != '' ? params['location_type'] = this.positionDescription : '';
     this.nearStreet ? params['near_street'] = '1' : '';
-    this.minArea ? params['min_area'] = this.minArea : '';
-    this.maxArea ? params['max_area'] = this.maxArea : '';
-    this.mindoorWidth ? params['min_door_width'] = this.maxArea : '';
-    this.maxdoorWidth ? params['max_door_width'] = this.maxArea : '';
+    this.minArea ? params['min_area'] = parseInt(this.minArea) : '';
+    this.maxArea ? params['max_area'] = parseInt(this.maxArea) : '';
+    this.mindoorWidth ? params['min_door_width'] = parseInt(this.maxArea) : '';
+    this.maxdoorWidth ? params['max_door_width'] = parseInt(this.maxArea) : '';
 
     console.log("分页params:", params);
 
-
     this.ShopHallService.getshopList(params).then(res => {
       this.infoList = res ? res : [];
-      this.totalResultCount = res.length;
     })
   }
 

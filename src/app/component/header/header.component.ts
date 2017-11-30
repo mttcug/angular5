@@ -18,9 +18,6 @@ export class HeaderComponent implements OnInit {
 
   constructor(private modalService: NgbModal, @Inject('data') private data,private router: Router,@Inject('config') private conf,@Inject('CurrentPageService') private CurrentPageService,@Inject('CurrentCityService') private CurrentCityService) {
 
-    console.log("headerComponent");
-
-
     //获取城市列表
     let district = sessionStorage.getItem("district");
     if (district) {
