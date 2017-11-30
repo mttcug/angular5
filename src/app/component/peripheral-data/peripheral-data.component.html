@@ -1,8 +1,8 @@
 <div class="page-container">
   <div class="header-block">
     <p class="d-inline-block page-title">周边分析</p>
-    <p *ngIf="shopInfo" class="d-inline-block m-left-10"><span class="title-info">{{shopInfo.industry}}</span><span class="title-info">经度：{{shopInfo.lat}}</span><span
-      class="title-info">维度：{{shopInfo.lng}}</span></p>
+    <p *ngIf="shopInfo" class="d-inline-block m-left-10"><span class="title-info">{{shopInfo.industry}}</span><span class="title-info">经度：{{shopInfo.lng}}</span><span
+      class="title-info">纬度：{{shopInfo.lat}}</span></p>
     <p class="d-inline-block m-left-10"><i class="iconfont icon-shuaxin" (click)="getInfo(oppo_Id)"></i>刷新</p>
   </div>
   <div>
@@ -25,9 +25,9 @@
         </ol>
       </div>
     </div>
-    <div class="d-block m-top-20 position-relative" *ngIf="customer">
+    <div class="d-block m-top-20" *ngIf="customer">
       <p class="title-line"><i class="icon iconfont icon-renwu"></i>聚客来源 <span class="text-muted">(1公里范围)</span></p>
-      <div class="chart-container">
+      <div class="chart-container position-relative">
         <div *ngIf="radarShow" echarts [options]="radarOption" class="radar-chart w-40 float-left"></div>
         <div class="echart-info-block float-left radar-chart-connect-info-block" >
           <p class="w-50 float-left" *ngIf="customer.housing"><label for="">住宅小区：</label>
@@ -78,16 +78,19 @@
             <span>{{customer.traffic_hinge.length}}个</span>
             <span (click)="openDetailModal('交通枢纽',customer.traffic_hinge)" class="cursor-hand text-blue"> > </span>
           </p>
+
+
+        </div>
+        <div class="detailModal position-absolute" [hidden]="detailModelHidden">
+          <p class="detail-modal-title"><span>{{tempDetailInfoContainer.title}}</span> <span class="text-danger">{{tempDetailInfoContainer.length}}个</span> <i class="iconfont icon-delete float-right text-muted" (click)="closeDetail()"></i></p>
+          <div>
+            <ul>
+              <li *ngFor="let item of tempDetailInfoContainer"> <span class="modal-item-name">{{item.name}}</span> <span class="float-right text-muted"><{{item.distance}}m</span></li>
+            </ul>
+          </div>
         </div>
       </div>
-      <div class="detailModal position-absolute" [hidden]="detailModelHidden">
-        <p class="detail-modal-title"><span>{{tempDetailInfoContainer.title}}</span> <span class="text-danger">{{tempDetailInfoContainer.length}}个</span> <i class="iconfont icon-delete float-right text-muted" (click)="closeDetail()"></i></p>
-        <div>
-          <ul>
-            <li *ngFor="let item of tempDetailInfoContainer"> <span class="modal-item-name">{{item.name}}</span> <span class="float-right text-muted"><{{item.distance}}m</span></li>
-          </ul>
-        </div>
-      </div>
+
     </div>
     <div class="d-block m-top-20"  *ngIf="population">
       <p class="title-line"><i class="icon iconfont icon-tubiao"></i>周边人口</p>
