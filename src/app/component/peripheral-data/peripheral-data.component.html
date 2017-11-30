@@ -74,12 +74,12 @@
         <div class="w-25 echart-info-block float-left industry-chart-connect-info-block">
           <p class="text-muted">协同行业</p>
           <p *ngFor=" let item of industryInfo.cooperative_shops"><label for="">{{item.name}}</label><span class="text-muted d-inline-block m-h-5">({{item.industry}})</span><span class="d-inline-block m-h-5">{{item.distance}}m</span></p>
-          <p *ngIf="industryInfo.cooperative_shops"><span class="text-muted">暂无</span></p>
+          <p *ngIf="!cooperativeShow"><span class="text-muted">暂无</span></p>
         </div>
         <div class="w-25 echart-info-block float-left industry-chart-connect-info-block">
           <p class="text-muted">竞争业态</p>
           <p *ngFor=" let item of industryInfo.competitive_shops"><label for="">{{item.name}}</label><span class="text-muted d-inline-block m-h-5">({{item.industry}})</span><span class="d-inline-block m-h-5">{{item.distance}}m</span></p>
-          <p *ngIf="industryInfo.competitive_shops"><span class="text-muted">暂无</span></p>
+          <p *ngIf="!competitiveShow"><span class="text-muted">暂无</span></p>
         </div>
       </div>
     </div>

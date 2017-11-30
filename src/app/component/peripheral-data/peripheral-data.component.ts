@@ -20,6 +20,8 @@ export class PeripheralDataComponent implements OnInit {
   industryCountArr = [];
 
   radarShow = false;                         //雷达图是否显示
+  cooperativeShow=false;
+  competitiveShow=false;
 
   public radarOption: any;
   public populationOption: any;
@@ -65,9 +67,8 @@ export class PeripheralDataComponent implements OnInit {
       console.log("test:", this.customer['FrontFour'].length);
       var dataName = [];
       var tempRadarDataContainer = [];
-      var zoomYMin = 0;
-      var zoomYMax = '';
-      var tempMathC = [];
+      var tempMathY = [];
+      var tempMathX = [];
 
       this.customer['FrontFour'].forEach((v, i) => {
         dataName.push(v.name);
@@ -82,12 +83,16 @@ export class PeripheralDataComponent implements OnInit {
         };
         console.log(i + ":", [v.distance, Math.round(Math.abs(v.longitude - this.shopInfo['lng']) * 111319.55)]);
         tempRadarDataContainer.push(tempE);
-        tempMathC.push(Math.round(Math.abs(v.longitude - this.shopInfo['lng']) * 111319.55));
+        tempMathX.push(v.distance);
+        tempMathY.push(Math.round(Math.abs(v.longitude - this.shopInfo['lng']) * 111319.55));
       });
 
-      zoomYMin = 0;
-      zoomYMax = Math.max.apply(Math, tempMathC);
+      var zoomYMin = 0;
+      var zoomYMax = Math.max.apply(Math, tempMathY);
+      var zoomXMin = 0;
+      var zoomXMax = Math.max.apply(Math, tempMathX);
       console.log("zoomYMin:", zoomYMin, zoomYMax, tempRadarDataContainer);
+
       this.radarOption = {
         title: {
           text: '',
@@ -111,31 +116,20 @@ export class PeripheralDataComponent implements OnInit {
         polar: {},
         angleAxis: {
           type: 'value',
-          min: 0,   //73
-          max: 300
+          min: 20,   //73
+          max: 200
         },
         radiusAxis: {
           axisAngle: 0,
-          min: 0,
-          max: 300
+          min: 40,
+          max: 200
         },
-        dataZoom: [
-          {
-            type: 'slider',
-            angleAxisIndex: 0,
-            bottom: 40,
-            start: zoomYMin,
-            end: zoomYMax
-          },
-          {
-            type: 'inside',
-            angleAxisIndex: 0,
-            start: zoomYMin,
-            end: zoomYMax
-          }
-        ],
         series: tempRadarDataContainer
       }
+
+      console.log("radarOption:",this.radarOption);
+
+
 
     })
 
@@ -184,6 +178,8 @@ export class PeripheralDataComponent implements OnInit {
     //周边数据-周边业态
     this.PeripheralDataService.getPeripheralIndustry(params).then(res => {
       this.industryInfo = res;
+      this.cooperativeShow = this.industryInfo['cooperative_shops'].length > 0 ? true : false;
+      this.competitiveShow = this.industryInfo['competitive_shops'].length > 0 ? true : false;
 
       for (let v in this.industryInfo['shop_num_per_industry']) {
         this.industryNameArr.push(v);
