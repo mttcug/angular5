@@ -10,7 +10,7 @@ import {ActivatedRoute, Params} from '@angular/router';
 export class PeripheralDataComponent implements OnInit {
 
 
-  shopInfo={};
+  shopInfo = {};
   trafficInfo = [];
   population = [];
   customer = [];
@@ -18,6 +18,8 @@ export class PeripheralDataComponent implements OnInit {
 
   industryNameArr = [];
   industryCountArr = [];
+
+  radarShow = false;                         //雷达图是否显示
 
   public radarOption: any;
   public populationOption: any;
@@ -45,9 +47,9 @@ export class PeripheralDataComponent implements OnInit {
       shop_id: oppo_id
     }
     //头部本店信息
-    this.PeripheralDataService.getSelfInfo(params).then(res=>{
-      this.shopInfo=res;
-      console.log("shopInfo:",this.shopInfo);
+    this.PeripheralDataService.getSelfInfo(params).then(res => {
+      this.shopInfo = res;
+      console.log("shopInfo:", this.shopInfo);
     })
 
     //周边数据-交通信息
@@ -59,25 +61,34 @@ export class PeripheralDataComponent implements OnInit {
     this.PeripheralDataService.getPeripheralCustom(params).then(res => {
 
       this.customer = res;
+      this.radarShow = this.customer['FrontFour'].length > 0 ? true : false;
+      console.log("test:", this.customer['FrontFour'].length);
       var dataName = [];
-      var tempRadarDataContainer=[];
+      var tempRadarDataContainer = [];
+      var zoomYMin = 0;
+      var zoomYMax = '';
+      var tempMathC = [];
 
       this.customer['FrontFour'].forEach((v, i) => {
         dataName.push(v.name);
-        var tempE={
+        var tempE = {
           coordinateSystem: 'polar',
-            angleAxisIndex: 0,
+          angleAxisIndex: 0,
           radiusAxisIndex: 0,
           name: v.name,
           type: 'scatter',
           symbolSize: 10,
-          data: [v.distance,Math.abs(v.longitude-this.shopInfo['lng'])*111319.55]
+          data: [v.distance, Math.round(Math.abs(v.longitude - this.shopInfo['lng']) * 111319.55)]
         };
-        console.log("i:",[v.distance,Math.abs(v.longitude-this.shopInfo['lng'])*111319.55]);
+        console.log(i + ":", [v.distance, Math.round(Math.abs(v.longitude - this.shopInfo['lng']) * 111319.55)]);
         tempRadarDataContainer.push(tempE);
+        tempMathC.push(Math.round(Math.abs(v.longitude - this.shopInfo['lng']) * 111319.55));
       });
-      this.radarOption = {
 
+      zoomYMin = 0;
+      zoomYMax = Math.max.apply(Math, tempMathC);
+      console.log("zoomYMin:", zoomYMin, zoomYMax, tempRadarDataContainer);
+      this.radarOption = {
         title: {
           text: '',
           left: 'center'
@@ -88,26 +99,41 @@ export class PeripheralDataComponent implements OnInit {
             type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
           }
         },
-        radar:{
-          center:["30%",'50%']
+        radar: {
+          center: ["30%", '50%']
         },
         legend: {
           data: dataName,
-          zlevel:100,
+          zlevel: 100,
           right: 0,
-          orient:'vertical'
+          orient: 'vertical'
         },
         polar: {},
         angleAxis: {
           type: 'value',
           min: 0,   //73
-          max: 100
+          max: 300
         },
         radiusAxis: {
           axisAngle: 0,
           min: 0,
-          max: 100
+          max: 300
         },
+        dataZoom: [
+          {
+            type: 'slider',
+            angleAxisIndex: 0,
+            bottom: 40,
+            start: zoomYMin,
+            end: zoomYMax
+          },
+          {
+            type: 'inside',
+            angleAxisIndex: 0,
+            start: zoomYMin,
+            end: zoomYMax
+          }
+        ],
         series: tempRadarDataContainer
       }
 
@@ -195,7 +221,7 @@ export class PeripheralDataComponent implements OnInit {
           {
             name: '直接访问',
             type: 'bar',
-            barWidth: '60%',
+            barWidth: '20%',
             data: this.industryCountArr
           }
         ]
