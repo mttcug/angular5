@@ -184,6 +184,7 @@ export class PeripheralDataComponent implements OnInit {
         this.industryNameArr.push(v);
         this.industryCountArr.push(this.industryInfo['shop_num_per_industry'][v]);
       }
+
       this.barChartOption = {
         color: ['#3398DB'],
         tooltip: {
@@ -214,13 +215,15 @@ export class PeripheralDataComponent implements OnInit {
         ],
         series: [
           {
-            name: '直接访问',
+            name: '数量',
             type: 'bar',
-            barWidth: '20%',
+            barWidth: '50%',
             data: this.industryCountArr
           }
         ]
       }
+
+      console.log("i",this.barChartOption);
     })
   }
 

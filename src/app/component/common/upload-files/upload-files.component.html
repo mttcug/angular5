@@ -6,7 +6,7 @@
     <i class="iconfont icon-delete" (click)="deleteNewImage(item)"></i>
   </div>
   <div class="new-image-block" *ngIf="multiImages || images.length == 0">
-    <input  type="file" #newImages multiple accept=".jpg, .jpeg, .png" class="iconfont icon-tianjiatupian upload-btn" (change)="imagesChanges(newImages.files)">
+    <input  type="file" #newImages multiple accept=".jpg, .jpeg, .png" class="iconfont icon-loadimage upload-btn" (change)="imagesChanges(newImages.files)">
 <!--
     <input type="file" ng2FileSelect  [uploader]="uploader" (change)="selectedFileOnChanged($event)" multiple  accept=".jpg, .jpeg, .png" class="iconfont icon-tianjiatupian upload-btn"/>
 -->

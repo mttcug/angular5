@@ -8,7 +8,7 @@ export class ConfigService {
 
   getConf() {
     return {
-      keyIndex:4,                                           //用于获取路由关键字的索引（字符串以‘/’分割后的索引）判断是什么页面
+      keyIndex:3,                                           //用于获取路由关键字的索引（字符串以‘/’分割后的索引）判断是什么页面
       defaultCity:{name:'深圳市',id:'4403000000'},
 
       //行业区域和当前城市存在了sessionStorage中

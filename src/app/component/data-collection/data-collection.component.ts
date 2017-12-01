@@ -143,7 +143,7 @@ export class DataCollectionComponent implements OnInit {
     //获取参数并判断时发布还是修改信息，修改则请求相应数据
     this.route.queryParams.subscribe((queryParams: Params) => {
       var oppoId = queryParams.id;
-      oppoId != '' ? this.getShopInfo(oppoId) : '';
+     /* oppoId != '' ? this.getShopInfo(oppoId) : '';*/
     });
   }
 
@@ -383,9 +383,86 @@ export class DataCollectionComponent implements OnInit {
   mapInfo = {'city': this.city, 'district': '', 'address': '', 'lng': '', 'lat': ''};
 
   //如果是修改则需要获取该店铺信息
-  getShopInfo(id) {
-
-  }
+ /* getShopInfo(id) {
+    var result = [];
+    this.shopName=result.shopName;                           //店名
+    this.brandName=result.brandName;                         //品牌名称
+    this.subShopName=result.subShopName;                      //分店名
+    this.operateType=result.operateType;                     //运营模式
+    this.bigIndustry=result.bigIndustry;
+    this.smallIndustry=result.smallIndustry;
+    this.startOpenDate=result.startOpenDate;                 //开业日期
+    this.operateStatus=result.operateStatus;                 //经营状态
+    this.endOpenDate=result.endOpenDate;                     //停业日期
+    this.shopImages=result.shopImages;                       //店铺门面图片
+    this.environment=result.environment;                    //店铺环境图片
+    this.shopPhoneNumber=result.shopPhoneNumber;             //前台电话
+    this.takeOutPhone=result.takeOutPhone;                    //外卖电话
+    this.operateDate=result.operateDate;                     //营业日
+    this.operateStartTime=result.operateStartTime;           //营业开始时间
+    this.operateEndTime=result.operateEndTime;               //营业结束时间
+    this.fitmentLevelStatus=result.fitmentLevelStatus;       //装修档次
+    this.serviceProvided=result.serviceProvided;             //提供服务
+    this.shopRent=result.shopRent;                           //店铺租金
+    this.rentMeasure=result.rentMeasure;                     //店铺租金单位
+    this.payWay=result.payWay;                               //支付方式
+    this.rateWay=result.rateWay;                            //递增或递减
+    this.definedRateWay=result.definedRateWay;              //增率或减率
+    this.depositWay=result.depositWay;                       //押金方式
+    this.rentDate=result.rentDate;                           //租期
+    this.rentTime=result.rentTime;                           //租约
+    this.leftContractTime=result.leftContractTime;           //剩余合同期
+    this.personProfit=result.personProfit;                   //客单价
+    this.dayProfit=result.dayProfit;                         //日均营业额
+    this.consumePersonType=result.consumePersonType;         //消费人群
+    this.consumeTime=result.consumeTime;                  //消费时间
+    this.foodAmount=result.foodAmount;                      //堂食量
+    this.takeOutAmount=result.takeOutAmount;                 //外卖量
+    this.memberAmount=result.memberAmount;                   //会员数
+    this.memberType=result.memberType;                       //会员类型
+    this.transferStatus=result.transferStatus;               //转让状态
+    this.transferFee=result.transferFee;                     //转让费
+    this.emptyTransfer=result.emptyTransfer;                 //是否空转
+    this.emptyTransferFee=result.emptyTransferFee;           //空转转让费
+    this.transferStaff=result.transferStaff;                 //转让内容
+    this.transferReason=result.transferReason;               //转让原因
+    this.certifications=result.certifications;               //店铺证件
+    this.shopBoss=result.shopBoss;                           //店铺老板
+    this.partner=result.partner;                             //合作伙伴
+    this.employee=result.employee;                           //店铺员工
+    this.city=result.city;                                   //城市
+    this.district=result.district;                           //区域
+    this.addressDetail=result.addressDetail;                 //详细地址
+    this.longitude=result.longitude;                         //经度
+    this.latitude=result.latitude;                           //纬度
+    this.positionDescription=result.positionDescription;     //位置描述
+    this.isNearStreet=result.isNearStreet;                   //是否临街
+    this.superFacility=result.superFacility;                //上级物业
+    this.shopCityName=result.shopCityName;                   //商城名称
+    this.buildingArea=result.buildingArea;                   //建筑面积
+    this.roomArea=result.roomArea;                           //开间
+    this.doorWidth=result.doorWidth;                          //门宽
+    this.floor=result.floor;                                  //所处楼层
+    this.validArea=result.validArea;                          //使用面积
+    this.depth=result.depth;                                   //进深
+    this.floorHeight=result.floorHeight;                       //层高
+    this.floorAmount=result.floorAmount;                       //楼层数
+    this.fitIndustry=result.fitIndustry;                                  //适合经营
+    this.recommendableIndustry=result.recommendableIndustry;                       //推荐经营
+    this.unRecommendableIndustry=result.unRecommendableIndustry;                   //不宜经营
+    this.facilities=result.facilities;                           //物业配套
+    this.waterFee=result.waterFee;                             //水费
+    this.facilityFee=result.facilityFee;                         //物业
+    this.gasFee=result.gasFee;                                   //燃气费
+    this.elecFee=result.elecFee;                                //电费
+    this.rent=result.rent;                                         //租金
+    this.warmFee=result.warmFee;                                 //暖气费
+    this.buildingShape=result.buildingShape;                     //建筑形状
+    this.propertyRightType=result.propertyRightType;             //产权类型
+    this.destroyedRatio=result.destroyedRatio;                   //拆迁风险
+    this.destroyedRatioDetail=result.destroyedRatioDetail;      //拆迁风险率
+    this.houseOwner=result.houseOwner;
+  }*/
 
   //该店铺是品牌时填写品牌名称时店铺名称需要随着改变
   updateShopName() {
@@ -765,7 +842,7 @@ export class DataCollectionComponent implements OnInit {
       this.tempdefaultIndustryList.push(v);
     });
 
-    this.industrySelectedChange(this.industries, this.tempdefaultIndustryList);
+    this.industrySelectedFlag(this.industries, this.tempdefaultIndustryList);
 
     this.modalService.open(content, {size: 'lg'}).result.then((result) => {
       result == '1' ? this.sureBtnFunction(content, result) : '';
@@ -797,7 +874,7 @@ export class DataCollectionComponent implements OnInit {
           isConnected = true;
         } else if (i == (this.tempdefaultIndustryList.length - 1)) {
           this.tempdefaultIndustryList.push(item);
-          this.industrySelectedChange(this.industries, this.tempdefaultIndustryList);
+          this.industrySelectedFlag(this.industries, this.tempdefaultIndustryList);
           isConnected = false;
         }
       } else {
@@ -811,7 +888,7 @@ export class DataCollectionComponent implements OnInit {
       //不可用forEach
       var v = tempIndexArr[i];
       this.tempdefaultIndustryList.splice(v, 1);
-      this.industrySelectedChange(this.industries, this.tempdefaultIndustryList);
+      this.industrySelectedFlag(this.industries, this.tempdefaultIndustryList);
       for (let j = 0; j < tempIndexArr.length; j++) {
         tempIndexArr[j] = tempIndexArr[j] - 1;
       }
@@ -822,7 +899,7 @@ export class DataCollectionComponent implements OnInit {
   deleteSelectedIndustry(dataList, item) {
     dataList.forEach((value, index) => {
       value.code == item.code ? dataList.splice(index, 1) : '';
-      this.industrySelectedChange(this.industries, this.tempdefaultIndustryList);
+      this.industrySelectedFlag(this.industries, this.tempdefaultIndustryList);
     });
   }
 
@@ -834,7 +911,7 @@ export class DataCollectionComponent implements OnInit {
   }
 
   //行业弹出框选择行业，当选择的行业发生变化是行业列表标红的选项也要改变
-  industrySelectedChange(industries, selectedL) {
+  industrySelectedFlag(industries, selectedL) {
 
     this.industries.forEach((v, i) => {
       v.map(item => item.selected = false);
@@ -1119,6 +1196,18 @@ export class DataCollectionComponent implements OnInit {
 
   release() {
     this.router.navigate(['glancePostedInfoItem']);
+
+    //当前经营，适合经营和不宜经营需要的是code[code1,code2....];
+    var fitC = [], recomC = [], unrecomC = [];
+    this.fitIndustry.forEach((v, i) => {
+      fitC.push(v.code)
+    });
+    this.recommendableIndustry.forEach((v, i) => {
+      recomC.push(v.code)
+    });
+    this.unRecommendableIndustry.forEach((v, i) => {
+      unrecomC.push(v.code)
+    });
     var params = {
       shopName: this.shopName,                           //店名
       brandName: this.brandName,                         //品牌名称
@@ -1182,9 +1271,9 @@ export class DataCollectionComponent implements OnInit {
       depth: this.depth,                                   //进深
       floorHeight: this.floorHeight,                       //层高
       floorAmount: this.floorAmount,                       //楼层数
-      fitIndustry: this.fitIndustry,                        //适合经营
-      recommendableIndustry: this.recommendableIndustry,    //推荐经营
-      unRecommendableIndustry: this.unRecommendableIndustry, //不宜经营
+      fitIndustry: fitC,                                  //适合经营
+      recommendableIndustry: recomC,                       //推荐经营
+      unRecommendableIndustry: unrecomC,                   //不宜经营
       facilities: this.facilities,                           //物业配套
       waterFee: this.waterFee,                             //水费
       facilityFee: this.facilityFee,                         //物业

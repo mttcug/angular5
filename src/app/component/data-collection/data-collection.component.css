@@ -1,3 +1,4 @@
+
 .title-line{
   margin: 20px 150px;
 }
@@ -27,6 +28,10 @@ label{
 
 .selected-span{
   color: red;
+}
+
+.icon-mi{
+  font-size: 12px;
 }
 
 
