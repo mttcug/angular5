@@ -348,7 +348,7 @@
       <input type="text" name="detailAddress" placeholder="详细地址" name="addressDetail" [(ngModel)]="addressDetail"
              maxlength="30"
              class="form-control d-inline-block w-160-px"
-             (blur)="mapAddressChange()">
+             (ngModelChange)="mapAddressChange()">
       <p><label for="" class="text-right d-inline-block m-ritght-10"></label>{{shopAddress}}
         <span class="model-popup text-blue" (click)="mapShow()">地图定位</span>
         <span class="longitude ">{{longitude}}</span>

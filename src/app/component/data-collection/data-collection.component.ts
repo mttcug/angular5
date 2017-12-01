@@ -929,11 +929,12 @@ export class DataCollectionComponent implements OnInit {
   //获取地图所需要的完成地址
   getWholeAddress() {
     let tempCityC = this.allDistricts.find(item => item.id.toString() == this.city.toString());
+
     let tempDistrictC = this.allDistricts.find(item => item.id.toString() == this.district.toString());
     let city = tempCityC ? tempCityC.name : '';
     let district = tempDistrictC ? tempDistrictC.name : '';
     let addressDetail = this.addressDetail;
-    return city + district + addressDetail != '' ? city + district + addressDetail : JSON.parse(sessionStorage.getItem("curCity")).name;
+    return city + district + addressDetail != '' ? city + district + addressDetail : '';
   }
 
   //控制地图显示或是隐藏

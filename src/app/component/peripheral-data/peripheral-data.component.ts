@@ -202,6 +202,9 @@ export class PeripheralDataComponent implements OnInit {
         xAxis: [
           {
             type: 'category',
+            axisLabel:{
+              rotate :45
+            },
             data: this.industryNameArr,
             axisTick: {
               alignWithLabel: true
