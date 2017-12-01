@@ -31,19 +31,22 @@ export class BaiduMapComponent implements OnInit, OnChanges {
 
   @Output() getLocation: EventEmitter<any> = new EventEmitter();
 
-  clickedAddress='';
+  geoAddress='';
 
   constructor(private elementRef: ElementRef) {
   }
 
   ngOnInit() {
-    loader(this.apiKey, this.initMap.bind(this));
+
+    //不需要init because zoom一进来就变化了就触发onChange函数执行loader去initMap了所以此处不需要loader
+
+  /*  var address = this.geoAddress ? this.geoAddress : this.address;
+    loader(this.apiKey, this.initMap.bind(this,address));*/
   }
 
   ngOnChanges(changes: SimpleChanges) {
     //当zoomlevel改变刷新地图时marker不需要初始化位最开始定位的
-    var address = this.clickedAddress ? this.clickedAddress : this.address;
-    console.log("address:",address);
+    var address = this.geoAddress ? this.geoAddress : this.address;
     loader(this.apiKey, this.initMap.bind(this,address));
   }
 
@@ -54,7 +57,6 @@ export class BaiduMapComponent implements OnInit, OnChanges {
 
 
   initMap(address) {
-    console.log("address11:",address);
     var that = this;
     const container = this.elementRef.nativeElement.querySelector('.baidu-map-container');
     const map = new BMap.Map(container);
@@ -85,7 +87,7 @@ export class BaiduMapComponent implements OnInit, OnChanges {
       //逆地址解析
       myGeo.getLocation(pt, function (rs) {
         var addComp = rs.addressComponents;
-        that.clickedAddress=addComp.city+addComp.district+addComp.street;
+        that.geoAddress=addComp.city+addComp.district+addComp.street;
         that.data.address = addComp;
         that.getLocation.emit(that.data);
       });

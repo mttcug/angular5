@@ -215,7 +215,6 @@ export class ShopHallComponent implements OnInit {
   closeResult: string;
 
   open(content) {
-    console.log("zoomLevel2:", this.zoomLevel);
     //地址
     var cityName = this.CurrentCityService.getCurCity().name;
     var districtName = this.allDistricts.find(item => item.id.toString() == this.district.toString()) ? this.allDistricts.find(item => item.id.toString() == this.district.toString()).name : '';
