@@ -349,13 +349,14 @@
              maxlength="30"
              class="form-control d-inline-block w-160-px"
              (ngModelChange)="mapAddressChange()">
-      <p><label for="" class="text-right d-inline-block m-ritght-10"></label>{{shopAddress}}
+      <p><label for="" class="text-right d-inline-block m-ritght-10"></label>
+        {{shopAddress}}
         <span class="model-popup text-blue" (click)="mapShow()">地图定位</span>
         <span class="longitude ">{{longitude}}</span>
         <span class="latitude">{{latitude}}</span></p>
       <!--地图-->
       <div *ngIf="mapBlock" class="baidu-map">
-        <app-baidu-map [address]="mapAddress" (getLocation)="geoLocation($event)"></app-baidu-map>
+        <app-baidu-map [address]="mapAddress" [zoomControl]="true" (getLocation)="geoLocation($event)"></app-baidu-map>
         <i class="iconfont icon-delete baidu-map-cancel" (click)="closeMap()"></i>
         <p>
           <button class="form-control btn btn-secondary map-btn-control" (click)="closeMap()">取消</button>
@@ -880,7 +881,7 @@
   <div class="modal-body">
     <div>
       <span>您已选择：</span>
-      <div class="d-inline-block align-top" style="width: 85%;">
+      <div class="d-inline-block align-top selected-line" style="width: 85%;">
         <span *ngFor="let item of tempdefaultIndustryList" class="industry-selected-span">{{item.name}}
           <i (click)="deleteSelectedIndustry(tempdefaultIndustryList,item)" class="iconfont icon-delete"></i>
         </span>

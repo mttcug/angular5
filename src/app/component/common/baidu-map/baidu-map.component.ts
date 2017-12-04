@@ -11,8 +11,8 @@ import {
 } from '@angular/core';
 
 
-import {loader} from './loader';
-import {BAIDU_MAP_STYLE} from './map';
+/*import {loader} from './loader';*/
+/*import {BAIDU_MAP_STYLE} from './map';*/
 /*import any = jasmine.any;*/
 
 declare const BMap: any;
@@ -28,10 +28,13 @@ export class BaiduMapComponent implements OnInit, OnChanges {
   @Input() apiKey: string = 'sIq3pmhG5n4xVuKQ8eKr1BiV0hsLP2ek';
   @Input() center: any;
   @Input() zoom = 15;
+  @Input() enableScrollWheelZoom = false;                                  //鼠标是否可滚动缩放 默认不可以
+  @Input() zoomControl = false;                                            //是否有缩放控件   默认没有
+
 
   @Output() getLocation: EventEmitter<any> = new EventEmitter();
 
-  geoAddress='';
+  geoAddress = '';
 
   constructor(private elementRef: ElementRef) {
   }
@@ -40,14 +43,14 @@ export class BaiduMapComponent implements OnInit, OnChanges {
 
     //不需要init because zoom一进来就变化了就触发onChange函数执行loader去initMap了所以此处不需要loader
 
-  /*  var address = this.geoAddress ? this.geoAddress : this.address;
-    loader(this.apiKey, this.initMap.bind(this,address));*/
+    /*  var address = this.geoAddress ? this.geoAddress : this.address;
+      loader(this.apiKey, this.initMap.bind(this,address));*/
   }
 
   ngOnChanges(changes: SimpleChanges) {
     //当zoomlevel改变刷新地图时marker不需要初始化位最开始定位的
     var address = this.geoAddress ? this.geoAddress : this.address;
-    loader(this.apiKey, this.initMap.bind(this,address));
+    this.loader(this.apiKey, this.initMap.bind(this, address));
   }
 
   data = {
@@ -64,6 +67,10 @@ export class BaiduMapComponent implements OnInit, OnChanges {
     //添加比列尺
     map.addControl(new BMap.ScaleControl({offset: new BMap.Size(100, 20)}));
 
+    that.enableScrollWheelZoom ?  map.enableScrollWheelZoom(true) : '';
+
+    that.zoomControl ? map.addControl(new BMap.NavigationControl()) : '';
+
     //地址解析
     var myGeo = new BMap.Geocoder();
     myGeo.getPoint(address, function (point) {
@@ -75,7 +82,7 @@ export class BaiduMapComponent implements OnInit, OnChanges {
       }
     });
 
-    map.enableScrollWheelZoom(true);
+
 
     map.addEventListener("click", (e) => {
       var pt = e.point;
@@ -87,12 +94,51 @@ export class BaiduMapComponent implements OnInit, OnChanges {
       //逆地址解析
       myGeo.getLocation(pt, function (rs) {
         var addComp = rs.addressComponents;
-        that.geoAddress=addComp.city+addComp.district+addComp.street;
+        that.geoAddress = addComp.city + addComp.district + addComp.street;
         that.data.address = addComp;
         that.getLocation.emit(that.data);
       });
     });
   }
+
+  loader(ak: string, callback: Function) {
+    const MAP_URL = `https://api.map.baidu.com/api?v=2.0&ak=${ak}&callback=baidumapinit&s=1`;
+
+    const baiduMap: MapObjct = window['baiduMap'];
+    if (baiduMap && baiduMap.status === MapStatus.LOADING) {
+      return baiduMap.callbacks.push(callback);
+    }
+
+    if (baiduMap && baiduMap.status === MapStatus.LOADED) {
+      return callback();
+    }
+
+    window['baiduMap'] = {status: MapStatus.LOADING, callbacks: []};
+    window['baidumapinit'] = function () {
+      window['baiduMap'].status = MapStatus.LOADED;
+      callback();
+      window['baiduMap'].callbacks.forEach((cb: Function) => cb());
+      window['baiduMap'].callbacks = [];
+    };
+
+    const createTag = function () {
+      const script = document.createElement('script');
+      script.type = 'text/javascript';
+      script.src = MAP_URL;
+      document.body.appendChild(script);
+    };
+    createTag();
+  }
+}
+
+export enum MapStatus {
+  LOADING,
+  LOADED,
+}
+
+export interface MapObjct {
+  status: MapStatus;
+  callbacks: Function[];
 }
 
 

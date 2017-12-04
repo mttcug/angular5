@@ -39,7 +39,7 @@
       <div class="chart-container">
         <div *ngIf="radarShow" echarts [options]="radarOption" class="radar-chart w-40 float-left"></div>
         <div class="echart-info-block float-left radar-chart-connect-info-block">
-          <p class="w-50 float-left"><label for="">住宅小区：</label>
+          <p class="float-left"><label for="">住宅小区：</label>
             <span *ngIf="customer.housing" class="p-0 m-0 cursor-hand" (click)="openDetailModal('住宅小区',customer.housing)">
               <span>{{customer.housing.length}}个</span>
               <span class="text-blue"> > </span>
@@ -48,7 +48,7 @@
               <span>0个</span>
             </span>
           </p>
-          <p class="w-50 float-left"><label for="">学校：</label>
+          <p class=" float-left"><label for="">学校：</label>
             <span *ngIf="customer.schools" class="p-0 m-0 cursor-hand" (click)="openDetailModal('学校',customer.schools)">
               <span>{{customer.schools.length}}个</span>
               <span class=" text-blue"> > </span>
@@ -57,7 +57,7 @@
               <span>0个</span>
             </span>
           </p>
-          <p class="w-50 float-left"><label for="">写字楼：</label>
+          <p class=" float-left"><label for="">写字楼：</label>
             <span *ngIf="customer.office_building" class="p-0 m-0 cursor-hand" (click)="openDetailModal('写字楼',customer.office_building)">
                <span>{{customer.office_building.length}}个</span>
                <span class=" text-blue"> > </span>
@@ -66,7 +66,7 @@
                <span>0个</span>
             </span>
           </p>
-          <p class="w-50 float-left"><label for="">医院：</label>
+          <p class=" float-left"><label for="">医院：</label>
             <span *ngIf="customer.hospitals" class="p-0 m-0 cursor-hand" (click)="openDetailModal('医院',customer.hospitals)">
               <span>{{customer.hospitals.length}}个</span>
               <span class=" text-blue"> > </span>
@@ -75,7 +75,7 @@
               <span>0个</span>
             </span>
           </p>
-          <p class="w-50 float-left"><label for="">商场：</label>
+          <p class=" float-left"><label for="">商场：</label>
             <span *ngIf="customer.markets" class="p-0 m-0 cursor-hand" (click)="openDetailModal('商场',customer.markets)">
                <span>{{customer.markets.length}}个</span>
                <span class=" text-blue"> > </span>
@@ -85,7 +85,7 @@
             </span>
 
           </p>
-          <p class="w-50 float-left"><label for="">交通枢纽：</label>
+          <p class=" float-left"><label for="">交通枢纽：</label>
             <span *ngIf="customer.traffic_hinge" class="p-0 m-0 cursor-hand" (click)="openDetailModal('交通枢纽',customer.traffic_hinge)">
                <span>{{customer.traffic_hinge.length}}个</span>
                <span class=" text-blue"> > </span>

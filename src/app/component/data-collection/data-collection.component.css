@@ -5,6 +5,9 @@
 .shop-info-content,.facility-content{
   padding: 10px 150px;
 }
+.shop-info-content > div,.facility-content > div{
+  white-space: nowrap;
+}
 
 label{
   width: 105px;
@@ -34,6 +37,9 @@ label{
   font-size: 12px;
 }
 
+form h3,.modal-body > div{
+  white-space: nowrap;
+}
 
 /*店名*/
 .brand-name{
@@ -247,6 +253,9 @@ label{
   width: 20%;
   margin-left: 20%;
   margin-top: 15px;
+}
+.selected-line {
+  white-space: initial;
 }
 
 

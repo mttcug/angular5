@@ -5,6 +5,7 @@
   margin: 0px;
   padding: 0px 80px;
   background: lightcoral;
+  white-space: nowrap;
 }
 .company-logo{
   font-size: 30px;

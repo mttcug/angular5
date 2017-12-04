@@ -1,6 +1,7 @@
 .container {
   padding: 80px;
   margin: 0px;
+  white-space: nowrap;
 }
 
 .data-detail {
@@ -37,6 +38,7 @@
 }
 .warm-tips{
   margin-top: 50px;
+  white-space: nowrap;
 }
 
 .warm-tips li{

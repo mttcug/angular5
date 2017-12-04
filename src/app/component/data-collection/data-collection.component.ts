@@ -30,7 +30,7 @@ export class DataCollectionComponent implements OnInit {
   sexType = [];
   memberTypeList = [];
 
-  constructor(private modalService: NgbModal, private router: Router, @Inject('data') private data, private route: ActivatedRoute, @Inject('DataCollectionService') private DataCollectionService) {
+  constructor(private modalService: NgbModal, private router: Router, @Inject('data') private data, private route: ActivatedRoute, @Inject('DataCollectionService') private DataCollectionService,@Inject('CurrentCityService') private CurrentCityService) {
     //获取行业列表
     this.data.getIndustryData().then(res => {
       this.industries = res ? res : [];
@@ -929,7 +929,6 @@ export class DataCollectionComponent implements OnInit {
   //获取地图所需要的完成地址
   getWholeAddress() {
     let tempCityC = this.allDistricts.find(item => item.id.toString() == this.city.toString());
-
     let tempDistrictC = this.allDistricts.find(item => item.id.toString() == this.district.toString());
     let city = tempCityC ? tempCityC.name : '';
     let district = tempDistrictC ? tempDistrictC.name : '';
@@ -943,7 +942,7 @@ export class DataCollectionComponent implements OnInit {
   mapShow() {
     this.mapBlock = true; //显示地图
     //获取地址传给map
-    this.mapAddress = this.getWholeAddress();
+    this.mapAddress = this.getWholeAddress() ? this.getWholeAddress() : this.CurrentCityService.getCurCity().name ;
   }
 
   closeMap() {
