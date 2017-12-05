@@ -3,8 +3,6 @@ import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 
 import {Person} from '../../interface/person/person';
-import {Partner} from '../../interface/partner/partner';
-import {Employee} from '../../interface/employee/employee';
 import {Date} from '../../interface/date/date';
 import {MapData} from '../../interface/mapData/map-data';
 
@@ -278,7 +276,7 @@ export class DataCollectionComponent implements OnInit {
   wx:string = '';                        //微信
   personInfoDetail:string = '';          //详细描述
 
-  partner: Partner[] = [
+  partner: Person[] = [
     {
       name: "",
       phoneList: [''],
@@ -297,7 +295,7 @@ export class DataCollectionComponent implements OnInit {
   entryTimePlaceHolder:string = '入职时间';
   leaveTimePlaceHolder:string = '离职时间';
   isDission:boolean = false;
-  employee: Employee[] = [{
+  employee: Person[] = [{
     position: '', entryDate: '', workContent: '', leaveDate: '', isDission: false,
     name: "",
     phoneList: [''],

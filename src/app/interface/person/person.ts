@@ -9,4 +9,11 @@ export interface Person {
   qq: string;
   wx: string;
   personInfoDetail: string;
+
+  position?: string;
+  entryDate?: string;
+  workContent?: string;
+  leaveDate?: string;
+  isDission?: boolean;
+  stockRatio?: string;
 }
