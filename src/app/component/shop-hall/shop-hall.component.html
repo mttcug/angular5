@@ -75,14 +75,14 @@
       <tr *ngFor="let item of infoList.estate_list"
           class="d-flex flex-row justify-content-around border-radius-10 m-top-20">
         <td class="p-2 p-lg-2">
-          <p><span>{{item.estate_building.district | district}}</span><span class="grey-block bg-grey text-white">{{item.estate_building.estate_type | superFacility}}</span>
+          <p><span>{{item.estate_building.district | district}}</span><span *ngIf="item.estate_building.estate_type" class="grey-block bg-grey text-white">{{item.estate_building.estate_type | superFacility}}</span>
           </p>
           <p *ngIf="item.estate_building.address"><span>{{item.estate_building.address}}</span></p>
           <p><span class="text-muted">{{item.estate_building.near_street | nearStreet}}</span><span class="text-muted">{{item.estate_building.location_type | locationType }}</span>
           </p>
         </td>
         <td class="p-2 p-lg-2">
-          <p><span class="text-danger">{{item.estate_area.area}}㎡</span></p>
+          <p *ngIf="item.estate_area.area"><span class="text-danger">{{item.estate_area.area}}㎡</span></p>
           <p>
             <span class="text-muted">门宽：
               <span *ngIf="item.estate_area.door_width">{{item.estate_area.door_width}}m</span>
@@ -105,7 +105,7 @@
           </p>
         </td>
         <td class="p-2 p-lg-2">
-          <p><span>{{item.estate_shop.shop_name}}</span></p>
+          <p *ngIf="item.estate_shop.shop_name"><span>{{item.estate_shop.shop_name}}</span></p>
           <p><span class="text-muted" *ngIf="item.estate_shop.operate_industry">{{item.estate_shop.operate_industry | industry}}</span><span
             class="grey-block bg-grey text-white" *ngIf="item.estate_shop.is_famous">品牌</span><span
             class="text-muted" *ngIf="item.estate_shop.distance">{{item.estate_shop.distance*1000 }}m</span></p>
@@ -128,9 +128,9 @@
           </p>
         </td>
         <td class="p-2 p-lg-2">
-          <p *ngIf="item.estate_transfer.transfer_status == '2'"><span>转让费：<span class="text-danger">{{item.estate_transfer.transfer_fee}}万</span></span>
+          <p *ngIf="item.estate_transfer.transfer_status == '2' && item.estate_transfer.transfer_fee"><span>转让费：<span class="text-danger">{{item.estate_transfer.transfer_fee}}万</span></span>
           </p>
-          <p *ngIf="item.estate_transfer.transfer_status == '2'"><span class="text-muted">{{item.estate_transfer.transfer_content}}</span>
+          <p *ngIf="item.estate_transfer.transfer_status == '2' && item.estate_transfer.transfer_content"><span class="text-muted">{{item.estate_transfer.transfer_content}}</span>
           </p>
           <p *ngIf="item.estate_transfer.transfer_status == '2'">
             <span class="text-muted" *ngIf="item.estate_transfer.is_empty_transfer">可空转</span>

@@ -169,7 +169,9 @@
       <p class="title-line"><i class="icon iconfont icon-tubiao"></i>周边人口<span class="text-muted">(1公里范围)</span></p>
 
       <div class="chart-container">
+
         <div echarts [options]="populationOption" class="peripheral-chart w-50 float-left"></div>
+
         <div class="w-50 echart-info-block float-left peripheral-chart-connect-info-block">
           <p><label for="">工作：</label><span *ngIf="population.office_building_population > 0">{{population.office_building_population}}</span><span
             *ngIf="population.office_building_population == 0" class="text-muted">暂无</span></p>

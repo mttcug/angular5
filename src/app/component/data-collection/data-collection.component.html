@@ -737,7 +737,7 @@
 </ng-template>
 
 <!--店铺营业状况弹出框-->
-<ng-template #profitContent let-c="close" let-d="dismiss">
+<ng-template #profitContent let-c="close" let-d="dismiss" >
   <div class="modal-header">
     <h4 class="modal-title">店铺营业状况</h4>
     <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
@@ -745,7 +745,7 @@
     </button>
   </div>
 
-  <div class="modal-body">
+  <div class="modal-body" >
     <div class="d-block m-top-20">
       <label for="" class="text-right d-inline-block m-ritght-10"><span class="input-label-name">客单价:</span></label>
       <input class="form-control profit d-inline-block w-160-px m-ritght-10" type="text" [(ngModel)]="temppersonProfit"

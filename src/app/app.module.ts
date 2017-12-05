@@ -43,11 +43,7 @@ import { NearStreetPipe } from './pipe/near-street/near-street.pipe';
 import { LocationTypePipe } from './pipe/location-type/location-type.pipe';
 import { SuperFacilityPipe } from './pipe/super-facility/super-facility.pipe';
 import { DistrictPipe } from './pipe/district/district.pipe';
-import { UploadDirective } from './directive/upload/upload.directive';
 import { TransferStatusPipe } from './pipe/transfer-status/transfer-status.pipe';
-
-
-
 
 
 @NgModule({
@@ -72,9 +68,8 @@ import { TransferStatusPipe } from './pipe/transfer-status/transfer-status.pipe'
     LocationTypePipe,
     SuperFacilityPipe,
     DistrictPipe,
-    UploadDirective,
     CollectCompleteComponent,
-    TransferStatusPipe
+    TransferStatusPipe,
   ],
   imports: [
     BrowserModule,

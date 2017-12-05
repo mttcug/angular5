@@ -1,6 +1,7 @@
 import {Component, OnInit, Input, Output, EventEmitter, Inject} from '@angular/core';
 import {Http, Response, Headers} from '@angular/http';
 import 'rxjs/add/operator/toPromise';
+import {error} from "util";
 
 @Component({
   selector: 'app-upload-files',

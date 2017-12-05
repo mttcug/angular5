@@ -447,9 +447,19 @@ export class DataCollectionComponent implements OnInit {
     this.depth=result.depth;                                   //进深
     this.floorHeight=result.floorHeight;                       //层高
     this.floorAmount=result.floorAmount;                       //楼层数
-    this.fitIndustry=result.fitIndustry;                                  //适合经营
-    this.recommendableIndustry=result.recommendableIndustry;                       //推荐经营
-    this.unRecommendableIndustry=result.unRecommendableIndustry;                   //不宜经营
+    //this.fitIndustry=result.fitIndustry;                       //适合经营
+    //this.recommendableIndustry=result.recommendableIndustry;                       //推荐经营
+    //this.unRecommendableIndustry=result.unRecommendableIndustry;                   //不宜经营
+    result.fitIndustry.forEach((v,i)=>{
+      this.allIndustry.forEach((m,j)=>{m.code==v ? this.fitIndustry.push({code:v,name:m.name})});
+    });
+    result.recommendableIndustry.forEach((v,i)=>{
+      this.allIndustry.forEach((m,j)=>{m.code==v ? this.recommendableIndustry.push({code:v,name:m.name})});
+    });
+    result.unRecommendableIndustry.forEach((v,i)=>{
+      this.allIndustry.forEach((m,j)=>{m.code==v ? this.unRecommendableIndustry.push({code:v,name:m.name})});
+    });
+
     this.facilities=result.facilities;                           //物业配套
     this.waterFee=result.waterFee;                             //水费
     this.facilityFee=result.facilityFee;                         //物业
@@ -666,7 +676,7 @@ export class DataCollectionComponent implements OnInit {
   }
 
   selectSexStatus(item) {
-    this.sex = item;
+    this.sex = item.code;
   }
 
   getbirthTime(date) {
@@ -1195,7 +1205,7 @@ export class DataCollectionComponent implements OnInit {
   }
 
   release() {
-    this.router.navigate(['glancePostedInfoItem']);
+  /*  this.router.navigate(['glancePostedInfoItem']);*/
 
     //当前经营，适合经营和不宜经营需要的是code[code1,code2....];
     var fitC = [], recomC = [], unrecomC = [];
@@ -1213,8 +1223,7 @@ export class DataCollectionComponent implements OnInit {
       brandName: this.brandName,                         //品牌名称
       subShopName: this.subShopName,                      //分店名
       operateType: this.operateType,                      //运营模式
-      bigIndustry: this.bigIndustry,
-      smallIndustry: this.smallIndustry,
+      industry: this.bigIndustry ? this.smallIndustry ? this.smallIndustry : this.bigIndustry : '',
       startOpenDate: this.startOpenDate,                 //开业日期
       operateStatus: this.operateStatus,                 //经营状态
       endOpenDate: this.endOpenDate,                     //停业日期

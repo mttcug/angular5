@@ -29,7 +29,7 @@ export const routes: Routes = [
     pathMatch: 'full'
   },
   {
-    path: 'dataCollection',
+    path: 'dataCollection',               //传参方法使用queryParams并不是添加在路径后面
     component: DataCollectionComponent
   },
   {

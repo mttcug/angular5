@@ -17,11 +17,7 @@ export class JsonrpcRequestModelService {
   }
 
   jsonrpConfig={
-    staticDataUrl:this.configService.getConf().dataApi,
-    shopListUrl:this.configService.getConf().shopListApi,
-    collectInfoUrl:this.configService.getConf().collectInfoApi,
-    peripheralInfoUrl:this.configService.getConf().peripheralDataApi,
-    homePageDataUrl:this.configService.getConf().homePageDataApi,
+    url:'',
     id:0,
     jsonrpc:"2.0"
   }
@@ -42,7 +38,7 @@ export class JsonrpcRequestModelService {
           params:params
         },options).toPromise();*/
 
-    return this.http.post(this.jsonrpConfig.staticDataUrl,{
+    return this.http.post(this.configService.getConf().dataApi,{
       id:this.jsonrpConfig.id,
       jsonrpc:this.jsonrpConfig.jsonrpc,
       method:method,
@@ -51,7 +47,7 @@ export class JsonrpcRequestModelService {
   }
 
   shopInfoRequest(method,params){
-    return this.http.post(this.jsonrpConfig.shopListUrl,{
+    return this.http.post(this.configService.getConf().shopListApi,{
       id:this.jsonrpConfig.id,
       jsonrpc:this.jsonrpConfig.jsonrpc,
       method:method,
@@ -60,7 +56,7 @@ export class JsonrpcRequestModelService {
   }
 
   collectInfoRequest(method,params){
-    return this.http.post(this.jsonrpConfig.collectInfoUrl,{
+    return this.http.post(this.configService.getConf().collectInfoApi,{
       id:this.jsonrpConfig.id,
       jsonrpc:this.jsonrpConfig.jsonrpc,
       method:method,
@@ -69,7 +65,7 @@ export class JsonrpcRequestModelService {
   }
 
   peripheralInfoRequest(method,params){
-    return this.http.post(this.jsonrpConfig.peripheralInfoUrl,{
+    return this.http.post(this.configService.getConf().peripheralDataApi,{
       id:this.jsonrpConfig.id,
       jsonrpc:this.jsonrpConfig.jsonrpc,
       method:method,
@@ -77,9 +73,8 @@ export class JsonrpcRequestModelService {
     }).toPromise();
   }
 
-
   homePageRequest(method,params){
-    return this.http.post(this.jsonrpConfig.homePageDataUrl,{
+    return this.http.post(this.configService.getConf().homePageDataApi,{
       id:this.jsonrpConfig.id,
       jsonrpc:this.jsonrpConfig.jsonrpc,
       method:method,

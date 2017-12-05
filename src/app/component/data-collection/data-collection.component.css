@@ -87,6 +87,7 @@ form h3,.modal-body > div{
 .service-list{
   width: 300px;
   padding: 8px 0px;
+  white-space: initial;
 }
 .service-item{
   margin:0px 8px;
@@ -255,6 +256,9 @@ form h3,.modal-body > div{
   margin-top: 15px;
 }
 .selected-line {
+  white-space: initial;
+}
+.modal-body > div{
   white-space: initial;
 }
 
