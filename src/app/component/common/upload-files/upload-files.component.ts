@@ -30,7 +30,7 @@ export class UploadFilesComponent implements OnInit {
     var params = {
       files: files
     };
-    return this.http.post(this.configService.getConf().uploadApi, files).toPromise().then(result => {
+    return this.http.post(this.configService.uploadApi, files).toPromise().then(result => {
       return new Promise((res, rej) => {
         res(JSON.parse((<any>result)._body).result);
       });

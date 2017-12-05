@@ -204,7 +204,7 @@ export class DataCollectionComponent implements OnInit {
   takeOutAmount = '';  //外卖量
   memberAmount = ''; //会员数
   memberType = '';  //会员类型
-  transferStatus = ''          //转让状态
+  transferStatus = '1'          //转让状态
 
   transferFee = '';              //转让费
   isNegotiable = false;
@@ -601,52 +601,45 @@ export class DataCollectionComponent implements OnInit {
   }
 
   //选择支付方式
-  payWayCode = '';
   definedWayShow = false;
 
   selectThisPayWay(item) {
-    this.payWayCode = item.code;
-    this.payWay = item.code == 0 ? this.definedPayWay : item.name;
-    this.definedWayShow = item.code == 0 ? false : true;
+    this.payWay = item.code == '0' ? this.definedPayWay : item.name;
+    this.definedWayShow = item.code == '0' ? false : true;
   }
 
   //弹出框选择支付方式
-  tempPayWayCode = '';
   definedWayShowM = false;
 
   selectThisPopUpPayWay(item) {
-    this.tempPayWayCode = item.code;
     this.temppayWay = item.code == 0 ? this.tempdefinedPayWay : item.name;
     this.definedWayShowM = item.code == 0 ? false : true;
   }
 
 
   definedPayChange() {
-    if (this.payWayCode.toString() == '0') {
+    if (this.payWay.trim() == '自定义') {
       this.payWay = this.definedPayWay;
     }
   }
 
   //支付方式改变时
   definedPopUpPayChange() {
-    if (this.tempPayWayCode.toString() == '0') {
+    if (this.temppayWay.trim() == '自定义') {
       this.temppayWay = this.tempdefinedPayWay;
     }
   }
 
   selectThisRate(item) {
-    this.rateWay = item.name;
+    this.temprateWay = item.name;
   }
 
-  depositWayCode;
-
   selectThisDepositWay(item) {
-    this.depositWayCode = item.code;
-    this.tempdepositWay = item.code == 0 ? this.tempdefinedDepositWay : item.name;
+    this.tempdepositWay = item.code == '0' ? this.tempdefinedDepositWay : item.name;
   }
 
   definedDepositChange() {
-    this.tempdepositWay = this.depositWayCode.toString() == '0' ? this.tempdefinedDepositWay : this.tempdepositWay;
+    this.tempdepositWay = this.tempdepositWay.trim() == '自定义' ? this.tempdefinedDepositWay : this.tempdepositWay;
   }
 
   getRentDate(date) {
@@ -654,11 +647,19 @@ export class DataCollectionComponent implements OnInit {
   }
 
   selectTransferStatus(item) {
-    this.transferStatus = item;
+    this.transferStatus = item.value;
+  }
+
+  selectModalTransferStatus(item) {
+    this.temptransferStatus = item.value;
   }
 
   selectEmptyTransfer(item) {
-    this.emptyTransfer = item;
+    this.emptyTransfer = item.name;
+  }
+
+  selectModalEmptyTransfer(item) {
+    this.tempemptyTransfer = item.name;
   }
 
   deleteCertification(item) {
@@ -733,7 +734,6 @@ export class DataCollectionComponent implements OnInit {
     this.tempshopRent = this.shopRent;
     this.temprentMeasure = this.rentMeasure;
     this.temppayWay = this.payWay;
-    this.tempPayWayCode = this.payWayCode;
     this.tempdefinedPayWay = this.definedPayWay;
     this.temprateWay = this.rateWay;
     this.tempdefinedRateWay = this.definedRateWay;
@@ -915,9 +915,8 @@ export class DataCollectionComponent implements OnInit {
 
   //勾选物业设施
   selectThisFacility(item) {
-    this.facilities.forEach((v, i) => {
-      v.code.toString() === item.code.toString() ? this.facilities.splice(i, 1) : i == this.facilities.length ? this.facilities.push(item) : '';
-    })
+    var index=this.facilities.findIndex(v=>v.code==item.code);
+    item.checked  ? this.facilities.splice(index, 1) :  this.facilities.push(item);
   }
 
   //行业弹出框选择行业，当选择的行业发生变化是行业列表标红的选项也要改变
@@ -1072,7 +1071,6 @@ export class DataCollectionComponent implements OnInit {
       this.shopRent = this.tempshopRent;
       this.rentMeasure = this.temprentMeasure;
       this.payWay = this.temppayWay;
-      this.payWayCode = this.tempPayWayCode;
       this.definedPayWay = this.tempdefinedPayWay;
       this.rateWay = this.temprateWay;
       this.definedRateWay = this.tempdefinedRateWay;
@@ -1152,7 +1150,6 @@ export class DataCollectionComponent implements OnInit {
     this.tempshopRent = '';
     this.temprentMeasure = 1;
     this.temppayWay = '';
-    this.tempPayWayCode = '';
     this.tempdefinedPayWay = '';
     this.temprateWay = '';
     this.tempdefinedRateWay = '';
@@ -1299,6 +1296,8 @@ export class DataCollectionComponent implements OnInit {
     console.log("params:", params);
     this.DataCollectionService.releaseInfo(params).then(res => {
       console.log("发布信息：", res);
+    }).catch(function(error) {
+      alert(error);
     })
   }
 

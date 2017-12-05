@@ -5,9 +5,7 @@ import 'rxjs/add/operator/toPromise';
 @Injectable()
 export class JsonrpcRequestModelService {
 
-  constructor(private http : Http,@Inject('config') private configService) {
-
-  }
+  constructor(private http : Http,@Inject('config') private conf) {}
 
   guide(){
     function  s4(){
@@ -22,8 +20,7 @@ export class JsonrpcRequestModelService {
     jsonrpc:"2.0"
   }
 
-
-
+  //静态数据的请求如行业区域等的下拉列表数据
   staticRequest(method,params){
     //将登陆验证放在请求头部authorization
     /*    let authHeader = new Headers();
@@ -38,7 +35,7 @@ export class JsonrpcRequestModelService {
           params:params
         },options).toPromise();*/
 
-    return this.http.post(this.configService.getConf().dataApi,{
+    return this.http.post(this.conf.dataApi,{
       id:this.jsonrpConfig.id,
       jsonrpc:this.jsonrpConfig.jsonrpc,
       method:method,
@@ -46,8 +43,9 @@ export class JsonrpcRequestModelService {
     }).toPromise();
   }
 
+  //店铺大厅的数据请求
   shopInfoRequest(method,params){
-    return this.http.post(this.configService.getConf().shopListApi,{
+    return this.http.post(this.conf.shopListApi,{
       id:this.jsonrpConfig.id,
       jsonrpc:this.jsonrpConfig.jsonrpc,
       method:method,
@@ -55,8 +53,9 @@ export class JsonrpcRequestModelService {
     }).toPromise();
   }
 
+  //数据采集请求
   collectInfoRequest(method,params){
-    return this.http.post(this.configService.getConf().collectInfoApi,{
+    return this.http.post(this.conf.collectInfoApi,{
       id:this.jsonrpConfig.id,
       jsonrpc:this.jsonrpConfig.jsonrpc,
       method:method,
@@ -64,8 +63,9 @@ export class JsonrpcRequestModelService {
     }).toPromise();
   }
 
+  //周边数据的请求
   peripheralInfoRequest(method,params){
-    return this.http.post(this.configService.getConf().peripheralDataApi,{
+    return this.http.post(this.conf.peripheralDataApi,{
       id:this.jsonrpConfig.id,
       jsonrpc:this.jsonrpConfig.jsonrpc,
       method:method,
@@ -73,8 +73,9 @@ export class JsonrpcRequestModelService {
     }).toPromise();
   }
 
+  //首页的数据请求
   homePageRequest(method,params){
-    return this.http.post(this.configService.getConf().homePageDataApi,{
+    return this.http.post(this.conf.homePageDataApi,{
       id:this.jsonrpConfig.id,
       jsonrpc:this.jsonrpConfig.jsonrpc,
       method:method,

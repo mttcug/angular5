@@ -6,7 +6,7 @@ export class CurrentPageService {
   keyIndex = '';
 
   constructor(@Inject('config') private conf) {
-    this.keyIndex = this.conf.getConf().keyIndex;
+    this.keyIndex = this.conf.keyIndex;
   }
 
   getCurPage() {

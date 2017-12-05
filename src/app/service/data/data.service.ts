@@ -50,12 +50,11 @@ export class DataService {
 
   getPayWayList() {
     return [
-      {code: 1, name: "一月一付"},
-      {code: 2, name: "1月一付"},
-      {code: 3, name: "2月一付"},
-      {code: 4, name: "3月一付"},
-      {code: 5, name: "半年一付"},
-      {code: 6, name: "1年一付"},
+      {code: 1, name: "1月一付"},
+      {code: 2, name: "2月一付"},
+      {code: 3, name: "3月一付"},
+      {code: 4, name: "半年一付"},
+      {code: 5, name: "1年一付"},
       {code: 0, name: "自定义"}
     ];
   }
@@ -64,7 +63,6 @@ export class DataService {
     return [
       {code: 1, name: "1月租金", checked: false},
       {code: 2, name: "2月租金", checked: false},
-      {code: 3, name: "3月租金", checked: false},
       {code: 3, name: "3月租金", checked: false},
       {code: 0, name: "自定义"}
     ];

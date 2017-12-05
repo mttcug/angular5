@@ -128,9 +128,9 @@ export class ShopHallComponent implements OnInit {
   }
 
   //地图比例尺发生改变时间
-  zoomChange(level) {
-    this.tempzoomLevel = level;
-    console.log("zoomLevel:", this.zoomLevel);
+  zoomChange(item) {
+    this.tempzoomLevel = item.code;
+    console.log("zoomLevel:",this.tempzoomLevel, this.zoomLevel);
   }
 
   //地图点击事件获取点和地址位置信息

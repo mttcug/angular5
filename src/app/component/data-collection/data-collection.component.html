@@ -160,7 +160,8 @@
     <div class="d-block m-top-20">
       <label class="text-right d-inline-block m-ritght-10"><span class="input-label-name">店铺租金:</span></label>
       <input class="form-control d-inline-block w-160-px" name="shopRent" type="text" placeholder="6位整数+2位小数"
-             [(ngModel)]="shopRent" pattern="^\d{1,6}(\.\d{0,2})?$"> <i class="iconfont icon-chucuo text-danger"  *ngIf="shopInfoForm.controls['shopRent']?.errors?.pattern"></i>
+             [(ngModel)]="shopRent" pattern="^\d{1,6}(\.\d{0,2})?$"> <i class="iconfont icon-chucuo text-danger"
+                                                                        *ngIf="shopInfoForm.controls['shopRent']?.errors?.pattern"></i>
       <select class="form-control  d-inline-block w-160-px m-left-10" name="shopRentMeasure" id="rentMeasure"
               [(ngModel)]="rentMeasure">
         <option value="{{item.value}}" *ngFor="let item of rentMeasureList">{{item.value_description}}</option>
@@ -172,9 +173,8 @@
     <div class="d-block m-top-20">
       <label for="" class="text-right d-inline-block m-ritght-10"><span class="input-label-name">支付方式:</span></label>
       <div class="pay-way-list d-inline-block align-top">
-        <span *ngFor="let item of payWayList" class="select-span d-inline-block"><input [(ngModel)]="item.name"
-                                                                                        name="payWayList"
-                                                                                        [value]="item.name"
+        <span *ngFor="let item of payWayList" class="select-span d-inline-block"><input name="payWayList"
+                                                                                        [checked]="item.name==payWay"
                                                                                         (click)="selectThisPayWay(item)"
                                                                                         class="week-checkbox"
                                                                                         type="radio"
@@ -219,8 +219,7 @@
       <label for="" class="text-right d-inline-block m-ritght-10"><span class="input-label-name">转让状态:</span></label>
       <div class="pay-way-list align-top d-inline-block">
         <span *ngFor="let item of transferStatusList;" class="select-span d-inline-block"><input
-          [(ngModel)]="item.value_description"
-          [value]="item.value_description"
+          [checked]="item.value==transferStatus"
           name="transferStatus"
           (click)="selectTransferStatus(item)"
           class="week-checkbox"
@@ -231,7 +230,7 @@
 
 
     <!--转让费-->
-    <div class="d-block m-top-20" *ngIf="this.transferStatus.value=='2'">
+    <div class="d-block m-top-20" *ngIf="this.transferStatus=='2'">
       <label for="" class="text-right d-inline-block m-ritght-10"><span class="input-label-name">转让费:</span></label>
       <input class="form-control profit d-inline-block w-160-px" name="transferFee" [(ngModel)]="transferFee"
              type="text"
@@ -240,12 +239,11 @@
 
 
     <!--可否空转-->
-    <div class="d-block m-top-20" *ngIf="this.transferStatus.value=='2'">
+    <div class="d-block m-top-20" *ngIf="this.transferStatus=='2'">
       <label for="" class="text-right d-inline-block m-ritght-10"><span class="input-label-name">可否空转:</span></label>
       <div class="pay-way-list d-inline-block">
-        <span *ngFor="let item of emptyTransferList" class="select-span d-inline-block"><input [(ngModel)]="item.name"
-                                                                                               name="isemptyTransfer"
-                                                                                               [value]="item.name"
+        <span *ngFor="let item of emptyTransferList" class="select-span d-inline-block"><input name="isemptyTransfer"
+                                                                                               [checked]="item.name==emptyTransfer"
                                                                                                (click)="selectEmptyTransfer(item)"
                                                                                                class="week-checkbox"
                                                                                                type="radio"
@@ -254,7 +252,7 @@
     </div>
 
     <!--编辑更多转让内容-->
-    <div class="d-block m-top-20" *ngIf="this.transferStatus.value=='2'">
+    <div class="d-block m-top-20" *ngIf="this.transferStatus=='2'">
       <p class="model-popup text-blue"><label for="" class="text-right d-inline-block m-ritght-10"></label><span
         (click)="openTransferInfoModal(transferContent)">编辑更多转让内容</span></p>
     </div>
@@ -298,7 +296,6 @@
       <p *ngIf="partner.length < 5" class="add-partner-btn  w-220-px" (click)="addPartner()"><label
         class="text-right d-inline-block m-ritght-10"></label><i
         class="iconfont icon-tianjiatupian m-ritght-5"></i><span class="text-muted">添加合伙人</span></p>
-
     </div>
 
     <!--店铺员工-->
@@ -413,7 +410,8 @@
           class="input-label-name">建筑面积:</span></label>
         <input class="form-control d-inline-block w-160-px  m-ritght-5" name="buildingArea" [(ngModel)]="buildingArea"
                type="text"
-               placeholder="请填写" pattern="^\d{1,6}(\.\d{0,2})?$">平米 <i class="iconfont icon-chucuo text-danger"  *ngIf="shopInfoForm.controls['buildingArea']?.errors?.pattern"></i>
+               placeholder="请填写" pattern="^\d{1,6}(\.\d{0,2})?$">平米 <i class="iconfont icon-chucuo text-danger"
+                                                                       *ngIf="shopInfoForm.controls['buildingArea']?.errors?.pattern"></i>
 
       </div>
       <!--开间-->
@@ -421,14 +419,16 @@
         <label for="" class="text-right d-inline-block m-ritght-10"><span class="input-label-name">开间:</span></label>
         <input class="form-control d-inline-block w-160-px  m-ritght-5" name="roomArea" [(ngModel)]="roomArea"
                type="text"
-               placeholder="请填写"  pattern="^\d{1,2}(\.\d{0,2})?$">米 <i class="iconfont icon-chucuo text-danger"  *ngIf="shopInfoForm.controls['roomArea']?.errors?.pattern"></i>
+               placeholder="请填写" pattern="^\d{1,2}(\.\d{0,2})?$">米 <i class="iconfont icon-chucuo text-danger"
+                                                                      *ngIf="shopInfoForm.controls['roomArea']?.errors?.pattern"></i>
       </div>
       <!--门宽-->
       <div class="d-block m-top-20">
         <label for="" class="text-right d-inline-block m-ritght-10"><span class="input-label-name">门宽:</span></label>
         <input class="form-control d-inline-block w-160-px  m-ritght-5" name="doorWidth" [(ngModel)]="doorWidth"
                type="text"
-               placeholder="请填写"  pattern="^\d{1,2}(\.\d{0,2})?$">米 <i class="iconfont icon-chucuo text-danger"  *ngIf="shopInfoForm.controls['doorWidth']?.errors?.pattern"></i>
+               placeholder="请填写" pattern="^\d{1,2}(\.\d{0,2})?$">米 <i class="iconfont icon-chucuo text-danger"
+                                                                      *ngIf="shopInfoForm.controls['doorWidth']?.errors?.pattern"></i>
       </div>
       <!--所处楼层-->
       <div class="d-block m-top-20">
@@ -443,20 +443,23 @@
         <label for="" class="text-right d-inline-block m-ritght-10"><span class="input-label-name">使用面积:</span></label>
         <input class="form-control d-inline-block w-160-px  m-ritght-5" name="validArea" [(ngModel)]="validArea"
                type="text"
-               placeholder="请填写"  pattern="^\d{1,6}(\.\d{0,2})?$">平米 <i class="iconfont icon-chucuo text-danger"  *ngIf="shopInfoForm.controls['validArea']?.errors?.pattern"></i>
+               placeholder="请填写" pattern="^\d{1,6}(\.\d{0,2})?$">平米 <i class="iconfont icon-chucuo text-danger"
+                                                                       *ngIf="shopInfoForm.controls['validArea']?.errors?.pattern"></i>
       </div>
       <!--进深-->
       <div class="d-block m-top-20">
         <label for="" class="text-right d-inline-block m-ritght-10"><span class="input-label-name">进深:</span></label>
         <input class="form-control d-inline-block w-160-px  m-ritght-5" name="depth" [(ngModel)]="depth" type="text"
-               placeholder="请填写"   pattern="^\d{1,2}(\.\d{0,2})?$">米 <i class="iconfont icon-chucuo text-danger"  *ngIf="shopInfoForm.controls['depth']?.errors?.pattern"></i>
+               placeholder="请填写" pattern="^\d{1,2}(\.\d{0,2})?$">米 <i class="iconfont icon-chucuo text-danger"
+                                                                      *ngIf="shopInfoForm.controls['depth']?.errors?.pattern"></i>
       </div>
       <!--层高-->
       <div class="d-block m-top-20">
         <label for="" class="text-right d-inline-block m-ritght-10"><span class="input-label-name">层高:</span></label>
         <input class="form-control d-inline-block w-160-px  m-ritght-5" name="floorHeight" [(ngModel)]="floorHeight"
                type="text"
-               placeholder="请填写"   pattern="^\d{1,2}(\.\d{0,2})?$">米 <i class="iconfont icon-chucuo text-danger"  *ngIf="shopInfoForm.controls['floorHeight']?.errors?.pattern"></i>
+               placeholder="请填写" pattern="^\d{1,2}(\.\d{0,2})?$">米 <i class="iconfont icon-chucuo text-danger"
+                                                                      *ngIf="shopInfoForm.controls['floorHeight']?.errors?.pattern"></i>
       </div>
       <!--总层数-->
       <div class="d-block m-top-20">
@@ -499,19 +502,22 @@
     <div class="d-block m-top-20">
       <label for="" class="text-right d-inline-block m-ritght-10"><span class="input-label-name">物业配套:</span></label>
       <div class="facilities-list align-top d-inline-block">
-        <span *ngFor="let item of facilitiesList" class="facility-item d-inline-block"><input [(ngModel)]="item.checked"
-                                                                                              name="facilityList"
-                                                                                              (click)="selectThisFacility(item)"
-                                                                                              class="week-checkbox"
-                                                                                              type="checkbox"
-                                                                                              data-code="item.code">{{item.name}}
-          <input *ngIf="item.code==12 && item.checked" [(ngModel)]="item.amount" type="text"
+        <span *ngFor="let item of facilitiesList" class="facility-item d-inline-block">
+          <input [(ngModel)]="item.checked"
+                 name="facilityList"
+                 (click)="selectThisFacility(item)"
+                 class="week-checkbox"
+                 type="checkbox"
+                 data-code="item.code">{{item.name}}
+          <input *ngIf="item.code==12 && item.checked" name="stopsCount" placeholder="请填写" [(ngModel)]="item.amount"
+                 type="text"
                  class="form-control d-inline-block w-160-px" maxlength="4"><span
-            *ngIf="item.code==12 && item.checked">个</span> <input type="text" [(ngModel)]="item.amount"
-                                                                  *ngIf="item.code==13 && item.checked"
-                                                                  class="form-control d-inline-block w-160-px"
-                                                                  maxlength="4"><span
-            *ngIf="item.code==13 && item.checked">平米</span>
+          *ngIf="item.code==12 && item.checked">个</span> <input type="text" placeholder="请填写" name="extensionArea"
+                                                                [(ngModel)]="item.amount"
+                                                                *ngIf="item.code==13 && item.checked"
+                                                                class="form-control d-inline-block w-160-px"
+                                                                maxlength="4"><span
+          *ngIf="item.code==13 && item.checked">平米</span>
         </span>
       </div>
     </div>
@@ -614,11 +620,13 @@
     <!--房东-->
     <div class="d-block m-top-20">
       <label for="" class="text-right d-inline-block m-ritght-10"><span class="input-label-name">房东:</span></label>
-      <span>{{houseOwner.name}}</span> <span class="edit-info text-blue" (click)="openPersonalInfo(personInfo,houseOwner)">编辑</span>
+      <span>{{houseOwner.name}}</span> <span class="edit-info text-blue"
+                                             (click)="openPersonalInfo(personInfo,houseOwner)">编辑</span>
     </div>
   </div>
 
-  <button class="form-control d-block w-160-px btn-primary release-btn" (click)="release()">发布</button>  <!-- [disabled]="!shopInfoForm.form.valid"-->
+  <button class="form-control d-block w-160-px btn-primary release-btn" (click)="release()">发布</button>
+  <!-- [disabled]="!shopInfoForm.form.valid"-->
 </form>
 
 
@@ -676,9 +684,8 @@
     <div class="d-block m-top-20">
       <label for="" class="text-right d-inline-block m-ritght-10"><span class="input-label-name">支付方式:</span></label>
       <div class="pay-way-list align-top d-inline-block">
-        <span *ngFor="let item of payWayList" class="select-span d-inline-block"><input [(ngModel)]="item.name"
-                                                                                        [value]="item.name"
-                                                                                        name="popUpPayWayChenk"
+        <span *ngFor="let item of payWayList" class="select-span d-inline-block"><input name="popUpPayWayChenk"
+                                                                                        [checked]="item.name==temppayWay"
                                                                                         (click)="selectThisPopUpPayWay(item)"
                                                                                         class="week-checkbox"
                                                                                         type="radio"
@@ -690,8 +697,7 @@
 
     <div class="d-block m-top-20">
       <label for="" class="text-right d-inline-block m-ritght-10"><span class="input-label-name">是否递增:</span></label>
-      <span *ngFor="let item of rateChoice" class="select-span d-inline-block"><input [(ngModel)]="item.name"
-                                                                                      [value]="item.name"
+      <span *ngFor="let item of rateChoice" class="select-span d-inline-block"><input [checked]="item.name==temprateWay"
                                                                                       name="isIncrease"
                                                                                       (click)="selectThisRate(item)"
                                                                                       class="week-checkbox" type="radio"
@@ -704,12 +710,12 @@
     <div class="d-block m-top-20">
       <label for="" class="text-right d-inline-block m-ritght-10"><span class="input-label-name">押金:</span></label>
       <div class="pay-way-list align-top d-inline-block">
-        <span *ngFor="let item of depositList" class="select-span d-inline-block"><input [(ngModel)]="item.name"
-                                                                                     [value]="item.name"
-                                                                                     name="depositCheck"
-                                                                                     (click)="selectThisDepositWay(item)"
-                                                                                     class="week-checkbox" type="radio"
-                                                                                     data-code="item.code">{{item.name}}</span>
+        <span *ngFor="let item of depositList" class="select-span d-inline-block"><input
+          [checked]="item.name==tempdepositWay"
+          name="depositCheck"
+          (click)="selectThisDepositWay(item)"
+          class="week-checkbox" type="radio"
+          data-code="item.code">{{item.name}}</span>
 
         <input class="form-control time-imput d-inline-block w-160-px" type="text" placeholder="请填写"
                name="definedDeposit"
@@ -737,7 +743,7 @@
 </ng-template>
 
 <!--店铺营业状况弹出框-->
-<ng-template #profitContent let-c="close" let-d="dismiss" >
+<ng-template #profitContent let-c="close" let-d="dismiss">
   <div class="modal-header">
     <h4 class="modal-title">店铺营业状况</h4>
     <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
@@ -745,7 +751,7 @@
     </button>
   </div>
 
-  <div class="modal-body" >
+  <div class="modal-body">
     <div class="d-block m-top-20">
       <label for="" class="text-right d-inline-block m-ritght-10"><span class="input-label-name">客单价:</span></label>
       <input class="form-control profit d-inline-block w-160-px m-ritght-10" type="text" [(ngModel)]="temppersonProfit"
@@ -818,10 +824,10 @@
       <label for="" class="text-right d-inline-block m-ritght-10"><span class="input-label-name">转让状态:</span></label>
       <div class="pay-way-list d-inline-block">
         <span *ngFor="let item of transferStatusList" class="select-span d-inline-block"><input
-          [(ngModel)]="item.value_description"
-          [value]="item.value_description"
+          [checked]="item.value==temptransferStatus"
           name="transferStatus"
-          (click)="selectTransferStatus(item)"
+          disabled="disabled"
+          (click)="selectModalTransferStatus(item)"
           class="week-checkbox" type="radio"
           data-code="item.value">{{item.value_description}}</span>
       </div>
@@ -836,10 +842,9 @@
     <div class="d-block m-top-20">
       <label for="" class="text-right d-inline-block m-ritght-10"><span class="input-label-name">可否空转:</span></label>
       <div class="pay-way-list d-inline-block">
-        <span *ngFor="let item of emptyTransferList" class="select-span d-inline-block"><input [(ngModel)]="item.name"
-                                                                                               name="isEmptyTransfer"
-                                                                                               [value]="item.name"
-                                                                                               (click)="selectEmptyTransfer(item)"
+        <span *ngFor="let item of emptyTransferList" class="select-span d-inline-block"><input name="isEmptyTransfer"
+                                                                                               [checked]="item.name==tempemptyTransfer"
+                                                                                               (click)="selectModalEmptyTransfer(item)"
                                                                                                class="week-checkbox"
                                                                                                type="radio"
                                                                                                data-code="item.code">{{item.name}}</span>
@@ -892,7 +897,8 @@
     <ul class="popup-industry-list">
       <li *ngFor="let list of industries">
         <span (click)="selectThisIndustry(item)" *ngFor="let item of list;let i=index;"
-              [ngClass]="{'big-industry-style':item.code.toString().length < 4,'small-industry-style':item.code.toString().length > 3,'selected-span':item.selected}">{{item.name}} <span *ngIf="i==0">:</span></span>
+              [ngClass]="{'big-industry-style':item.code.toString().length < 4,'small-industry-style':item.code.toString().length > 3,'selected-span':item.selected}">{{item.name}} <span
+          *ngIf="i==0">:</span></span>
       </li>
     </ul>
   </div>
@@ -1029,9 +1035,8 @@
     <div class="d-block m-top-20">
       <label for="" class="text-right d-inline-block m-ritght-10"><span class="input-label-name">性别:</span></label>
       <div class="pay-way-list d-inline-block">
-        <span *ngFor="let item of sexType" class="select-span d-inline-block"><input [(ngModel)]="item.name"
+        <span *ngFor="let item of sexType" class="select-span d-inline-block"><input [checked]="item.code==sex"
                                                                                      name="sexType"
-                                                                                     [value]="item.name"
                                                                                      (click)="selectSexStatus(item)"
                                                                                      class="week-checkbox" type="radio"
                                                                                      data-code="item.code">{{item.name}}</span>
