@@ -3,8 +3,10 @@
   <div class="shop-info-content">
     <!--店名-->
     <div class="d-block m-top-20">
-      <label for="" class="text-right d-inline-block m-ritght-10"><i class="iconfont icon-mi text-danger"></i><span
-        class="input-label-name ">店名:</span></label>
+      <label for="" class="text-right d-inline-block m-ritght-10">
+        <i class="iconfont icon-mi text-danger"></i>
+        <span class="input-label-name ">店名:</span>
+      </label>
       <input class="form-control  d-inline-block w-160-px" type="text" required [disabled]="isBrandName" maxlength="50"
              placeholder="请输入"
              [(ngModel)]="shopName" name="shopName" required>
@@ -12,19 +14,27 @@
       <span class="input-label-name">品牌店铺</span>
 
       <div *ngIf="isBrandName" class="brand-name-block">
-        <p><label for="" class="text-right d-inline-block m-ritght-10"><i class="iconfont icon-mi text-danger"></i><span
-          class="input-label-name">品牌名称：</span></label>
+        <p>
+          <label for="" class="text-right d-inline-block m-ritght-10">
+            <i class="iconfont icon-mi text-danger"></i>
+            <span class="input-label-name">品牌名称：</span>
+          </label>
           <input class="form-control brand-name-input" name="brandName" type="text" [(ngModel)]="brandName"
                  (ngModelChange)="updateShopName()" required
                  placeholder="请输入" maxlength="30">
         </p>
-        <p><label for="" class="text-right d-inline-block m-ritght-10"><i class="iconfont icon-mi text-danger"></i><span
-          class="input-label-name">分店名：</span></label>
+        <p>
+          <label for="" class="text-right d-inline-block m-ritght-10">
+            <i class="iconfont icon-mi text-danger"></i>
+            <span class="input-label-name">分店名：</span>
+          </label>
           <input class="form-control subshop-name" name="subShopName" type="text" [(ngModel)]="subShopName" required
                  placeholder="请输入" maxlength="10" (ngModelChange)="updateShopName()">
         </p>
-        <p><label for="" class="text-right d-inline-block m-ritght-10"><span
-          class="input-label-name">运营模式：</span></label>
+        <p>
+          <label for="" class="text-right d-inline-block m-ritght-10">
+            <span class="input-label-name">运营模式：</span>
+          </label>
           <select class="form-control d-inline-block w-160-px" name="operateType" id="" [(ngModel)]="operateType">
             <option value="">请选择</option>
             <option value={{item.code}} *ngFor="let item of operateMode">{{item.name}}</option>
@@ -36,8 +46,10 @@
 
     <!--经营行业-->
     <div class="d-block m-top-20">
-      <label for="" class="text-right d-inline-block m-ritght-10"><i class="iconfont icon-mi text-danger"></i><span
-        class="input-label-name">经营行业:</span></label>
+      <label for="" class="text-right d-inline-block m-ritght-10">
+        <i class="iconfont icon-mi text-danger"></i>
+        <span class="input-label-name">经营行业:</span>
+      </label>
       <select class="form-control d-inline-block w-160-px" name="bigIndustry" id="big-industry"
               [(ngModel)]="bigIndustry"
               (ngModelChange)="loadSmallIndustry(bigIndustry)">
@@ -160,13 +172,12 @@
     <div class="d-block m-top-20">
       <label class="text-right d-inline-block m-ritght-10"><span class="input-label-name">店铺租金:</span></label>
       <input class="form-control d-inline-block w-160-px" name="shopRent" type="text" placeholder="6位整数+2位小数"
-             [(ngModel)]="shopRent" pattern="^\d{1,6}(\.\d{0,2})?$"> <i class="iconfont icon-chucuo text-danger"
-                                                                        *ngIf="shopInfoForm.controls['shopRent']?.errors?.pattern"></i>
+             [(ngModel)]="shopRent" pattern="^\d{1,6}(\.\d{1,2})?$">
+      <i class="iconfont icon-chucuo text-danger" *ngIf="shopInfoForm.controls['shopRent']?.errors?.pattern"></i>
       <select class="form-control  d-inline-block w-160-px m-left-10" name="shopRentMeasure" id="rentMeasure"
               [(ngModel)]="rentMeasure">
         <option value="{{item.value}}" *ngFor="let item of rentMeasureList">{{item.value_description}}</option>
       </select>
-
     </div>
 
     <!--支付方式-->
@@ -330,8 +341,10 @@
   <div class="facility-content">
     <!--所在位置-->
     <div class="d-block m-top-20" style="position: relative;">
-      <label for="" class="text-right d-inline-block m-ritght-10"><i class="iconfont icon-mi text-danger"></i><span
-        class="input-label-name">所在位置:</span></label>
+      <label for="" class="text-right d-inline-block m-ritght-10">
+        <i class="iconfont icon-mi text-danger"></i>
+        <span class="input-label-name">所在位置:</span>
+      </label>
       <select class="form-control d-inline-block w-160-px" name="city" id="city" [(ngModel)]="city"
               (change)="loadDistrict(city)">
         <option value="">请选择</option>
@@ -346,7 +359,8 @@
              maxlength="30"
              class="form-control d-inline-block w-160-px"
              (ngModelChange)="mapAddressChange()">
-      <p><label for="" class="text-right d-inline-block m-ritght-10"></label>
+      <p>
+        <label for="" class="text-right d-inline-block m-ritght-10"></label>
         {{shopAddress}}
         <span class="model-popup text-blue" (click)="mapShow()">地图定位</span>
         <span class="longitude ">{{longitude}}</span>
@@ -509,15 +523,18 @@
                  class="week-checkbox"
                  type="checkbox"
                  data-code="item.code">{{item.name}}
-          <input *ngIf="item.code==12 && item.checked" name="stopsCount" placeholder="请填写" [(ngModel)]="item.amount"
+
+          <input *ngIf="item.name=='停车位' && item.checked" name="stopsCount" placeholder="请填写" [(ngModel)]="item.amount"
                  type="text"
-                 class="form-control d-inline-block w-160-px" maxlength="4"><span
-          *ngIf="item.code==12 && item.checked">个</span> <input type="text" placeholder="请填写" name="extensionArea"
-                                                                [(ngModel)]="item.amount"
-                                                                *ngIf="item.code==13 && item.checked"
-                                                                class="form-control d-inline-block w-160-px"
-                                                                maxlength="4"><span
-          *ngIf="item.code==13 && item.checked">平米</span>
+                 class="form-control d-inline-block w-160-px" maxlength="4">
+          <span *ngIf="item.name=='停车位' && item.checked">个</span>
+
+          <input type="text" placeholder="请填写" name="extensionArea"
+                 [(ngModel)]="item.amount"
+                 *ngIf="item.name=='外摆区' && item.checked"
+                 class="form-control d-inline-block w-160-px"
+                 maxlength="4">
+          <span *ngIf="item.name=='外摆区' && item.checked">平米</span>
         </span>
       </div>
     </div>

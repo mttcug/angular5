@@ -10,6 +10,6 @@ export class DataCollectionService {
   releaseInfo(params){
     return this.http.collectInfoRequest("add",params).then(res=>{
       return JSON.parse(res._body).result;
-    })
+    });
   }
 }

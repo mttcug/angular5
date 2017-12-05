@@ -75,14 +75,22 @@
       <tr *ngFor="let item of infoList.estate_list"
           class="d-flex flex-row justify-content-around border-radius-10 m-top-20">
         <td class="p-2 p-lg-2">
-          <p><span>{{item.estate_building.district | district}}</span><span *ngIf="item.estate_building.estate_type" class="grey-block bg-grey text-white">{{item.estate_building.estate_type | superFacility}}</span>
+          <p>
+            <span>{{item.estate_building.district | district}}</span>
+            <span *ngIf="item.estate_building.estate_type" class="grey-block bg-grey text-white">{{item.estate_building.estate_type | superFacility}}</span>
           </p>
-          <p *ngIf="item.estate_building.address"><span>{{item.estate_building.address}}</span></p>
-          <p><span class="text-muted">{{item.estate_building.near_street | nearStreet}}</span><span class="text-muted">{{item.estate_building.location_type | locationType }}</span>
+          <p *ngIf="item.estate_building.address">
+            <span>{{item.estate_building.address}}</span>
+          </p>
+          <p>
+            <span class="text-muted">{{item.estate_building.near_street | nearStreet}}</span>
+            <span class="text-muted">{{item.estate_building.location_type | locationType }}</span>
           </p>
         </td>
         <td class="p-2 p-lg-2">
-          <p *ngIf="item.estate_area.area"><span class="text-danger">{{item.estate_area.area}}㎡</span></p>
+          <p *ngIf="item.estate_area.area">
+            <span class="text-danger">{{item.estate_area.area}}㎡</span>
+          </p>
           <p>
             <span class="text-muted">门宽：
               <span *ngIf="item.estate_area.door_width">{{item.estate_area.door_width}}m</span>
@@ -106,31 +114,45 @@
         </td>
         <td class="p-2 p-lg-2">
           <p *ngIf="item.estate_shop.shop_name"><span>{{item.estate_shop.shop_name}}</span></p>
-          <p><span class="text-muted" *ngIf="item.estate_shop.operate_industry">{{item.estate_shop.operate_industry | industry}}</span><span
-            class="grey-block bg-grey text-white" *ngIf="item.estate_shop.is_famous">品牌</span><span
-            class="text-muted" *ngIf="item.estate_shop.distance">{{item.estate_shop.distance*1000 }}m</span></p>
+          <p>
+            <span class="text-muted" *ngIf="item.estate_shop.operate_industry">{{item.estate_shop.operate_industry | industry}}</span>
+            <span class="grey-block bg-grey text-white" *ngIf="item.estate_shop.is_famous">品牌</span>
+            <span class="text-muted" *ngIf="item.estate_shop.distance">{{item.estate_shop.distance}}m</span></p>
           <p>
             <span class="text-muted d-inline-block">老板：
-              <span class="d-inline-block"><span
-                *ngIf="item.estate_shop.owner_name">{{item.estate_shop.owner_name}}</span><span
-                *ngIf="!item.estate_shop.owner_name">-</span></span>
+              <span class="d-inline-block">
+                <span *ngIf="item.estate_shop.owner_name">{{item.estate_shop.owner_name}}</span>
+                <span *ngIf="!item.estate_shop.owner_name">-</span>
+              </span>
              </span>
           </p>
         </td>
         <td class="p-2 p-lg-2">
-          <p *ngIf="item.estate_rent.rent"><span class="text-danger">{{item.estate_rent.rent}}{{item.estate_rent.rent_unit | rentUnit}}</span></p>
-          <p><span class="text-muted">支付：<span
-            *ngIf="item.estate_rent.pay_way">{{item.estate_rent.pay_way}}</span> <span
-            *ngIf="!item.estate_rent.pay_way">-</span></span></p>
-          <p><span class="text-muted">租约：<span
-            *ngIf="item.estate_rent.rent_period">{{item.estate_rent.rent_period}}月</span><span
-            *ngIf="!item.estate_rent.rent_period">-</span> <span *ngIf="item.estate_rent.leaved_contract_period">（剩{{item.estate_rent.leaved_contract_period}}月）</span></span>
+          <p *ngIf="item.estate_rent.rent">
+            <span class="text-danger">{{item.estate_rent.rent}}{{item.estate_rent.rent_unit | rentUnit}}</span>
+          </p>
+          <p>
+            <span class="text-muted">支付：
+              <span *ngIf="item.estate_rent.pay_way">{{item.estate_rent.pay_way}}</span>
+              <span *ngIf="!item.estate_rent.pay_way">-</span>
+            </span>
+          </p>
+          <p>
+            <span class="text-muted">租约：
+              <span *ngIf="item.estate_rent.rent_period">{{item.estate_rent.rent_period}}月</span>
+              <span *ngIf="!item.estate_rent.rent_period">-</span>
+              <span *ngIf="item.estate_rent.leaved_contract_period">（剩{{item.estate_rent.leaved_contract_period}}月）</span>
+            </span>
           </p>
         </td>
         <td class="p-2 p-lg-2">
-          <p *ngIf="item.estate_transfer.transfer_status == '2' && item.estate_transfer.transfer_fee"><span>转让费：<span class="text-danger">{{item.estate_transfer.transfer_fee}}万</span></span>
+          <p *ngIf="item.estate_transfer.transfer_status == '2' && item.estate_transfer.transfer_fee">
+            <span>转让费：
+              <span class="text-danger">{{item.estate_transfer.transfer_fee}}万</span>
+            </span>
           </p>
-          <p *ngIf="item.estate_transfer.transfer_status == '2' && item.estate_transfer.transfer_content"><span class="text-muted">{{item.estate_transfer.transfer_content}}</span>
+          <p *ngIf="item.estate_transfer.transfer_status == '2' && item.estate_transfer.transfer_content">
+            <span class="text-muted">{{item.estate_transfer.transfer_content}}</span>
           </p>
           <p *ngIf="item.estate_transfer.transfer_status == '2'">
             <span class="text-muted" *ngIf="item.estate_transfer.is_empty_transfer">可空转</span>
@@ -139,11 +161,14 @@
         </td>
         <td class="p-2 p-lg-2">
           <p *ngIf="item.estate_id">
-            <button class="btn btn-primary"><a [routerLink]="['/dataCollection']"
-                                               [queryParams]="{id:item.estate_id}">编辑</a></button>
+            <button class="btn btn-primary">
+              <a [routerLink]="['/dataCollection']" [queryParams]="{id:item.estate_id}">编辑</a>
+            </button>
           </p>
           <p *ngIf="item.estate_id">
-            <button class="btn btn-primary"><a [routerLink]="['peripheralData/'+item.estate_id]">周边分析</a></button>
+            <button class="btn btn-primary">
+              <a [routerLink]="['peripheralData/'+item.estate_id]">周边分析</a>
+            </button>
           </p>
         </td>
       </tr>
@@ -156,7 +181,9 @@
   <div class="page-container text-right" *ngIf="infoList.total_page > 1">
     <ngb-pagination class="d-inline-block" (pageChange)="pageChange($event)" [collectionSize]="infoList.total_num"
                     [(page)]="pageNo" aria-label="Default pagination" [maxSize]="5"
-                    [boundaryLinks]="true"></ngb-pagination>
+                    [boundaryLinks]="true">
+
+    </ngb-pagination>
   </div>
 </div>
 
@@ -176,14 +203,15 @@
           <li *ngFor="let item of zoomList"><input name='mapZoomLevel' type="radio"
                                                    [checked]="item.code==tempzoomLevel"
                                                    (click)="zoomChange(item)">{{item.name}}
-      <!--    <li><input name='mapZoomLevel' type="radio" value='15' [checked]="tempzoomLevel==15" (click)="zoomChange(15)">500米</li>
-          <li><input name='mapZoomLevel' type="radio" value='14' [checked]="tempzoomLevel==14" (click)="zoomChange(14)">1公里</li>
-          <li><input name='mapZoomLevel' type="radio" value='13' [checked]="tempzoomLevel==13" (click)="zoomChange(13)">2公里</li>
-          <li><input name='mapZoomLevel' type="radio" value='12' [checked]="tempzoomLevel==12" (click)="zoomChange(12)">5公里</li>-->
+            <!--    <li><input name='mapZoomLevel' type="radio" value='15' [checked]="tempzoomLevel==15" (click)="zoomChange(15)">500米</li>
+                <li><input name='mapZoomLevel' type="radio" value='14' [checked]="tempzoomLevel==14" (click)="zoomChange(14)">1公里</li>
+                <li><input name='mapZoomLevel' type="radio" value='13' [checked]="tempzoomLevel==13" (click)="zoomChange(13)">2公里</li>
+                <li><input name='mapZoomLevel' type="radio" value='12' [checked]="tempzoomLevel==12" (click)="zoomChange(12)">5公里</li>-->
         </ul>
       </div>
       <div class="map-container">
-        <app-baidu-map [address]="mapAddress" [zoom]="tempzoomLevel" (getLocation)="geoLocation($event)"></app-baidu-map>
+        <app-baidu-map [address]="mapAddress" [zoom]="tempzoomLevel"
+                       (getLocation)="geoLocation($event)"></app-baidu-map>
       </div>
     </div>
   </div>
