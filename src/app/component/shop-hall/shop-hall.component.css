@@ -104,6 +104,9 @@ display: inline-block;
   margin-left: 20px;
   margin-right: 20px;
 }
+.map-modal-block input[type='radio']{
+  margin-right: 5px;
+}
 .map-container{
   width: 450px;
   height: 320px;

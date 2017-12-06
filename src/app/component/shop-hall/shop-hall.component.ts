@@ -109,6 +109,7 @@ export class ShopHallComponent implements OnInit {
 
   pageNo = 1;
   pageSize = 10;
+  maxSizePerPage=10;
 
   //临时变量
   templng = '';

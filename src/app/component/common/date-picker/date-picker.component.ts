@@ -16,6 +16,16 @@ export class DatePickerComponent implements OnInit {
 
   @Input() placeholder='yyyy-mm-dd';
 
+  @Input() minDate=new Date(1990, 5, 10);
+
+  @Input() maxDate=new Date();
+
+  @Input() bsValue=new Date();
+
+  @Input() bsConfig ={
+    containerClass:'theme-blue'
+  };
+
   @Output() dateChange:EventEmitter<any>=new EventEmitter();
 
   fireDateChange(date){

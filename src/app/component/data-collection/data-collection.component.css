@@ -236,6 +236,7 @@ form h3,.modal-body > div{
   padding: 25px;
   display: block;
   border:1px solid black;
+  background: #fff;
   position: absolute;
   top: 0px;
   right: 10%;
