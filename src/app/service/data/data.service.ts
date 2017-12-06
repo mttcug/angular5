@@ -70,19 +70,19 @@ export class DataService {
 
   getFacilities() {
     return [
-      {code: 1, name: "可明火", checked: false ,amount:''},
-      {code: 2, name: "上水", checked: false,amount:''},
-      {code: 3, name: "下水", checked: false,amount:''},
-      {code: 4, name: "380V电压", checked: false,amount:''},
-      {code: 5, name: "排烟", checked: false,amount:''},
-      {code: 6, name: "排污", checked: false,amount:''},
-      {code: 7, name: "电梯", checked: false,amount:''},
-      {code: 8, name: "中央空调", checked: false,amount:''},
-      {code: 9, name: "网络", checked: false,amount:''},
-      {code: 10, name: "暖气", checked: false,amount:''},
-      {code: 11, name: "天然气", checked: false,amount:''},
-      {code: 12, name: "停车位", checked: false,amount:''},
-      {code: 13, name: "外摆区", checked: false,amount:''}
+      {code: 1, name: "可明火", checked: false },
+      {code: 2, name: "上水", checked: false},
+      {code: 3, name: "下水", checked: false},
+      {code: 4, name: "380V电压", checked: false},
+      {code: 5, name: "排烟", checked: false},
+      {code: 6, name: "排污", checked: false},
+      {code: 7, name: "电梯", checked: false},
+      {code: 8, name: "中央空调", checked: false},
+      {code: 9, name: "网络", checked: false},
+      {code: 10, name: "暖气", checked: false},
+      {code: 11, name: "天然气", checked: false},
+      {code: 12, name: "停车位", checked: false},
+      {code: 13, name: "外摆区", checked: false}
     ];
   }
 

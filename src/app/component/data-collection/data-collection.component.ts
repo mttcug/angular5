@@ -352,6 +352,8 @@ export class DataCollectionComponent implements OnInit {
 
 
   facilities = [];             //物业配套
+  parking_num='';
+  outward_area='';
 
   waterFee = '';                //水费
   facilityFee = '';             ////物业
@@ -465,6 +467,8 @@ export class DataCollectionComponent implements OnInit {
      });
 
      this.facilities=result.facilities;                           //物业配套
+     this.parking_num=result.parking_num;
+     this.outward_area=result.outward_area;
      this.waterFee=result.waterFee;                             //水费
      this.facilityFee=result.facilityFee;                         //物业
      this.gasFee=result.gasFee;                                   //燃气费
@@ -1287,6 +1291,8 @@ export class DataCollectionComponent implements OnInit {
       recommendableIndustry: recomC,                       //推荐经营
       unRecommendableIndustry: unrecomC,                   //不宜经营
       facilities: this.facilities,                           //物业配套
+      parking_num:this.parking_num,
+      outward_area:this.outward_area,
       waterFee: this.waterFee,                             //水费
       facilityFee: this.facilityFee,                         //物业
       gasFee: this.gasFee,                                   //燃气费

@@ -524,13 +524,13 @@
                  type="checkbox"
                  data-code="item.code">{{item.name}}
 
-          <input *ngIf="item.name=='停车位' && item.checked" name="stopsCount" placeholder="请填写" [(ngModel)]="item.amount"
+          <input *ngIf="item.name=='停车位' && item.checked" name="stopsCount" placeholder="请填写" [(ngModel)]="parking_num"
                  type="text"
                  class="form-control d-inline-block w-160-px" maxlength="4">
           <span *ngIf="item.name=='停车位' && item.checked">个</span>
 
           <input type="text" placeholder="请填写" name="extensionArea"
-                 [(ngModel)]="item.amount"
+                 [(ngModel)]="outward_area"
                  *ngIf="item.name=='外摆区' && item.checked"
                  class="form-control d-inline-block w-160-px"
                  maxlength="4">
