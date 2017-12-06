@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PeripheralDataComponent } from './peripheral-data.component';
+import { PeripheralAnalysisComponent } from './peripheral-analysis.component';
 
-describe('PeripheralDataComponent', () => {
-  let component: PeripheralDataComponent;
-  let fixture: ComponentFixture<PeripheralDataComponent>;
+describe('PeripheralAnalysisComponent', () => {
+  let component: PeripheralAnalysisComponent;
+  let fixture: ComponentFixture<PeripheralAnalysisComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ PeripheralDataComponent ]
+      declarations: [ PeripheralAnalysisComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(PeripheralDataComponent);
+    fixture = TestBed.createComponent(PeripheralAnalysisComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

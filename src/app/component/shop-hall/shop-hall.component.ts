@@ -1,6 +1,7 @@
 import {Component, OnInit, Inject} from '@angular/core';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 
+
 @Component({
   selector: 'app-shop-hall',
   templateUrl: './shop-hall.component.html',

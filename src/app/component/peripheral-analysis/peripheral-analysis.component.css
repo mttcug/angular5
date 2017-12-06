@@ -39,8 +39,22 @@
 .radar-chart-connect-info-block > p,.peripheral-chart-connect-info-block > p,.industry-chart-connect-info-block > p{
   width:215px;
 }
-.peripheral-chart-connect-info-block,.industry-chart-connect-info-block{
+.peripheral-chart-connect-info-block{
   padding: 70px;
+}
+.industry-chart-connect-info-block{
+  padding: 30px 60px;
+}
+.industry-list-block{
+  height: 200px;
+  overflow-y: scroll;
+}
+.industry-item-style{
+  width: 70%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  vertical-align: top;
 }
 .radar-chart-connect-info-block label{
   width: 90px;
@@ -75,7 +89,7 @@
 
 .detailModal{
   width: 275px;
-/*  height: 330px;*/
+  /*  height: 330px;*/
   top: 55px;
   right: 0px;
   border: 1px solid rgba(0,0,0,.125);
@@ -110,3 +124,4 @@
 ol {
   list-style: none;
 }
+

@@ -65,13 +65,17 @@
 
     <!--开业时间-->
     <div class="d-block m-top-20">
-      <label for="" class="text-right d-inline-block m-ritght-10"><span class="input-label-name">开业日期:</span></label>
+      <label for="" class="text-right d-inline-block m-ritght-10">
+        <span class="input-label-name">开业日期:</span>
+      </label>
       <app-date-picker [date]="startOpenDate" (dateChange)="getStartTime($event)"></app-date-picker>
     </div>
 
     <!--经营状态-->
     <div class="d-block m-top-20">
-      <label for="" class="text-right d-inline-block m-ritght-10"><span class="input-label-name">经营状态:</span></label>
+      <label for="" class="text-right d-inline-block m-ritght-10">
+        <span class="input-label-name">经营状态:</span>
+      </label>
       <select class="form-control  d-inline-block w-160-px" name="operateStatus" id="operateStatus"
               [(ngModel)]="operateStatus">
         <option value="{{item.value}}" *ngFor="let item of operateStatusList">{{item.value_description}}</option>
@@ -80,13 +84,17 @@
 
     <!--停业日期-->
     <div class="d-block m-top-20" *ngIf="operateStatus==2">
-      <label for="" class="text-right d-inline-block m-ritght-10"><span class="input-label-name">停业日期:</span></label>
+      <label for="" class="text-right d-inline-block m-ritght-10">
+        <span class="input-label-name">停业日期:</span>
+      </label>
       <app-date-picker [date]="endOpenDate" (dateChange)="getEndTime($event)"></app-date-picker>
     </div>
 
     <!--店铺图片-->
     <div class="d-block m-top-20">
-      <label for="" class="text-right d-inline-block m-ritght-10"><span class="input-label-name">店铺图片:</span></label>
+      <label for="" class="text-right d-inline-block m-ritght-10">
+        <span class="input-label-name">店铺图片:</span>
+      </label>
       <div *ngFor="let item of shopImages" class="old-images-block">
         <a class="img-item-box" href="">
           <img src="{{item.url}}" alt="">
@@ -97,14 +105,18 @@
 
     <!--前台电话-->
     <div class="d-block m-top-20">
-      <label for="" class="text-right d-inline-block m-ritght-10"><span class="input-label-name">前台电话:</span></label>
+      <label for="" class="text-right d-inline-block m-ritght-10">
+        <span class="input-label-name">前台电话:</span>
+      </label>
       <input class="form-control d-inline-block w-160-px" name="shopPhoneNumber" type="text" placeholder="请填写"
              [(ngModel)]="shopPhoneNumber" maxlength="20">
     </div>
 
     <!--外卖电话-->
     <div class="d-block m-top-20">
-      <label for="" class="text-right d-inline-block m-ritght-10"><span class="input-label-name">外卖电话:</span></label>
+      <label for="" class="text-right d-inline-block m-ritght-10">
+        <span class="input-label-name">外卖电话:</span>
+      </label>
       <input class="form-control d-inline-block w-160-px" name="takeOutPhone" type="text" placeholder="请填写"
              [(ngModel)]="takeOutPhone" maxlength="20">
     </div>
@@ -116,29 +128,35 @@
         <ngb-tab title="营业日">
           <ng-template ngbTabContent>
             <p class="week-list">
-              <span><input type="checkbox" name="operateDate" [(ngModel)]="wholeWeek" (click)="selectAllWeek()"
-                           class="m-ritght-5">整周</span><span class="divider">|</span>
-              <span *ngFor="let item of vaildTime" class="week-item"><input [(ngModel)]="item.checked"
-                                                                            [disabled]="dayCheckValid"
-                                                                            name="weekChecked"
-                                                                            (click)="selectThisDay(item)"
-                                                                            class="week-checkbox" type="checkbox"
-                                                                            data-code="item.code">{{item.name}}</span>
+              <span>
+                <input type="checkbox" name="operateDate" [(ngModel)]="wholeWeek" (click)="selectAllWeek()"
+                       class="m-ritght-5">整周
+              </span>
+              <span class="divider">|</span>
+              <span *ngFor="let item of vaildTime" class="week-item">
+                <input [(ngModel)]="item.checked"
+                       [disabled]="dayCheckValid"
+                       name="weekChecked"
+                       (click)="selectThisDay(item)"
+                       class="week-checkbox" type="checkbox"
+                       data-code="item.code">{{item.name}}</span>
             </p>
           </ng-template>
         </ngb-tab>
         <ngb-tab title="营业时段">
           <ng-template ngbTabContent>
             <p class="week-list">
-              <span><input type="checkbox" [(ngModel)]="allDay" name="operateTime"
-                           (click)="selectAllDay()">24小时</span><span
-              class="divider">|</span>
+              <span>
+                <input type="checkbox" [(ngModel)]="allDay" name="operateTime"
+                       (click)="selectAllDay()">24小时
+              </span>
+              <span class="divider">|</span>
               <input class="form-control time-input d-inline-block w-160-px" name="startTime" type="text"
                      placeholder="8:00"
-                     [(ngModel)]="operateStartTime" [disabled]="canChangeTime">—<input
-              class="form-control time-input d-inline-block w-160-px" name="endTime"
-              type="text" placeholder="24:00"
-              [(ngModel)]="operateEndTime" [disabled]="canChangeTime">
+                     [(ngModel)]="operateStartTime" [disabled]="canChangeTime">—
+              <input class="form-control time-input d-inline-block w-160-px" name="endTime"
+                     type="text" placeholder="24:00"
+                     [(ngModel)]="operateEndTime" [disabled]="canChangeTime">
             </p>
           </ng-template>
         </ngb-tab>
@@ -147,7 +165,8 @@
 
     <!--装修档次-->
     <div class="d-block m-top-20">
-      <label for="" class="text-right d-inline-block m-ritght-10"><span class="input-label-name">装修档次:</span></label>
+      <label for="" class="text-right d-inline-block m-ritght-10"><span class="input-label-name">装修档次:</span>
+      </label>
       <select class="form-control  d-inline-block w-160-px" name="fitmentLevel" id="fitmentLevel"
               [(ngModel)]="fitmentLevelStatus">
         <option value="">请选择</option>
@@ -159,21 +178,25 @@
     <div class="d-block m-top-20">
       <label for="" class="text-right d-inline-block m-ritght-10"><span class="input-label-name">提供服务:</span></label>
       <div class="service-list align-top d-inline-block">
-        <span *ngFor="let item of serviceList" class="service-item d-inline-block"><input [(ngModel)]="item.checked"
-                                                                                          name="serviceList"
-                                                                                          (click)="selectThisService(item)"
-                                                                                          class="week-checkbox"
-                                                                                          type="checkbox"
-                                                                                          data-code="item.code">{{item.name}}</span>
+        <span *ngFor="let item of serviceList" class="service-item d-inline-block">
+          <input [(ngModel)]="item.checked"
+                 name="serviceList"
+                 (click)="selectThisService(item)"
+                 class="week-checkbox"
+                 type="checkbox"
+                 data-code="item.code">{{item.name}}
+        </span>
       </div>
     </div>
 
     <!--店铺租金-->
     <div class="d-block m-top-20">
-      <label class="text-right d-inline-block m-ritght-10"><span class="input-label-name">店铺租金:</span></label>
+      <label class="text-right d-inline-block m-ritght-10">
+        <span class="input-label-name">店铺租金:</span>
+      </label>
       <input class="form-control d-inline-block w-160-px" name="shopRent" type="text" placeholder="6位整数+2位小数"
-             [(ngModel)]="shopRent" pattern="^\d{1,6}(\.\d{1,2})?$">
-      <i class="iconfont icon-chucuo text-danger" *ngIf="shopInfoForm.controls['shopRent']?.errors?.pattern"></i>
+             [(ngModel)]="shopRent" pattern='^\d{1,6}(\.\d{1,2})?$'>
+      <i class="iconfont icon-error text-danger" *ngIf="shopInfoForm.controls['shopRent']?.errors?.pattern"></i>
       <select class="form-control  d-inline-block w-160-px m-left-10" name="shopRentMeasure" id="rentMeasure"
               [(ngModel)]="rentMeasure">
         <option value="{{item.value}}" *ngFor="let item of rentMeasureList">{{item.value_description}}</option>
@@ -182,14 +205,17 @@
 
     <!--支付方式-->
     <div class="d-block m-top-20">
-      <label for="" class="text-right d-inline-block m-ritght-10"><span class="input-label-name">支付方式:</span></label>
+      <label for="" class="text-right d-inline-block m-ritght-10">
+        <span class="input-label-name">支付方式:</span>
+      </label>
       <div class="pay-way-list d-inline-block align-top">
-        <span *ngFor="let item of payWayList" class="select-span d-inline-block"><input name="payWayList"
-                                                                                        [checked]="item.name==payWay"
-                                                                                        (click)="selectThisPayWay(item)"
-                                                                                        class="week-checkbox"
-                                                                                        type="radio"
-                                                                                        data-code="item.code">{{item.name}}</span>
+        <span *ngFor="let item of payWayList" class="select-span d-inline-block">
+          <input name="payWayList"
+                 [checked]="item.name==payWay"
+                 (click)="selectThisPayWay(item)"
+                 class="week-checkbox"
+                 type="radio"
+                 data-code="item.code">{{item.name}}</span>
         <input class="form-control time-imput d-inline-block w-160-px" name="payWay" type="text" placeholder="请填写"
                [(ngModel)]="definedPayWay" (ngModelChange)="definedPayChange()" [hidden]="definedWayShow">
       </div>
@@ -424,8 +450,8 @@
           class="input-label-name">建筑面积:</span></label>
         <input class="form-control d-inline-block w-160-px  m-ritght-5" name="buildingArea" [(ngModel)]="buildingArea"
                type="text"
-               placeholder="请填写" pattern="^\d{1,6}(\.\d{0,2})?$">平米 <i class="iconfont icon-chucuo text-danger"
-                                                                       *ngIf="shopInfoForm.controls['buildingArea']?.errors?.pattern"></i>
+               placeholder="请填写" pattern="^\d{1,6}(\.\d{0,2})?$">平米
+        <i class="iconfont icon-error text-danger" *ngIf="shopInfoForm.controls['buildingArea']?.errors?.pattern"></i>
 
       </div>
       <!--开间-->
@@ -433,7 +459,7 @@
         <label for="" class="text-right d-inline-block m-ritght-10"><span class="input-label-name">开间:</span></label>
         <input class="form-control d-inline-block w-160-px  m-ritght-5" name="roomArea" [(ngModel)]="roomArea"
                type="text"
-               placeholder="请填写" pattern="^\d{1,2}(\.\d{0,2})?$">米 <i class="iconfont icon-chucuo text-danger"
+               placeholder="请填写" pattern="^\d{1,2}(\.\d{0,2})?$">米 <i class="iconfont icon-error text-danger"
                                                                       *ngIf="shopInfoForm.controls['roomArea']?.errors?.pattern"></i>
       </div>
       <!--门宽-->
@@ -441,7 +467,7 @@
         <label for="" class="text-right d-inline-block m-ritght-10"><span class="input-label-name">门宽:</span></label>
         <input class="form-control d-inline-block w-160-px  m-ritght-5" name="doorWidth" [(ngModel)]="doorWidth"
                type="text"
-               placeholder="请填写" pattern="^\d{1,2}(\.\d{0,2})?$">米 <i class="iconfont icon-chucuo text-danger"
+               placeholder="请填写" pattern="^\d{1,2}(\.\d{0,2})?$">米 <i class="iconfont icon-error text-danger"
                                                                       *ngIf="shopInfoForm.controls['doorWidth']?.errors?.pattern"></i>
       </div>
       <!--所处楼层-->
@@ -457,14 +483,14 @@
         <label for="" class="text-right d-inline-block m-ritght-10"><span class="input-label-name">使用面积:</span></label>
         <input class="form-control d-inline-block w-160-px  m-ritght-5" name="validArea" [(ngModel)]="validArea"
                type="text"
-               placeholder="请填写" pattern="^\d{1,6}(\.\d{0,2})?$">平米 <i class="iconfont icon-chucuo text-danger"
+               placeholder="请填写" pattern="^\d{1,6}(\.\d{0,2})?$">平米 <i class="iconfont icon-error text-danger"
                                                                        *ngIf="shopInfoForm.controls['validArea']?.errors?.pattern"></i>
       </div>
       <!--进深-->
       <div class="d-block m-top-20">
         <label for="" class="text-right d-inline-block m-ritght-10"><span class="input-label-name">进深:</span></label>
         <input class="form-control d-inline-block w-160-px  m-ritght-5" name="depth" [(ngModel)]="depth" type="text"
-               placeholder="请填写" pattern="^\d{1,2}(\.\d{0,2})?$">米 <i class="iconfont icon-chucuo text-danger"
+               placeholder="请填写" pattern="^\d{1,2}(\.\d{0,2})?$">米 <i class="iconfont icon-error text-danger"
                                                                       *ngIf="shopInfoForm.controls['depth']?.errors?.pattern"></i>
       </div>
       <!--层高-->
@@ -472,7 +498,7 @@
         <label for="" class="text-right d-inline-block m-ritght-10"><span class="input-label-name">层高:</span></label>
         <input class="form-control d-inline-block w-160-px  m-ritght-5" name="floorHeight" [(ngModel)]="floorHeight"
                type="text"
-               placeholder="请填写" pattern="^\d{1,2}(\.\d{0,2})?$">米 <i class="iconfont icon-chucuo text-danger"
+               placeholder="请填写" pattern="^\d{1,2}(\.\d{0,2})?$">米 <i class="iconfont icon-error text-danger"
                                                                       *ngIf="shopInfoForm.controls['floorHeight']?.errors?.pattern"></i>
       </div>
       <!--总层数-->
@@ -600,7 +626,6 @@
       </div>
     </div>
 
-
     <!--建筑形状-->
     <div class="d-block m-top-20">
       <label for="" class="text-right d-inline-block m-ritght-10"><span class="input-label-name">建筑形状:</span></label>
@@ -632,7 +657,6 @@
       <input type="text" name="destroyRate" [(ngModel)]="destroyedRatioDetail" maxlength="300" placeholder="请填写拆迁风险详情"
              class="form-control d-inline-block w-160-px w-240-px">
     </div>
-
 
     <!--房东-->
     <div class="d-block m-top-20">

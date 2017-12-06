@@ -3,11 +3,12 @@ import {ActivatedRoute, Params} from '@angular/router';
 
 
 @Component({
-  selector: 'app-peripheral-data',
-  templateUrl: './peripheral-data.component.html',
-  styleUrls: ['./peripheral-data.component.css']
+  selector: 'app-peripheral-analysis',
+  templateUrl: './peripheral-analysis.component.html',
+  styleUrls: ['./peripheral-analysis.component.css']
 })
-export class PeripheralDataComponent implements OnInit {
+
+export class PeripheralAnalysisComponent implements OnInit {
 
 
   shopInfo = {};
@@ -243,5 +244,3 @@ export class PeripheralDataComponent implements OnInit {
   }
 
 }
-
-

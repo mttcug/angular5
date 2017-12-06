@@ -167,7 +167,7 @@
           </p>
           <p *ngIf="item.estate_id">
             <button class="btn btn-primary">
-              <a [routerLink]="['peripheralData/'+item.estate_id]">周边分析</a>
+              <a [routerLink]="['peripheralAnalysis/'+item.estate_id]">周边分析</a>
             </button>
           </p>
         </td>
@@ -179,11 +179,17 @@
     </table>
   </div>
   <div class="page-container text-right" *ngIf="infoList.total_page > 1">
-    <ngb-pagination class="d-inline-block" (pageChange)="pageChange($event)" [collectionSize]="infoList.total_num"
+    <!--ng-bootstrap分页的用法只需要引入ngbModel模块即可-->
+  <!--  <ngb-pagination class="d-inline-block" (pageChange)="pageChange($event)" [collectionSize]="infoList.total_num"
                     [(page)]="pageNo" aria-label="Default pagination" [maxSize]="5"
                     [boundaryLinks]="true">
+        </ngb-pagination>
+  -->
+    <!--ngx-bootstrap 需要单独引入分页模块-->
+ <!--     <pagination [boundaryLinks]="true" [totalItems]="infoList.total_num" (pageChange)="pageChange($event)" [(ngModel)]="pageNo" class="pagination-sm d-inline-block"
+                  previousText="上一页" nextText="下一页" firstText="第一页" lastText="最后一页">
 
-    </ngb-pagination>
+      </pagination>-->
   </div>
 </div>
 

@@ -3,7 +3,7 @@ import {DataIndexComponent} from './component/data-index/data-index.component';
 import {DataCollectionComponent} from './component/data-collection/data-collection.component';
 import {ShopHallComponent} from './component/shop-hall/shop-hall.component';
 import {WorkManageComponent} from './component/work-manage/work-manage.component';
-import {PeripheralDataComponent} from './component/peripheral-data/peripheral-data.component';
+import { PeripheralAnalysisComponent } from './component/peripheral-analysis/peripheral-analysis.component';
 import {RejectedPageComponent} from './component/rejected-page/rejected-page.component';
 import { CollectCompleteComponent } from './component/collect-complete/collect-complete.component';
 
@@ -45,11 +45,11 @@ export const routes: Routes = [
     component: RejectedPageComponent
   },
   {
-    path: 'shopHall/peripheralData/:id',
-    component: PeripheralDataComponent
+    path: 'shopHall/peripheralAnalysis/:id',
+    component: PeripheralAnalysisComponent
   },
   {
-    path: 'glancePostedInfoItem',
+    path: 'glancePostedInfoItem',                                //发布完成页面
     component: CollectCompleteComponent
   }
 ]

@@ -1,11 +1,13 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 import {FormsModule} from '@angular/forms';
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';                          //将被ngx-bootstap代替
+import { PaginationModule } from 'ngx-bootstrap';                   //分页
 import {HttpModule, JsonpModule} from '@angular/http';
-import {BaiduMapModule} from 'angular2-baidu-map';
-import {FileUploadModule} from 'ng2-file-upload';
-import {AngularEchartsModule} from 'ngx-echarts';
+import {BaiduMapModule} from 'angular2-baidu-map';                             //未使用，自己写的百度地图
+import {FileUploadModule} from 'ng2-file-upload';                              //ngx-bootstrap的一个模块但是本app中未使用，自己写的upload
+import {AngularEchartsModule} from 'ngx-echarts';                              //echart图表
+
 
 
 import {AppComponent} from './app.component';
@@ -19,8 +21,7 @@ import {SideNavComponent} from './component/side-nav/side-nav.component';
 import {DataIndexComponent} from './component/data-index/data-index.component';
 import {ShopHallComponent} from './component/shop-hall/shop-hall.component';
 import {WorkManageComponent} from './component/work-manage/work-manage.component';
-import {PeripheralDataComponent} from './component/peripheral-data/peripheral-data.component';
-import {RejectedPageComponent} from './component/rejected-page/rejected-page.component';
+import { PeripheralAnalysisComponent } from './component/peripheral-analysis/peripheral-analysis.component';import {RejectedPageComponent} from './component/rejected-page/rejected-page.component';
 import {GeolocationComponent} from './component/common/geolocation/geolocation.component';
 import {CollectCompleteComponent} from './component/collect-complete/collect-complete.component';
 
@@ -60,7 +61,6 @@ import {TransferStatusPipe} from './pipe/transfer-status/transfer-status.pipe';
     DataIndexComponent,
     ShopHallComponent,
     WorkManageComponent,
-    PeripheralDataComponent,
     RejectedPageComponent,
     RentUnitPipe,
     IndustryPipe,
@@ -71,6 +71,7 @@ import {TransferStatusPipe} from './pipe/transfer-status/transfer-status.pipe';
     DistrictPipe,
     CollectCompleteComponent,
     TransferStatusPipe,
+    PeripheralAnalysisComponent,
   ],
   imports: [
     BrowserModule,
@@ -79,7 +80,8 @@ import {TransferStatusPipe} from './pipe/transfer-status/transfer-status.pipe';
     JsonpModule,
     appRoutes,
     AngularEchartsModule,
-    NgbModule.forRoot(),
+    NgbModule.forRoot(),                                                                     //ng-bootstrap,所有就只需要引入这一个米快就可以了
+    PaginationModule.forRoot(),                                                              //ngx-bootstrap的分页模块
     FileUploadModule,
     BaiduMapModule.forRoot({ak: 'fN66w00hfey6hwEyhFcYFRvvwe4a0pOG'})
   ],
