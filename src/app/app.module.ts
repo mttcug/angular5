@@ -4,6 +4,7 @@ import {FormsModule} from '@angular/forms';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';                          //将被ngx-bootstap代替
 import { PaginationModule } from 'ngx-bootstrap';                              //分页
 import { BsDatepickerModule } from 'ngx-bootstrap';                            //日期选择
+import { TabsModule } from 'ngx-bootstrap';
 import {HttpModule, JsonpModule} from '@angular/http';
 import {BaiduMapModule} from 'angular2-baidu-map';                             //未使用，自己写的百度地图
 import {FileUploadModule} from 'ng2-file-upload';                              //ngx-bootstrap的一个模块但是本app中未使用，自己写的upload
@@ -83,7 +84,8 @@ import {TransferStatusPipe} from './pipe/transfer-status/transfer-status.pipe';
     AngularEchartsModule,
     NgbModule.forRoot(),                                                                     //ng-bootstrap,所有就只需要引入这一个米快就可以了
     PaginationModule.forRoot(),                                                              //ngx-bootstrap的分页模块
-    BsDatepickerModule.forRoot(),                                                             //ngx-bootstrap的datePicker模块
+    BsDatepickerModule.forRoot(),
+    TabsModule.forRoot(),                                                                    //ngx-bootstrap的datePicker模块
     FileUploadModule,
     BaiduMapModule.forRoot({ak: 'fN66w00hfey6hwEyhFcYFRvvwe4a0pOG'})
   ],
