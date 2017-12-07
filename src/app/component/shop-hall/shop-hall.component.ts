@@ -120,7 +120,7 @@ export class ShopHallComponent implements OnInit {
 
   //分页点击事件
   pageChange(e) {
-    this.pageNo = e;
+    this.pageNo = e.page;
     this.getList();
   }
 

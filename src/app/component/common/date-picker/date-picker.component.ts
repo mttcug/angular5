@@ -16,7 +16,7 @@ export class DatePickerComponent implements OnInit {
 
   @Input() maxDate=new Date();
 
-  @Input() bsConfig ={containerClass:'theme-blue'};
+  @Input() bsConfig = {containerClass:'theme-blue'};
 
   @Output() dateChange:EventEmitter<any>=new EventEmitter();
 

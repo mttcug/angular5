@@ -165,7 +165,7 @@ export class DataCollectionComponent implements OnInit {
 
   industries;
 
-  startOpenDate='2017-12-6';// 开业日期
+  startOpenDate='';// 开业日期
 
   operateStatus = 1;
   endOpenDate = ''; // 停业日期

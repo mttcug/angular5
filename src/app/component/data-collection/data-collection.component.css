@@ -263,5 +263,8 @@ form h3,.modal-body > div{
 .modal-body > div{
   white-space: initial;
 }
+.personInfoDetail{
+  vertical-align: top;
+}
 
 

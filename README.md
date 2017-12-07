@@ -47,3 +47,7 @@ data 里面是下拉列表要使用的数据包括封装的行业和区域等的
 request 里面是请求列表数据和修改表单的请求
 
 所有请求中只有行业和区域数据被缓存在app.component中
+
+
+modal使用的是ng-bootstrap中的
+但是datepicker是使用的ngx-bootstrap中的
