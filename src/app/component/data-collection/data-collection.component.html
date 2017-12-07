@@ -124,9 +124,9 @@
     <!--营业时间-->
     <div class="d-block m-top-20">
       <label for="" class="text-right d-inline-block m-ritght-10"><span class="input-label-name">营业时间:</span></label>
-      <ngb-tabset class="d-inline-block w-50 align-middle">
-        <ngb-tab title="营业日">
-          <ng-template ngbTabContent>
+      <tabset class="d-inline-block w-50 align-middle">
+        <tab heading="营业日">
+          <div>
             <p class="week-list">
               <span>
                 <input type="checkbox" name="operateDate" [(ngModel)]="wholeWeek" (click)="selectAllWeek()"
@@ -141,10 +141,10 @@
                        class="week-checkbox" type="checkbox"
                        data-code="item.code">{{item.name}}</span>
             </p>
-          </ng-template>
-        </ngb-tab>
-        <ngb-tab title="营业时段">
-          <ng-template ngbTabContent>
+          </div>
+        </tab>
+        <tab heading="营业时段">
+          <div>
             <p class="week-list">
               <span>
                 <input type="checkbox" [(ngModel)]="allDay" name="operateTime"
@@ -158,9 +158,9 @@
                      type="text" placeholder="24:00"
                      [(ngModel)]="operateEndTime" [disabled]="canChangeTime">
             </p>
-          </ng-template>
-        </ngb-tab>
-      </ngb-tabset>
+          </div>
+        </tab>
+      </tabset>
     </div>
 
     <!--装修档次-->

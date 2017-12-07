@@ -11,14 +11,14 @@
              class="form-control time-show-input"
              placeholder="{{placeholder}}"
              name="dp"
-             [(ngModel)]="date"
-             (ngModelChange)="fireDateChange(date)"
+             [(ngModel)]="dateFormDate"
+             (ngModelChange)="fireDateChange(dateFormDate)"
              [minDate]="minDate"
              [maxDate]="maxDate"
              #dp="bsDatepicker"
              bsDatepicker
              [bsConfig]="bsConfig"
-             [(bsValue)]="bsValue">
+             [(bsValue)]="dateFormDate">
       <button class="form-control d-inline-block input-group-addon date-btn" (click)="dp.show()" type="button">
         <i class="iconfont icon-calendar"></i>
       </button>

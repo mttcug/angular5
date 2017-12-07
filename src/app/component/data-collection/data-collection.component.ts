@@ -165,7 +165,7 @@ export class DataCollectionComponent implements OnInit {
 
   industries;
 
-  startOpenDate = '';// 开业日期
+  startOpenDate='2017-12-6';// 开业日期
 
   operateStatus = 1;
   endOpenDate = ''; // 停业日期
@@ -513,7 +513,7 @@ export class DataCollectionComponent implements OnInit {
 
   //获取开业时间
   getStartTime(date) {
-    console.log("开业日期：", date);
+   /* console.log("开业日期：", date);*/
     this.startOpenDate = date;
   }
 
