@@ -217,7 +217,9 @@
                  type="radio"
                  data-code="item.code">{{item.name}}</span>
         <input class="form-control time-imput d-inline-block w-160-px" name="payWay" type="text" placeholder="请填写"
-               [(ngModel)]="definedPayWay" (ngModelChange)="definedPayChange()" [hidden]="definedWayShow">
+               [disabled]="definedWayShow"
+               [(ngModel)]="definedPayWay"
+               (ngModelChange)="definedPayChange()">
       </div>
     </div>
 
@@ -761,9 +763,10 @@
                                                                                         (click)="selectThisPopUpPayWay(item)"
                                                                                         class="week-checkbox"
                                                                                         type="radio"
-                                                                                        data-code="item.code">{{item.name}}</span>
+                                                                                        data-code="item.code">{{item.name}}
+        </span>
         <input class="form-control time-imput d-inline-block w-160-px" type="text" placeholder="请填写"
-               [(ngModel)]="tempdefinedPayWay" (ngModelChange)="definedPopUpPayChange()" [hidden]="definedWayShowM">
+               [(ngModel)]="tempdefinedPayWay" (ngModelChange)="definedPopUpPayChange()" [disabled]="tempdefinedWayShow">
       </div>
     </div>
 

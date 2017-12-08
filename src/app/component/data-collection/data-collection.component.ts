@@ -192,7 +192,7 @@ export class DataCollectionComponent implements OnInit {
   rentMeasure = 1;
   rentMeasureList;
 
-  payWay:string = '';
+  payWay:string = '自定义';
   definedPayWay:string = '';
   rateWay:string = '';  // 递增或递减
   definedRateWay:string = '';
@@ -603,7 +603,6 @@ export class DataCollectionComponent implements OnInit {
 
   //选择提供的服务
   selectThisService(item) {
-    console.log("提供服务：",item);
     if (item.checked === false) {
       this.serviceProvided.push(item);
     } else {
@@ -617,16 +616,16 @@ export class DataCollectionComponent implements OnInit {
   definedWayShow = false;
 
   selectThisPayWay(item) {
-    this.payWay = item.code == '0' ? this.definedPayWay : item.name;
     this.definedWayShow = item.code == '0' ? false : true;
+    this.payWay = item.code == '0' ? this.definedPayWay : item.name;
   }
 
   //弹出框选择支付方式
-  definedWayShowM = false;
+  tempdefinedWayShow = true;
 
   selectThisPopUpPayWay(item) {
+    this.tempdefinedWayShow = item.code == 0 ? false : true;
     this.temppayWay = item.code == 0 ? this.tempdefinedPayWay : item.name;
-    this.definedWayShowM = item.code == 0 ? false : true;
   }
 
 
@@ -765,8 +764,9 @@ export class DataCollectionComponent implements OnInit {
   openRentModal(content) {
     this.tempshopRent = this.shopRent;
     this.temprentMeasure = this.rentMeasure;
-    this.temppayWay = this.payWay;
+    this.temppayWay = this.definedWayShow ? this.payWay : '自定义';
     this.tempdefinedPayWay = this.definedPayWay;
+    this.tempdefinedWayShow = this.definedWayShow;
     this.temprateWay = this.rateWay;
     this.tempdefinedRateWay = this.definedRateWay;
     this.tempdepositWay = this.depositWay;
@@ -774,7 +774,7 @@ export class DataCollectionComponent implements OnInit {
     this.temprentDate = this.rentDate;
     this.temprentTime = this.rentTime;
     this.templeftContractTime = this.leftContractTime;
-
+console.log("123:",this.temppayWay);
     this.rentModalRef = this.ngxModalService.show(content,this.config);
   }
 
@@ -1068,8 +1068,8 @@ export class DataCollectionComponent implements OnInit {
 
 
   //确定按钮用于传参
-  sureBtnFunction(content) {
-    var modalName = Object.keys(content._def.references)[0];
+  sureBtnFunction(content):void {
+    var modalName:string = Object.keys(content._def.references)[0];
     if (modalName == 'shopImageContent') {
       this.shopImages = [];
       this.tempshopImages.forEach((v, i) => {
@@ -1083,8 +1083,9 @@ export class DataCollectionComponent implements OnInit {
     if (modalName == 'rentContent') {
       this.shopRent = this.tempshopRent;
       this.rentMeasure = this.temprentMeasure;
-      this.payWay = this.temppayWay;
+      this.payWay = this.tempdefinedWayShow ? this.temppayWay : '自定义' ;
       this.definedPayWay = this.tempdefinedPayWay;
+      this.definedWayShow = this.tempdefinedWayShow;
       this.rateWay = this.temprateWay;
       this.definedRateWay = this.tempdefinedRateWay;
       this.depositWay = this.tempdepositWay;
@@ -1218,15 +1219,15 @@ export class DataCollectionComponent implements OnInit {
     /*  this.router.navigate(['glancePostedInfoItem']);*/
 
     //当前经营，适合经营和不宜经营需要的是code[code1,code2....];
-    var fitC = [], recomC = [], unrecomC = [];
+    var fitC:Array<any> = [], recomC:Array<any> = [], unrecomC:Array<any> = [];
     this.fitIndustry.forEach((v, i) => {
-      fitC.push(v.code)
+      fitC.push(v.code);
     });
     this.recommendableIndustry.forEach((v, i) => {
-      recomC.push(v.code)
+      recomC.push(v.code);
     });
     this.unRecommendableIndustry.forEach((v, i) => {
-      unrecomC.push(v.code)
+      unrecomC.push(v.code);
     });
     var params = {
       shopName: this.shopName,                           //店名

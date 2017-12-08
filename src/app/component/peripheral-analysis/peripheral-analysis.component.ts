@@ -42,8 +42,7 @@ export class PeripheralAnalysisComponent implements OnInit {
   }
 
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   getInfo(oppo_id) {
     let params = {
@@ -126,10 +125,7 @@ export class PeripheralAnalysisComponent implements OnInit {
           max: zoomXMax+100
         },
         series: tempRadarDataContainer
-      }
-
-
-
+      };
 
     })
 
@@ -197,7 +193,7 @@ export class PeripheralAnalysisComponent implements OnInit {
         grid: {
           left: '3%',
           right: '4%',
-          bottom: '3%',
+          bottom: '8%',
           containLabel: true
         },
         xAxis: [

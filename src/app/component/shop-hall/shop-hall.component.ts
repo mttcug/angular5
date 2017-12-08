@@ -206,7 +206,6 @@ export class ShopHallComponent implements OnInit {
     var cityName = this.CurrentCityService.getCurCity().name;
     var districtName = this.allDistricts.find(item => item.id.toString() == this.district.toString()) ? this.allDistricts.find(item => item.id.toString() == this.district.toString()).name : '';
     this.mapAddress = (cityName + districtName ) ;
-    console.log("address:",this.mapAddress);
     this.mapModal.show();
   }
 
