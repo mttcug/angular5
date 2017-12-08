@@ -1,13 +1,11 @@
 import {Component, Inject, OnInit} from '@angular/core';
-import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 
-//modal弹出框
+//ngx-bootstrapmodal弹出框
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 
 import {Person} from '../../interface/person/person';
-import {Date} from '../../interface/date/date';
 import {MapData} from '../../interface/mapData/map-data';
 
 
@@ -38,7 +36,8 @@ export class DataCollectionComponent implements OnInit {
   sexType = [];
   memberTypeList = [];
 
-  constructor(private modalService: NgbModal, private router: Router, @Inject('data') private data, private route: ActivatedRoute, @Inject('DataCollectionService') private DataCollectionService, @Inject('CurrentCityService') private CurrentCityService) {
+
+  constructor(private ngxModalService: BsModalService, private router: Router, @Inject('data') private data, private route: ActivatedRoute, @Inject('DataCollectionService') private DataCollectionService, @Inject('CurrentCityService') private CurrentCityService) {
     //获取行业列表
     this.data.getIndustryData().then(res => {
       this.industries = res ? res : [];
@@ -231,7 +230,7 @@ export class DataCollectionComponent implements OnInit {
     backImage: '',
     otherImages: [],
     certificationNumber: '',
-    issue_organization: '',
+    themeName: '',
     address: '',
     permissionScope: '',
     otherContent: ''
@@ -250,7 +249,7 @@ export class DataCollectionComponent implements OnInit {
   otherImages = [];            //其他图片
 
   certificationNumber:string = '';     //证件名称
-  issue_organization:string = '';               //主题名称
+  themeName:string = '';               //主题名称
   address:string = '';                 //地址
   permissionScope:string = '';         //许可范围
   otherContent:string = '';            //其他内容
@@ -725,9 +724,31 @@ export class DataCollectionComponent implements OnInit {
   }
 
 
-  closeResult: string;
+
+
+  //关闭弹出框时事件
+  closeModal(modal){
+   /* this.closeModalInit();*/
+    modal.hide();
+  }
+
+  //弹出框确定按钮点击事件
+  confirmModal(modalName,modal){
+    this.sureBtnFunction(modalName);
+    modal.hide();
+  }
+
+  //弹窗框配置
+  config = {
+    animated: true,
+    keyboard: true,
+    backdrop: true,
+    ignoreBackdropClick: false,
+    class: 'gray modal-lg'
+  };
 
   //打开编辑店铺图片弹出框
+  shopImageModalRef: BsModalRef;
   openEditShopImagesModal(content) {
     this.shopImages.forEach((v, i) => {
       this.tempshopImages.push(v);
@@ -736,14 +757,11 @@ export class DataCollectionComponent implements OnInit {
       this.tempenvironment.push(v);
     });
 
-    this.modalService.open(content, {size: 'lg'}).result.then((result) => {
-      result == '1' ? this.sureBtnFunction(content, result) : '';
-    }, (reason) => {
-      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-    });
+    this.shopImageModalRef = this.ngxModalService.show(content, this.config);
   }
 
   //打开更多租金信息弹出框
+  rentModalRef: BsModalRef;
   openRentModal(content) {
     this.tempshopRent = this.shopRent;
     this.temprentMeasure = this.rentMeasure;
@@ -757,42 +775,60 @@ export class DataCollectionComponent implements OnInit {
     this.temprentTime = this.rentTime;
     this.templeftContractTime = this.leftContractTime;
 
-    this.modalService.open(content, {size: 'lg'}).result.then((result) => {
-      result == '1' ? this.sureBtnFunction(content, result) : '';
-    }, (reason) => {
-      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-    });
+    this.rentModalRef = this.ngxModalService.show(content,this.config);
+  }
+
+  //打开营业内容弹出框
+  operateModalRef: BsModalRef;
+  openOperateContentModal(content) {
+    this.temppersonProfit = this.personProfit;
+    this.tempdayProfit = this.dayProfit;
+    this.tempconsumePersonType=this.consumePersonType;
+    this.tempconsumeTime=this.consumeTime;
+    this.tempfoodAmount=this.foodAmount;
+    this.temptakeOutAmount=this.takeOutAmount;
+    this.tempmemberAmount=this.memberAmount;
+    this.tempmemberType=this.memberType;
+
+    this.operateModalRef = this.ngxModalService.show(content,this.config);
+
   }
 
   //打开店铺转让内容弹出框
+  transferModalRef: BsModalRef;
   openTransferInfoModal(content) {
     this.temptransferStatus = this.transferStatus;
     this.temptransferFee = this.transferFee;
     this.tempisNegotiable = this.isNegotiable;
     this.tempemptyTransfer = this.emptyTransfer;
+    this.temptransferStaff = this.transferStaff;
+    this.temptransferReason = this.transferReason;
 
-    this.modalService.open(content, {size: 'lg'}).result.then((result) => {
-      result == '1' ? this.sureBtnFunction(content, result) : '';
-    }, (reason) => {
-      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-    });
+    this.transferModalRef = this.ngxModalService.show(content,this.config);
+
   }
 
-  //打开营业内容弹出框
-  openOperateContentModal(content) {
-    this.temppersonProfit = this.personProfit;
-    this.tempdayProfit = this.dayProfit;
+  //打开行业弹出框
+  defaultIndustryList = [];
+  tempdefaultIndustryList;
+  industryModalRef: BsModalRef;
+  openIndustryModel(content, selectedList) {
+    this.defaultIndustryList = selectedList;
 
-    this.modalService.open(content, {size: 'lg'}).result.then((result) => {
-      result == '1' ? this.sureBtnFunction(content, result) : '';
-    }, (reason) => {
-      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    this.tempdefaultIndustryList = [];
+    selectedList.forEach((v, i) => {
+      this.tempdefaultIndustryList.push(v);
     });
+
+    this.industrySelectedFlag(this.industries, this.tempdefaultIndustryList);
+
+    this.industryModalRef = this.ngxModalService.show(content,this.config);
+
   }
 
   //打开店铺证件弹出框
   defaultCertification;
-
+  certificationModalRef: BsModalRef;
   openShopCertificationModal(content, item, type) {  //type1编辑2添加
     let newItem = {};
     type == '2' ? newItem = this.copy(item) : '';
@@ -807,26 +843,23 @@ export class DataCollectionComponent implements OnInit {
 
     item.otherImages.forEach((v, i) => {
       this.otherImages.push(v);
-    });//其他图片
+    });                                                                 //其他图片
 
-    this.certificationNumber = item.certificationNumber;     //证件名称
-    this.issue_organization = item.issue_organization;               //主题名称
-    this.address = item.address;                 //地址
-    this.permissionScope = item.permissionScope;         //许可范围
-    this.otherContent = item.otherContent;            //其他内容
+    this.certificationNumber = item.certificationNumber;                //证件名称
+    this.themeName = item.themeName;                                    //主题名称
+    this.address = item.address;                                        //地址
+    this.permissionScope = item.permissionScope;                        //许可范围
+    this.otherContent = item.otherContent;                              //其他内容
 
-    this.modalService.open(content, {size: 'lg'}).result.then((result) => {
-      result == '1' ? this.sureBtnFunction(content, result) : '';
-      type == '2' ? this.certifications.push(<any>newItem) : '';
-    }, (reason) => {
-      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
 
-    });
+    this.certificationModalRef = this.ngxModalService.show(content,this.config);
+    type == '2' ? this.certifications.push(<any>newItem) : '';
+
   }
 
   //打开个人信息弹出框
   defaultPerson;
-
+  personModalRef: BsModalRef;
   openPersonalInfo(content, item) {
     this.defaultPerson = item;
     this.phoneList = [];
@@ -845,35 +878,11 @@ export class DataCollectionComponent implements OnInit {
     this.wx = item.wx;
     this.personInfoDetail = item.personInfoDetail;
 
+    this.personModalRef = this.ngxModalService.show(content,this.config);
 
-    this.modalService.open(content, {size: 'lg'}).result.then((result) => {
-      result == '1' ? this.sureBtnFunction(content, result) : '';
-    }, (reason) => {
-      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-
-    });
   }
 
-  //打开行业弹出框
-  defaultIndustryList = [];
-  tempdefaultIndustryList;
 
-  openIndustryModel(content, selectedList) {
-    this.defaultIndustryList = selectedList;
-
-    this.tempdefaultIndustryList = [];
-    selectedList.forEach((v, i) => {
-      this.tempdefaultIndustryList.push(v);
-    });
-
-    this.industrySelectedFlag(this.industries, this.tempdefaultIndustryList);
-
-    this.modalService.open(content, {size: 'lg'}).result.then((result) => {
-      result == '1' ? this.sureBtnFunction(content, result) : '';
-    }, (reason) => {
-      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-    });
-  }
 
   //行业弹出框选择行业
   selectThisIndustry(item) {
@@ -1058,18 +1067,8 @@ export class DataCollectionComponent implements OnInit {
   }
 
 
-  private getDismissReason(reason: any): string {
-    if (reason === ModalDismissReasons.ESC) {
-      return 'by pressing ESC';
-    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
-      return 'by clicking on a backdrop';
-    } else {
-      return `with: ${reason}`;
-    }
-  }
-
   //确定按钮用于传参
-  sureBtnFunction(content, result) {
+  sureBtnFunction(content) {
     var modalName = Object.keys(content._def.references)[0];
     if (modalName == 'shopImageContent') {
       this.shopImages = [];
@@ -1130,7 +1129,7 @@ export class DataCollectionComponent implements OnInit {
       })
 
       this.defaultCertification.certificationNumber = this.certificationNumber;
-      this.defaultCertification.issue_organization = this.issue_organization;
+      this.defaultCertification.themeName = this.themeName;
       this.defaultCertification.address = this.address;
       this.defaultCertification.permissionScope = this.permissionScope;
       this.defaultCertification.otherContent = this.otherContent;
@@ -1197,7 +1196,7 @@ export class DataCollectionComponent implements OnInit {
     this.otherImages = [];
 
     this.certificationNumber = '';
-    this.issue_organization = '';
+    this.themeName = '';
     this.address = '';
     this.permissionScope = '';
     this.otherContent = '';
@@ -1314,7 +1313,7 @@ export class DataCollectionComponent implements OnInit {
       console.log("发布信息：", res);
     }).catch(function (error) {
       alert(error);
-    })
+    });
   }
 
 

@@ -672,7 +672,7 @@
 
 
 <!--店铺图片弹出框-->
-<ng-template #shopImageContent let-c="close" let-d="dismiss">
+<!--<ng-template #shopImageContent let-c="close" let-d="dismiss">
   <div class="modal-header">
     <h4 class="modal-title">店铺图片</h4>
     <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
@@ -702,13 +702,44 @@
     <button type="button" class="btn btn-outline-dark" (click)="c('0')">取消</button>
     <button type="button" class="btn btn-outline-dark" (click)="c('1')">确定</button>
   </div>
+</ng-template>-->
+<ng-template #shopImageContent>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">店铺图片</h4>
+    <button type="button" class="close pull-right"  aria-label="Close" (click)="shopImageModalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p>
+      <label class="text-right d-inline-block m-ritght-10" for=""><span class="input-label-name">门面:</span></label>
+      <app-upload-files [images]="tempshopImages" (addImages)="addImages(tempshopImages,$event)"></app-upload-files>
+    </p>
+    <p>
+      <label for="" class="text-right d-inline-block m-ritght-10"><span class="input-label-name">环境:</span></label>
+      <app-upload-files [images]="tempenvironment" (addImages)="addImages(tempenvironment,$event)"></app-upload-files>
+    </p>
+    <p>
+      <label for="" class="text-right d-inline-block m-ritght-10"><span class="input-label-name">VR全景图:</span></label>
+      <span class="not-finished text-muted">敬请期待</span>
+    </p>
+    <p>
+      <label for="" class="text-right d-inline-block m-ritght-10"><span class="input-label-name">视频:</span></label>
+      <span class="not-finished text-muted">敬请期待</span>
+    </p>
+
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="closeModal(shopImageModalRef)">取消</button>
+    <button type="button" class="btn btn-outline-dark" (click)="confirmModal(shopImageContent,shopImageModalRef)">确定</button>
+  </div>
 </ng-template>
 
 <!--店铺租金弹出框-->
-<ng-template #rentContent let-c="close" let-d="dismiss">
+<ng-template #rentContent>
   <div class="modal-header">
-    <h4 class="modal-title">店铺租金</h4>
-    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+    <h4 class="modal-title pull-left">店铺租金</h4>
+    <button type="button" class="close pull-right"  aria-label="Close" (click)="rentModalRef.hide()">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
@@ -778,16 +809,16 @@
     </div>
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-outline-dark" (click)="c('0')">取消</button>
-    <button type="button" class="btn btn-outline-dark" (click)="c('1')">确定</button>
+    <button type="button" class="btn btn-outline-dark" (click)="closeModal(rentModalRef)">取消</button>
+    <button type="button" class="btn btn-outline-dark" (click)="confirmModal(rentContent,rentModalRef)">确定</button>
   </div>
 </ng-template>
 
 <!--店铺营业状况弹出框-->
-<ng-template #profitContent let-c="close" let-d="dismiss">
+<ng-template #profitContent>
   <div class="modal-header">
-    <h4 class="modal-title">店铺营业状况</h4>
-    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+    <h4 class="modal-title pull-left">店铺营业状况</h4>
+    <button type="button" class="close pull-left" aria-label="Close" (click)="operateModalRef.hide()">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
@@ -845,16 +876,16 @@
     </div>
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-outline-dark" (click)="c('0')">取消</button>
-    <button type="button" class="btn btn-outline-dark" (click)="c('1')">确定</button>
+    <button type="button" class="btn btn-outline-dark" (click)="closeModal(operateModalRef)">取消</button>
+    <button type="button" class="btn btn-outline-dark" (click)="confirmModal(profitContent,operateModalRef)">确定</button>
   </div>
 </ng-template>
 
 <!--转让信息弹出框-->
-<ng-template #transferContent let-c="close" let-d="dismiss">
+<ng-template #transferContent>
   <div class="modal-header">
-    <h4 class="modal-title">店铺转让内容</h4>
-    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+    <h4 class="modal-title pull-left">店铺转让内容</h4>
+    <button type="button" class="close pull-left" aria-label="Close" (click)="transferModalRef.hide()">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
@@ -910,16 +941,16 @@
     </div>
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-outline-dark" (click)="c('0')">取消</button>
-    <button type="button" class="btn btn-outline-dark" (click)="c('1')">确定</button>
+    <button type="button" class="btn btn-outline-dark" (click)="closeModal(transferModalRef)">取消</button>
+    <button type="button" class="btn btn-outline-dark" (click)="confirmModal(transferContent,transferModalRef)">确定</button>
   </div>
 </ng-template>
 
 <!--行业列表弹出框-->
-<ng-template #industryContent let-c="close" let-d="dismiss">
+<ng-template #industryContent>
   <div class="modal-header">
-    <h4 class="modal-title">行业列表</h4>
-    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+    <h4 class="modal-title pull-left">行业列表</h4>
+    <button type="button" class="close pull-left" aria-label="Close"  (click)="industryModalRef.hide()">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
@@ -944,16 +975,16 @@
     </ul>
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-outline-dark" (click)="c('0')">取消</button>
-    <button type="button" class="btn btn-outline-dark" (click)="c('1')">确定</button>
+    <button type="button" class="btn btn-outline-dark"  (click)="closeModal(industryModalRef)">取消</button>
+    <button type="button" class="btn btn-outline-dark" (click)="confirmModal(industryContent,industryModalRef)">确定</button>
   </div>
 </ng-template>
 
 <!--店铺证件-->
-<ng-template #certificationEdit let-c="close" let-d="dismiss">
+<ng-template #certificationEdit>
   <div class="modal-header">
-    <h4 class="modal-title">店铺证件</h4>
-    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+    <h4 class="modal-title pull-left">店铺证件</h4>
+    <button type="button" class="close pull-left" aria-label="Close"  (click)="certificationModalRef.hide()">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
@@ -1001,8 +1032,8 @@
     </div>
 
     <div class="d-block m-top-20">
-      <label for="" class="text-right d-inline-block m-ritght-10"><span class="input-label-name">主体名称:</span></label>
-      <input class="form-control profit d-inline-block w-160-px m-ritght-10" name="issue_organization" [(ngModel)]="issue_organization"
+      <label for="" class="text-right d-inline-block m-ritght-10"><span class="input-label-name">主题名称:</span></label>
+      <input class="form-control profit d-inline-block w-160-px m-ritght-10" name="themeName" [(ngModel)]="themeName"
              type="text"
              placeholder="请填写">
     </div>
@@ -1032,18 +1063,17 @@
   </div>
   <div class="modal-footer">
 
-    <button type="button" class="btn btn-outline-dark" (click)="c('0')">取消</button>
-
-    <button type="button" class="btn btn-outline-dark" (click)="c('1')">确定</button>
+    <button type="button" class="btn btn-outline-dark"  (click)="closeModal(certificationModalRef)">取消</button>
+    <button type="button" class="btn btn-outline-dark" (click)="confirmModal(certificationEdit,certificationModalRef)">确定</button>
 
   </div>
 </ng-template>
 
 <!--个人信息弹出框-->
-<ng-template #personInfo let-c="close" let-d="dismiss">
+<ng-template #personInfo>
   <div class="modal-header">
-    <h4 class="modal-title">个人信息</h4>
-    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+    <h4 class="modal-title pull-left">个人信息</h4>
+    <button type="button" class="close pull-left" aria-label="Close" (click)="personModalRef.hide()">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
@@ -1129,9 +1159,9 @@
   </div>
   <div class="modal-footer">
 
-    <button type="button" class="btn btn-outline-dark" (click)="c('0')">取消</button>
+    <button type="button" class="btn btn-outline-dark"   (click)="closeModal(personModalRef)">取消</button>
 
-    <button type="button" class="btn btn-outline-dark" (click)="c('1')">确定</button>
+    <button type="button" class="btn btn-outline-dark" (click)="confirmModal(personInfo,personModalRef)">确定</button>
 
   </div>
 </ng-template>
