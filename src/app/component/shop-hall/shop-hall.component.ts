@@ -1,6 +1,5 @@
-import {Component, OnInit, Inject} from '@angular/core';
-import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
-
+import {Component, OnInit, Inject ,ViewChild} from '@angular/core';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 
 @Component({
   selector: 'app-shop-hall',
@@ -9,10 +8,12 @@ import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 })
 export class ShopHallComponent implements OnInit {
 
+  @ViewChild('mapModal') mapModal: ModalDirective;
+
   allIndustry = [];
   allDistricts = [];
 
-  constructor(private modalService: NgbModal, @Inject('data') private data, @Inject('ShopHallService') private ShopHallService, @Inject('CurrentCityService') private CurrentCityService) {
+  constructor( @Inject('data') private data, @Inject('ShopHallService') private ShopHallService, @Inject('CurrentCityService') private CurrentCityService) {
 
 
     //获取行业列表
@@ -97,7 +98,7 @@ export class ShopHallComponent implements OnInit {
   mindoorWidth = '';
   maxdoorWidth = '';
 
-  mapAddress = '';
+  mapAddress = this.CurrentCityService.getCurCity().name
   zoomLevel = 14;
   tempzoomLevel = 14;
   zoomList = [
@@ -127,20 +128,6 @@ export class ShopHallComponent implements OnInit {
   //查询信息获取列表事件
   search() {
     this.getList();
-  }
-
-  //地图比例尺发生改变时间
-  zoomChange(item) {
-    this.tempzoomLevel = item.code;
-    console.log("zoomLevel:",this.tempzoomLevel, this.zoomLevel);
-  }
-
-  //地图点击事件获取点和地址位置信息
-  geoLocation(e) {
-    this.templng = e.point.lng;
-    this.templat = e.point.lat;
-    this.tempcityName = e.address.city;
-    this.tempdistrictName = e.address.district;
   }
 
   //获取大行业
@@ -185,7 +172,7 @@ export class ShopHallComponent implements OnInit {
     this.latitude = '';
   }
 
-//获取列表数据
+  //获取列表数据
   getList() {
     var params = {
       city: parseInt(this.CurrentCityService.getCurCity().id),
@@ -210,47 +197,46 @@ export class ShopHallComponent implements OnInit {
 
     this.ShopHallService.getshopList(params).then(res => {
       this.infoList = res ? res : [];
-    })
-  }
-
-  //打开地图弹出框
-  closeResult: string;
-
-  open(content) {
-    //地址
-    var cityName = this.CurrentCityService.getCurCity().name;
-    var districtName = this.allDistricts.find(item => item.id.toString() == this.district.toString()) ? this.allDistricts.find(item => item.id.toString() == this.district.toString()).name : '';
-
-    this.mapAddress = (cityName + districtName ) ? (cityName + districtName ) : JSON.parse(sessionStorage.getItem("curCity")).name;
-
-    this.modalService.open(content, {size: 'lg'}).result.then((result) => {
-      if (result == '1') {
-        this.zoomLevel = this.tempzoomLevel;
-
-        this.longitude = this.templng;
-        this.latitude = this.templat;
-        /*          地图定位的时候经纬度改变但是区域并不跟着改变
-                this.city = this.allDistricts.find(item => item.name == this.tempcityName) ? this.allDistricts.find(item => item.name == this.tempcityName).id : '';
-                this.loadDistrict(this.city);
-                this.district = this.allDistricts.find(item => item.name == this.tempdistrictName) ? this.allDistricts.find(item => item.name == this.tempdistrictName).id : '';
-        */
-      }
-      if (result == '1') {
-        this.tempzoomLevel = 14;
-      }
-    }, (reason) => {
-      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
     });
   }
 
-  private getDismissReason(reason: any): string {
-    if (reason === ModalDismissReasons.ESC) {
-      return 'by pressing ESC';
-    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
-      return 'by clicking on a backdrop';
-    } else {
-      return `with: ${reason}`;
-    }
+  //打开地图弹出框
+  mapModalShow() {
+    this.tempzoomLevel=this.zoomLevel;
+    var cityName = this.CurrentCityService.getCurCity().name;
+    var districtName = this.allDistricts.find(item => item.id.toString() == this.district.toString()) ? this.allDistricts.find(item => item.id.toString() == this.district.toString()).name : '';
+    this.mapAddress = (cityName + districtName ) ;
+    console.log("address:",this.mapAddress);
+    this.mapModal.show();
   }
+
+  //地图比例尺发生改变时间
+  zoomChange(item) {
+    this.tempzoomLevel = item.code;
+  }
+
+  //地图点击事件获取点和地址位置信息
+  geoLocation(e) {
+    this.templng = e.point.lng;
+    this.templat = e.point.lat;
+    this.tempcityName = e.address.city;
+    this.tempdistrictName = e.address.district;
+  }
+
+  //地图模态框取消按钮点击事件
+  mapModalClose(){
+    this.mapModal.hide();
+    this.tempzoomLevel = 14;
+  }
+
+  //地图模态框确定按钮点击事件
+  mapModalSureBtn(){
+    this.mapModal.hide();
+    this.zoomLevel = this.tempzoomLevel;
+
+    this.longitude = this.templng;
+    this.latitude = this.templat;
+  }
+
 
 }

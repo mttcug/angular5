@@ -6,27 +6,30 @@
     <!--   <input type="text" readonly [(ngModel)]="currentCity" class="d-inline-block city-span">-->
     <span *ngIf="currentCity!=''">{{currentCity}}</span>
   </span>
-  <span (click)="openCityListModal(cityListModal)" class="modal_activate_btn text text-blue cursor-hand">切换</span>
+  <span (click)="cityListModal.show()" class="modal_activate_btn text text-blue cursor-hand">切换</span>
 </p>
 
-<ng-template #cityListModal let-c="close" let-d="dismiss">
-  <div class="modal-header">
-    <h4 class="modal-title">城市切换</h4>
-    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-  <div class="modal-body">
-    <div class="city-list-container">
-      <ul>
-        <li *ngFor="let item of cityList"><a (click)="c(item)"
-                                             [ngClass]="{'text-danger':item.selected}">{{item.name}}</a></li>
-      </ul>
-      <p class="text-muted">其他城市暂未开放</p>
+
+<!--城市选择modal-->
+<div class="modal fade" bsModal #cityListModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title pull-left">城市列表</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="cityListModal.hide()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="city-list-container">
+          <ul>
+            <li *ngFor="let item of cityList"><a (click)="cityItemClick(item)"
+                                                 [ngClass]="{'text-danger':item.selected}">{{item.name}}</a></li>
+          </ul>
+          <p class="text-muted">其他城市暂未开放</p>
+        </div>
+      </div>
     </div>
   </div>
-  <!--  <div class="modal-footer">
-      <button type="button" class="btn btn-outline-dark" (click)="c('0')">取消</button>
-      <button type="button" class="btn btn-outline-dark" (click)="c('1')">确定</button>
-    </div>-->
-</ng-template>
+</div>

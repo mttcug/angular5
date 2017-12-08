@@ -24,7 +24,7 @@ declare const BMap: any;
 })
 export class BaiduMapComponent implements OnInit, OnChanges {
 
-  @Input() address: string = '深圳';
+  @Input() address: string = '深圳市';
   @Input() apiKey: string = 'sIq3pmhG5n4xVuKQ8eKr1BiV0hsLP2ek';
   @Input() center: any;
   @Input() zoom = 15;
@@ -39,13 +39,7 @@ export class BaiduMapComponent implements OnInit, OnChanges {
   constructor(private elementRef: ElementRef) {
   }
 
-  ngOnInit() {
-
-    //不需要init because zoom一进来就变化了就触发onChange函数执行loader去initMap了所以此处不需要loader
-
-    /*  var address = this.geoAddress ? this.geoAddress : this.address;
-      loader(this.apiKey, this.initMap.bind(this,address));*/
-  }
+  ngOnInit() {}
 
   ngOnChanges(changes: SimpleChanges) {
     //当zoomlevel改变刷新地图时marker不需要初始化位最开始定位的

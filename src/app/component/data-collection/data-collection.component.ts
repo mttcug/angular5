@@ -742,7 +742,7 @@ export class DataCollectionComponent implements OnInit {
   config = {
     animated: true,
     keyboard: true,
-    backdrop: true,
+    backdrop: 'static',
     ignoreBackdropClick: false,
     class: 'gray modal-lg'
   };
