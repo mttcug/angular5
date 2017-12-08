@@ -8,7 +8,7 @@ import {dateComparator} from "@ng-bootstrap/ng-bootstrap/datepicker/datepicker-t
 })
 export class DatePickerComponent implements OnInit {
 
-  @Input() date:any = new Date().getFullYear().toString()+'-'+(new Date().getMonth()+1).toString()+'-'+new Date().getDate().toString();
+  @Input() date:Date = new Date();
 
   @Input() placeholder='yyyy-mm-dd';
 
@@ -20,24 +20,17 @@ export class DatePickerComponent implements OnInit {
 
   @Output() dateChange:EventEmitter<any>=new EventEmitter();
 
-  dateFormDate;
+
 
   constructor() {}
 
 
 
-  ngOnInit() {
-    this.dateFormDate = new Date(this.date);
-  }
+  ngOnInit() {}
 
 
   fireDateChange(date){
-
-    var temp=new Date(date);
-
-    var data:any=temp.getFullYear().toString()+'-'+(temp.getMonth()+1).toString()+'-'+temp.getDate().toString();
-
-    this.dateChange.emit(data);
+    this.dateChange.emit(date);
   }
 
 }

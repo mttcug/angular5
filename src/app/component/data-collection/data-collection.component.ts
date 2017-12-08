@@ -2,6 +2,10 @@ import {Component, Inject, OnInit} from '@angular/core';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 
+//modal弹出框
+import { BsModalService } from 'ngx-bootstrap/modal';
+import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
+
 import {Person} from '../../interface/person/person';
 import {Date} from '../../interface/date/date';
 import {MapData} from '../../interface/mapData/map-data';
@@ -227,7 +231,7 @@ export class DataCollectionComponent implements OnInit {
     backImage: '',
     otherImages: [],
     certificationNumber: '',
-    themeName: '',
+    issue_organization: '',
     address: '',
     permissionScope: '',
     otherContent: ''
@@ -246,7 +250,7 @@ export class DataCollectionComponent implements OnInit {
   otherImages = [];            //其他图片
 
   certificationNumber:string = '';     //证件名称
-  themeName:string = '';               //主题名称
+  issue_organization:string = '';               //主题名称
   address:string = '';                 //地址
   permissionScope:string = '';         //许可范围
   otherContent:string = '';            //其他内容
@@ -806,7 +810,7 @@ export class DataCollectionComponent implements OnInit {
     });//其他图片
 
     this.certificationNumber = item.certificationNumber;     //证件名称
-    this.themeName = item.themeName;               //主题名称
+    this.issue_organization = item.issue_organization;               //主题名称
     this.address = item.address;                 //地址
     this.permissionScope = item.permissionScope;         //许可范围
     this.otherContent = item.otherContent;            //其他内容
@@ -1126,7 +1130,7 @@ export class DataCollectionComponent implements OnInit {
       })
 
       this.defaultCertification.certificationNumber = this.certificationNumber;
-      this.defaultCertification.themeName = this.themeName;
+      this.defaultCertification.issue_organization = this.issue_organization;
       this.defaultCertification.address = this.address;
       this.defaultCertification.permissionScope = this.permissionScope;
       this.defaultCertification.otherContent = this.otherContent;
@@ -1193,7 +1197,7 @@ export class DataCollectionComponent implements OnInit {
     this.otherImages = [];
 
     this.certificationNumber = '';
-    this.themeName = '';
+    this.issue_organization = '';
     this.address = '';
     this.permissionScope = '';
     this.otherContent = '';

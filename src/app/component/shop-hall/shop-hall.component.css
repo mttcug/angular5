@@ -114,8 +114,12 @@ display: inline-block;
   margin-top: 10px;
 }
 .page-container{
-  margin-right: 50px;
-  margin-top: 20px;
+  margin-right: 20px;
+  margin-top: 50px;
+  overflow: hidden;
+}
+pagination{
+  float: right;
 }
 table .no-data{
   text-align: center;
