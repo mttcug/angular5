@@ -230,7 +230,7 @@ export class DataCollectionComponent implements OnInit {
     backImage: '',
     otherImages: [],
     certificationNumber: '',
-    themeName: '',
+    owner_name: '',
     address: '',
     permissionScope: '',
     otherContent: ''
@@ -249,7 +249,7 @@ export class DataCollectionComponent implements OnInit {
   otherImages = [];            //其他图片
 
   certificationNumber:string = '';     //证件名称
-  themeName:string = '';               //主题名称
+  owner_name:string = '';               //主题名称
   address:string = '';                 //地址
   permissionScope:string = '';         //许可范围
   otherContent:string = '';            //其他内容
@@ -846,7 +846,7 @@ export class DataCollectionComponent implements OnInit {
     });                                                                 //其他图片
 
     this.certificationNumber = item.certificationNumber;                //证件名称
-    this.themeName = item.themeName;                                    //主题名称
+    this.owner_name = item.owner_name;                                    //主题名称
     this.address = item.address;                                        //地址
     this.permissionScope = item.permissionScope;                        //许可范围
     this.otherContent = item.otherContent;                              //其他内容
@@ -1129,7 +1129,7 @@ export class DataCollectionComponent implements OnInit {
       })
 
       this.defaultCertification.certificationNumber = this.certificationNumber;
-      this.defaultCertification.themeName = this.themeName;
+      this.defaultCertification.owner_name = this.owner_name;
       this.defaultCertification.address = this.address;
       this.defaultCertification.permissionScope = this.permissionScope;
       this.defaultCertification.otherContent = this.otherContent;
@@ -1196,7 +1196,7 @@ export class DataCollectionComponent implements OnInit {
     this.otherImages = [];
 
     this.certificationNumber = '';
-    this.themeName = '';
+    this.owner_name = '';
     this.address = '';
     this.permissionScope = '';
     this.otherContent = '';
