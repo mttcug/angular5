@@ -1068,7 +1068,7 @@ console.log("123:",this.temppayWay);
 
 
   //确定按钮用于传参
-  sureBtnFunction(content):void {
+  sureBtnFunction(content) {
     var modalName:string = Object.keys(content._def.references)[0];
     if (modalName == 'shopImageContent') {
       this.shopImages = [];
@@ -1219,7 +1219,7 @@ console.log("123:",this.temppayWay);
     /*  this.router.navigate(['glancePostedInfoItem']);*/
 
     //当前经营，适合经营和不宜经营需要的是code[code1,code2....];
-    var fitC:Array<any> = [], recomC:Array<any> = [], unrecomC:Array<any> = [];
+    var fitC = [], recomC = [], unrecomC = [];
     this.fitIndustry.forEach((v, i) => {
       fitC.push(v.code);
     });

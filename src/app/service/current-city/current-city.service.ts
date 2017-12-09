@@ -10,6 +10,7 @@ export class CurrentCityService {
     //获取城市列表
     let district = sessionStorage.getItem("district");
     if (district) {
+      console.log('ooo:',district);
       JSON.parse(district).forEach((v, i) => {
         this.allDistricts.push(v);
       });

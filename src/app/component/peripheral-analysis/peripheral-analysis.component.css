@@ -41,11 +41,14 @@
   padding: 70px;
 }
 .industry-chart-connect-info-block{
-  padding: 30px 60px;
+  padding: 30px 30px;
 }
 .industry-list-block{
   height: 200px;
   overflow-y: scroll;
+}
+.industry-list-block > p{
+  white-space: nowrap;
 }
 .industry-item-style{
   width: 70%;
