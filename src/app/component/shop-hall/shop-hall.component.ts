@@ -32,7 +32,7 @@ export class ShopHallComponent implements OnInit {
           });
         });
         this.bigIndustryList = this.getBigIndustry();
-      });
+      },error=>{console.log("industry error:",error)});
     }
 
 
@@ -52,7 +52,7 @@ export class ShopHallComponent implements OnInit {
         });
         this.city = this.CurrentCityService.getCurCity().id;
         this.loadDistrict(this.CurrentCityService.getCurCity().id);
-      });
+      },error=>{console.log("district error:",error)});
     }
 
 

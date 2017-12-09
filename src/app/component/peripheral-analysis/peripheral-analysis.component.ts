@@ -11,27 +11,27 @@ import {ActivatedRoute, Params} from '@angular/router';
 export class PeripheralAnalysisComponent implements OnInit {
 
 
-  shopInfo = {};
-  trafficInfo = [];
-  population = [];
-  customer = [];
-  industryInfo = [];
+  shopInfo:Object = {};
+  trafficInfo:Array<any> = [];
+  population:Array<any> = [];
+  customer:Array<any> = [];
+  industryInfo:Array<any> = [];
 
-  industryNameArr = [];
-  industryCountArr = [];
+  industryNameArr:Array<any> = [];
+  industryCountArr:Array<any> = [];
 
-  radarShow = false;                         //雷达图是否显示
-  cooperativeShow=false;
-  competitiveShow=false;
+  radarShow:boolean = false;                         //雷达图是否显示
+  cooperativeShow:boolean=false;
+  competitiveShow:boolean=false;
 
   public radarOption: any;
   public populationOption: any;
   public barChartOption: any;
 
-  detailModelHidden = true;
-  tempDetailInfoContainer = [];
+  detailModelHidden:boolean = true;
+  tempDetailInfoContainer:Array<any> = [];
 
-  oppo_Id = '';
+  oppo_Id:string = '';
 
   constructor(@Inject('data') private data, private route: ActivatedRoute, @Inject('PeripheralDataService') private PeripheralDataService) {
 
@@ -44,8 +44,8 @@ export class PeripheralAnalysisComponent implements OnInit {
 
   ngOnInit() {}
 
-  getInfo(oppo_id) {
-    let params = {
+  getInfo(oppo_id:string):void {
+    let params:Object = {
       shop_id: oppo_id
     }
     //头部本店信息
@@ -53,14 +53,14 @@ export class PeripheralAnalysisComponent implements OnInit {
       .map((res: Response) => res.json())
       .subscribe(res => {
       this.shopInfo = res.result;
-    });
+    },error=>{console.log("PeripheralDataService error:",error)});
 
     //周边数据-交通信息
     this.PeripheralDataService.getPeripheralTraffic(params)
       .map((res: Response) => res.json())
       .subscribe(res => {
       this.trafficInfo = res.result;
-    })
+    },error=>{console.log("PeripheralDataService error:",error)})
 
     //周边数据-聚客来源
     this.PeripheralDataService.getPeripheralCustom(params)
@@ -68,15 +68,14 @@ export class PeripheralAnalysisComponent implements OnInit {
       .subscribe(res => {
 
       this.customer = res.result;
-      console.log("customer:",res);
 
       this.radarShow = this.customer['FrontFour'].length > 0 ? true : false;
-      var dataName = [];
+      var dataName:Array<string> = [];
 
 
-      var tempRadarDataContainer = [];
-      var tempMathY = [];
-      var tempMathX = [];
+      var tempRadarDataContainer:Array<any> = [];
+      var tempMathY:Array<any> = [];
+      var tempMathX:Array<any> = [];
 
       //准备雷达图用的数据
       this.customer['FrontFour'].forEach((v, i) => {
@@ -97,8 +96,8 @@ export class PeripheralAnalysisComponent implements OnInit {
 
       var zoomYMin = 0;
       var zoomYMax = Math.max.apply(Math, tempMathY);
-      var zoomXMin = 0;
-      var zoomXMax = Math.max.apply(Math, tempMathX);
+      var zoomXMin:number = 0;
+      var zoomXMax:number = Math.max.apply(Math, tempMathX);
 
       this.radarOption = {
         title: {
@@ -134,7 +133,7 @@ export class PeripheralAnalysisComponent implements OnInit {
         series: tempRadarDataContainer
       };
 
-    });
+    },error=>{console.log("PeripheralDataService error:",error)});
 
     //周边数据-周边人口
     this.PeripheralDataService.getPeripheralPerson(params)
@@ -177,8 +176,8 @@ export class PeripheralAnalysisComponent implements OnInit {
             }
           }
         ]
-      }
-    });
+      };
+    },error=>{console.log("PeripheralDataService error:",error)});
 
     //周边数据-周边业态
     this.PeripheralDataService.getPeripheralIndustry(params)
@@ -232,14 +231,12 @@ export class PeripheralAnalysisComponent implements OnInit {
             data: this.industryCountArr
           }
         ]
-      }
-
-      console.log("i",this.barChartOption);
-    });
+      };
+    },error=>{console.log("PeripheralDataService error:",error)});
   }
 
   //聚客来源数据点击弹出详细信息
-  openDetailModal(title, detailInfoList) {
+  openDetailModal(title:string, detailInfoList:Array<any>) {
     this.detailModelHidden = false;
     this.tempDetailInfoContainer = detailInfoList;
     this.tempDetailInfoContainer['title'] = title;

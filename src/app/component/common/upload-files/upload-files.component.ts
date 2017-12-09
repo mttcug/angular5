@@ -47,7 +47,10 @@ export class UploadFilesComponent implements OnInit {
         this.images.push(v);
       });
       this.addImages.emit(this.images);
-    });
+    },error=>{
+        console.log("upload error:",error);
+        alert("上传失败");
+      });
   }
 
 
