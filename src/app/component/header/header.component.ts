@@ -27,15 +27,18 @@ export class HeaderComponent implements OnInit {
         v.id.toString().substr(-6) == '000000' ? this.cityList.push(v) : '';
       });
     } else {
-      this.data.getDistrictData().then(res => {
-        var result = res ? res : [];
+      this.data.getDistrictData()
+        .map((res: Response) => res.json())
+        .subscribe(res => {
+
+        var result = res ? res.result : [];
+          console.log("header:",res,result);
         result.forEach((v, i) => {
           this.allDistricts.push(v);
           v.id.toString().substr(-6) == '000000' ? this.cityList.push(v) : '';
         });
       });
     }
-
   }
 
 

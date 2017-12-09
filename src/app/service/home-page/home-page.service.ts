@@ -5,20 +5,18 @@ import 'rxjs/add/operator/toPromise';
 export class HomePageService {
 
 
-  constructor(@Inject('http') private http) { }
+  constructor(@Inject('jsonrpcHttp') private jsonrpcHttp,@Inject('config') private conf) { }
+
+  url:string=this.conf.homePageDataApi;
 
   //首页获取店铺数量
   getShopCount(params){
-    return this.http.homePageRequest('shop_count',params).then(res=>{
-      return JSON.parse(res._body).result;
-    });
+    return this.jsonrpcHttp.rpcRequest(this.url,'shop_count',params);
   }
 
   //首页获取老板数量
   getBossCount(params){
-    return this.http.homePageRequest('boss_count',params).then(res=>{
-      return JSON.parse(res._body).result;
-    });
+    return this.jsonrpcHttp.rpcRequest(this.url,'boss_count',params);
   }
 
 }

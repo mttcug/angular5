@@ -4,7 +4,7 @@ import 'rxjs/add/operator/toPromise';
 @Injectable()
 export class DataOperateRequestService {
 
-  constructor(@Inject('http') private http) { }
+  constructor(@Inject('jsonrpcHttp') private jsonrpcHttp) { }
 
 
 }

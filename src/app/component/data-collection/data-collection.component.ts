@@ -39,9 +39,11 @@ export class DataCollectionComponent implements OnInit {
 
   constructor(private ngxModalService: BsModalService, private router: Router, @Inject('data') private data, private route: ActivatedRoute, @Inject('DataCollectionService') private DataCollectionService, @Inject('CurrentCityService') private CurrentCityService) {
     //获取行业列表
-    this.data.getIndustryData().then(res => {
-      this.industries = res ? res : [];
-      var result = res ? res : [];  //所有数据[[],[]],用于推荐经营，不宜经营。。。
+    this.data.getIndustryData()
+      .map((res: Response) => res.json())
+      .subscribe(res => {
+      this.industries = res ? res.result : [];
+      var result = res ? res.result : [];  //所有数据[[],[]],用于推荐经营，不宜经营。。。
       result.forEach((value, i) => {
         value.forEach((v, j) => {
           j == 0 ? this.bigIndustryList.push(v) : '';
@@ -51,8 +53,10 @@ export class DataCollectionComponent implements OnInit {
     });
 
     //获取城市列表
-    this.data.getDistrictData().then(res => {
-      var result = res ? res : [];
+    this.data.getDistrictData()
+      .map((res: Response) => res.json())
+      .subscribe(res => {
+      var result = res ? res.result : [];
       result.forEach((v, i) => {
         this.allDistricts.push(v);
         v.id.toString().substr(-6) == '000000' ? this.cityList.push(v) : '';
@@ -60,56 +64,77 @@ export class DataCollectionComponent implements OnInit {
     });
 
     //获取建筑形状
-    this.data.getBuildingShapeData().then(res => {
-      this.buildingShapeList = res;
+    this.data.getBuildingShapeData()
+      .map((res: Response) => res.json())
+      .subscribe(res => {
+      this.buildingShapeList = res.result;
     });
 
     //获取转让状态列表
-    this.data.getTransferStatusData().then(res => {
-      this.transferStatusList = res;
+    this.data.getTransferStatusData()
+      .map((res: Response) => res.json())
+      .subscribe(res => {
+      this.transferStatusList = res.result;
     });
 
     //获取位置描述列表
-    this.data.getPositionDesData().then(res => {
-      this.positionDescriptionList = res;
+    this.data.getPositionDesData()
+      .map((res: Response) => res.json())
+      .subscribe(res => {
+      this.positionDescriptionList = res.result;
     });
 
     //是否临街
-    this.data.getBesideStreet().then(res => {
-      this.positionList = res;
+    this.data.getBesideStreet()
+      .map((res: Response) => res.json())
+      .subscribe(res => {
+      this.positionList = res.result;
     });
 
     //店铺证件类型
-    this.data.getCertificateType().then(res => {
-      this.certificationsTypeList = res;
+    this.data.getCertificateType()
+      .map((res: Response) => res.json())
+      .subscribe(res => {
+      this.certificationsTypeList = res.result;
     });
 
     //租金单位
-    this.data.getRentMeasure().then(res => {
-      this.rentMeasureList = res;
+    this.data.getRentMeasure()
+      .map((res: Response) => res.json())
+      .subscribe(res => {
+      this.rentMeasureList = res.result;
     });
 
     //营业状态
-    this.data.getOperateStatus().then(res => {
-      this.operateStatusList = res;
+    this.data.getOperateStatus()
+      .map((res: Response) => res.json())
+      .subscribe(res => {
+      this.operateStatusList = res.result;
     });
 
     //拆迁风险
-    this.data.getPullRisk().then(res => {
-      this.destroyedRatioList = res;
+    this.data.getPullRisk()
+      .map((res: Response) => res.json())
+      .subscribe(res => {
+      this.destroyedRatioList = res.result;
     });
 
     //产权类型
-    this.data.getPerprotyRight().then(res => {
-      this.propertyRightTypeList = res;
+    this.data.getPerprotyRight()
+      .map((res: Response) => res.json())
+      .subscribe(res => {
+      this.propertyRightTypeList = res.result;
     });
 
     //物业类型和上级物业
-    this.data.getEstateType().then(res => {
-      res.forEach((v, i) => {
-        v.value_description.trim() == '商铺' ? res.splice(i, 1) : '';  //去掉商铺
+    this.data.getEstateType()
+      .map((res: Response) => res.json())
+      .subscribe(res => {
+        var result=res.result;
+      result.forEach((v, i) => {
+        v.value_description.trim() == '商铺' ? result.splice(i, 1) : '';  //去掉商铺
       });
-      this.superFacilityList = res;
+      this.superFacilityList = result;
     });
 
     //经营模式
@@ -1310,7 +1335,9 @@ console.log("123:",this.temppayWay);
       houseOwner: this.houseOwner                            //房主
     }
     console.log("params:", params);
-    this.DataCollectionService.releaseInfo(params).then(res => {
+    this.DataCollectionService.releaseInfo(params)
+      .map((res: Response) => res.json())
+      .subscribe(res => {
       console.log("发布信息：", res);
     }).catch(function (error) {
       alert(error);

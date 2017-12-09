@@ -22,8 +22,10 @@ export class ShopHallComponent implements OnInit {
       this.allIndustry = result;
       this.bigIndustryList = this.getBigIndustry();
     } else {
-      this.data.getIndustryData().then(res => {
-        var result = res ? res : [];  //所有数据[[],[]],用于推荐经营，不宜经营。。。
+      this.data.getIndustryData()
+        .map((res: Response) => res.json())
+        .subscribe(res => {
+        var result = res ? res.result : [];  //所有数据[[],[]],用于推荐经营，不宜经营。。。
         result.forEach((value, i) => {
           value.forEach((v, j) => {
             this.allIndustry.push(v);
@@ -41,8 +43,10 @@ export class ShopHallComponent implements OnInit {
       this.city = this.CurrentCityService.getCurCity().id;
       this.loadDistrict(this.CurrentCityService.getCurCity().id);
     } else {
-      this.data.getDistrictData().then(res => {
-        var result = res ? res : [];
+      this.data.getDistrictData()
+        .map((res: Response) => res.json())
+        .subscribe(res => {
+        var result = res ? res.result : [];
         result.forEach((v, i) => {
           this.allDistricts.push(v);
         });
@@ -53,8 +57,10 @@ export class ShopHallComponent implements OnInit {
 
 
     //获取位置描述列表
-    this.data.getPositionDesData().then(res => {
-      this.positionDescriptionList = res;
+    this.data.getPositionDesData()
+      .map((res: Response) => res.json())
+      .subscribe(res => {
+      this.positionDescriptionList = res.result;
     });
 
 
@@ -195,8 +201,10 @@ export class ShopHallComponent implements OnInit {
     this.mindoorWidth ? params['min_door_width'] = parseInt(this.maxArea) : '';
     this.maxdoorWidth ? params['max_door_width'] = parseInt(this.maxArea) : '';
 
-    this.ShopHallService.getshopList(params).then(res => {
-      this.infoList = res ? res : [];
+    this.ShopHallService.getshopList(params)
+      .map((res: Response) => res.json())
+      .subscribe(res => {
+      this.infoList = res ? res.result : [];
     });
   }
 

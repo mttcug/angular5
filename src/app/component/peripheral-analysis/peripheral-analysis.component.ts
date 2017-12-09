@@ -49,19 +49,26 @@ export class PeripheralAnalysisComponent implements OnInit {
       shop_id: oppo_id
     }
     //头部本店信息
-    this.PeripheralDataService.getSelfInfo(params).then(res => {
-      this.shopInfo = res;
-    })
+    this.PeripheralDataService.getSelfInfo(params)
+      .map((res: Response) => res.json())
+      .subscribe(res => {
+      this.shopInfo = res.result;
+    });
 
     //周边数据-交通信息
-    this.PeripheralDataService.getPeripheralTraffic(params).then(res => {
-      this.trafficInfo = res;
+    this.PeripheralDataService.getPeripheralTraffic(params)
+      .map((res: Response) => res.json())
+      .subscribe(res => {
+      this.trafficInfo = res.result;
     })
 
     //周边数据-聚客来源
-    this.PeripheralDataService.getPeripheralCustom(params).then(res => {
+    this.PeripheralDataService.getPeripheralCustom(params)
+      .map((res: Response) => res.json())
+      .subscribe(res => {
 
-      this.customer = res;
+      this.customer = res.result;
+      console.log("customer:",res);
 
       this.radarShow = this.customer['FrontFour'].length > 0 ? true : false;
       var dataName = [];
@@ -127,11 +134,13 @@ export class PeripheralAnalysisComponent implements OnInit {
         series: tempRadarDataContainer
       };
 
-    })
+    });
 
     //周边数据-周边人口
-    this.PeripheralDataService.getPeripheralPerson(params).then(res => {
-      this.population = res;
+    this.PeripheralDataService.getPeripheralPerson(params)
+      .map((res: Response) => res.json())
+      .subscribe(res => {
+      this.population = res.result;
       this.populationOption = {
         title: {
           text: '',
@@ -169,11 +178,13 @@ export class PeripheralAnalysisComponent implements OnInit {
           }
         ]
       }
-    })
+    });
 
     //周边数据-周边业态
-    this.PeripheralDataService.getPeripheralIndustry(params).then(res => {
-      this.industryInfo = res;
+    this.PeripheralDataService.getPeripheralIndustry(params)
+      .map((res: Response) => res.json())
+      .subscribe(res => {
+      this.industryInfo = res.result;
       this.cooperativeShow = this.industryInfo['cooperative_shops'].length > 0 ? true : false;
       this.competitiveShow = this.industryInfo['competitive_shops'].length > 0 ? true : false;
 
@@ -224,7 +235,7 @@ export class PeripheralAnalysisComponent implements OnInit {
       }
 
       console.log("i",this.barChartOption);
-    })
+    });
   }
 
   //聚客来源数据点击弹出详细信息

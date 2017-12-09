@@ -23,13 +23,17 @@ export class DataIndexComponent implements OnInit {
     }
 
     //获取店铺数据
-    this.HomePageService.getShopCount(params).then(res => {
-      this.shopCount = res;
+    this.HomePageService.getShopCount(params)
+      .map((res: Response) => res.json())
+      .subscribe(res => {
+      this.shopCount = res.result;
     });
 
     //获取老板数据
-    this.HomePageService.getBossCount(params).then(res => {
-      this.bossCount = res;
+    this.HomePageService.getBossCount(params)
+      .map((res: Response) => res.json())
+      .subscribe(res => {
+      this.bossCount = res.result;
     });
   }
 

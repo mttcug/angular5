@@ -30,11 +30,7 @@ export class UploadFilesComponent implements OnInit {
     var params = {
       files: files
     };
-    return this.http.post(this.configService.uploadApi, files).toPromise().then(result => {
-      return new Promise((res, rej) => {
-        res(JSON.parse((<any>result)._body).result);
-      });
-    });
+    return this.http.post(this.configService.uploadApi, files);
   }
 
 
@@ -44,8 +40,10 @@ export class UploadFilesComponent implements OnInit {
     for (let i = 0; i < files.length; i++) {
       fd.append(i.toString(), files[i]);
     }
-    this.Upload(fd).then(res => {
-      Array.from(<any>res).forEach((v, i) => {
+    this.Upload(fd)
+      .map((res: Response) => res.json())
+      .subscribe(res => {
+      Array.from(<any>res.result).forEach((v, i) => {
         this.images.push(v);
       });
       this.addImages.emit(this.images);

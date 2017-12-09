@@ -92,7 +92,7 @@ import {TransferStatusPipe} from './pipe/transfer-status/transfer-status.pipe';
     BaiduMapModule.forRoot({ak: 'fN66w00hfey6hwEyhFcYFRvvwe4a0pOG'})
   ],
   providers: [
-    {provide: 'http', useClass: JsonrpcRequestModelService},
+    {provide: 'jsonrpcHttp', useClass: JsonrpcRequestModelService},
     {provide: 'data', useClass: DataService},
     {provide: 'config', useClass: ConfigService},
     {provide: 'operate', useClass: DataOperateRequestService},

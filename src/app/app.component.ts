@@ -18,9 +18,13 @@ export class AppComponent {
   constructor(private modalService: NgbModal, @Inject('data') private data) {
     //行业和区域缓存起来以备不时之需
     //获取行业列表
-    this.data.getIndustryData().then(res => {
+    this.data.getIndustryData()
+      .map((res: Response) => res.json())
+      .subscribe(res => {
+        var result=res.result;
       //所有数据[[],[]],用于推荐经营，不宜经营。。。
-      res.forEach((value, i) => {
+
+        result.forEach((value, i) => {
         value.forEach((v, j) => {
           this.allIndustry.push(v);
         });
@@ -29,34 +33,46 @@ export class AppComponent {
     });
 
     //获取城市列表
-    this.data.getDistrictData().then(res => {
-      this.allDistrict = res;
-      sessionStorage.setItem("district", JSON.stringify(res));
+    this.data.getDistrictData()
+      .map((res: Response) => res.json())
+      .subscribe(res => {
+      this.allDistrict = res.result;
+      sessionStorage.setItem("district", JSON.stringify(res.result));
     });
 
     //租金单位
-    this.data.getRentMeasure().then(res => {
-      sessionStorage.setItem("rentUnit", JSON.stringify(res));
+    this.data.getRentMeasure()
+      .map((res: Response) => res.json())
+      .subscribe(res => {
+      sessionStorage.setItem("rentUnit", JSON.stringify(res.result));
     });
 
     /*获取位置描述*/
-    this.data.getPositionDesData().then(res => {
-      sessionStorage.setItem("locationType", JSON.stringify(res));
+    this.data.getPositionDesData()
+      .map((res: Response) => res.json())
+      .subscribe(res => {
+      sessionStorage.setItem("locationType", JSON.stringify(res.result));
     })
 
     /*获取是否临街*/
-    this.data.getBesideStreet().then(res => {
-      sessionStorage.setItem("nearStreet", JSON.stringify(res));
+    this.data.getBesideStreet()
+      .map((res: Response) => res.json())
+      .subscribe(res => {
+      sessionStorage.setItem("nearStreet", JSON.stringify(res.result));
     })
 
     //获取上级物业
-    this.data.getEstateType().then(res => {
-      sessionStorage.setItem("superFacility", JSON.stringify(res));
+    this.data.getEstateType()
+      .map((res: Response) => res.json())
+      .subscribe(res => {
+      sessionStorage.setItem("superFacility", JSON.stringify(res.result));
     });
 
     //获取转让状态列表
-    this.data.getTransferStatusData().then(res => {
-      sessionStorage.setItem("transferStatus", JSON.stringify(res));
+    this.data.getTransferStatusData()
+      .map((res: Response) => res.json())
+      .subscribe(res => {
+      sessionStorage.setItem("transferStatus", JSON.stringify(res.result));
     });
 
   }

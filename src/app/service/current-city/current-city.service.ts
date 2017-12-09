@@ -8,9 +8,8 @@ export class CurrentCityService {
 
   constructor(@Inject('data') private data,@Inject('config') private configService) {
     //获取城市列表
-    let district = sessionStorage.getItem("district");
+/*    let district = sessionStorage.getItem("district");
     if (district) {
-      console.log('ooo:',district);
       JSON.parse(district).forEach((v, i) => {
         this.allDistricts.push(v);
       });
@@ -21,7 +20,7 @@ export class CurrentCityService {
           this.allDistricts.push(v);
         });
       });
-    }
+    }*/
   }
 
 
