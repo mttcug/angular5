@@ -14,4 +14,4 @@ export class RentUnitPipe implements PipeTransform {
       return res ? res.value_description : '';
     }
   }
-}
+
