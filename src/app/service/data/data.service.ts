@@ -36,15 +36,15 @@ export class DataService {
 
   getServiceList() {
     return [
-      {code: 1, name: "可刷卡", checked: false},
-      {code: 2, name: "支付宝", checked: false},
-      {code: 3, name: "微信", checked: false},
-      {code: 4, name: "包间", checked: false},
-      {code: 5, name: "WIFI", checked: false},
-      {code: 6, name: "可订座", checked: false},
-      {code: 7, name: "外卖", checked: false},
-      {code: 8, name: "机打发票", checked: false},
-      {code: 9, name: "手撕发票", checked: false}
+      {code: 2, name: "可刷卡", checked: false},
+      {code: 3, name: "支付宝", checked: false},
+      {code: 4, name: "微信支付", checked: false},
+      {code: 1, name: "包间", checked: false},
+      {code: 9, name: "WIFI", checked: false},
+      {code: 8, name: "可订座", checked: false},
+      {code: 5, name: "外卖", checked: false},
+      {code: 6, name: "机打发票", checked: false},
+      {code: 7, name: "手撕发票", checked: false}
     ];
   }
 
