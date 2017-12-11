@@ -202,9 +202,9 @@ export class PeripheralAnalysisComponent implements OnInit {
           }
         },
         grid: {
-          left: '3%',
-          right: '4%',
-          bottom: '8%',
+          left: '0%',
+          right: '2%',
+          bottom: '10%',
           containLabel: true
         },
         xAxis: [
@@ -233,8 +233,6 @@ export class PeripheralAnalysisComponent implements OnInit {
           }
         ]
       }
-
-      console.log("i",this.barChartOption);
     });
   }
 
