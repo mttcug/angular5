@@ -12,4 +12,9 @@ export class DataCollectionService {
   releaseInfo(params){
     return this.jsonrpcHttp.rpcRequest(this.url,"add",params);
   }
+
+  getInfo(params){
+    return this.jsonrpcHttp.rpcRequest(this.url,"get",params);
+  }
+
 }

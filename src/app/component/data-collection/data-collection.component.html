@@ -19,7 +19,7 @@
             <i class="iconfont icon-mi text-danger"></i>
             <span class="input-label-name">品牌名称：</span>
           </label>
-          <input class="form-control brand-name-input" name="brandName" type="text" [(ngModel)]="brandName"
+          <input class="form-control brand-name-input w-160-px" name="brandName" type="text" [(ngModel)]="brandName"
                  (ngModelChange)="updateShopName()" required
                  placeholder="请输入" maxlength="30">
         </p>
@@ -28,7 +28,7 @@
             <i class="iconfont icon-mi text-danger"></i>
             <span class="input-label-name">分店名：</span>
           </label>
-          <input class="form-control subshop-name" name="subShopName" type="text" [(ngModel)]="subShopName" required
+          <input class="form-control subshop-name w-160-px" name="subShopName" type="text" [(ngModel)]="subShopName" required
                  placeholder="请输入" maxlength="10" (ngModelChange)="updateShopName()">
         </p>
         <p>

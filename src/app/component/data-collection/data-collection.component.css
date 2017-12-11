@@ -42,16 +42,13 @@ form h3,.modal-body > div{
 }
 
 /*店名*/
-.brand-name{
-  color: red;
-}
+
 .input-label-name{
   font-size: 16px;
   line-height: 38px;
 }
 .shop-name-input,.brand-name-input,.subshop-name{
   display: inline-block;
-  width: 10%;
 }
 .checkbox-style{
   display: inline-block;

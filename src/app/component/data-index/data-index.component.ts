@@ -27,14 +27,14 @@ export class DataIndexComponent implements OnInit {
       .map((res: Response) => res.json())
       .subscribe(res => {
       this.shopCount = res.result;
-    });
+    },error=>{console.log("HomePageService error:",error)});
 
     //获取老板数据
     this.HomePageService.getBossCount(params)
       .map((res: Response) => res.json())
       .subscribe(res => {
       this.bossCount = res.result;
-    });
+    },error=>{console.log("HomePageService error:",error)});
   }
 
   ngOnInit() {

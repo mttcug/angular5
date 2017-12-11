@@ -32,12 +32,12 @@ export class HeaderComponent implements OnInit {
         .subscribe(res => {
 
         var result = res ? res.result : [];
-          console.log("header:",res,result);
         result.forEach((v, i) => {
           this.allDistricts.push(v);
           v.id.toString().substr(-6) == '000000' ? this.cityList.push(v) : '';
         });
-      });
+      },error=>{console.log("district error:",error)}
+    );
     }
   }
 
@@ -53,7 +53,7 @@ export class HeaderComponent implements OnInit {
 
 
   //切换城市弹出框内城市列表点击事件
-  cityItemClick(item) {
+  cityItemClick(item):void {
     this.currentCity = item.name;
     this.CurrentCityService.setCurCity(item);
     this.selectedColorChange(item.name);
@@ -65,7 +65,7 @@ export class HeaderComponent implements OnInit {
 
 
   //切换城市弹出框标记被选中的城市
-  selectedColorChange(selectedCity) {
+  selectedColorChange(selectedCity): void {
     this.cityList.forEach((v, i) => {
       v.selected = v.name.toString() == selectedCity ? true : false;
     });

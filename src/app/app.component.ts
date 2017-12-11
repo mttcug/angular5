@@ -30,7 +30,7 @@ export class AppComponent {
         });
       });
       sessionStorage.setItem("industry", JSON.stringify(this.allIndustry));
-    });
+    },error=>{console.log("industry server Error:",error)});
 
     //获取城市列表
     this.data.getDistrictData()
@@ -38,52 +38,52 @@ export class AppComponent {
       .subscribe(res => {
       this.allDistrict = res.result;
       sessionStorage.setItem("district", JSON.stringify(res.result));
-    });
+    },error=>{console.log("district error:",error)});
 
     //租金单位
     this.data.getRentMeasure()
       .map((res: Response) => res.json())
       .subscribe(res => {
       sessionStorage.setItem("rentUnit", JSON.stringify(res.result));
-    });
+    },error=>{console.log("rentUnit error:",error)});
 
     /*获取位置描述*/
     this.data.getPositionDesData()
       .map((res: Response) => res.json())
       .subscribe(res => {
       sessionStorage.setItem("locationType", JSON.stringify(res.result));
-    })
+    },error=>{console.log("locationType error:",error)})
 
     /*获取是否临街*/
     this.data.getBesideStreet()
       .map((res: Response) => res.json())
       .subscribe(res => {
       sessionStorage.setItem("nearStreet", JSON.stringify(res.result));
-    })
+    },error=>{console.log("nearStreet error:",error)})
 
     //获取上级物业
     this.data.getEstateType()
       .map((res: Response) => res.json())
       .subscribe(res => {
       sessionStorage.setItem("superFacility", JSON.stringify(res.result));
-    });
+    },error=>{console.log("superFacility error:",error)});
 
     //获取转让状态列表
     this.data.getTransferStatusData()
       .map((res: Response) => res.json())
       .subscribe(res => {
       sessionStorage.setItem("transferStatus", JSON.stringify(res.result));
-    });
+    },error=>{console.log("transferStatus error:",error)});
 
   }
 
 
 
-  getWindowHeight() {
+  getWindowHeight(): number {
     return window.innerHeight;
   }
 
-  getSideNavHeight() {
+  getSideNavHeight(): number {
     return this.getWindowHeight() - 100;
   }
 
