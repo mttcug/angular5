@@ -231,13 +231,8 @@ export class PeripheralAnalysisComponent implements OnInit {
             data: this.industryCountArr
           }
         ]
-<<<<<<< HEAD
-      }
-    });
-=======
       };
     },error=>{console.log("PeripheralDataService error:",error)});
->>>>>>> 2b5f3291d5d8f622c5fbf1f9723cf9c5b9c9b1f2
   }
 
   //聚客来源数据点击弹出详细信息

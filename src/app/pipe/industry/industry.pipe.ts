@@ -9,9 +9,9 @@ export class IndustryPipe implements PipeTransform {
 
     let data = JSON.parse(sessionStorage.getItem("industry"));
 
-    var industryName = value ? data.find(item => item.code.toString() == value.toString()) ? data.find(item => item.code.toString() == value.toString()).name : '' : '';
+    var industry = data && value ? data.find(item => item.code.toString() == value.toString()) : '';
 
-    return industryName;
+    return industry ? industry.name : ''  ;
   }
 
 }
