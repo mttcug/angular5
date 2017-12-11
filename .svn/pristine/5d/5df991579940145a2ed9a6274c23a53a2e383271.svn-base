@@ -1,0 +1,47 @@
+<div class="page-container">
+  <p class="finish-page-title">编辑完成</p>
+  <div class="shop-glance">
+    <div class="d-flex flex-row justify-content-around">
+      <div>
+        <div class="shop-mes">
+          <p class="text-center">相邻店铺</p>
+          <p class="text-center">(左边)</p>
+          <p class="text-muted text-center">敬请期待</p>
+        </div>
+      </div>
+
+      <div class="align-self-start">
+        <div class="shop-mes mb-5">
+          <p><span class="text-muted">店铺：</span><span>海底捞(南油店)</span><span>火锅店</span></p>
+          <p><span class="text-muted">物业：</span><span>深圳南山区登良路18号</span></p>
+          <p><span>189.7786</span><span>23.7786</span></p>
+        </div>
+        <div class="detail-items">
+          <p>周边竞争店铺</p>
+          <div class="text-muted text-center">敬请期待</div>
+        </div>
+        <div class="detail-items">
+          <p>周边交通</p>
+          <div class="text-muted text-center">敬请期待</div>
+        </div>
+        <div class="detail-items">
+          <p>周边人口分布</p>
+          <div class="text-muted text-center">敬请期待</div>
+        </div>
+        <div class="detail-items">
+          <p>周边学校</p>
+          <div class="text-muted text-center">敬请期待</div>
+        </div>
+      </div>
+
+      <div>
+        <div class="shop-mes">
+          <p class="text-center">相邻店铺</p>
+          <p class="text-center">(右边)</p>
+          <p class="text-muted text-center">敬请期待</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

@@ -14,11 +14,7 @@ export class DataCollectionService {
   }
 
   getInfo(params){
-    return this.jsonrpcHttp.rpcRequest(this.url,"info",params);
-  }
-
-  editInfo(params){
-    return this.jsonrpcHttp.rpcRequest(this.url,"edit",params);
+    return this.jsonrpcHttp.rpcRequest(this.url,"get",params);
   }
 
 }

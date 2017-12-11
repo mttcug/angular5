@@ -16,7 +16,6 @@ import {MapData} from '../../interface/mapData/map-data';
 })
 export class DataCollectionComponent implements OnInit {
 
-  shop_id='';
   allIndustry = [];
   allDistricts = [];
   bigIndustryList = [];
@@ -175,12 +174,10 @@ export class DataCollectionComponent implements OnInit {
   ngOnInit() {
     //获取参数并判断时发布还是修改信息，修改则请求相应数据
     this.route.queryParams.subscribe((queryParams: Params) => {
-      this.shop_id = queryParams.id;
-      this.shop_id != '' ? this.getShopInfo(this.shop_id) : '';
+      var oppoId = queryParams.id;
+      /* oppoId != '' ? this.getShopInfo(oppoId) : '';*/
     });
   }
-
-
 
 
   // 品牌名称
@@ -420,18 +417,12 @@ export class DataCollectionComponent implements OnInit {
   mapInfo : MapData = {'city': this.city, 'district': '', 'address': '', 'lng': '', 'lat': ''};
 
   assignData(result){
-
-    console.log("获取详情",result);
     this.shopName=result.shopName;                           //店名
     this.brandName=result.brandName;                         //品牌名称
     this.subShopName=result.subShopName;                      //分店名
     this.operateType=result.operateType;                     //运营模式
-
-
-    this.bigIndustry = result.industry ? result.industry.toString().substr(0,2) : '';
-    this.bigIndustry ? this.loadSmallIndustry(this.bigIndustry) : '';
-    this.smallIndustry = (result.industry && result.industry.toString().length > 2) ? result.industry.toString() : '';
-
+    this.bigIndustry=result.bigIndustry;
+    this.smallIndustry=result.smallIndustry;
     this.startOpenDate=result.startOpenDate;                 //开业日期
     this.operateStatus=result.operateStatus;                 //经营状态
     this.endOpenDate=result.endOpenDate;                     //停业日期
@@ -471,8 +462,7 @@ export class DataCollectionComponent implements OnInit {
     this.shopBoss=result.shopBoss;                           //店铺老板
     this.partner=result.partner;                             //合作伙伴
     this.employee=result.employee;                           //店铺员工
-    this.city=result.city;
-    this.city ? this.loadDistrict(this.city) : '';           //城市
+    this.city=result.city;                                   //城市
     this.district=result.district;                           //区域
     this.addressDetail=result.addressDetail;                 //详细地址
     this.longitude=result.longitude;                         //经度
@@ -524,12 +514,12 @@ export class DataCollectionComponent implements OnInit {
      var params={
        shop_id:id
      };
-     this.DataCollectionService.getInfo(params)
+/*     this.DataCollectionService.getInfo(params)
        .map((res:Response)=>res.json())
        .subscribe(res=>{
          var result=res.result;
          this.assignData(result);
-       });
+       });*/
    }
 
   //该店铺是品牌时填写品牌名称时店铺名称需要随着改变
@@ -1262,7 +1252,9 @@ console.log("123:",this.temppayWay);
     this.personInfoDetail = '';
   }
 
-  getpostParams(){
+  release() {
+    /*  this.router.navigate(['glancePostedInfoItem']);*/
+
     //当前经营，适合经营和不宜经营需要的是code[code1,code2....];
     var fitC = [], recomC = [], unrecomC = [];
     this.fitIndustry.forEach((v, i) => {
@@ -1274,7 +1266,7 @@ console.log("123:",this.temppayWay);
     this.unRecommendableIndustry.forEach((v, i) => {
       unrecomC.push(v.code);
     });
-    return {
+    var params = {
       shopName: this.shopName,                           //店名
       brandName: this.brandName,                         //品牌名称
       subShopName: this.subShopName,                      //分店名
@@ -1354,30 +1346,12 @@ console.log("123:",this.temppayWay);
       destroyedRatioDetail: this.destroyedRatioDetail,       //拆迁风险率
       houseOwner: this.houseOwner                            //房主
     }
-  }
-
-
-  addInfo(params){
+    console.log("params:", params);
     this.DataCollectionService.releaseInfo(params)
       .map((res: Response) => res.json())
       .subscribe(res => {
-        this.router.navigate(['glancePostedInfoItem']);
-      },error=>{console.log("release error:",error)});
-  }
-
-  editInfo(params){
-    this.DataCollectionService.editInfo(params)
-      .map((res: Response) => res.json())
-      .subscribe(res => {
-        this.router.navigate(['glancePostedInfoItem']);
-      },error=>{console.log("release error:",error)});
-  }
-
-  release() {
-    var params = this.getpostParams();
-    console.log("params:", params);
-    this.shop_id ? this.editInfo(params) : this.addInfo(params);
-
+      console.log("发布信息：", res);
+    },error=>{console.log("release error:",error)});
   }
 
 }

@@ -1,0 +1,6 @@
+.datePicker-block{
+  display: inline-block;
+}
+.form-inline .input-group>.form-control{
+  width: auto;
+}

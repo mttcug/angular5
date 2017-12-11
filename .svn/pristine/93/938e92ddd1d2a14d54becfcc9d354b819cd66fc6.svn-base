@@ -1,0 +1,267 @@
+
+.title-line{
+  margin: 20px 150px;
+}
+.shop-info-content,.facility-content{
+  padding: 10px 150px;
+}
+.shop-info-content > div,.facility-content > div{
+  white-space: nowrap;
+}
+
+label{
+  width: 105px;
+  display: inline-block;
+  text-align: right;
+}
+
+.divider{
+  margin:0px 5px;
+}
+.required-tag{
+  color: red;
+}
+
+.model-popup,.add-item,.edit-info{
+  color: #467ac1;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+
+.selected-span{
+  color: red;
+}
+
+.icon-mi{
+  font-size: 12px;
+}
+
+form h3,.modal-body > div{
+  white-space: nowrap;
+}
+
+/*店名*/
+
+.input-label-name{
+  font-size: 16px;
+  line-height: 38px;
+}
+.shop-name-input,.brand-name-input,.subshop-name{
+  display: inline-block;
+}
+.checkbox-style{
+  display: inline-block;
+  margin-left: 15px;
+}
+
+.brand-name-block{
+  margin-top: 10px;
+}
+/*经营行业*/
+#big-industry,#small-industry{
+  display: inline-block;
+  width: 160px;
+}
+
+/*营业时间*/
+
+.week-list{
+  padding: 10px 0px;
+}
+.week-item{
+  margin:0px 8px;
+}
+.week-checkbox{
+  margin-right: 3px;
+}
+.time-input{
+  padding-left: 10px;
+  margin:0px 5px;
+}
+
+/*提供服务*/
+.service-list{
+  width: 350px;
+  padding: 8px 0px;
+  white-space: initial;
+}
+.service-item{
+  margin:0px 8px;
+  width: 85px;
+}
+
+
+/*支付方式*/
+.pay-way-list{
+  width: 80%;
+}
+.pay-way-item{
+  padding: 10px 0px;
+  margin:0px 10px;
+}
+
+/*租金弹出框*/
+.rate{
+  display: inline-block;
+}
+.select-radio{
+  margin-right: 3px;
+}
+.select-span{
+  margin:10px 10px;
+}
+
+
+/*物业建筑信息*/
+.left-inline-block,.right-inline-block{
+  width: 350px;
+}
+/*适合经营*/
+
+.span-list-item i{
+  margin-left: 5px;
+}
+
+/*物业配套*/
+.facilities-list{
+  width: 500px;
+  padding: 8px 0px;
+  white-space: initial;
+}
+.facility-item{
+  margin: 0px 20px 10px 0px;
+}
+.facility-item input[type='text']{
+  width: 80px;
+}
+/*费用成本*/
+.fee-left-inline-block label,.fee-right-inline-block label{
+  width: 50px;
+}
+
+/*店铺证件*/
+.shop-certifications{
+  list-style: none;
+  margin: 0px;
+  padding: 0px;
+  padding-top: 6px;
+}
+
+.add-certifications-btn{
+  margin-top: 0px;
+}
+
+
+
+/*行业选择弹出框*/
+.popup-industry-list{
+  list-style: none;
+}
+.popup-industry-list li{
+  padding-left: 80px;
+  margin-top: 15px;
+}
+.big-industry-style{
+  display: inline-block;
+  width: 100px;
+  text-align: right;
+  margin-left: -100px;
+}
+.small-industry-style{
+  display: inline-block;
+  margin:0px 10px;
+}
+
+
+
+/*行业列表弹出框*/
+
+.industry-selected-span{
+  border: 1px solid black;
+  margin-left: 10px;
+  padding: 0px 5px;
+}
+.industry-selected-span i{
+  margin-left: 10px;
+}
+/*店铺图片*/
+.upload-block{
+  display: inline-block;
+}
+.old-images-block{
+  display: inline-block;
+  width: 100px;
+  position: relative;
+  margin-right: 15px;
+}
+.new-image-block{
+  display: inline-block;
+  vertical-align: middle;
+  width: 45px;
+  height: 48px;
+  overflow: hidden;
+}
+.upload-btn{
+  line-height: 55px;
+  margin-top: -3px;
+  margin-left: -3px;
+  font-size: 50px;
+  width: 50px;
+  height: 50px;
+  color: #a9a9a9;
+}
+.img-item-box img{
+  width: 100px;
+}
+
+.upload-block i{
+  position: absolute;
+  top: 0px;
+  right: 5px;
+  font-size: 20px;
+}
+.release-btn{
+  display: block;
+  margin: 0 auto;
+}
+
+/*baidu-map*/
+.baidu-map{
+  width: 500px;
+  height: 420px;
+  padding: 25px;
+  display: block;
+  border:1px solid black;
+  background: #fff;
+  position: absolute;
+  top: 0px;
+  right: 10%;
+  border-radius: 10px 10px 10px 10px;
+  border-color: lightgray;
+  box-shadow: 2px 2px 2px lightgrey;
+}
+.baidu-map-cancel{
+  position: absolute;
+  top: 0px;
+  right: 5px;
+  font-size: 20px;
+}
+
+.map-btn-control{
+  display: inline-block;
+  width: 20%;
+  margin-left: 20%;
+  margin-top: 15px;
+}
+.selected-line {
+  white-space: initial;
+}
+.modal-body > div{
+  white-space: initial;
+}
+.personInfoDetail{
+  vertical-align: top;
+}
+
+

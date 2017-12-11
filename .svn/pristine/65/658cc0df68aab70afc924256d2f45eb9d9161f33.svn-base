@@ -1,0 +1,19 @@
+<div>
+  <ul class="list-group">
+    <li  class="list-group-item" (click)="colorChange()" [ngClass]="{'greyBg': curPage=='dataIndex' || curPage==''}">
+      <a [routerLink]="['']" routerLinkActive="active">首页</a>
+    </li>
+    <li  class="list-group-item" (click)="colorChange()" [ngClass]="{'greyBg': curPage=='shopHall'}">
+      <a [routerLink]="['shopHall']" routerLinkActive="active">店铺大厅</a>
+    </li>
+    <li class="list-group-item" (click)="colorChange()" [ngClass]="{'greyBg': curPage=='workManage'}">
+      <a [routerLink]="['workManage']" routerLinkActive="active">工作管理</a>
+    </li>
+    <li class="list-group-item" (click)="colorChange()" [ngClass]="{'greyBg': curPage=='dataCollection'}">
+      <a [routerLink]="['dataCollection']" [queryParams]="{id:''}" routerLinkActive="active">我的发布</a>
+    </li>
+  </ul>
+  <p class="qq-contact-container">
+    <img class="qq-contact" (click)="qqContact()" border="0" SRC='http://wpa.qq.com/pa?p=1:252218982:3' alt="技术支持">
+  </p>
+</div>

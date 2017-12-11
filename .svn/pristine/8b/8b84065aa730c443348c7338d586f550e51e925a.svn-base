@@ -1,0 +1,28 @@
+<form class="form-inline datePicker-block" >
+  <div class="form-group">
+    <div class="input-group">
+
+      <!--使用的是ng-bootstrap-->
+<!--      <input class="form-control time-show-input" placeholder="{{placeholder}}"
+             name="dp" [(ngModel)]="date" (ngModelChange)="fireDateChange(date)" ngbDatepicker #d="ngbDatepicker">
+ -->
+      <!--ngx-bootstrap-->
+      <input type="text"
+             class="form-control time-show-input"
+             placeholder="{{placeholder}}"
+             name="dp"
+             [(ngModel)]="date"
+             (ngModelChange)="fireDateChange(date)"
+             [minDate]="minDate"
+             [maxDate]="maxDate"
+             #dp="bsDatepicker"
+             bsDatepicker
+             [bsConfig]="bsConfig"
+             [(bsValue)]="date">
+      <button class="form-control d-inline-block input-group-addon date-btn" (click)="dp.show()" type="button">
+        <i class="iconfont icon-calendar"></i>
+      </button>
+    </div>
+  </div>
+</form>
+

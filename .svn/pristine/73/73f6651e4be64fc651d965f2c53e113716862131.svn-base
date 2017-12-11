@@ -1,0 +1,114 @@
+/* You can add global styles to this file, and also import other style files */
+
+.m-h-5{
+  margin-left: 5px;
+  margin-right: 5px;
+}
+.m-v-5{
+  margin-top: 5px;
+  margin-borrom: 5px;
+}
+.m-ritght-5{
+  margin-right: 5px;
+}
+.m-left-5{
+  margin-left: 5px;
+}
+.m-ritght-10{
+  margin-right: 10px;
+}
+
+.m-ritght-15{
+  margin-right: 15px;
+}
+.m-left-10{
+  margin-left: 10px;
+}
+
+.m-top-10{
+  margin-top: 10px;
+}
+
+.m-top-20{
+  margin-top: 20px;
+}
+.m-bottom-5{
+  margin-bottom: 5px;
+}
+.m-bottom-20{
+  margin-bottom: 20px;
+}
+
+
+.divider{
+  margin:0px 5px;
+}
+.required-tag{
+  color: red;
+}
+.text-underline{
+  text-decoration: underline;
+}
+
+.cursor-hand{
+  cursor: pointer;
+}
+
+
+.model-popup,.add-item,.edit-info{
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.w-80-px{
+  width: 80px;
+}
+.w-160-px{
+  width:160px;
+}
+.w-100-px{
+  width: 100px;
+}
+.w-130-px{
+  width: 130px;
+}
+.w-240-px{
+  width: 240px;
+}
+.w-220-px{
+  width: 220px;
+}
+.w-70{
+  width: 70%;
+}
+.w-65{
+  width: 65%;
+}
+.w-60{
+  width: 60%;
+}
+.w-30{
+  width: 30%;
+}
+.w-40{
+  width: 40%;
+}
+.w-20{
+  width: 20%;
+}
+.w-15{
+  width: 15%;
+}
+
+.selected-span{
+  color: red;
+}
+
+
+.text-blue{
+  color:#467ac1 ;
+}
+.bg-grey{
+  background: grey;
+}
+
