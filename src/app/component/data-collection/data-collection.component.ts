@@ -425,15 +425,15 @@ export class DataCollectionComponent implements OnInit {
     this.shopName=result.shopName;                           //店名
     this.brandName=result.brandName;                         //品牌名称
     this.subShopName=result.subShopName;                      //分店名
-    this.operateType=result.operateType;                     //运营模式
+    this.operateType=result.operateType ? this.operateType : '';                     //运营模式
 
 
     this.bigIndustry = result.industry ? result.industry.toString().substr(0,2) : '';
-    this.bigIndustry ? this.loadSmallIndustry(this.bigIndustry) : '';
     this.smallIndustry = (result.industry && result.industry.toString().length > 2) ? result.industry.toString() : '';
+    this.bigIndustry ? this.loadSmallIndustry(this.bigIndustry) : '';
 
     this.startOpenDate=result.startOpenDate;                 //开业日期
-    this.operateStatus=result.operateStatus;                 //经营状态
+    this.operateStatus=result.operateStatus ? result.operateStatus : '';                 //经营状态
     this.endOpenDate=result.endOpenDate;                     //停业日期
     this.shopImages=result.shopImages;                       //店铺门面图片
     this.environment=result.environment;                    //店铺环境图片
@@ -442,7 +442,7 @@ export class DataCollectionComponent implements OnInit {
     this.operateDate=result.operateDate;                     //营业日
     this.operateStartTime=result.operateStartTime;           //营业开始时间
     this.operateEndTime=result.operateEndTime;               //营业结束时间
-    this.fitmentLevelStatus=result.fitmentLevelStatus;       //装修档次
+    this.fitmentLevelStatus=result.fitmentLevelStatus ? result.fitmentLevelStatus : '';       //装修档次
     this.serviceProvided=result.serviceProvided;             //提供服务
     this.shopRent=result.shopRent;                           //店铺租金
     this.rentMeasure=result.rentMeasure;                     //店铺租金单位
@@ -475,11 +475,12 @@ export class DataCollectionComponent implements OnInit {
     this.city ? this.loadDistrict(this.city) : '';           //城市
     this.district=result.district;                           //区域
     this.addressDetail=result.addressDetail;                 //详细地址
+    this.shopAddress=this.getWholeAddress();
     this.longitude=result.longitude;                         //经度
     this.latitude=result.latitude;                           //纬度
-    this.positionDescription=result.positionDescription;     //位置描述
-    this.isNearStreet=result.isNearStreet;                   //是否临街
-    this.superFacility=result.superFacility;                //上级物业
+    this.positionDescription=result.positionDescription ? result.positionDescription : '';     //位置描述
+    this.isNearStreet=result.isNearStreet ? result.isNearStreet : '';                   //是否临街
+    this.superFacility=(result.superFacility && result.superFacility != '1') ? result.superFacility : '';                //上级物业
     this.shopCityName=result.shopCityName;                   //商城名称
     this.buildingArea=result.buildingArea;                   //建筑面积
     this.roomArea=result.roomArea;                           //开间
@@ -489,18 +490,19 @@ export class DataCollectionComponent implements OnInit {
     this.depth=result.depth;                                   //进深
     this.floorHeight=result.floorHeight;                       //层高
     this.floorAmount=result.floorAmount;                       //楼层数
-/*    this.fitIndustry=result.fitIndustry;                       //适合经营
+
+ /*   this.fitIndustry=result.fitIndustry;                       //适合经营
     this.recommendableIndustry=result.recommendableIndustry;                       //推荐经营
     this.unRecommendableIndustry=result.unRecommendableIndustry;                   //不宜经营*/
-/*    result.fitIndustry.forEach((v,i)=>{
-      this.allIndustry.forEach((m,j)=>{m.code == v ? this.fitIndustry.push({code:v,name:m.name})});
+    result.fitIndustry.forEach((v,i)=>{
+      this.allIndustry.forEach((m,j)=>{m.code == v ? this.fitIndustry.push({code:v,name:m.name}) : ''});
     });
     result.recommendableIndustry.forEach((v,i)=>{
-      this.allIndustry.forEach((m,j)=>{m.code == v ? this.recommendableIndustry.push({code:v,name:m.name})});
+      this.allIndustry.forEach((m,j)=>{m.code == v ? this.recommendableIndustry.push({code:v,name:m.name}) : ''});
     });
     result.unRecommendableIndustry.forEach((v,i)=>{
-      this.allIndustry.forEach((m,j)=>{m.code == v ? this.unRecommendableIndustry.push({code:v,name:m.name})});
-    });*/
+      this.allIndustry.forEach((m,j)=>{m.code == v ? this.unRecommendableIndustry.push({code:v,name:m.name}) : ''});
+    });
 
     this.facilities=result.facilities;                           //物业配套
     this.parking_num=result.parking_num;
@@ -511,9 +513,9 @@ export class DataCollectionComponent implements OnInit {
     this.elecFee=result.elecFee;                                //电费
     this.rent=result.rent;                                         //租金
     this.warmFee=result.warmFee;                                 //暖气费
-    this.buildingShape=result.buildingShape;                     //建筑形状
-    this.propertyRightType=result.propertyRightType;             //产权类型
-    this.destroyedRatio=result.destroyedRatio;                   //拆迁风险
+    this.buildingShape=result.buildingShape ? result.buildingShape : '';                     //建筑形状
+    this.propertyRightType=result.propertyRightType ? result.propertyRightType : '';             //产权类型
+    this.destroyedRatio = result.destroyedRatio ? result.destroyedRatio : '';                   //拆迁风险
     this.destroyedRatioDetail=result.destroyedRatioDetail;      //拆迁风险率
     this.houseOwner=result.houseOwner;
 
@@ -821,7 +823,6 @@ export class DataCollectionComponent implements OnInit {
     this.temprentDate = this.rentDate;
     this.temprentTime = this.rentTime;
     this.templeftContractTime = this.leftContractTime;
-console.log("123:",this.temppayWay);
     this.rentModalRef = this.ngxModalService.show(content,this.config);
   }
 
@@ -1361,8 +1362,9 @@ console.log("123:",this.temppayWay);
     this.DataCollectionService.releaseInfo(params)
       .map((res: Response) => res.json())
       .subscribe(res => {
+        console.log("res:",res);
         this.router.navigate(['glancePostedInfoItem']);
-      },error=>{console.log("release error:",error)});
+      },error=>{console.log("releaseInfo error:",error)});
   }
 
   editInfo(params){
@@ -1370,7 +1372,7 @@ console.log("123:",this.temppayWay);
       .map((res: Response) => res.json())
       .subscribe(res => {
         this.router.navigate(['glancePostedInfoItem']);
-      },error=>{console.log("release error:",error)});
+      },error=>{console.log("editInfo error:",error)});
   }
 
   release() {

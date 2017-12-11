@@ -21,7 +21,7 @@ export class HeaderComponent implements OnInit {
 
     //获取城市列表
     let district = sessionStorage.getItem("district");
-    if (district) {
+    if (district && district!='undefined') {
       JSON.parse(district).forEach((v, i) => {
         this.allDistricts.push(v);
         v.id.toString().substr(-6) == '000000' ? this.cityList.push(v) : '';

@@ -28,7 +28,8 @@
             <i class="iconfont icon-mi text-danger"></i>
             <span class="input-label-name">分店名：</span>
           </label>
-          <input class="form-control subshop-name w-160-px" name="subShopName" type="text" [(ngModel)]="subShopName" required
+          <input class="form-control subshop-name w-160-px" name="subShopName" type="text" [(ngModel)]="subShopName"
+                 required
                  placeholder="请输入" maxlength="10" (ngModelChange)="updateShopName()">
         </p>
         <p>
@@ -315,54 +316,54 @@
     </div>
 
     <!--店铺老板-->
-    <div class="d-block m-top-20">
-      <label for="" class="text-right d-inline-block m-ritght-10"><span class="input-label-name">店铺老板:</span></label>
-      <span class="text-muted">{{shopBoss.name}}</span> <span class="edit-info text-blue"
-                                                              (click)="openPersonalInfo(personInfo,shopBoss)">编辑</span>
-    </div>
+    <!--    <div class="d-block m-top-20">
+          <label for="" class="text-right d-inline-block m-ritght-10"><span class="input-label-name">店铺老板:</span></label>
+          <span class="text-muted">{{shopBoss.name}}</span> <span class="edit-info text-blue"
+                                                                  (click)="openPersonalInfo(personInfo,shopBoss)">编辑</span>
+        </div>-->
 
     <!--合伙人-->
-    <div class="d-block m-top-20">
-      <label for="" class="text-right d-inline-block m-ritght-10"><span class="input-label-name">合伙人:</span></label>
-      <div class="d-inline-block align-top">
-        <p *ngFor="let item of partner">
-          <span>{{item.name}}</span><span>{{item.phoneList[0]}}</span> <span class="edit-info text-blue"
-                                                                             (click)="openPersonalInfo(personInfo,item)">编辑</span>
-          <input type="text" name="stockRatio" placeholder="参股比例" maxlength="10"
-                 class="d-inline-block w-160-px form-control" [(ngModel)]="item.stockRatio">
-        </p>
-      </div>
-      <p *ngIf="partner.length < 5" class="add-partner-btn  w-220-px" (click)="addPartner()"><label
-        class="text-right d-inline-block m-ritght-10"></label><i
-        class="iconfont icon-tianjiatupian m-ritght-5"></i><span class="text-muted">添加合伙人</span></p>
-    </div>
+    <!--    <div class="d-block m-top-20">
+          <label for="" class="text-right d-inline-block m-ritght-10"><span class="input-label-name">合伙人:</span></label>
+          <div class="d-inline-block align-top">
+            <p *ngFor="let item of partner">
+              <span>{{item.name}}</span><span>{{item.phoneList[0]}}</span> <span class="edit-info text-blue"
+                                                                                 (click)="openPersonalInfo(personInfo,item)">编辑</span>
+              <input type="text" name="stockRatio" placeholder="参股比例" maxlength="10"
+                     class="d-inline-block w-160-px form-control" [(ngModel)]="item.stockRatio">
+            </p>
+          </div>
+          <p *ngIf="partner.length < 5" class="add-partner-btn  w-220-px" (click)="addPartner()"><label
+            class="text-right d-inline-block m-ritght-10"></label><i
+            class="iconfont icon-tianjiatupian m-ritght-5"></i><span class="text-muted">添加合伙人</span></p>
+        </div>-->
 
     <!--店铺员工-->
-    <div class="d-block m-top-20">
-      <label for="" class="text-right d-inline-block m-ritght-10"><span class="input-label-name">店铺员工:</span></label>
-      <div class="d-inline-block align-top">
-        <p class="" *ngFor="let item of employee">
-          <input type="text" placeholder="职位" name="position" class="d-inline-block w-160-px form-control"
-                 [(ngModel)]="item.position"> <span
+    <!-- <div class="d-block m-top-20">
+       <label for="" class="text-right d-inline-block m-ritght-10"><span class="input-label-name">店铺员工:</span></label>
+       <div class="d-inline-block align-top">
+         <p class="" *ngFor="let item of employee">
+           <input type="text" placeholder="职位" name="position" class="d-inline-block w-160-px form-control"
+                  [(ngModel)]="item.position"> <span
 
-          class="text-muted">姓名</span><span class="edit-info text-blue"
-                                            (click)="openPersonalInfo(personInfo,item)">编辑</span>
-          <app-date-picker [date]="item.entryDate" [placeholder]="entryTimePlaceHolder"
-                           (dateChange)="getEntryDate($event)"></app-date-picker>
-          <input type="text" placeholder="工作内容" class="d-inline-block w-160-px form-control" name="workContent"
-                 [(ngModel)]="item.workContent">
-          <input type="checkbox" [(ngModel)]="item.isDission" name="isDimission"> <span>已离职</span>
+           class="text-muted">姓名</span><span class="edit-info text-blue"
+                                             (click)="openPersonalInfo(personInfo,item)">编辑</span>
+           <app-date-picker [date]="item.entryDate" [placeholder]="entryTimePlaceHolder"
+                            (dateChange)="getEntryDate($event)"></app-date-picker>
+           <input type="text" placeholder="工作内容" class="d-inline-block w-160-px form-control" name="workContent"
+                  [(ngModel)]="item.workContent">
+           <input type="checkbox" [(ngModel)]="item.isDission" name="isDimission"> <span>已离职</span>
 
-          <app-date-picker [date]="item.leaveDate" [placeholder]="leaveTimePlaceHolder" *ngIf="item.isDission"
-                           (dateChange)="getLeaveDate($event)"></app-date-picker>
+           <app-date-picker [date]="item.leaveDate" [placeholder]="leaveTimePlaceHolder" *ngIf="item.isDission"
+                            (dateChange)="getLeaveDate($event)"></app-date-picker>
 
-        </p>
-      </div>
+         </p>
+       </div>
 
-      <p class="add-employee-btn w-220-px" (click)="addEmployee()"><label
-        class="text-right d-inline-block m-ritght-10"></label><i
-        class="iconfont icon-tianjiatupian m-ritght-5"></i><span class="text-muted">添加员工</span></p>
-    </div>
+       <p class="add-employee-btn w-220-px" (click)="addEmployee()"><label
+         class="text-right d-inline-block m-ritght-10"></label><i
+         class="iconfont icon-tianjiatupian m-ritght-5"></i><span class="text-muted">添加员工</span></p>
+     </div>-->
   </div>
 
   <h3 class="title-line">物业建筑信息</h3>
@@ -651,11 +652,13 @@
     <!--拆迁风险-->
     <div class="d-block m-top-20">
       <label for="" class="text-right d-inline-block m-ritght-10"><span class="input-label-name">拆迁风险:</span></label>
+
       <select class="form-control  d-inline-block w-160-px" name="destroyRate" id="destroyRate"
               [(ngModel)]="destroyedRatio">
         <option value="">请选择</option>
         <option value={{item.value}} *ngFor="let item of destroyedRatioList">{{item.value_description}}</option>
       </select>
+
       <input type="text" name="destroyRate" [(ngModel)]="destroyedRatioDetail" maxlength="300" placeholder="请填写拆迁风险详情"
              class="form-control d-inline-block w-160-px w-240-px">
     </div>
@@ -708,7 +711,7 @@
 <ng-template #shopImageContent>
   <div class="modal-header">
     <h4 class="modal-title pull-left">店铺图片</h4>
-    <button type="button" class="close pull-right"  aria-label="Close" (click)="shopImageModalRef.hide()">
+    <button type="button" class="close pull-right" aria-label="Close" (click)="shopImageModalRef.hide()">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
@@ -733,7 +736,8 @@
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-outline-dark" (click)="closeModal(shopImageModalRef)">取消</button>
-    <button type="button" class="btn btn-outline-dark" (click)="confirmModal(shopImageContent,shopImageModalRef)">确定</button>
+    <button type="button" class="btn btn-outline-dark" (click)="confirmModal(shopImageContent,shopImageModalRef)">确定
+    </button>
   </div>
 </ng-template>
 
@@ -741,7 +745,7 @@
 <ng-template #rentContent>
   <div class="modal-header">
     <h4 class="modal-title pull-left">店铺租金</h4>
-    <button type="button" class="close pull-right"  aria-label="Close" (click)="rentModalRef.hide()">
+    <button type="button" class="close pull-right" aria-label="Close" (click)="rentModalRef.hide()">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
@@ -766,7 +770,8 @@
                                                                                         data-code="item.code">{{item.name}}
         </span>
         <input class="form-control time-imput d-inline-block w-160-px" type="text" placeholder="请填写"
-               [(ngModel)]="tempdefinedPayWay" (ngModelChange)="definedPopUpPayChange()" [disabled]="tempdefinedWayShow">
+               [(ngModel)]="tempdefinedPayWay" (ngModelChange)="definedPopUpPayChange()"
+               [disabled]="tempdefinedWayShow">
       </div>
     </div>
 
@@ -898,13 +903,13 @@
     <div class="d-block m-top-20">
       <label for="" class="text-right d-inline-block m-ritght-10"><span class="input-label-name">转让状态:</span></label>
       <div class="pay-way-list d-inline-block">
-        <span *ngFor="let item of transferStatusList" class="select-span d-inline-block"><input
-          [checked]="item.value==temptransferStatus"
-          name="transferStatus"
-          disabled="disabled"
-          (click)="selectModalTransferStatus(item)"
-          class="week-checkbox" type="radio"
-          data-code="item.value">{{item.value_description}}</span>
+        <span *ngFor="let item of transferStatusList" class="select-span d-inline-block">
+          <input [checked]="item.value==temptransferStatus"
+                 name="transferStatus"
+                 disabled="disabled"
+                 (click)="selectModalTransferStatus(item)"
+                 class="week-checkbox" type="radio"
+                 data-code="item.value">{{item.value_description}}</span>
       </div>
     </div>
     <div class="d-block m-top-20">
@@ -945,7 +950,8 @@
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-outline-dark" (click)="closeModal(transferModalRef)">取消</button>
-    <button type="button" class="btn btn-outline-dark" (click)="confirmModal(transferContent,transferModalRef)">确定</button>
+    <button type="button" class="btn btn-outline-dark" (click)="confirmModal(transferContent,transferModalRef)">确定
+    </button>
   </div>
 </ng-template>
 
@@ -953,7 +959,7 @@
 <ng-template #industryContent>
   <div class="modal-header">
     <h4 class="modal-title pull-left">行业列表</h4>
-    <button type="button" class="close pull-left" aria-label="Close"  (click)="industryModalRef.hide()">
+    <button type="button" class="close pull-left" aria-label="Close" (click)="industryModalRef.hide()">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
@@ -978,8 +984,9 @@
     </ul>
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-outline-dark"  (click)="closeModal(industryModalRef)">取消</button>
-    <button type="button" class="btn btn-outline-dark" (click)="confirmModal(industryContent,industryModalRef)">确定</button>
+    <button type="button" class="btn btn-outline-dark" (click)="closeModal(industryModalRef)">取消</button>
+    <button type="button" class="btn btn-outline-dark" (click)="confirmModal(industryContent,industryModalRef)">确定
+    </button>
   </div>
 </ng-template>
 
@@ -987,7 +994,7 @@
 <ng-template #certificationEdit>
   <div class="modal-header">
     <h4 class="modal-title pull-left">店铺证件</h4>
-    <button type="button" class="close pull-left" aria-label="Close"  (click)="certificationModalRef.hide()">
+    <button type="button" class="close pull-left" aria-label="Close" (click)="certificationModalRef.hide()">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
@@ -1066,8 +1073,10 @@
   </div>
   <div class="modal-footer">
 
-    <button type="button" class="btn btn-outline-dark"  (click)="closeModal(certificationModalRef)">取消</button>
-    <button type="button" class="btn btn-outline-dark" (click)="confirmModal(certificationEdit,certificationModalRef)">确定</button>
+    <button type="button" class="btn btn-outline-dark" (click)="closeModal(certificationModalRef)">取消</button>
+    <button type="button" class="btn btn-outline-dark" (click)="confirmModal(certificationEdit,certificationModalRef)">
+      确定
+    </button>
 
   </div>
 </ng-template>
@@ -1162,7 +1171,7 @@
   </div>
   <div class="modal-footer">
 
-    <button type="button" class="btn btn-outline-dark"   (click)="closeModal(personModalRef)">取消</button>
+    <button type="button" class="btn btn-outline-dark" (click)="closeModal(personModalRef)">取消</button>
 
     <button type="button" class="btn btn-outline-dark" (click)="confirmModal(personInfo,personModalRef)">确定</button>
 
