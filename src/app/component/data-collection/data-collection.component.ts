@@ -7,6 +7,7 @@ import {BsModalRef} from 'ngx-bootstrap/modal/bs-modal-ref.service';
 
 import {Person} from '../../interface/person/person';
 import {MapData} from '../../interface/mapData/map-data';
+import {any} from "codelyzer/util/function";
 
 
 @Component({
@@ -324,7 +325,7 @@ export class DataCollectionComponent implements OnInit {
 
   sex: string = '';            //性别
 
-  birthdayDate = '';
+  birthdayDate:any = '';
   contactAddress: string = '';            //联系地址
   email: string = '';                     //电子邮件
   qq: string = '';                        //qq
@@ -468,7 +469,6 @@ export class DataCollectionComponent implements OnInit {
     this.environment = result.environment ? result.environment : [];                    //店铺环境图片
     this.shopPhoneNumber = result.shopPhoneNumber;             //前台电话
     this.takeOutPhone = result.takeOutPhone;                    //外卖电话
-    this.operateDate = result.operateDate;                     //营业日
 
     this.wholeWeek = ( result.operateDate && result.operateDate.length == 7 ) ? true : false;
     this.operateDate = result.operateDate ? result.operateDate : [];
@@ -477,6 +477,7 @@ export class DataCollectionComponent implements OnInit {
     this.operateStartTime = result.operateStartTime;           //营业开始时间
     this.operateEndTime = result.operateEndTime;               //营业结束时间
     this.fitmentLevelStatus = result.fitmentLevelStatus ? result.fitmentLevelStatus : '';       //装修档次
+
 
     this.serviceProvided = result.serviceProvided ? result.serviceProvided : [];             //提供服务
     this.initShopService();
@@ -505,9 +506,10 @@ export class DataCollectionComponent implements OnInit {
     this.transferStaff = result.transferStaff;                 //转让内容
     this.transferReason = result.transferReason;               //转让原因
     this.certifications = result.certifications ? result.certifications : [];               //店铺证件
-    this.shopBoss = result.shopBoss;                           //店铺老板
+    console.log("certifications:",this.certifications);
+/*    this.shopBoss = result.shopBoss;                           //店铺老板
     this.partner = result.partner;                             //合作伙伴
-    this.employee = result.employee;                           //店铺员工
+    this.employee = result.employee;                           //店铺员工*/
 
     this.city = result.city;
     this.city ? this.loadDistrict(this.city) : '';           //城市
@@ -656,14 +658,15 @@ export class DataCollectionComponent implements OnInit {
       this.vaildTime.map((item, index) => {
         item.checked = true;
       });
-      this.dayCheckValid = false;
-    } else {
-      this.operateDate.forEach((v, i) => {
-        this.vaildTime.forEach((item, index) => {
-          item.checked = item.name == v.name ? true : false;
-        });
-      });
       this.dayCheckValid = true;
+    } else {
+      this.operateDate.map(v=>v.checked=false);
+        this.vaildTime.forEach((item, index) => {
+          var aim=this.operateDate.find(v=>v.name.toString()==item.name.toString());
+            aim ? aim.checked=true : '';
+        });
+
+      this.dayCheckValid = false;
     }
   }
 
@@ -683,6 +686,7 @@ export class DataCollectionComponent implements OnInit {
       this.dayCheckValid = false;
       this.operateDate = [];
     }
+    console.log("operateDate:",this.operateDate);
   }
 
   //选择某一天点击事件
@@ -712,11 +716,11 @@ export class DataCollectionComponent implements OnInit {
   }
 
   initShopService() {
-    this.serviceList.forEach((v, i) => {
+    this.serviceList.map(v=>v.checked==false);
       this.serviceProvided.forEach((item, index) => {
-        v.checked = item.name == v.name ? true : false;
+        var aim=this.serviceList.find(v=>v.code.toString()==item.code.toString());
+        aim ? aim.checked=true : '';
       });
-    });
   }
 
   //选择提供的服务
@@ -996,7 +1000,7 @@ export class DataCollectionComponent implements OnInit {
     this.name = item.name;           //证件类型
     this.realName = item.realName;
     this.sex = item.sex;
-    this.birthdayDate = item.birthdayDate;
+    this.birthdayDate = new Date(item.birthdayDate);
     this.contactAddress = item.contactAddress;
     this.email = item.email;
     this.qq = item.qq;
@@ -1061,11 +1065,11 @@ export class DataCollectionComponent implements OnInit {
   }
 
   initFacilitySelect() {
-    this.facilitiesList.forEach((v, i) => {
+    this.facilitiesList.map(v=>v.checked==false);
       this.facilities.forEach((item, index) => {
-        v.checked = v.name == item.name ? true : false;
-      })
-    })
+        var aim=this.facilitiesList.find(v=>v.code.toString()==item.code.toString());
+        aim ? aim.checked=true : '';
+      });
   }
 
   //勾选物业设施

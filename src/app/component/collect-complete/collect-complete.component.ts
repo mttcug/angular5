@@ -16,7 +16,6 @@ export class CollectCompleteComponent implements OnInit {
     this.route.queryParams.subscribe((queryParams: Params) => {
       var params = queryParams.shop_info;
       this.shopInfo=JSON.parse(params);
-      console.log("shopInfo:",JSON.parse(params));
     });
   }
 

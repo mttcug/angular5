@@ -182,7 +182,7 @@
       <div class="service-list align-top d-inline-block">
         <span *ngFor="let item of serviceList" class="service-item d-inline-block">
           <input [checked]="item.checked"
-                 name="serviceList"
+                 name="serviceCheckList"
                  (click)="selectThisService(item)"
                  class="week-checkbox"
                  type="checkbox"
@@ -317,14 +317,14 @@
     </div>
 
     <!--店铺老板-->
-       <!-- <div class="d-block m-top-20">
+        <div class="d-block m-top-20">
           <label for="" class="text-right d-inline-block m-ritght-10"><span class="input-label-name">店铺老板:</span></label>
           <span class="text-muted">{{shopBoss.name}}</span> <span class="edit-info text-blue"
                                                                   (click)="openPersonalInfo(personInfo,shopBoss)">编辑</span>
-        </div>-->
+        </div>
 
     <!--合伙人-->
-      <!--  <div class="d-block m-top-20">
+        <div class="d-block m-top-20">
           <label for="" class="text-right d-inline-block m-ritght-10"><span class="input-label-name">合伙人:</span></label>
           <div class="d-inline-block align-top">
             <p *ngFor="let item of partner">
@@ -337,10 +337,10 @@
           <p *ngIf="partner.length < 5" class="add-partner-btn  w-220-px" (click)="addPartner()"><label
             class="text-right d-inline-block m-ritght-10"></label><i
             class="iconfont icon-tianjiatupian m-ritght-5"></i><span class="text-muted">添加合伙人</span></p>
-        </div>-->
+        </div>
 
     <!--店铺员工-->
-    <!-- <div class="d-block m-top-20">
+     <div class="d-block m-top-20">
        <label for="" class="text-right d-inline-block m-ritght-10"><span class="input-label-name">店铺员工:</span></label>
        <div class="d-inline-block align-top">
          <p class="" *ngFor="let item of employee">
@@ -364,7 +364,7 @@
        <p class="add-employee-btn w-220-px" (click)="addEmployee()"><label
          class="text-right d-inline-block m-ritght-10"></label><i
          class="iconfont icon-tianjiatupian m-ritght-5"></i><span class="text-muted">添加员工</span></p>
-     </div>-->
+     </div>
   </div>
 
   <h3 class="title-line">物业建筑信息</h3>
