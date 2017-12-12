@@ -12,9 +12,9 @@
 
       <div class="align-self-start">
         <div class="shop-mes mb-5">
-          <p><span class="text-muted">店铺：</span><span>海底捞(南油店)</span><span>火锅店</span></p>
-          <p><span class="text-muted">物业：</span><span>深圳南山区登良路18号</span></p>
-          <p><span>189.7786</span><span>23.7786</span></p>
+          <p><span class="text-muted">店铺：</span><span>{{shopInfo.shop_name}}</span></p>
+          <p><span class="text-muted">物业：</span><span *ngIf="shopInfo.address">{{shopInfo.address}}</span><span *ngIf="!shopInfo.address">-</span></p>
+          <p><span>{{shopInfo.latitude}}</span><span>{{shopInfo.longitude}}</span></p>
         </div>
         <div class="detail-items">
           <p>周边竞争店铺</p>

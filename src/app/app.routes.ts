@@ -6,6 +6,7 @@ import {WorkManageComponent} from './component/work-manage/work-manage.component
 import { PeripheralAnalysisComponent } from './component/peripheral-analysis/peripheral-analysis.component';
 import {RejectedPageComponent} from './component/rejected-page/rejected-page.component';
 import { CollectCompleteComponent } from './component/collect-complete/collect-complete.component';
+import { ErrorPageComponent } from './component/error-page/error-page.component';
 
 
 export const routes: Routes = [
@@ -51,6 +52,10 @@ export const routes: Routes = [
   {
     path: 'glancePostedInfoItem',                                //发布完成页面
     component: CollectCompleteComponent
+  },
+  {
+    path: '**',                                //发布完成页面
+    component: ErrorPageComponent
   }
 ]
 export const appRoutes = RouterModule.forRoot(routes);

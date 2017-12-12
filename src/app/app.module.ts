@@ -24,9 +24,11 @@ import {SideNavComponent} from './component/side-nav/side-nav.component';
 import {DataIndexComponent} from './component/data-index/data-index.component';
 import {ShopHallComponent} from './component/shop-hall/shop-hall.component';
 import {WorkManageComponent} from './component/work-manage/work-manage.component';
-import { PeripheralAnalysisComponent } from './component/peripheral-analysis/peripheral-analysis.component';import {RejectedPageComponent} from './component/rejected-page/rejected-page.component';
+import { PeripheralAnalysisComponent } from './component/peripheral-analysis/peripheral-analysis.component';
+import {RejectedPageComponent} from './component/rejected-page/rejected-page.component';
 import {GeolocationComponent} from './component/common/geolocation/geolocation.component';
 import {CollectCompleteComponent} from './component/collect-complete/collect-complete.component';
+import { ErrorPageComponent } from './component/error-page/error-page.component';
 
 import {JsonrpcRequestModelService} from './service/jsonrpc/jsonrpc-request-model.service';
 import {DataService} from './service/data/data.service';
@@ -75,6 +77,7 @@ import {TransferStatusPipe} from './pipe/transfer-status/transfer-status.pipe';
     CollectCompleteComponent,
     TransferStatusPipe,
     PeripheralAnalysisComponent,
+    ErrorPageComponent
   ],
   imports: [
     BrowserModule,

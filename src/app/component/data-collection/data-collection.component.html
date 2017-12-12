@@ -69,7 +69,7 @@
       <label for="" class="text-right d-inline-block m-ritght-10">
         <span class="input-label-name">开业日期:</span>
       </label>
-      <app-date-picker [date]="startOpenDate" (dateChange)="getStartTime($event)"></app-date-picker>
+      <app-date-picker [date]="formstartOpenDate" (dateChange)="getStartTime($event)"></app-date-picker>
     </div>
 
     <!--经营状态-->
@@ -79,6 +79,7 @@
       </label>
       <select class="form-control  d-inline-block w-160-px" name="operateStatus" id="operateStatus"
               [(ngModel)]="operateStatus">
+        <option value="">请选择</option>
         <option value="{{item.value}}" *ngFor="let item of operateStatusList">{{item.value_description}}</option>
       </select>
     </div>
@@ -88,7 +89,7 @@
       <label for="" class="text-right d-inline-block m-ritght-10">
         <span class="input-label-name">停业日期:</span>
       </label>
-      <app-date-picker [date]="endOpenDate" (dateChange)="getEndTime($event)"></app-date-picker>
+      <app-date-picker [date]="formendOpenDate" (dateChange)="getEndTime($event)"></app-date-picker>
     </div>
 
     <!--店铺图片-->
@@ -135,7 +136,7 @@
               </span>
               <span class="divider">|</span>
               <span *ngFor="let item of vaildTime" class="week-item">
-                <input [(ngModel)]="item.checked"
+                <input [checked]="item.checked"
                        [disabled]="dayCheckValid"
                        name="weekChecked"
                        (click)="selectThisDay(item)"
@@ -180,7 +181,7 @@
       <label for="" class="text-right d-inline-block m-ritght-10"><span class="input-label-name">提供服务:</span></label>
       <div class="service-list align-top d-inline-block">
         <span *ngFor="let item of serviceList" class="service-item d-inline-block">
-          <input [(ngModel)]="item.checked"
+          <input [checked]="item.checked"
                  name="serviceList"
                  (click)="selectThisService(item)"
                  class="week-checkbox"
@@ -316,14 +317,14 @@
     </div>
 
     <!--店铺老板-->
-    <!--    <div class="d-block m-top-20">
+       <!-- <div class="d-block m-top-20">
           <label for="" class="text-right d-inline-block m-ritght-10"><span class="input-label-name">店铺老板:</span></label>
           <span class="text-muted">{{shopBoss.name}}</span> <span class="edit-info text-blue"
                                                                   (click)="openPersonalInfo(personInfo,shopBoss)">编辑</span>
         </div>-->
 
     <!--合伙人-->
-    <!--    <div class="d-block m-top-20">
+      <!--  <div class="d-block m-top-20">
           <label for="" class="text-right d-inline-block m-ritght-10"><span class="input-label-name">合伙人:</span></label>
           <div class="d-inline-block align-top">
             <p *ngFor="let item of partner">
@@ -546,7 +547,7 @@
       <label for="" class="text-right d-inline-block m-ritght-10"><span class="input-label-name">物业配套:</span></label>
       <div class="facilities-list align-top d-inline-block">
         <span *ngFor="let item of facilitiesList" class="facility-item d-inline-block">
-          <input [(ngModel)]="item.checked"
+          <input [checked]="item.checked"
                  name="facilityList"
                  (click)="selectThisFacility(item)"
                  class="week-checkbox"
@@ -652,8 +653,7 @@
     <!--拆迁风险-->
     <div class="d-block m-top-20">
       <label for="" class="text-right d-inline-block m-ritght-10"><span class="input-label-name">拆迁风险:</span></label>
-
-      <select class="form-control  d-inline-block w-160-px" name="destroyRate" id="destroyRate"
+      <select class="form-control  d-inline-block w-160-px" name="destroyRateList" id="destroyRate"
               [(ngModel)]="destroyedRatio">
         <option value="">请选择</option>
         <option value={{item.value}} *ngFor="let item of destroyedRatioList">{{item.value_description}}</option>
@@ -671,7 +671,7 @@
     </div>
   </div>
 
-  <button class="form-control d-block w-160-px btn-primary release-btn" (click)="release()">发布</button>
+  <button class="form-control d-block w-160-px btn-primary release-btn" [disabled]="!shopInfoForm.form.valid" (click)="release()">发布</button>
   <!-- [disabled]="!shopInfoForm.form.valid"-->
 </form>
 
@@ -736,7 +736,7 @@
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-outline-dark" (click)="closeModal(shopImageModalRef)">取消</button>
-    <button type="button" class="btn btn-outline-dark" (click)="confirmModal(shopImageContent,shopImageModalRef)">确定
+    <button type="button" class="btn btn-outline-dark" (click)="confirmModal('shopImageContent',shopImageModalRef)">确定
     </button>
   </div>
 </ng-template>
@@ -818,7 +818,7 @@
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-outline-dark" (click)="closeModal(rentModalRef)">取消</button>
-    <button type="button" class="btn btn-outline-dark" (click)="confirmModal(rentContent,rentModalRef)">确定</button>
+    <button type="button" class="btn btn-outline-dark" (click)="confirmModal('rentContent',rentModalRef)">确定</button>
   </div>
 </ng-template>
 
@@ -885,7 +885,7 @@
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-outline-dark" (click)="closeModal(operateModalRef)">取消</button>
-    <button type="button" class="btn btn-outline-dark" (click)="confirmModal(profitContent,operateModalRef)">确定</button>
+    <button type="button" class="btn btn-outline-dark" (click)="confirmModal('profitContent',operateModalRef)">确定</button>
   </div>
 </ng-template>
 
@@ -950,7 +950,7 @@
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-outline-dark" (click)="closeModal(transferModalRef)">取消</button>
-    <button type="button" class="btn btn-outline-dark" (click)="confirmModal(transferContent,transferModalRef)">确定
+    <button type="button" class="btn btn-outline-dark" (click)="confirmModal('transferContent',transferModalRef)">确定
     </button>
   </div>
 </ng-template>
@@ -985,7 +985,7 @@
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-outline-dark" (click)="closeModal(industryModalRef)">取消</button>
-    <button type="button" class="btn btn-outline-dark" (click)="confirmModal(industryContent,industryModalRef)">确定
+    <button type="button" class="btn btn-outline-dark" (click)="confirmModal('industryContent',industryModalRef)">确定
     </button>
   </div>
 </ng-template>
@@ -1074,7 +1074,7 @@
   <div class="modal-footer">
 
     <button type="button" class="btn btn-outline-dark" (click)="closeModal(certificationModalRef)">取消</button>
-    <button type="button" class="btn btn-outline-dark" (click)="confirmModal(certificationEdit,certificationModalRef)">
+    <button type="button" class="btn btn-outline-dark" (click)="confirmModal('certificationEdit',certificationModalRef)">
       确定
     </button>
 
@@ -1173,7 +1173,7 @@
 
     <button type="button" class="btn btn-outline-dark" (click)="closeModal(personModalRef)">取消</button>
 
-    <button type="button" class="btn btn-outline-dark" (click)="confirmModal(personInfo,personModalRef)">确定</button>
+    <button type="button" class="btn btn-outline-dark" (click)="confirmModal('personInfo',personModalRef)">确定</button>
 
   </div>
 </ng-template>

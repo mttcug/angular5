@@ -14,5 +14,4 @@ export class ConfigService {
   collectInfoApi = 'http://bigdata-api.xwkj.local/shop/';                  //发布信息
   peripheralDataApi = 'http://bigdata-api.xwkj.local/surrounding/';        //周边环境
   homePageDataApi = 'http://bigdata-api.xwkj.local/index';                 //周边环境
-
 }
