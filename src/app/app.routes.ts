@@ -4,7 +4,6 @@ import {DataCollectionComponent} from './component/data-collection/data-collecti
 import {ShopHallComponent} from './component/shop-hall/shop-hall.component';
 import {WorkManageComponent} from './component/work-manage/work-manage.component';
 import { PeripheralAnalysisComponent } from './component/peripheral-analysis/peripheral-analysis.component';
-import {RejectedPageComponent} from './component/rejected-page/rejected-page.component';
 import { CollectCompleteComponent } from './component/collect-complete/collect-complete.component';
 import { ErrorPageComponent } from './component/error-page/error-page.component';
 
@@ -40,10 +39,6 @@ export const routes: Routes = [
   {
     path: 'workManage',
     component: WorkManageComponent
-  },
-  {
-    path: 'reject',
-    component: RejectedPageComponent
   },
   {
     path: 'shopHall/peripheralAnalysis/:id',

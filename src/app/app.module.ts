@@ -25,7 +25,6 @@ import {DataIndexComponent} from './component/data-index/data-index.component';
 import {ShopHallComponent} from './component/shop-hall/shop-hall.component';
 import {WorkManageComponent} from './component/work-manage/work-manage.component';
 import { PeripheralAnalysisComponent } from './component/peripheral-analysis/peripheral-analysis.component';
-import {RejectedPageComponent} from './component/rejected-page/rejected-page.component';
 import {GeolocationComponent} from './component/common/geolocation/geolocation.component';
 import {CollectCompleteComponent} from './component/collect-complete/collect-complete.component';
 import { ErrorPageComponent } from './component/error-page/error-page.component';
@@ -49,7 +48,7 @@ import {IndustryPipe} from './pipe/industry/industry.pipe';
 import {NearStreetPipe} from './pipe/near-street/near-street.pipe';
 import {LocationTypePipe} from './pipe/location-type/location-type.pipe';
 import {SuperFacilityPipe} from './pipe/super-facility/super-facility.pipe';
-import {DistrictPipe} from './pipe/district/district.pipe';
+import { DistrictPipe } from './pipe/district/district.pipe';
 import {TransferStatusPipe} from './pipe/transfer-status/transfer-status.pipe';
 
 
@@ -66,7 +65,6 @@ import {TransferStatusPipe} from './pipe/transfer-status/transfer-status.pipe';
     DataIndexComponent,
     ShopHallComponent,
     WorkManageComponent,
-    RejectedPageComponent,
     RentUnitPipe,
     IndustryPipe,
     GeolocationComponent,

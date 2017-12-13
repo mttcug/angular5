@@ -69,7 +69,7 @@
       <label for="" class="text-right d-inline-block m-ritght-10">
         <span class="input-label-name">开业日期:</span>
       </label>
-      <app-date-picker [date]="formstartOpenDate" (dateChange)="getStartTime($event)"></app-date-picker>
+      <app-date-picker [date]="startOpenDate" (dateChange)="getStartTime($event)"></app-date-picker>
     </div>
 
     <!--经营状态-->
@@ -89,7 +89,7 @@
       <label for="" class="text-right d-inline-block m-ritght-10">
         <span class="input-label-name">停业日期:</span>
       </label>
-      <app-date-picker [date]="formendOpenDate" (dateChange)="getEndTime($event)"></app-date-picker>
+      <app-date-picker [date]="endOpenDate" (dateChange)="getEndTime($event)"></app-date-picker>
     </div>
 
     <!--店铺图片-->
@@ -135,10 +135,10 @@
                        class="m-ritght-5">整周
               </span>
               <span class="divider">|</span>
-              <span *ngFor="let item of vaildTime" class="week-item">
+              <span *ngFor="let item of vaildTime;let i=index;" class="week-item">
                 <input [checked]="item.checked"
                        [disabled]="dayCheckValid"
-                       name="weekChecked"
+                       name="weekChecked{{i+1}}"
                        (click)="selectThisDay(item)"
                        class="week-checkbox" type="checkbox"
                        data-code="item.code">{{item.name}}</span>
@@ -180,9 +180,9 @@
     <div class="d-block m-top-20">
       <label for="" class="text-right d-inline-block m-ritght-10"><span class="input-label-name">提供服务:</span></label>
       <div class="service-list align-top d-inline-block">
-        <span *ngFor="let item of serviceList" class="service-item d-inline-block">
+        <span *ngFor="let item of serviceList;let i=index;" class="service-item d-inline-block">
           <input [checked]="item.checked"
-                 name="serviceCheckList"
+                 name="serviceCheckList{{i+1}}"
                  (click)="selectThisService(item)"
                  class="week-checkbox"
                  type="checkbox"
@@ -317,54 +317,58 @@
     </div>
 
     <!--店铺老板-->
-        <div class="d-block m-top-20">
-          <label for="" class="text-right d-inline-block m-ritght-10"><span class="input-label-name">店铺老板:</span></label>
-          <span class="text-muted">{{shopBoss.name}}</span> <span class="edit-info text-blue"
-                                                                  (click)="openPersonalInfo(personInfo,shopBoss)">编辑</span>
-        </div>
+    <div class="d-block m-top-20">
+      <label for="" class="text-right d-inline-block m-ritght-10"><span class="input-label-name">店铺老板:</span></label>
+      <span class="text-muted">{{shopBoss.name}}</span> <span class="edit-info text-blue"
+                                                              (click)="openPersonalInfo(personInfo,shopBoss)">编辑</span>
+    </div>
 
     <!--合伙人-->
-        <div class="d-block m-top-20">
-          <label for="" class="text-right d-inline-block m-ritght-10"><span class="input-label-name">合伙人:</span></label>
-          <div class="d-inline-block align-top">
-            <p *ngFor="let item of partner">
-              <span>{{item.name}}</span><span>{{item.phoneList[0]}}</span> <span class="edit-info text-blue"
-                                                                                 (click)="openPersonalInfo(personInfo,item)">编辑</span>
-              <input type="text" name="stockRatio" placeholder="参股比例" maxlength="10"
-                     class="d-inline-block w-160-px form-control" [(ngModel)]="item.stockRatio">
-            </p>
-          </div>
-          <p *ngIf="partner.length < 5" class="add-partner-btn  w-220-px" (click)="addPartner()"><label
-            class="text-right d-inline-block m-ritght-10"></label><i
-            class="iconfont icon-tianjiatupian m-ritght-5"></i><span class="text-muted">添加合伙人</span></p>
-        </div>
+    <div class="d-block m-top-20">
+      <label for="" class="text-right d-inline-block m-ritght-10"><span class="input-label-name">合伙人:</span></label>
+      <div class="d-inline-block align-top">
+        <p *ngFor="let item of partner;let i=index;">
+          <span>{{item.name}}</span>
+          <span>{{item.phoneList[0]}}</span>
+          <span class="edit-info text-blue" (click)="openPersonalInfo(personInfo,item)">编辑</span>
+          <input type="text" name="stockRatio{{i+1}}" placeholder="参股比例" maxlength="10"
+                 class="d-inline-block w-160-px form-control" [(ngModel)]="item.stockRatio">
+        </p>
+      </div>
+      <p *ngIf="partner.length < 5" class="add-partner-btn  w-220-px" (click)="addPartner()">
+        <label class="text-right d-inline-block m-ritght-10"></label>
+        <i class="iconfont icon-tianjiatupian m-ritght-5"></i>
+        <span class="text-muted">添加合伙人</span>
+      </p>
+    </div>
 
     <!--店铺员工-->
-     <div class="d-block m-top-20">
-       <label for="" class="text-right d-inline-block m-ritght-10"><span class="input-label-name">店铺员工:</span></label>
-       <div class="d-inline-block align-top">
-         <p class="" *ngFor="let item of employee">
-           <input type="text" placeholder="职位" name="position" class="d-inline-block w-160-px form-control"
-                  [(ngModel)]="item.position"> <span
+    <div class="d-block m-top-20">
+      <label for="" class="text-right d-inline-block m-ritght-10"><span class="input-label-name">店铺员工:</span></label>
+      <div class="d-inline-block align-top">
+        <p class="" *ngFor="let item of employee;let i=index;">
+          <input type="text" placeholder="职位" name="position{{i+1}}" class="d-inline-block w-160-px form-control"
+                 [(ngModel)]="item.position">
+          <span class="text-muted">姓名</span><span class="edit-info text-blue"
+                                                  (click)="openPersonalInfo(personInfo,item)">编辑</span>
+          <app-date-picker [date]="item.entryDate" [placeholder]="entryTimePlaceHolder"
+                           (dateChange)="getEntryDate($event)"></app-date-picker>
+          <input type="text" placeholder="工作内容" class="d-inline-block w-160-px form-control" name="workContent{{i+1}}"
+                 [(ngModel)]="item.workContent">
+          <input type="checkbox" [(ngModel)]="item.isDission" name="isDimission{{i+1}}"> <span>已离职</span>
 
-           class="text-muted">姓名</span><span class="edit-info text-blue"
-                                             (click)="openPersonalInfo(personInfo,item)">编辑</span>
-           <app-date-picker [date]="item.entryDate" [placeholder]="entryTimePlaceHolder"
-                            (dateChange)="getEntryDate($event)"></app-date-picker>
-           <input type="text" placeholder="工作内容" class="d-inline-block w-160-px form-control" name="workContent"
-                  [(ngModel)]="item.workContent">
-           <input type="checkbox" [(ngModel)]="item.isDission" name="isDimission"> <span>已离职</span>
+          <app-date-picker [date]="item.leaveDate" [placeholder]="leaveTimePlaceHolder" *ngIf="item.isDission"
+                           (dateChange)="getLeaveDate($event)"></app-date-picker>
 
-           <app-date-picker [date]="item.leaveDate" [placeholder]="leaveTimePlaceHolder" *ngIf="item.isDission"
-                            (dateChange)="getLeaveDate($event)"></app-date-picker>
+        </p>
+      </div>
 
-         </p>
-       </div>
-
-       <p class="add-employee-btn w-220-px" (click)="addEmployee()"><label
-         class="text-right d-inline-block m-ritght-10"></label><i
-         class="iconfont icon-tianjiatupian m-ritght-5"></i><span class="text-muted">添加员工</span></p>
-     </div>
+      <p class="add-employee-btn w-220-px" (click)="addEmployee()">
+        <label class="text-right d-inline-block m-ritght-10"></label>
+        <i class="iconfont icon-tianjiatupian m-ritght-5"></i>
+        <span class="text-muted">添加员工</span>
+      </p>
+    </div>
   </div>
 
   <h3 class="title-line">物业建筑信息</h3>
@@ -546,9 +550,9 @@
     <div class="d-block m-top-20">
       <label for="" class="text-right d-inline-block m-ritght-10"><span class="input-label-name">物业配套:</span></label>
       <div class="facilities-list align-top d-inline-block">
-        <span *ngFor="let item of facilitiesList" class="facility-item d-inline-block">
+        <span *ngFor="let item of facilitiesList;let i=index;" class="facility-item d-inline-block">
           <input [checked]="item.checked"
-                 name="facilityList"
+                 name="facilityList{{i+1}}"
                  (click)="selectThisFacility(item)"
                  class="week-checkbox"
                  type="checkbox"
@@ -671,7 +675,9 @@
     </div>
   </div>
 
-  <button class="form-control d-block w-160-px btn-primary release-btn" [disabled]="!shopInfoForm.form.valid" (click)="release()">发布</button>
+  <button class="form-control d-block w-160-px btn-primary release-btn" [disabled]="!shopInfoForm.form.valid"
+          (click)="release()">发布
+  </button>
   <!-- [disabled]="!shopInfoForm.form.valid"-->
 </form>
 
@@ -885,7 +891,8 @@
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-outline-dark" (click)="closeModal(operateModalRef)">取消</button>
-    <button type="button" class="btn btn-outline-dark" (click)="confirmModal('profitContent',operateModalRef)">确定</button>
+    <button type="button" class="btn btn-outline-dark" (click)="confirmModal('profitContent',operateModalRef)">确定
+    </button>
   </div>
 </ng-template>
 
@@ -1074,7 +1081,8 @@
   <div class="modal-footer">
 
     <button type="button" class="btn btn-outline-dark" (click)="closeModal(certificationModalRef)">取消</button>
-    <button type="button" class="btn btn-outline-dark" (click)="confirmModal('certificationEdit',certificationModalRef)">
+    <button type="button" class="btn btn-outline-dark"
+            (click)="confirmModal('certificationEdit',certificationModalRef)">
       确定
     </button>
 
