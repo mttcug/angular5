@@ -15,8 +15,7 @@ export class UploadFilesComponent implements OnInit {
   }
 
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   @Input() images = [];       //数据库中已有的图片
 

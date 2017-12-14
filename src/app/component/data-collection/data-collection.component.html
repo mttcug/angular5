@@ -303,17 +303,18 @@
     <div class="d-block m-top-20">
       <label for="" class="text-right d-inline-block m-ritght-10"><span class="input-label-name">店铺证件:</span></label>
       <ul class="shop-certifications align-top d-inline-block">
-        <li class="d-block" *ngFor="let item of certifications"><span class="text-muted">{{item.name}}</span><span
-          class="edit-info text-blue m-left-10 m-ritght-10"
-          (click)="openShopCertificationModal(certificationEdit,item,'1')">编辑</span><span
-          class="edit-info text-blue m-left-5 m-ritght-5" (click)="deleteCertification(item)">删除</span>
+        <li class="d-block" *ngFor="let item of certifications;let i=index;">
+          <span class="text-muted" name="shopCet">{{item.name}}</span>
+          <span class="edit-info text-blue m-left-10 m-ritght-10"
+          (click)="openShopCertificationModal(certificationEdit,item,'1')">编辑</span>
+          <span class="edit-info text-blue m-left-5 m-ritght-5" (click)="deleteCertification(item)">删除</span>
         </li>
         <p class="add-certifications-btn  w-220-px" *ngIf="certifications.length < 5"
            (click)="openShopCertificationModal(certificationEdit,objCertification,'2')">
-          <i class="iconfont icon-tianjiatupian m-ritght-5"></i><span class="text-muted">添加证件</span>
+          <i class="iconfont icon-tianjiatupian m-ritght-5"></i>
+          <span class="text-muted">添加证件</span>
         </p>
       </ul>
-
     </div>
 
     <!--店铺老板-->

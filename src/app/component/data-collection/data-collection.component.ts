@@ -335,10 +335,10 @@ export class DataCollectionComponent implements OnInit {
   transferReason: string = '';            //转让原因
 
 
-  certifications = [];
-  objCertification = new Certification();
+  certifications:Certification[] = [];
+  objCertification:Certification = new Certification();
 
-  selectedCertificationType = 4;
+  selectedCertificationType = '4';
   writeCertificationType = '';           //证件类型
   certificationsTypeList = [];
   headIsMulti: boolean = false;            //是否多张
@@ -517,6 +517,7 @@ export class DataCollectionComponent implements OnInit {
     this.transferStaff = result.transferStaff;                 //转让内容
     this.transferReason = result.transferReason;               //转让原因
     this.certifications = result.certifications ? result.certifications : [];               //店铺证件
+    console.log("certifications:",this.certifications);
     /*    this.shopBoss = result.shopBoss;                           //店铺老板
         this.partner = result.partner;                             //合作伙伴
         this.employee = result.employee;                           //店铺员工*/
@@ -652,7 +653,7 @@ export class DataCollectionComponent implements OnInit {
     this.certifications = [];
     this.objCertification = new Certification();
 
-    this.selectedCertificationType = 4;
+    this.selectedCertificationType = '4';
     this.writeCertificationType = '';           //证件类型
     this.certificationsTypeList = [];
     this.headIsMulti = false;            //是否多张
@@ -1050,6 +1051,8 @@ export class DataCollectionComponent implements OnInit {
   shopImageModalRef: BsModalRef;
 
   openEditShopImagesModal(content) {
+    this.tempshopImages=[];
+    this.tempenvironment=[];
     this.shopImages.forEach((v, i) => {
       this.tempshopImages.push(v);
     });
@@ -1131,12 +1134,13 @@ export class DataCollectionComponent implements OnInit {
   }
 
   //打开店铺证件弹出框
-  defaultCertification;
+  defaultCertification:Certification;
   certificationModalRef: BsModalRef;
-  newItem = {};
+  newItem:Certification;
   addOrEditType = '';
 
   openShopCertificationModal(content, item, type) {  //type1编辑2添加
+    console.log("item:",item);
 
     this.addOrEditType = type;
     type == '2' ? this.newItem = new Certification() : '';
@@ -1144,12 +1148,15 @@ export class DataCollectionComponent implements OnInit {
 
     this.selectedCertificationType = item.certificationType;
     this.writeCertificationType = '';           //证件类型
+    this.headImageA = [];
+    this.headImageA = [];
+    this.otherImages=[];
 
 
-    this.defaultCertification.headImage == '' ? this.headImageA = [] : this.headImageA.push({url: this.defaultCertification.headImage}); //正面图片
-    this.defaultCertification.backImage == '' ? this.headImageA = [] : this.backImageA.push({url: this.defaultCertification.backImage}); //反面图片
-
-    item.otherImages.forEach((v, i) => {
+    this.defaultCertification.headImage == '' ? '' : this.headImageA.push({url: this.defaultCertification.headImage}); //正面图片
+    this.defaultCertification.backImage == '' ? '' : this.backImageA.push({url: this.defaultCertification.backImage}); //反面图片
+    console.log("otherImages:",item,"lala:",this.defaultCertification.otherImages);
+    this.defaultCertification.otherImages.forEach((v, i) => {
       this.otherImages.push(v);
     });                                                                 //其他图片
 
@@ -1241,6 +1248,7 @@ export class DataCollectionComponent implements OnInit {
     });
   }
 
+  //编辑时初始化facility
   initFacilitySelect() {
     this.facilitiesList.map(v => v.checked = false);
     this.facilities.forEach((item, index) => {
@@ -1502,7 +1510,7 @@ export class DataCollectionComponent implements OnInit {
     this.temptransferStaff = '';
     this.temptransferReason = '';
 
-    this.selectedCertificationType = 1;         //证件类型
+    this.selectedCertificationType = '1';         //证件类型
     this.certificationsTypeList = [];
     this.headImageA = [];
     this.backImageA = [];
