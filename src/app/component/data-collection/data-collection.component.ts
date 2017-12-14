@@ -41,6 +41,13 @@ export class DataCollectionComponent implements OnInit {
   emptyTransferList = [];
   sexType = [];
   memberTypeList = [];
+  certificationsTypeList=[];
+  positionDescriptionList = [];
+  superFacilityList = [];
+  positionList = [];
+  destroyedRatioList = [];
+  buildingShapeList = [];
+  propertyRightTypeList = [];
 
 
   constructor(private ngxModalService: BsModalService, private router: Router, @Inject('data') private data, private route: ActivatedRoute, @Inject('DataCollectionService') private DataCollectionService, @Inject('CurrentCityService') private CurrentCityService) {
@@ -117,6 +124,7 @@ export class DataCollectionComponent implements OnInit {
       }, error => {
         console.log("data-collect error:", error)
       });
+    console.log("店铺证件");
 
     //租金单位
     this.data.getRentMeasure()
@@ -210,62 +218,7 @@ export class DataCollectionComponent implements OnInit {
     });
   }
 
- /* bossObj = {
-    name: "",
-    phoneList: [''],
-    realName: '',
-    sex: '',
-    birthdayDate: '',
-    contactAddress: '',
-    email: '',
-    qq: '',
-    wx: '',
-    personInfoDetail: '',
-    stockRatio: ''
-  };
 
-  partnerObj = {
-    name: "",
-    phoneList: [''],
-    realName: '',
-    sex: '',
-    birthdayDate: '',
-    contactAddress: '',
-    email: '',
-    qq: '',
-    wx: '',
-    personInfoDetail: ''
-  };
-
-  employeeObj = {
-    name: "",
-    phoneList: [''],
-    realName: '',
-    sex: '',
-    birthdayDate: '',
-    contactAddress: '',
-    email: '',
-    qq: '',
-    wx: '',
-    personInfoDetail: '',
-    position: '',
-    entryDate: '',
-    workContent: '',
-    leaveDate: '',
-    isDission: false
-  };
-  vertificationObj={
-    certificationType: '',
-  name: "",
-  headImage:'',
-  backImage:'',
-  otherImages: [],
-  certificationNumber:  '',
-  owner_name:  '',
-  address:  '',
-  permissionScope:  '',
-  otherContent:  ''
-  }*/
 
 
   // 品牌名称
@@ -340,7 +293,6 @@ export class DataCollectionComponent implements OnInit {
 
   selectedCertificationType = '4';
   writeCertificationType = '';           //证件类型
-  certificationsTypeList = [];
   headIsMulti: boolean = false;            //是否多张
   backIsMulti: boolean = false;
   otherIsMulti: boolean = true;
@@ -396,13 +348,10 @@ export class DataCollectionComponent implements OnInit {
 
 
   positionDescription: string = '';       //位置描述
-  positionDescriptionList: string[] = [];
 
   isNearStreet: string = '';                //是否临街
-  positionList: string[] = [];
 
   superFacility: string = '';                //上级物业
-  superFacilityList: string[] = [];
   shopCityName: string = '';                 //商城名称
 
   buildingArea = '';                //建筑面积
@@ -432,13 +381,12 @@ export class DataCollectionComponent implements OnInit {
   warmFee = '';                    //暖气
 
   buildingShape = '';
-  buildingShapeList: string[] = [];
+
 
   propertyRightType = '';
-  propertyRightTypeList: string[] = [];
 
   destroyedRatio = '';
-  destroyedRatioList: any[] = [];
+
   destroyedRatioDetail = '';
 
   houseOwner: Person = {
@@ -655,7 +603,6 @@ export class DataCollectionComponent implements OnInit {
 
     this.selectedCertificationType = '4';
     this.writeCertificationType = '';           //证件类型
-    this.certificationsTypeList = [];
     this.headIsMulti = false;            //是否多张
     this.backIsMulti = false;
     this.otherIsMulti = true;
@@ -711,13 +658,10 @@ export class DataCollectionComponent implements OnInit {
 
 
     this.positionDescription = '';       //位置描述
-    this.positionDescriptionList = [];
 
     this.isNearStreet = '';                //是否临街
-    this.positionList = [];
 
     this.superFacility = '';                //上级物业
-    this.superFacilityList = [];
     this.shopCityName = '';                 //商城名称
 
     this.buildingArea = '';                //建筑面积
@@ -748,13 +692,10 @@ export class DataCollectionComponent implements OnInit {
     this.warmFee = '';                    //暖气
 
     this.buildingShape = '';
-    this.buildingShapeList = [];
 
     this.propertyRightType = '';
-    this.propertyRightTypeList = [];
 
     this.destroyedRatio = '';
-    this.destroyedRatioList = [];
     this.destroyedRatioDetail = '';
 
 
@@ -1155,7 +1096,6 @@ export class DataCollectionComponent implements OnInit {
 
     this.defaultCertification.headImage == '' ? '' : this.headImageA.push({url: this.defaultCertification.headImage}); //正面图片
     this.defaultCertification.backImage == '' ? '' : this.backImageA.push({url: this.defaultCertification.backImage}); //反面图片
-    console.log("otherImages:",item,"lala:",this.defaultCertification.otherImages);
     this.defaultCertification.otherImages.forEach((v, i) => {
       this.otherImages.push(v);
     });                                                                 //其他图片
@@ -1511,7 +1451,6 @@ export class DataCollectionComponent implements OnInit {
     this.temptransferReason = '';
 
     this.selectedCertificationType = '1';         //证件类型
-    this.certificationsTypeList = [];
     this.headImageA = [];
     this.backImageA = [];
     this.otherImages = [];
