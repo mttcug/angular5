@@ -141,7 +141,8 @@
             <span class="text-muted">租约：
               <span *ngIf="item.estate_rent.rent_period">{{item.estate_rent.rent_period}}月</span>
               <span *ngIf="!item.estate_rent.rent_period">-</span>
-              <span *ngIf="item.estate_rent.leaved_contract_period">（剩{{item.estate_rent.leaved_contract_period}}月）</span>
+              <span
+                *ngIf="item.estate_rent.leaved_contract_period">（剩{{item.estate_rent.leaved_contract_period}}月）</span>
             </span>
           </p>
         </td>
@@ -180,26 +181,26 @@
   </div>
   <div class="page-container text-right" *ngIf="infoList.total_page > 1">
     <!--ng-bootstrap分页的用法只需要引入ngbModel模块即可-->
-  <!--  <ngb-pagination class="d-inline-block" (pageChange)="pageChange($event)" [collectionSize]="infoList.total_num"
-                    [(page)]="pageNo" aria-label="Default pagination" [maxSize]="5"
-                    [boundaryLinks]="true">
-        </ngb-pagination>
-  -->
+    <!--  <ngb-pagination class="d-inline-block" (pageChange)="pageChange($event)" [collectionSize]="infoList.total_num"
+                      [(page)]="pageNo" aria-label="Default pagination" [maxSize]="5"
+                      [boundaryLinks]="true">
+          </ngb-pagination>
+    -->
     <!--ngx-bootstrap 需要单独引入分页模块-->
-      <pagination [boundaryLinks]="true"
-                  [totalItems]="infoList.total_num"
-                  [maxSize]="maxSizePerPage"
-                  [rotate]="false"
-                  [boundaryLinks]="true"
-                  (pageChanged)="pageChange($event)"
-                  [(ngModel)]="pageNo"
-                  class="pagination-sm"
-                  previousText="上一页"
-                  nextText="下一页"
-                  firstText="第一页"
-                  lastText="最后一页">
+    <pagination [boundaryLinks]="true"
+                [totalItems]="infoList.total_num"
+                [maxSize]="maxSizePerPage"
+                [rotate]="false"
+                [boundaryLinks]="true"
+                (pageChanged)="pageChange($event)"
+                [(ngModel)]="pageNo"
+                class="pagination-sm"
+                previousText="上一页"
+                nextText="下一页"
+                firstText="第一页"
+                lastText="最后一页">
 
-      </pagination>
+    </pagination>
   </div>
 </div>
 
@@ -219,14 +220,18 @@
           <div class="choice-block d-block">
             <span>筛选范围:</span>
             <ul class="d-inline-block">
-              <li *ngFor="let item of zoomList"><input name='mapZoomLevel' type="radio"
-                                                       [checked]="item.code==tempzoomLevel"
-                                                       (click)="zoomChange(item)">{{item.name}}
+              <li *ngFor="let item of zoomList;let i=index;">
+                <input name='mapZoomLevel' type="radio"
+                       [checked]="item.code==tempzoomLevel"
+                       (click)="zoomChange(item)">{{item.name}}
+
+              </li>
             </ul>
           </div>
           <div class="map-container">
             <app-baidu-map [address]="mapAddress" [zoom]="tempzoomLevel"
-                           (getLocation)="geoLocation($event)"></app-baidu-map>
+                           (getLocation)="geoLocation($event)">
+            </app-baidu-map>
           </div>
         </div>
       </div>
