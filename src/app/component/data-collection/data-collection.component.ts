@@ -214,7 +214,6 @@ export class DataCollectionComponent implements OnInit {
     this.route.queryParams.subscribe((queryParams: Params) => {
       this.shop_id = queryParams.id;
       this.shop_id != '' ? this.getShopInfo(this.shop_id) : this.initData();
-      console.log("shop_id:", this.shop_id);
     });
   }
 
@@ -464,22 +463,22 @@ export class DataCollectionComponent implements OnInit {
     this.emptyTransferFee = result.emptyTransferFee;           //空转转让费
     this.transferStaff = result.transferStaff;                 //转让内容
     this.transferReason = result.transferReason;               //转让原因
-    this.certifications = result.certifications ? result.certifications : [];               //店铺证件
-    console.log("certifications:",this.certifications);
-    /*    this.shopBoss = result.shopBoss;                           //店铺老板
-        this.partner = result.partner;                             //合作伙伴
-        this.employee = result.employee;                           //店铺员工*/
+    this.certifications = result.certifications ? result.certifications : [];                                               //店铺证件
+    result.shopBoss ? this.shopBoss = result.shopBoss : new ShopBoss();                                                     //店铺老板
+    result.partner ? this.partner = result.partner : this.partner.push(new Partner());                                       //合作伙伴
+
+    result.employee ? this.employee=result.employee : this.employee.push(new Employee());                                   //店铺员工
 
     this.city = result.city;
-    this.city ? this.loadDistrict(this.city) : '';           //城市
-    this.district = result.district ? result.district : '';                           //区域
-    this.addressDetail = result.addressDetail ? result.addressDetail : '';                 //详细地址
+    this.city ? this.loadDistrict(this.city) : '';                                                                             //城市
+    this.district = result.district ? result.district : '';                                                                    //区域
+    this.addressDetail = result.addressDetail ? result.addressDetail : '';                                                     //详细地址
     this.shopAddress = this.getWholeAddress();
 
     this.longitude = result.longitude;                         //经度
     this.latitude = result.latitude;                           //纬度
-    this.positionDescription = result.positionDescription ? result.positionDescription : '';     //位置描述
-    this.isNearStreet = result.isNearStreet ? result.isNearStreet : '';                   //是否临街
+    this.positionDescription = result.positionDescription ? result.positionDescription : '';                               //位置描述
+    this.isNearStreet = result.isNearStreet ? result.isNearStreet : '';                                                    //是否临街
     this.superFacility = (result.superFacility && result.superFacility != '1') ? result.superFacility : '';                //上级物业
     this.shopCityName = result.shopCityName;                   //商城名称
     this.buildingArea = result.buildingArea;                   //建筑面积

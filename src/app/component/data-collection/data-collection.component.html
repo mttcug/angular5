@@ -136,7 +136,8 @@
               </span>
               <span class="divider">|</span>
               <span *ngFor="let item of vaildTime;let i=index;" class="week-item">
-                <input [checked]="item.checked"
+                <input [(ngModel)]="item.checked"
+                       value="{{item.checked}}"
                        [disabled]="dayCheckValid"
                        name="weekChecked{{i+1}}"
                        (click)="selectThisDay(item)"
@@ -181,7 +182,8 @@
       <label for="" class="text-right d-inline-block m-ritght-10"><span class="input-label-name">提供服务:</span></label>
       <div class="service-list align-top d-inline-block">
         <span *ngFor="let item of serviceList;let i=index;" class="service-item d-inline-block">
-          <input [checked]="item.checked"
+          <input [(ngModel)]="item.checked"
+                 value="{{item.checked}}"
                  name="serviceCheckList{{i+1}}"
                  (click)="selectThisService(item)"
                  class="week-checkbox"
@@ -552,7 +554,8 @@
       <label for="" class="text-right d-inline-block m-ritght-10"><span class="input-label-name">物业配套:</span></label>
       <div class="facilities-list align-top d-inline-block">
         <span *ngFor="let item of facilitiesList;let i=index;" class="facility-item d-inline-block">
-          <input [checked]="item.checked"
+          <input [(ngModel)]="item.checked"
+                 value="{{item.checked}}"
                  name="facilityList{{i+1}}"
                  (click)="selectThisFacility(item)"
                  class="week-checkbox"
@@ -561,13 +564,13 @@
 
           <input *ngIf="item.name=='停车位' && item.checked" name="stopsCount" placeholder="请填写" [(ngModel)]="parking_num"
                  type="text"
-                 class="form-control d-inline-block w-160-px" maxlength="4">
+                 class="d-inline-block w-160-px" maxlength="4">
           <span *ngIf="item.name=='停车位' && item.checked">个</span>
 
           <input type="text" placeholder="请填写" name="extensionArea"
                  [(ngModel)]="outward_area"
                  *ngIf="item.name=='外摆区' && item.checked"
-                 class="form-control d-inline-block w-160-px"
+                 class="d-inline-block w-160-px"
                  maxlength="4">
           <span *ngIf="item.name=='外摆区' && item.checked">平米</span>
         </span>
