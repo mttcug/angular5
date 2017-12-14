@@ -11,6 +11,7 @@ import {Partner} from '../../class/partner';
 import {Certification} from '../../class/certification';
 import {ShopBoss} from '../../class/shop-boss';
 import {Employee} from '../../class/employee';
+import {PhoneNumber} from '../../class/phone-number';
 import {any} from "codelyzer/util/function";
 
 
@@ -308,7 +309,7 @@ export class DataCollectionComponent implements OnInit {
   otherContent: string = '';            //其他内容
 
   shopBoss: ShopBoss = new ShopBoss();
-  phoneList: string[] = [""];
+  phoneList: PhoneNumber[] = [];
   name: string = '';                       //名称
   realName: string = '';                   //真实名字
 
@@ -360,7 +361,7 @@ export class DataCollectionComponent implements OnInit {
   validArea = '';                    //使用面积
   depth = '';                        //进深
   floorHeight = '';                   //层高
-  floorAmount = '';                  //总层数
+  floorAmound = '';                  //总层数
 
   fitIndustry = [];                   //适合经营
   recommendableIndustry = [];             //推荐经营
@@ -442,10 +443,13 @@ export class DataCollectionComponent implements OnInit {
 
     this.shopRent = result.shopRent;                           //店铺租金
     this.rentMeasure = result.rentMeasure;                     //店铺租金单位
+
     this.payWay = result.payWay;                               //支付方式
+    this.initPayWay();
     this.rateWay = result.rateWay;                            //递增或递减
     this.definedRateWay = result.definedRateWay;              //增率或减率
     this.depositWay = result.depositWay;                       //押金方式
+
     this.rentDate = result.rentDate;                           //租期
     this.rentTime = result.rentTime;                           //租约
     this.leftContractTime = result.leftContractTime;           //剩余合同期
@@ -488,7 +492,7 @@ export class DataCollectionComponent implements OnInit {
     this.validArea = result.validArea;                          //使用面积
     this.depth = result.depth;                                   //进深
     this.floorHeight = result.floorHeight;                       //层高
-    this.floorAmount = result.floorAmount;                       //楼层数
+    this.floorAmound = result.floorAmound;                       //楼层数
 
 
     result.fitIndustry.forEach((v, i) => {
@@ -517,6 +521,7 @@ export class DataCollectionComponent implements OnInit {
     this.gasFee = result.gasFee;                                   //燃气费
     this.elecFee = result.elecFee;                                //电费
     this.rent = result.rent;                                         //租金
+    this.rentMeasureF = result.rentMeasureF ? result.rentMeasureF : '';
     this.warmFee = result.warmFee;                                 //暖气费
     this.buildingShape = result.buildingShape ? result.buildingShape : '';                     //建筑形状
     this.propertyRightType = result.propertyRightType ? result.propertyRightType : '';             //产权类型
@@ -618,7 +623,7 @@ export class DataCollectionComponent implements OnInit {
     this.otherContent = '';            //其他内容
 
     this.shopBoss = new ShopBoss();
-    this.phoneList = [""];
+    this.phoneList.push(new PhoneNumber());
     this.name = '';                       //名称
     this.realName = '';                   //真实名字
 
@@ -670,7 +675,7 @@ export class DataCollectionComponent implements OnInit {
     this.validArea = '';                    //使用面积
     this.depth = '';                        //进深
     this.floorHeight = '';                   //层高
-    this.floorAmount = '';                  //总层数
+    this.floorAmound = '';                  //总层数
 
     this.fitIndustry = [];                   //适合经营
     this.recommendableIndustry = [];             //推荐经营
@@ -876,6 +881,17 @@ export class DataCollectionComponent implements OnInit {
     this.payWay = item.code == '0' ? this.definedPayWay : item.name;
   }
 
+  initPayWay(){
+    var item=this.payWayList.find(v=>v.name==this.payWay);
+    if(item){
+      this.definedWayShow=true;
+    }else{
+      this.definedWayShow=false;
+      this.definedPayWay=this.payWay;
+      this.payWay='自定义';
+    }
+  }
+
   //弹出框选择支付方式
   tempdefinedWayShow = true;
 
@@ -937,11 +953,8 @@ export class DataCollectionComponent implements OnInit {
   }
 
   //添加电话号码
-  phoneNumberExample = {number: ''};
-
   addPhoneNumbers() {
-    var obj: any = this.copy(this.phoneNumberExample);
-    this.phoneList.push(obj);          //增加输入框个数
+    this.phoneList.push(new PhoneNumber());          //增加输入框个数
   }
 
   selectSexStatus(item) {
@@ -1086,15 +1099,15 @@ export class DataCollectionComponent implements OnInit {
     type == '2' ? this.newItem = new Certification() : '';
     this.defaultCertification = type == '1' ? item : this.newItem;
 
-    this.selectedCertificationType = item.certificationType;
+    this.selectedCertificationType = item.certificationType ? item.certificationType : '';
     this.writeCertificationType = '';           //证件类型
     this.headImageA = [];
-    this.headImageA = [];
+    this.backImageA = [];
     this.otherImages=[];
 
 
-    this.defaultCertification.headImage == '' ? '' : this.headImageA.push({url: this.defaultCertification.headImage}); //正面图片
-    this.defaultCertification.backImage == '' ? '' : this.backImageA.push({url: this.defaultCertification.backImage}); //反面图片
+    this.defaultCertification.headImage  ? this.headImageA.push({url: this.defaultCertification.headImage}) : '' ; //正面图片
+    this.defaultCertification.backImage  ? this.backImageA.push({url: this.defaultCertification.backImage}) : '' ; //反面图片
     this.defaultCertification.otherImages.forEach((v, i) => {
       this.otherImages.push(v);
     });                                                                 //其他图片
@@ -1115,11 +1128,16 @@ export class DataCollectionComponent implements OnInit {
   openPersonalInfo(content, item) {
     this.defaultPerson = item;
     this.phoneList = [];
-    item.phoneList.forEach((v, i) => {                   //考虑深浅拷贝问题和对象复制问题和基础类型和引用类型
-      let obj: any = this.copy(this.phoneNumberExample);
-      obj.number = v;
-      this.phoneList.push(obj);
-    });
+    if(item.phoneList.length){
+      item.phoneList.forEach((v, i) => {                   //考虑深浅拷贝问题和对象复制问题和基础类型和引用类型
+        let obj: PhoneNumber = new PhoneNumber();
+        obj.number = v;
+        this.phoneList.push(obj);
+      });
+    }else{
+      this.phoneList.push(new PhoneNumber());
+    }
+
     this.name = item.name;           //证件类型
     this.realName = item.realName;
     this.sex = item.sex;
@@ -1461,7 +1479,8 @@ export class DataCollectionComponent implements OnInit {
     this.otherContent = '';
 
 
-    this.phoneList = [];
+    this.phoneList=[];
+    this.phoneList.push(new PhoneNumber());
     this.name = '';           //证件类型
     this.realName = '';
     this.sex = '';
@@ -1546,7 +1565,7 @@ export class DataCollectionComponent implements OnInit {
       validArea: this.validArea,                          //使用面积
       depth: this.depth,                                   //进深
       floorHeight: this.floorHeight,                       //层高
-      floorAmount: this.floorAmount,                       //楼层数
+      floorAmound: this.floorAmound,                       //楼层数
       fitIndustry: fitC,                                  //适合经营
       recommendableIndustry: recomC,                       //推荐经营
       unRecommendableIndustry: unrecomC,                   //不宜经营
@@ -1585,7 +1604,7 @@ export class DataCollectionComponent implements OnInit {
     this.DataCollectionService.editInfo(params)
       .map((res: Response) => res.json())
       .subscribe(res => {
-        if (!res.result) {
+        if (res.result) {
           this.router.navigate(['glancePostedInfoItem'], {queryParams: {shop_info: JSON.stringify(res.result)}});
         }
       }, error => {
@@ -1596,7 +1615,6 @@ export class DataCollectionComponent implements OnInit {
   release() {
     var params = this.getpostParams();
     this.shop_id ? this.editInfo(params) : this.addInfo(params);
-
   }
 
 }

@@ -515,7 +515,7 @@
       <!--总层数-->
       <div class="d-block m-top-20">
         <label for="" class="text-right d-inline-block m-ritght-10"><span class="input-label-name">总层数:</span></label>
-        <input class="form-control d-inline-block w-160-px  m-ritght-5" name="floorAmount" [(ngModel)]="floorAmount"
+        <input class="form-control d-inline-block w-160-px  m-ritght-5" name="floorAmount" [(ngModel)]="floorAmound"
                type="text"
                placeholder="请填写" maxlength="3">层
       </div>
@@ -1108,7 +1108,7 @@
         class="input-label-name">手机号码:</span></label>
       <div class="d-inline-block align-top">
         <p *ngFor="let item of phoneList;let i = index ;">
-          <input name="phoneNumber" [(ngModel)]="item.number"
+          <input name="phoneNumber{{i+1}}" [(ngModel)]="item.number"
                  class="form-control  d-block m-bottom-5"
                  type="text" placeholder="请填写">
         </p>

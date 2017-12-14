@@ -8,7 +8,7 @@ export class ConfigService {
   testEnv='xwkj.local';                                                     //测试环境xwkj.local
   env = this.testEnv || 'pupuwang.com';
 
-  keyIndex = this.env=='pupuwang.com' ? 4 : 3;                              //用于获取路由关键字的索引（字符串以‘/’分割后的索引）判断是什么页面
+  keyIndex = this.env=='pupuwang.com' ? 3 : 3;                              //用于获取路由关键字的索引（字符串以‘/’分割后的索引）判断是什么页面
 
   defaultCity = {name: '深圳市', id: '4403000000'};
                                                                             //行业区域和当前城市存在了sessionStorage中

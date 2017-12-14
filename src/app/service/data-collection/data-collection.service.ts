@@ -18,6 +18,7 @@ export class DataCollectionService {
   }
 
   editInfo(params){
+    console.log("params：",params);
     return this.jsonrpcHttp.rpcRequest(this.url,"edit",params);
   }
 
