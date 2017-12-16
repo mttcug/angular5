@@ -291,8 +291,8 @@ export class DataCollectionComponent implements OnInit {
   certifications:Certification[] = [];
   objCertification:Certification = new Certification();
 
-  selectedCertificationType = '4';
-  writeCertificationType = '';           //证件类型
+  tempCertificationType = '4';
+  definedCertificationType = '';           //证件类型
   headIsMulti: boolean = false;            //是否多张
   backIsMulti: boolean = false;
   otherIsMulti: boolean = true;
@@ -468,7 +468,9 @@ export class DataCollectionComponent implements OnInit {
     this.transferStaff = result.transferStaff;                 //转让内容
     this.transferReason = result.transferReason;               //转让原因
     this.certifications = result.certifications ? result.certifications : [];                                               //店铺证件
-    result.shopBoss ? this.shopBoss = result.shopBoss : new ShopBoss();                                                     //店铺老板
+
+    result.shopBoss ? this.shopBoss = result.shopBoss : this.shopBoss = new ShopBoss();
+    console.log("shopBoss:",this.shopBoss);//店铺老板
     result.partner ? this.partner = result.partner : this.partner.push(new Partner());                                       //合作伙伴
 
     result.employee ? this.employee=result.employee : this.employee.push(new Employee());                                   //店铺员工
@@ -605,8 +607,8 @@ export class DataCollectionComponent implements OnInit {
     this.certifications = [];
     this.objCertification = new Certification();
 
-    this.selectedCertificationType = '4';
-    this.writeCertificationType = '';           //证件类型
+    this.tempCertificationType = '4';
+    this.definedCertificationType = '';           //证件类型
     this.headIsMulti = false;            //是否多张
     this.backIsMulti = false;
     this.otherIsMulti = true;
@@ -948,6 +950,7 @@ export class DataCollectionComponent implements OnInit {
 
   deleteCertification(item) {
     this.certifications.forEach((value, index) => {
+      console.log('deleteCertification：',this.certifications,value);
       value.certificationType.toString() == item.certificationType.toString() ? this.certifications.splice(index, 1) : '';
     });
   }
@@ -1099,11 +1102,11 @@ export class DataCollectionComponent implements OnInit {
     type == '2' ? this.newItem = new Certification() : '';
     this.defaultCertification = type == '1' ? item : this.newItem;
 
-    this.selectedCertificationType = item.certificationType ? item.certificationType : '';
-    this.writeCertificationType = '';           //证件类型
+    this.tempCertificationType = item.certificationType ? item.certificationType : '';
+    this.definedCertificationType = item.name ? item.name : '';           //证件类型
     this.headImageA = [];
     this.backImageA = [];
-    this.otherImages=[];
+    this.otherImages = [];
 
 
     this.defaultCertification.headImage  ? this.headImageA.push({url: this.defaultCertification.headImage}) : '' ; //正面图片
@@ -1346,7 +1349,6 @@ export class DataCollectionComponent implements OnInit {
 
   //确定按钮用于传参
   sureBtnFunction(modalName) {
-    /*    var modalName: string = Object.keys(content._def.references)[0];*/
     if (modalName == 'shopImageContent') {
       this.shopImages = [];
       this.tempshopImages.forEach((v, i) => {
@@ -1397,8 +1399,8 @@ export class DataCollectionComponent implements OnInit {
       });
     }
     if (modalName == 'certificationEdit') {
-      this.defaultCertification.certificationType = this.selectedCertificationType;         //证件类型
-      this.defaultCertification.name = this.certificationsTypeList.find(item => item.value.toString() == this.selectedCertificationType.toString()).value_description;
+      this.defaultCertification.certificationType = this.tempCertificationType;         //证件类型
+      this.defaultCertification.name = this.definedCertificationType;
       this.defaultCertification.headImage = this.headImageA[0] ? this.headImageA[0].url : '';
       this.defaultCertification.backImage = this.backImageA[0] ? this.backImageA[0].url : '';
       this.defaultCertification.otherImages = [];
@@ -1467,7 +1469,7 @@ export class DataCollectionComponent implements OnInit {
     this.temptransferStaff = '';
     this.temptransferReason = '';
 
-    this.selectedCertificationType = '1';         //证件类型
+    this.tempCertificationType = '1';         //证件类型
     this.headImageA = [];
     this.backImageA = [];
     this.otherImages = [];
@@ -1577,6 +1579,7 @@ export class DataCollectionComponent implements OnInit {
       gasFee: this.gasFee,                                   //燃气费
       elecFee: this.elecFee,                                 //电费
       rent: this.rent,                                         //租金
+      rentMeasureF : this.rentMeasureF,
       warmFee: this.warmFee,                                 //暖气费
       buildingShape: this.buildingShape,                     //建筑形状
       propertyRightType: this.propertyRightType,             //产权类型

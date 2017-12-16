@@ -308,7 +308,7 @@
         <li class="d-block" *ngFor="let item of certifications;let i=index;">
           <span class="text-muted" name="shopCet">{{item.name}}</span>
           <span class="edit-info text-blue m-left-10 m-ritght-10"
-          (click)="openShopCertificationModal(certificationEdit,item,'1')">编辑</span>
+                (click)="openShopCertificationModal(certificationEdit,item,'1')">编辑</span>
           <span class="edit-info text-blue m-left-5 m-ritght-5" (click)="deleteCertification(item)">删除</span>
         </li>
         <p class="add-certifications-btn  w-220-px" *ngIf="certifications.length < 5"
@@ -787,11 +787,13 @@
 
     <div class="d-block m-top-20">
       <label for="" class="text-right d-inline-block m-ritght-10"><span class="input-label-name">是否递增:</span></label>
-      <span *ngFor="let item of rateChoice" class="select-span d-inline-block"><input [checked]="item.name==temprateWay"
-                                                                                      name="isIncrease"
-                                                                                      (click)="selectThisRate(item)"
-                                                                                      class="week-checkbox" type="radio"
-                                                                                      data-code="item.code">{{item.name}}</span>
+      <span *ngFor="let item of rateChoice" class="select-span d-inline-block">
+        <input [checked]="item.name==temprateWay"
+               name="isIncrease"
+               (click)="selectThisRate(item)"
+               class="week-checkbox" type="radio"
+               data-code="item.code">{{item.name}}
+      </span>
       <input type="text" class="form-control d-inline-block w-160-px w-240-px" placeholder="请填写递增幅度，如每年5%"
              name="radioNumber"
              [(ngModel)]="tempdefinedRateWay">
@@ -1014,12 +1016,12 @@
     <div class="d-block m-top-20">
       <label for="" class="text-right d-inline-block m-ritght-10"><span class="input-label-name">证件类型:</span></label>
       <select class="form-control  d-inline-block w-160-px" name="certifications"
-              [(ngModel)]="selectedCertificationType">
+              [(ngModel)]="tempCertificationType">
         <option value="">请选择</option>
         <option value="{{item.value}}" *ngFor="let item of certificationsTypeList">{{item.value_description}}</option>
       </select>
-      <input class="form-control d-inline-block w-160-px" type="text" name="writeCertificationType"
-             [(ngModel)]="writeCertificationType"
+      <input class="form-control d-inline-block w-160-px" type="text" name="definedCertificationType"
+             [(ngModel)]="definedCertificationType"
              placeholder="请填写证件类型">
     </div>
 
