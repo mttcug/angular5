@@ -306,7 +306,7 @@
       <label for="" class="text-right d-inline-block m-ritght-10"><span class="input-label-name">店铺证件:</span></label>
       <ul class="shop-certifications align-top d-inline-block">
         <li class="d-block" *ngFor="let item of certifications;let i=index;">
-          <span class="text-muted" name="shopCet">{{item.certificationType | certification }}</span>
+          <span class="text-muted" name="shopCet">{{item.name}}</span>
           <span class="edit-info text-blue m-left-10 m-ritght-10"
                 (click)="openShopCertificationModal(certificationEdit,item,'1')">编辑</span>
           <span class="edit-info text-blue m-left-5 m-ritght-5" (click)="deleteCertification(item)">删除</span>

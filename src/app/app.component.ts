@@ -75,6 +75,15 @@ export class AppComponent {
       sessionStorage.setItem("transferStatus", JSON.stringify(res.result));
     },error=>{console.log("transferStatus error:",error)});
 
+    //获取证件列表
+    this.data.getCertificateType()
+      .map((res: Response) => res.json())
+      .subscribe(res => {
+        sessionStorage.setItem("cetification", JSON.stringify(res.result));
+      }, error => {
+        console.log("data-collect error:", error)
+      });
+
   }
 
 

@@ -49,7 +49,6 @@ import {NearStreetPipe} from './pipe/near-street/near-street.pipe';
 import {LocationTypePipe} from './pipe/location-type/location-type.pipe';
 import {SuperFacilityPipe} from './pipe/super-facility/super-facility.pipe';
 import { DistrictPipe } from './pipe/district/district.pipe';
-import { CertificationPipe } from './pipe/certification/certification.pipe';
 import {TransferStatusPipe} from './pipe/transfer-status/transfer-status.pipe';
 
 
@@ -74,7 +73,6 @@ import {TransferStatusPipe} from './pipe/transfer-status/transfer-status.pipe';
     SuperFacilityPipe,
     DistrictPipe,
     CollectCompleteComponent,
-    CertificationPipe,
     TransferStatusPipe,
     PeripheralAnalysisComponent,
     ErrorPageComponent

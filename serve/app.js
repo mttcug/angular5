@@ -27,7 +27,7 @@ app.use(function *(next){
 });
 
 /*app.use(require('koa-static')(__dirname + '/public'));*/
-/*app.use(require('koa-static')(__dirname, "/../client"));*/
+app.use(require('koa-static')(__dirname, "/../client"));
 
 // routes definition
 app.use(index.routes(), index.allowedMethods());

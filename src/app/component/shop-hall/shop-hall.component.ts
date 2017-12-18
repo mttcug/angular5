@@ -1,5 +1,6 @@
 import {Component, OnInit, Inject ,ViewChild} from '@angular/core';
 import { ModalDirective } from 'ngx-bootstrap/modal';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-shop-hall',
@@ -13,7 +14,7 @@ export class ShopHallComponent implements OnInit {
   allIndustry = [];
   allDistricts = [];
 
-  constructor( @Inject('data') private data, @Inject('ShopHallService') private ShopHallService, @Inject('CurrentCityService') private CurrentCityService) {
+  constructor( @Inject('data') private data, private router: Router, @Inject('ShopHallService') private ShopHallService, @Inject('CurrentCityService') private CurrentCityService) {
 
 
     //获取行业列表
@@ -207,6 +208,11 @@ export class ShopHallComponent implements OnInit {
       this.infoList = res ? res.result : [];
     });
   }
+
+  //跳转到详情页
+/*  goToDetailPage(shopId){
+    this.router.navigate(['dataCollection'], {queryParams: {id: shopId}});
+  }*/
 
   //打开地图弹出框
   mapModalShow() {

@@ -22,8 +22,6 @@ import {any} from "codelyzer/util/function";
 })
 export class DataCollectionComponent implements OnInit {
 
-  syncData = true;
-
   shop_id = '';
   allIndustry = [];
   allDistricts = [];
@@ -44,7 +42,7 @@ export class DataCollectionComponent implements OnInit {
   emptyTransferList = [];
   sexType = [];
   memberTypeList = [];
-  certificationsTypeList = [];
+  certificationsTypeList=[];
   positionDescriptionList = [];
   superFacilityList = [];
   positionList = [];
@@ -127,6 +125,7 @@ export class DataCollectionComponent implements OnInit {
       }, error => {
         console.log("data-collect error:", error)
       });
+    console.log("店铺证件");
 
     //租金单位
     this.data.getRentMeasure()
@@ -220,6 +219,8 @@ export class DataCollectionComponent implements OnInit {
   }
 
 
+
+
   // 品牌名称
   shopName: string = '';
   isBrandName: boolean = false;
@@ -287,8 +288,8 @@ export class DataCollectionComponent implements OnInit {
   transferReason: string = '';            //转让原因
 
 
-  certifications: Certification[] = [];
-  objCertification: Certification = new Certification();
+  certifications:Certification[] = [];
+  objCertification:Certification = new Certification();
 
   tempCertificationType = '4';
   definedCertificationType = '';           //证件类型
@@ -321,7 +322,7 @@ export class DataCollectionComponent implements OnInit {
   wx: string = '';                        //微信
   personInfoDetail: string = '';          //详细描述
 
-  partner: Partner[] = [];
+  partner:Partner[] = [];
 
   entryTimePlaceHolder: string = '入职时间';
   leaveTimePlaceHolder: string = '离职时间';
@@ -468,10 +469,11 @@ export class DataCollectionComponent implements OnInit {
     this.transferReason = result.transferReason;               //转让原因
     this.certifications = result.certifications ? result.certifications : [];                                               //店铺证件
 
-    result.shopBoss ? this.shopBoss = result.shopBoss : this.shopBoss = new ShopBoss();                                     //店铺老板
+    result.shopBoss ? this.shopBoss = result.shopBoss : this.shopBoss = new ShopBoss();
+    console.log("shopBoss:",this.shopBoss);//店铺老板
     result.partner ? this.partner = result.partner : this.partner.push(new Partner());                                       //合作伙伴
 
-    result.employee ? this.employee = result.employee : this.employee.push(new Employee());                                   //店铺员工
+    result.employee ? this.employee=result.employee : this.employee.push(new Employee());                                   //店铺员工
 
     this.city = result.city;
     this.city ? this.loadDistrict(this.city) : '';                                                                             //城市
@@ -780,7 +782,7 @@ export class DataCollectionComponent implements OnInit {
   //添加合伙人
   addPartner() {
     this.partner.push(new Partner());
-    console.log("partner:", this.partner);
+    console.log("partner:",this.partner);
   }
 
 
@@ -881,14 +883,14 @@ export class DataCollectionComponent implements OnInit {
     this.payWay = item.code == '0' ? this.definedPayWay : item.name;
   }
 
-  initPayWay() {
-    var item = this.payWayList.find(v => v.name == this.payWay);
-    if (item) {
-      this.definedWayShow = true;
-    } else {
-      this.definedWayShow = false;
-      this.definedPayWay = this.payWay;
-      this.payWay = '自定义';
+  initPayWay(){
+    var item=this.payWayList.find(v=>v.name==this.payWay);
+    if(item){
+      this.definedWayShow=true;
+    }else{
+      this.definedWayShow=false;
+      this.definedPayWay=this.payWay;
+      this.payWay='自定义';
     }
   }
 
@@ -948,7 +950,7 @@ export class DataCollectionComponent implements OnInit {
 
   deleteCertification(item) {
     this.certifications.forEach((value, index) => {
-      console.log('deleteCertification：', this.certifications, value);
+      console.log('deleteCertification：',this.certifications,value);
       value.certificationType.toString() == item.certificationType.toString() ? this.certifications.splice(index, 1) : '';
     });
   }
@@ -1005,8 +1007,8 @@ export class DataCollectionComponent implements OnInit {
   shopImageModalRef: BsModalRef;
 
   openEditShopImagesModal(content) {
-    this.tempshopImages = [];
-    this.tempenvironment = [];
+    this.tempshopImages=[];
+    this.tempenvironment=[];
     this.shopImages.forEach((v, i) => {
       this.tempshopImages.push(v);
     });
@@ -1088,12 +1090,14 @@ export class DataCollectionComponent implements OnInit {
   }
 
   //打开店铺证件弹出框
-  defaultCertification: Certification;
+  defaultCertification:Certification;
   certificationModalRef: BsModalRef;
-  newItem: Certification;
+  newItem:Certification;
   addOrEditType = '';
 
   openShopCertificationModal(content, item, type) {  //type1编辑2添加
+    console.log("item:",item);
+
     this.addOrEditType = type;
     type == '2' ? this.newItem = new Certification() : '';
     this.defaultCertification = type == '1' ? item : this.newItem;
@@ -1105,8 +1109,8 @@ export class DataCollectionComponent implements OnInit {
     this.otherImages = [];
 
 
-    this.defaultCertification.headImage ? this.headImageA.push({url: this.defaultCertification.headImage}) : ''; //正面图片
-    this.defaultCertification.backImage ? this.backImageA.push({url: this.defaultCertification.backImage}) : ''; //反面图片
+    this.defaultCertification.headImage  ? this.headImageA.push({url: this.defaultCertification.headImage}) : '' ; //正面图片
+    this.defaultCertification.backImage  ? this.backImageA.push({url: this.defaultCertification.backImage}) : '' ; //反面图片
     this.defaultCertification.otherImages.forEach((v, i) => {
       this.otherImages.push(v);
     });                                                                 //其他图片
@@ -1127,13 +1131,13 @@ export class DataCollectionComponent implements OnInit {
   openPersonalInfo(content, item) {
     this.defaultPerson = item;
     this.phoneList = [];
-    if (item.phoneList.length) {
+    if(item.phoneList.length){
       item.phoneList.forEach((v, i) => {                   //考虑深浅拷贝问题和对象复制问题和基础类型和引用类型
         let obj: PhoneNumber = new PhoneNumber();
         obj.number = v;
         this.phoneList.push(obj);
       });
-    } else {
+    }else{
       this.phoneList.push(new PhoneNumber());
     }
 
@@ -1477,7 +1481,7 @@ export class DataCollectionComponent implements OnInit {
     this.otherContent = '';
 
 
-    this.phoneList = [];
+    this.phoneList=[];
     this.phoneList.push(new PhoneNumber());
     this.name = '';           //证件类型
     this.realName = '';
@@ -1503,7 +1507,6 @@ export class DataCollectionComponent implements OnInit {
       unrecomC.push(v.code);
     });
     return {
-      syncData:this.syncData,
       shopName: this.shopName,                           //店名
       brandName: this.brandName,                         //品牌名称
       subShopName: this.subShopName,                      //分店名
@@ -1538,7 +1541,7 @@ export class DataCollectionComponent implements OnInit {
       takeOutAmount: this.takeOutAmount,                 //外卖量
       memberAmount: this.memberAmount,                   //会员数
       memberType: this.memberType,                       //会员类型
-      transferStatus: this.transferStatus.toString(),               //转让状态
+      transferStatus: this.transferStatus,               //转让状态
       transferFee: this.transferFee,                     //转让费
       emptyTransfer: this.emptyTransfer,                 //是否空转
       emptyTransferFee: this.emptyTransferFee,           //空转转让费
@@ -1576,7 +1579,7 @@ export class DataCollectionComponent implements OnInit {
       gasFee: this.gasFee,                                   //燃气费
       elecFee: this.elecFee,                                 //电费
       rent: this.rent,                                         //租金
-      rentMeasureF: this.rentMeasureF,
+      rentMeasureF : this.rentMeasureF,
       warmFee: this.warmFee,                                 //暖气费
       buildingShape: this.buildingShape,                     //建筑形状
       propertyRightType: this.propertyRightType,             //产权类型
