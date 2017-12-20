@@ -390,6 +390,7 @@ export class DataCollectionComponent implements OnInit {
 
     this.wholeWeek = ( result.operateDate && result.operateDate.length == 7 ) ? true : false;
     this.operateDate = result.operateDate ? result.operateDate : [];
+    console.log("this.operateDate:",this.wholeWeek,this.operateDate);
     this.initOperateTime();
 
     this.operateStartTime = result.operateStartTime;           //营业开始时间
@@ -758,12 +759,11 @@ export class DataCollectionComponent implements OnInit {
       });
       this.dayCheckValid = true;
     } else {
-      this.operateDate.map(v => v.checked = false);
+      this.vaildTime.map(v => v.checked = false);
       this.vaildTime.forEach((item, index) => {
         var aim = this.operateDate.find(v => v.name.toString() == item.name.toString());
-        aim ? aim.checked = true : '';
+        aim ? item.checked = true : '';
       });
-
       this.dayCheckValid = false;
     }
   }
@@ -815,10 +815,12 @@ export class DataCollectionComponent implements OnInit {
 
   initShopService() {
     this.serviceList.map(v => v.checked = false);
-    this.serviceProvided.forEach((item, index) => {
-      var aim = this.serviceList.find(v => v.code.toString() == item.code.toString());
-      aim ? aim.checked = true : '';
+    this.serviceList.forEach((item, index) => {
+      var aim = this.serviceProvided.find(v => v.code.toString() == item.code.toString());
+      aim ? item.checked = true : '';
+
     });
+
   }
 
   //选择提供的服务
@@ -1165,9 +1167,9 @@ export class DataCollectionComponent implements OnInit {
   //编辑时初始化facility
   initFacilitySelect() {
     this.facilitiesList.map(v => v.checked = false);
-    this.facilities.forEach((item, index) => {
-      var aim = this.facilitiesList.find(v => v.code.toString() == item.code.toString());
-      aim ? aim.checked = true : '';
+    this.facilitiesList.forEach((item, index) => {
+      var aim = this.facilities.find(v => v.code.toString() == item.code.toString());
+      aim ? item.checked = true : '';
     });
   }
 
