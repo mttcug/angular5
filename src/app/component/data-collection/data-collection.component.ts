@@ -22,7 +22,7 @@ import {any} from "codelyzer/util/function";
 })
 export class DataCollectionComponent implements OnInit {
 
-  syncData = true;
+ /* syncData = true;*/
 
   shop_id = '';
   allIndustry = [];
@@ -226,168 +226,128 @@ export class DataCollectionComponent implements OnInit {
   brandName: string = '';
   subShopName: string = '';
   operateType: string = '';
-
   // 经营行业
   bigIndustry: string = '';
   smallIndustry: string = '';
-
   industries;
-
-  startOpenDate: any = '';// 开业日期
-
+  startOpenDate: any = '';                          // 开业日期
   operateStatus = 1;
-  endOpenDate: any = ''; // 停业日期
-  shopImages = [];// 门面
+  endOpenDate: any = '';                            // 停业日期
+  shopImages = [];                                  // 门面
   multiShops: boolean = true;
-  environment = []; // 环境
+  environment = [];                                 // 环境
   multiEnvironment: boolean = true;
-  shopPhoneNumber: string = '';  // 前台电话
-  takeOutPhone: string = '';  // 外卖电话
-  wholeWeek: boolean = false;  // 营业时间
-
+  shopPhoneNumber: string = '';                    // 前台电话
+  takeOutPhone: string = '';                       // 外卖电话
+  wholeWeek: boolean = false;                      // 营业时间
   operateDate = [];
   allDay: boolean = false;
   operateStartTime: string = '';
   operateEndTime: string = '';
-  fitmentLevelStatus: string = '';  // 装修档次
-
-  serviceProvided = [];  // 提供服务
-
-  shopRent: string = '';  // 店铺租金
+  fitmentLevelStatus: string = '';                 // 装修档次
+  serviceProvided = [];                            // 提供服务
+  shopRent: string = '';                           // 店铺租金
   rentMeasure = 1;
   rentMeasureList;
-
   payWay: string = '自定义';
   definedPayWay: string = '';
-  rateWay: string = '';  // 递增或递减
+  rateWay: string = '';                            // 递增或递减
   definedRateWay: string = '';
-
-  depositWay: string = '';  // 押金
+  depositWay: string = '';                         // 押金
   definedDepositWay: string = '';
-
-  rentDate: any = '';           //租期
-  rentTime: string = '';           //租约
-  leftContractTime: string = '';  //剩余合同期
-  personProfit: string = '';  //客单价
-  dayProfit: string = '';       //日均营业额
-  consumePersonType: string = '';  //消费人群
-  consumeTime: string = '';    //消费时间
-  foodAmount: string = '';    //堂食量
-  takeOutAmount: string = '';  //外卖量
-  memberAmount: string = ''; //会员数
-  memberType: string = '';  //会员类型
-  transferStatus: string = '1'          //转让状态
-
-  transferFee: string = '';              //转让费
+  rentDate: any = '';                              //租期
+  rentTime: string = '';                           //租约
+  leftContractTime: string = '';                   //剩余合同期
+  personProfit: string = '';                       //客单价
+  dayProfit: string = '';                          //日均营业额
+  consumePersonType: string = '';                  //消费人群
+  consumeTime: string = '';                        //消费时间
+  foodAmount: string = '';                         //堂食量
+  takeOutAmount: string = '';                      //外卖量
+  memberAmount: string = '';                       //会员数
+  memberType: string = '';                         //会员类型
+  transferStatus: string = '1'                     //转让状态
+  transferFee: string = '';                        //转让费
   isNegotiable: boolean = false;
-  emptyTransfer: string = '';           //可否空转
-
-  emptyTransferFee: string = '';          //空转转让费
-  transferStaff: string = '';           //转让内容
-  transferReason: string = '';            //转让原因
-
-
+  emptyTransfer: string = '';                      //可否空转
+  emptyTransferFee: string = '';                   //空转转让费
+  transferStaff: string = '';                      //转让内容
+  transferReason: string = '';                     //转让原因
   certifications: Certification[] = [];
   objCertification: Certification = new Certification();
-
   tempCertificationType = '4';
-  definedCertificationType = '';           //证件类型
-  headIsMulti: boolean = false;            //是否多张
+  definedCertificationType = '';                   //证件类型
+  headIsMulti: boolean = false;                    //是否多张
   backIsMulti: boolean = false;
   otherIsMulti: boolean = true;
   headImage = '';
   backImage = '';
-  headImageA = [];            //正面图片
-  backImageA = [];            //反面图片
-  otherImages = [];            //其他图片
-
-  certificationNumber: string = '';     //证件名称
-  owner_name: string = '';               //主题名称
-  address: string = '';                 //地址
-  permissionScope: string = '';         //许可范围
-  otherContent: string = '';            //其他内容
-
+  headImageA = [];                                 //正面图片
+  backImageA = [];                                 //反面图片
+  otherImages = [];                                //其他图片
+  certificationNumber: string = '';                //证件名称
+  owner_name: string = '';                         //主题名称
+  address: string = '';                            //地址
+  permissionScope: string = '';                    //许可范围
+  otherContent: string = '';                       //其他内容
   shopBoss: ShopBoss = new ShopBoss();
   phoneList: PhoneNumber[] = [];
-  name: string = '';                       //名称
-  realName: string = '';                   //真实名字
-
-  sex: string = '';            //性别
-
+  name: string = '';                               //名称
+  realName: string = '';                           //真实名字
+  sex: string = '';                                //性别
   birthdayDate: any = '';
-  contactAddress: string = '';            //联系地址
-  email: string = '';                     //电子邮件
-  qq: string = '';                        //qq
-  wx: string = '';                        //微信
-  personInfoDetail: string = '';          //详细描述
-
+  contactAddress: string = '';                     //联系地址
+  email: string = '';                              //电子邮件
+  qq: string = '';                                  //qq
+  wx: string = '';                                 //微信
+  personInfoDetail: string = '';                   //详细描述
   partner: Partner[] = [];
-
   entryTimePlaceHolder: string = '入职时间';
   leaveTimePlaceHolder: string = '离职时间';
   isDission: boolean = false;
   employee: Employee[] = [];
-
-
-  city: string = '';           //城市
-  district: string = '';       //区域
+  city: string = '';                               //城市
+  district: string = '';                           //区域
   addressDetail: string = '';
   tempcity: string = '';
   tempdistrict: string = '';
   tempaddressDetail: string = '';
-
-  mapAddress: string = '';  //将城市区域拼接起来的地址将传递给地图进行地址解析
-
+  mapAddress: string = '';                         //将城市区域拼接起来的地址将传递给地图进行地址解析
   shopAddress: string = '';
-  longitude: string = '';                       //经度
-  latitude: string = '';                       //纬度
+  longitude: string = '';                          //经度
+  latitude: string = '';                           //纬度
   tempshopAddress: string = '';
-  templongitude: string = '';                       //经度
+  templongitude: string = '';                      //经度
   templatitude: string = '';                       //纬度
-
-
-  positionDescription: string = '';       //位置描述
-
-  isNearStreet: string = '';                //是否临街
-
-  superFacility: string = '';                //上级物业
-  shopCityName: string = '';                 //商城名称
-
-  buildingArea = '';                //建筑面积
-  roomArea = '';                     //开间
-  doorWidth = '';                    //门宽
-  floor = '';                         //所处楼层
-  validArea = '';                    //使用面积
-  depth = '';                        //进深
-  floorHeight = '';                   //层高
-  floorAmound = '';                  //总层数
-
-  fitIndustry = [];                   //适合经营
-  recommendableIndustry = [];             //推荐经营
-  unRecommendableIndustry = [];               //不推荐经营
-
-
-  facilities = [];             //物业配套
+  positionDescription: string = '';                //位置描述
+  isNearStreet: string = '';                       //是否临街
+  superFacility: string = '';                      //上级物业
+  shopCityName: string = '';                       //商城名称
+  buildingArea = '';                               //建筑面积
+  roomArea = '';                                   //开间
+  doorWidth = '';                                  //门宽
+  floor = '';                                      //所处楼层
+  validArea = '';                                  //使用面积
+  depth = '';                                      //进深
+  floorHeight = '';                                //层高
+  floorAmound = '';                                //总层数
+  fitIndustry = [];                                //适合经营
+  recommendableIndustry = [];                      //推荐经营
+  unRecommendableIndustry = [];                    //不推荐经营
+  facilities = [];                                 //物业配套
   parking_num = '';
   outward_area = '';
-
-  waterFee = '';                //水费
-  facilityFee = '';             ////物业
-  gasFee = '';                   //燃气
-  elecFee = '';                  //电费
-  rent = '';                      //租金
+  waterFee = '';                                   //水费
+  facilityFee = '';                                ////物业
+  gasFee = '';                                     //燃气
+  elecFee = '';                                    //电费
+  rent = '';                                       //租金
   rentMeasureF = 1;
-  warmFee = '';                    //暖气
-
+  warmFee = '';                                    //暖气
   buildingShape = '';
-
-
   propertyRightType = '';
-
   destroyedRatio = '';
-
   destroyedRatioDetail = '';
-
   houseOwner: Person = {
     name: "",
     phoneList: [''],
@@ -460,7 +420,7 @@ export class DataCollectionComponent implements OnInit {
     this.takeOutAmount = result.takeOutAmount;                 //外卖量
     this.memberAmount = result.memberAmount;                   //会员数
     this.memberType = result.memberType;                       //会员类型
-    this.transferStatus = result.transferStatus;               //转让状态
+    this.transferStatus = result.transferStatus.toString();               //转让状态
     this.transferFee = result.transferFee;                     //转让费
     this.emptyTransfer = result.emptyTransfer;                 //是否空转
     this.emptyTransferFee = result.emptyTransferFee;           //空转转让费
@@ -783,7 +743,6 @@ export class DataCollectionComponent implements OnInit {
     console.log("partner:", this.partner);
   }
 
-
   //添加店铺证件
   addCertificationImages(imageUrl, newInamges) {
     imageUrl = newInamges[0].url;
@@ -977,7 +936,6 @@ export class DataCollectionComponent implements OnInit {
 
   getLeaveDate(date) {
   }
-
 
   //关闭弹出框时事件
   closeModal(modal) {
@@ -1503,7 +1461,6 @@ export class DataCollectionComponent implements OnInit {
       unrecomC.push(v.code);
     });
     return {
-      syncData:this.syncData,
       shopName: this.shopName,                           //店名
       brandName: this.brandName,                         //品牌名称
       subShopName: this.subShopName,                      //分店名
@@ -1538,7 +1495,7 @@ export class DataCollectionComponent implements OnInit {
       takeOutAmount: this.takeOutAmount,                 //外卖量
       memberAmount: this.memberAmount,                   //会员数
       memberType: this.memberType,                       //会员类型
-      transferStatus: this.transferStatus.toString(),               //转让状态
+      transferStatus: this.transferStatus,               //转让状态
       transferFee: this.transferFee,                     //转让费
       emptyTransfer: this.emptyTransfer,                 //是否空转
       emptyTransferFee: this.emptyTransferFee,           //空转转让费
