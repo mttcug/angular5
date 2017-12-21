@@ -772,7 +772,8 @@
     <div class="d-block m-top-20">
       <label for="" class="text-right d-inline-block m-ritght-10"><span class="input-label-name">支付方式:</span></label>
       <div class="pay-way-list align-top d-inline-block">
-        <span *ngFor="let item of payWayList" class="select-span d-inline-block"><input name="popUpPayWayChenk"
+        <span *ngFor="let item of payWayList" class="select-span d-inline-block">
+          <input name="popUpPayWayChenk"
                                                                                         [checked]="item.name==temppayWay"
                                                                                         (click)="selectThisPopUpPayWay(item)"
                                                                                         class="week-checkbox"
@@ -811,7 +812,9 @@
 
         <input class="form-control time-imput d-inline-block w-160-px" type="text" placeholder="请填写"
                name="definedDeposit"
-               [(ngModel)]="tempdefinedDepositWay" (ngModelChange)="definedDepositChange()">
+               [disabled]="definedDepositShow"
+               [(ngModel)]="tempdefinedDepositWay"
+               (ngModelChange)="definedDepositChange()">
       </div>
     </div>
 
@@ -1109,10 +1112,11 @@
       <label for="" class="text-right d-inline-block m-ritght-10"><i class="iconfont icon-mi text-danger"></i><span
         class="input-label-name">手机号码:</span></label>
       <div class="d-inline-block align-top">
-        <p *ngFor="let item of phoneList;let i = index ;">
+        <p *ngFor="let item of phoneList;let i = index ;" class="d-block phone-list-line">
           <input name="phoneNumber{{i+1}}" [(ngModel)]="item.number"
-                 class="form-control  d-block m-bottom-5"
+                 class="form-control  d-inline-block m-bottom-5"
                  type="text" placeholder="请填写">
+          <i *ngIf="phoneList.length > 1" class="iconfont icon-delete d-inline-block text-muted" (click)="deletePhone(i)"></i>
         </p>
 
       </div>

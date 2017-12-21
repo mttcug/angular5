@@ -255,6 +255,7 @@ export class DataCollectionComponent implements OnInit {
   definedRateWay: string = '';
   depositWay: string = '';                         // 押金
   definedDepositWay: string = '';
+  definedDepositShow:boolean = false;
   rentDate: any = '';                              //租期
   rentTime: string = '';                           //租约
   leftContractTime: string = '';                   //剩余合同期
@@ -390,7 +391,6 @@ export class DataCollectionComponent implements OnInit {
 
     this.wholeWeek = ( result.operateDate && result.operateDate.length == 7 ) ? true : false;
     this.operateDate = result.operateDate ? result.operateDate : [];
-    console.log("this.operateDate:",this.wholeWeek,this.operateDate);
     this.initOperateTime();
 
     this.operateStartTime = result.operateStartTime;           //营业开始时间
@@ -421,7 +421,7 @@ export class DataCollectionComponent implements OnInit {
     this.takeOutAmount = result.takeOutAmount;                 //外卖量
     this.memberAmount = result.memberAmount;                   //会员数
     this.memberType = result.memberType;                       //会员类型
-    this.transferStatus = result.transferStatus.toString();               //转让状态
+    this.transferStatus = result.transferStatus ? result.transferStatus.toString() : '1';               //转让状态
     this.transferFee = result.transferFee;                     //转让费
     this.emptyTransfer = result.emptyTransfer;                 //是否空转
     this.emptyTransferFee = result.emptyTransferFee;           //空转转让费
@@ -541,6 +541,7 @@ export class DataCollectionComponent implements OnInit {
     this.depositWay = '';  // 押金
     this.definedDepositWay = '';
 
+
     this.rentDate = '';           //租期
     this.rentTime = '';           //租约
     this.leftContractTime = '';  //剩余合同期
@@ -596,12 +597,13 @@ export class DataCollectionComponent implements OnInit {
     this.qq = '';                        //qq
     this.wx = '';                        //微信
     this.personInfoDetail = '';          //详细描述
-
+    this.partner=[];
     this.partner.push(new Partner());
 
     this.entryTimePlaceHolder = '入职时间';
     this.leaveTimePlaceHolder = '离职时间';
     this.isDission = false;
+    this.employee=[];
     this.employee.push(new Employee());
 
 
@@ -845,8 +847,12 @@ export class DataCollectionComponent implements OnInit {
   initPayWay() {
     var item = this.payWayList.find(v => v.name == this.payWay);
     if (item) {
-      this.definedWayShow = true;
-    } else {
+      if(item.name=='自定义'){
+        this.definedWayShow = false;
+      }else{
+        this.definedWayShow = true;
+      }
+    } else{
       this.definedWayShow = false;
       this.definedPayWay = this.payWay;
       this.payWay = '自定义';
@@ -881,6 +887,7 @@ export class DataCollectionComponent implements OnInit {
 
   selectThisDepositWay(item) {
     this.tempdepositWay = item.code == '0' ? this.tempdefinedDepositWay : item.name;
+    this.definedDepositShow = item.code == '0' ? false : true ;
   }
 
   definedDepositChange() {
@@ -990,6 +997,7 @@ export class DataCollectionComponent implements OnInit {
     this.tempdefinedRateWay = this.definedRateWay;
     this.tempdepositWay = this.depositWay;
     this.tempdefinedDepositWay = this.definedDepositWay;
+    this.definedDepositShow = this.tempdepositWay == '自定义' ? false : true;
     this.temprentDate = this.rentDate;
     this.temprentTime = this.rentTime;
     this.templeftContractTime = this.leftContractTime;
@@ -1109,6 +1117,10 @@ export class DataCollectionComponent implements OnInit {
 
     this.personModalRef = this.ngxModalService.show(content, this.config);
 
+  }
+
+  deletePhone(i){
+    this.phoneList.splice(i,1);
   }
 
 
@@ -1372,11 +1384,11 @@ export class DataCollectionComponent implements OnInit {
 
     }
     if (modalName == 'personInfo') {
-      var tempArr: any = [];
+      this.defaultPerson.phoneList.splice(0,this.defaultPerson.phoneList.length);
+
       this.phoneList.forEach((v: any, i) => {
-        tempArr.push(v.number);
+        this.defaultPerson.phoneList.push(v.number);
       });
-      this.defaultPerson.phoneList = tempArr;
       this.defaultPerson.name = this.name;           //证件类型
       this.defaultPerson.realName = this.realName;
       this.defaultPerson.sex = this.sex;

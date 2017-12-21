@@ -263,5 +263,8 @@ form h3,.modal-body > div{
 .personInfoDetail{
   vertical-align: top;
 }
+.phone-list-line{
+  white-space: nowrap;
+}
 
 
