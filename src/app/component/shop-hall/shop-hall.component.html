@@ -71,8 +71,8 @@
         <th class="p-2 p-lg-2">转让情况</th>
         <th class="p-2 p-lg-2">操作</th>
       </tr>
-      <tbody *ngIf="infoList.estate_list">
-      <tr *ngFor="let item of infoList.estate_list"
+      <tbody *ngIf="infoList['estate_list']">
+      <tr *ngFor="let item of infoList['estate_list']"
           class="d-flex flex-row justify-content-around border-radius-10 m-top-20">
         <td class="p-2 p-lg-2">
           <p>
@@ -173,13 +173,13 @@
           </p>
         </td>
       </tr>
-      <tr *ngIf="infoList.estate_list.length == 0">
+      <tr *ngIf="infoList['estate_list'].length == 0">
         <p class="no-data text-muted">未搜索到结果</p>
       </tr>
       </tbody>
     </table>
   </div>
-  <div class="page-container text-right" *ngIf="infoList.total_page > 1">
+  <div class="page-container text-right" *ngIf="infoList['total_page'] > 1">
     <!--ng-bootstrap分页的用法只需要引入ngbModel模块即可-->
     <!--  <ngb-pagination class="d-inline-block" (pageChange)="pageChange($event)" [collectionSize]="infoList.total_num"
                       [(page)]="pageNo" aria-label="Default pagination" [maxSize]="5"
@@ -188,7 +188,7 @@
     -->
     <!--ngx-bootstrap 需要单独引入分页模块-->
     <pagination [boundaryLinks]="true"
-                [totalItems]="infoList.total_num"
+                [totalItems]="infoList['total_num']"
                 [maxSize]="maxSizePerPage"
                 [rotate]="false"
                 [boundaryLinks]="true"

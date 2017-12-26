@@ -72,58 +72,58 @@ export class ShopHallComponent implements OnInit {
   }
 
 
-  infoList = [];                      //信息列表
+  infoList :any[] = [];                      //信息列表
 
-  bigIndustry = '';
-  smallIndustry = '';
-  bigIndustryList = [];
-  smallIndustryList = [];
+  bigIndustry :string = '';
+  smallIndustry :string= '';
+  bigIndustryList :any[]= [];
+  smallIndustryList :any[]= [];
 
-  currentIndustry = true;
-  fitIndustry = false;
-  unfitIndustry = false;
+  currentIndustry :boolean= true;
+  fitIndustry :boolean = false;
+  unfitIndustry :boolean= false;
 
-  shopName = '';
-  shopPhoneNumber = '';
+  shopName :string= '';
+  shopPhoneNumber :string= '';
 
-  city = '';
-  district = '';
-  cityCanSelect = false;
-  cityList = [];
-  districtList = [];
+  city :string= '';
+  district :string= '';
+  cityCanSelect :boolean= false;
+  cityList :any[]= [];
+  districtList :any[]= [];
 
-  latitude = '';
-  longitude = '';
+  latitude :string= '';
+  longitude :string= '';
 
-  positionDescription = '';
-  positionDescriptionList = [];
-  nearStreet = false;
+  positionDescription :string= '';
+  positionDescriptionList :any[]= [];
+  nearStreet :boolean= false;
 
-  minArea = '';
-  maxArea = '';
+  minArea :string= '';
+  maxArea :string= '';
 
-  mindoorWidth = '';
-  maxdoorWidth = '';
+  mindoorWidth :string= '';
+  maxdoorWidth :string= '';
 
-  mapAddress = this.CurrentCityService.getCurCity().name
-  zoomLevel = 14;
-  tempzoomLevel = 14;
-  zoomList = [
+  mapAddress :string= this.CurrentCityService.getCurCity().name;
+  zoomLevel :number= 14;
+  tempzoomLevel :number= 14;
+  zoomList :any[]= [
     {code: 15, name: '500米', value: 0.5},
     {code: 14, name: '1公里', value: 1},
     {code: 13, name: '2公里', value: 2},
     {code: 12, name: '5公里', value: 5}
   ];
 
-  pageNo = 1;
-  pageSize = 10;
-  maxSizePerPage=10;
+  pageNo :number= 1;
+  pageSize :number= 10;
+  maxSizePerPage :number=10;
 
   //临时变量
-  templng = '';
-  templat = '';
-  tempcityName = '';
-  tempdistrictName = '';
+  templng :string= '';
+  templat :string= '';
+  tempcityName :string= '';
+  tempdistrictName :string= '';
 
 
   //分页点击事件
