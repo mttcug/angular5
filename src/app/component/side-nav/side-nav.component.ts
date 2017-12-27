@@ -13,7 +13,7 @@ import 'rxjs/add/operator/toPromise';
 })
 export class SideNavComponent implements OnInit {
 
-  curPage = '';
+
 
   constructor(@Inject('config') private conf, private router: Router,@Inject('CurrentPageService') private CurrentPageService,  private activatedRoute :ActivatedRoute) {
 
@@ -35,7 +35,13 @@ export class SideNavComponent implements OnInit {
   ngOnInit() {}
 
 
-
+  curPage = '';
+  sidebarList=[
+    {name:'首页',routerLink:'',classCondition:this.curPage=='dataIndex' || this.curPage=='',queryParams:{}},
+    {name:'店铺大厅',routerLink:'',classCondition:this.curPage=='shopHall',queryParams:{}},
+    {name:'工作管理',routerLink:'',classCondition:this.curPage=='workManage',queryParams:{}},
+    {name:'我的发布',routerLink:'',classCondition:this.curPage=='dataCollection',queryParams:{id:''}}
+  ];
 
   //被点击的tab被标记（颜色标记）
   colorChange() {
