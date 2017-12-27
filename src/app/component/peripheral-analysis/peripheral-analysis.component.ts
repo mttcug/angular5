@@ -67,18 +67,22 @@ export class PeripheralAnalysisComponent implements OnInit {
       .map((res: Response) => res.json())
       .subscribe(res => {
 
-      this.customer = res.result;
+      this.customer = res.result ? res.result : {} ;
 
-      this.radarShow = this.customer['FrontFour'].length > 0 ? true : false;
+
       var dataName:Array<string> = [];
-
-
       var tempRadarDataContainer:Array<any> = [];
       var tempMathY:Array<any> = [];
       var tempMathX:Array<any> = [];
+      var zoomYMin = 0;
+      var zoomYMax = Math.max.apply(Math, tempMathY);
+      var zoomXMin:number = 0;
+      var zoomXMax:number = Math.max.apply(Math, tempMathX);
 
       //准备雷达图用的数据
-      this.customer['FrontFour'].forEach((v, i) => {
+        this.radarShow = (this.customer['FrontFour'] && this.customer['FrontFour'].length > 0) ? true : false;
+        var prepareData = this.customer['FrontFour'] ? this.customer['FrontFour'] : [];
+        prepareData.forEach((v, i) => {
         dataName.push(v.name);
         var tempE = {
           coordinateSystem: 'polar',
@@ -93,12 +97,6 @@ export class PeripheralAnalysisComponent implements OnInit {
         tempMathX.push(v.distance);
         tempMathY.push(Math.round(Math.abs(v.longitude - this.shopInfo['lng']) * 111319.55));
       });
-
-      var zoomYMin = 0;
-      var zoomYMax = Math.max.apply(Math, tempMathY);
-      var zoomXMin:number = 0;
-      var zoomXMax:number = Math.max.apply(Math, tempMathX);
-
       this.radarOption = {
         title: {
           text: '',
@@ -139,7 +137,7 @@ export class PeripheralAnalysisComponent implements OnInit {
     this.PeripheralDataService.getPeripheralPerson(params)
       .map((res: Response) => res.json())
       .subscribe(res => {
-      this.population = res.result;
+      this.population = res.result ? res.result : {};
       this.populationOption = {
         title: {
           text: '',
@@ -183,9 +181,9 @@ export class PeripheralAnalysisComponent implements OnInit {
     this.PeripheralDataService.getPeripheralIndustry(params)
       .map((res: Response) => res.json())
       .subscribe(res => {
-      this.industryInfo = res.result;
-      this.cooperativeShow = this.industryInfo['cooperative_shops'].length > 0 ? true : false;
-      this.competitiveShow = this.industryInfo['competitive_shops'].length > 0 ? true : false;
+      this.industryInfo = res.result ? res.result : {};
+      this.cooperativeShow = this.industryInfo['cooperative_shops'] && this.industryInfo['cooperative_shops'].length > 0 ? true : false;
+      this.competitiveShow = this.industryInfo['competitive_shops'] && this.industryInfo['competitive_shops'].length > 0 ? true : false;
 
       for (let v in this.industryInfo['shop_num_per_industry']) {
         this.industryNameArr.push(v);
