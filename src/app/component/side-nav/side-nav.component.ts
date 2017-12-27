@@ -48,7 +48,7 @@ export class SideNavComponent implements OnInit {
     this.curPage = this.CurrentPageService.getCurPage();
     var aim=this.sidebarList.find(item => item.routerLink==this.curPage);
     this.sidebarList.map(item=>{item.classCondition=false});
-    aim['classCondition']=true;
+    aim ? aim['classCondition']=true : '';
   }
 
   //qq联系跳转页面

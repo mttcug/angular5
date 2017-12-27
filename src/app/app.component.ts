@@ -14,8 +14,10 @@ export class AppComponent {
 
   allIndustry = [];
   allDistrict = [];
+  fromPC=false;
 
-  constructor(private modalService: NgbModal, @Inject('data') private data) {
+
+  constructor(private modalService: NgbModal, @Inject('data') private data,private route: ActivatedRoute,private router: Router) {
     //行业和区域缓存起来以备不时之需
     //获取行业列表
     this.data.getIndustryData()
@@ -84,6 +86,9 @@ export class AppComponent {
         console.log("data-collect error:", error)
       });
 
+
+    this.getUrlParams();
+
   }
 
 
@@ -96,5 +101,17 @@ export class AppComponent {
     return this.getWindowHeight() - 100;
   }
 
+  getUrlParams(){
+    var search=decodeURIComponent(window.location.search);
+    var paramsList=search.substr(1).split("&");
+    var paramsObj={};
+      paramsList.forEach((v,i)=>{
+          paramsObj[v.split('=')[0]] = v.split('=')[1];
+      })
+    //判断是否是从PC端过来过来则头部和侧边栏不显示
+    this.fromPC = paramsObj['origin']=='PC' ?  true : false ;
 
+    //判断是否登录，未登录则引导进入不可访问页面
+    paramsObj['sessionId'] ? '' : this.router.navigate(['**']);
+  }
 }

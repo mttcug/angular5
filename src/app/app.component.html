@@ -1,8 +1,8 @@
 
-<app-header></app-header>
+<app-header *ngIf="!fromPC"></app-header>
 <div class="content d-flex flex-row" [ngStyle]="{'height':getSideNavHeight()+'px'}"> <!--[ngStyle]="{'height':getSideNavHeight()+'px'}"-->
-  <app-side-nav></app-side-nav>
-  <div class="page-container">
+  <app-side-nav  *ngIf="!fromPC"></app-side-nav>
+  <div class="page-container" [ngClass]="{'fullWidth':fromPC}">
     <router-outlet></router-outlet>
     <app-footer></app-footer>
   </div>

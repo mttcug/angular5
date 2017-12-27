@@ -215,7 +215,8 @@ export class DataCollectionComponent implements OnInit {
     //获取参数并判断时发布还是修改信息，修改则请求相应数据
     this.route.queryParams.subscribe((queryParams: Params) => {
       this.shop_id = queryParams.id;
-      this.shop_id != '' ? this.getShopInfo(this.shop_id) : this.initData();
+      var origin=queryParams.origin ? queryParams.origin : '';
+      origin ? this.initData() : this.shop_id != '' ? this.getShopInfo(this.shop_id) : this.initData();
     });
   }
 
