@@ -11,33 +11,33 @@ import { ErrorPageComponent } from './component/error-page/error-page.component'
 export const routes: Routes = [
   {
     path: '',
-    redirectTo: '/:sessionId/:origin/dataIndex',
+    redirectTo: 'dataIndex',
     pathMatch: 'full'
   },
   {
-    path: '/:sessionId/:origin/dataIndex',
+    path: 'dataIndex',
     component: DataIndexComponent
   },
   {
-    path: '/:sessionId/:origin/dataIndex/dataCollection',      //重首页跳转到发布页面的时候
-    redirectTo: '/:sessionId/:origin/dataCollection',
+    path: 'dataCollection',      //重首页跳转到发布页面的时候
+    redirectTo: 'dataCollection',
     pathMatch: 'full'
   },
   {
     path: 'shopHall/dataCollection',      //店铺大厅跳转到发布页面的时候
-    redirectTo: '/:sessionId/:origin/dataCollection',
+    redirectTo: 'dataCollection',
     pathMatch: 'full'
   },
   {
-    path: '/:sessionId/:origin/dataCollection',               //传参方法使用queryParams并不是添加在路径后面
+    path: 'dataCollection',               //传参方法使用queryParams并不是添加在路径后面
     component: DataCollectionComponent
   },
   {
-    path: '/:sessionId/:origin/shopHall',
+    path: 'shopHall',
     component: ShopHallComponent
   },
   {
-    path: '/:sessionId/:origin/workManage',
+    path: 'workManage',
     component: WorkManageComponent
   },
   {
@@ -45,7 +45,7 @@ export const routes: Routes = [
     component: PeripheralAnalysisComponent
   },
   {
-    path: '/:sessionId/:origin/glancePostedInfoItem',                                //发布完成页面
+    path: 'glancePostedInfoItem',                                //发布完成页面
     component: CollectCompleteComponent
   },
   {

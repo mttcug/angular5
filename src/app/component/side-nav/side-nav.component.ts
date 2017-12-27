@@ -35,21 +35,24 @@ export class SideNavComponent implements OnInit {
   ngOnInit() {}
 
 
-  curPage = '';
-  sidebarList=[
-    {name:'首页',routerLink:'',classCondition:this.curPage=='dataIndex' || this.curPage=='',queryParams:{}},
-    {name:'店铺大厅',routerLink:'',classCondition:this.curPage=='shopHall',queryParams:{}},
-    {name:'工作管理',routerLink:'',classCondition:this.curPage=='workManage',queryParams:{}},
-    {name:'我的发布',routerLink:'',classCondition:this.curPage=='dataCollection',queryParams:{id:''}}
+  curPage :string= '';
+  sidebarList :any[]=[
+    {name:'首页',routerLink:'dataIndex',classCondition:true,queryParams:{}},
+    {name:'店铺大厅',routerLink:'shopHall',classCondition:false,queryParams:{}},
+    {name:'工作管理',routerLink:'workManage',classCondition:false,queryParams:{}},
+    {name:'我的发布',routerLink:'dataCollection',classCondition:false,queryParams:{id:''}}
   ];
 
   //被点击的tab被标记（颜色标记）
-  colorChange() {
+  colorChange():void {
     this.curPage = this.CurrentPageService.getCurPage();
+    var aim=this.sidebarList.find(item => item.routerLink==this.curPage);
+    this.sidebarList.map(item=>{item.classCondition=false});
+    aim['classCondition']=true;
   }
 
   //qq联系跳转页面
-  qqContact(){
+  qqContact():void{
     window.open('tencent://message/?uin=252218982&Site=pupuwang.com&Menu=yes', '_blank', 'height=502, width=644,toolbar=no,scrollbars=no,menubar=no,status=no');
   }
 
