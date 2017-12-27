@@ -112,6 +112,6 @@ export class AppComponent {
     this.fromPC = paramsObj['origin']=='PC' ?  true : false ;
 
     //判断是否登录，未登录则引导进入不可访问页面
-    paramsObj['sessionId'] ? '' : this.router.navigate(['**']);
+    paramsObj['sessionId']!='' ? '' : this.router.navigate(['**']);
   }
 }
