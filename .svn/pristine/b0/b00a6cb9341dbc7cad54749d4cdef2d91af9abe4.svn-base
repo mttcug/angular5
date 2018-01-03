@@ -1,0 +1,229 @@
+<div class="page-container">
+  <div class="header-block">
+    <p class="d-inline-block page-title">周边分析</p>
+    <p *ngIf="shopInfo" class="d-inline-block m-left-10"><span class="title-info">{{shopInfo['industry']}}</span><span
+      class="title-info">经度：{{shopInfo['lng']}}</span><span
+      class="title-info">纬度：{{shopInfo['lat']}}</span></p>
+    <p class="d-inline-block m-left-10"><i class="iconfont icon-shuaxin" (click)="getInfo(oppo_Id)"></i>刷新</p>
+  </div>
+  <div>
+    <div class="d-block m-top-20">
+      <p class="title-line"><i class="icon iconfont icon-gongjiaoche"></i>交通区位</p>
+      <div class="info-block" *ngIf="trafficInfo['metro']">
+        <label class="text-muted">500米内的地铁站</label>
+        <ol>
+          <li *ngIf="trafficInfo['metro']['metro_stations'].length > 0"><span
+            *ngFor="let item of trafficInfo['metro']['metro_stations'];let i=index;">{{item}}<span
+            *ngIf="i != trafficInfo['metro']['metro_stations'].length-1">、</span></span></li>
+          <li *ngIf="trafficInfo['metro']['metro_lines_pass_by'].length > 0"><span>途经线路（{{trafficInfo['metro']['metro_lines_pass_by'].length}}条）：</span>
+            <span *ngFor="let item of trafficInfo['metro']['metro_lines_pass_by'];let i=index;">{{item}} <span
+            *ngIf="i != trafficInfo['metro']['metro_lines_pass_by'].length-1">、</span></span></li>
+          <li *ngIf="trafficInfo['metro']['metro_stations'].length == 0"><span class="text-muted">暂无</span></li>
+        </ol>
+      </div>
+      <div class="info-block" *ngIf="trafficInfo['bus']">
+        <label class="text-muted">300米内的公交站</label>
+        <ol>
+          <li *ngIf="trafficInfo['bus']['bus_stations'].length > 0"><span
+            *ngFor="let item of trafficInfo['bus']['bus_stations'];let i=index;">{{item}}<span
+            *ngIf="i != trafficInfo['bus']['bus_stations'].length-1">、</span></span></li>
+          <li *ngIf="trafficInfo['bus']['bus_lines_pass_by'].length > 0"><span>途经线路（{{trafficInfo['bus']['bus_lines_pass_by'].length}}条）：</span><span
+            *ngFor="let item of trafficInfo['bus']['bus_lines_pass_by'];let i=index;">{{item}}<span
+            *ngIf="i != trafficInfo['bus']['bus_lines_pass_by'].length-1">、</span></span></li>
+          <li *ngIf="trafficInfo['bus']['bus_stations'].length == 0"><span class="text-muted">暂无</span></li>
+        </ol>
+      </div>
+    </div>
+    <div class="d-block m-top-20 position-relative" *ngIf="customer">
+      <p class="title-line"><i class="icon iconfont icon-renwu"></i>聚客来源 <span class="text-muted">(1公里范围)</span></p>
+      <div class="chart-container">
+
+        <div *ngIf="radarShow" echarts [options]="radarOption" class="radar-chart w-40 float-left"></div>
+
+        <div class="echart-info-block float-left radar-chart-connect-info-block">
+          <p class="float-left"><label for="">住宅小区：</label>
+            <span *ngIf="customer['housing']" class="p-0 m-0 cursor-hand" (click)="openDetailModal('住宅小区',customer['housing'])">
+              <span>{{customer['housing'].length}}个</span>
+              <span class="text-blue"> > </span>
+            </span>
+            <span *ngIf="!customer['housing']" class="p-0 m-0 cursor-hand">
+              <span>0个</span>
+            </span>
+          </p>
+          <p class=" float-left"><label for="">学校：</label>
+            <span *ngIf="customer['schools']" class="p-0 m-0 cursor-hand" (click)="openDetailModal('学校',customer['schools'])">
+              <span>{{customer['schools'].length}}个</span>
+              <span class=" text-blue"> > </span>
+            </span>
+            <span *ngIf="!customer.schools" class="p-0 m-0 cursor-hand">
+              <span>0个</span>
+            </span>
+          </p>
+          <p class=" float-left"><label for="">写字楼：</label>
+            <span *ngIf="customer['office_building']" class="p-0 m-0 cursor-hand" (click)="openDetailModal('写字楼',customer['office_building'])">
+               <span>{{customer['office_building'].length}}个</span>
+               <span class=" text-blue"> > </span>
+            </span>
+            <span *ngIf="!customer['office_building']" class="p-0 m-0 cursor-hand">
+               <span>0个</span>
+            </span>
+          </p>
+          <p class=" float-left"><label for="">医院：</label>
+            <span *ngIf="customer['hospitals']" class="p-0 m-0 cursor-hand" (click)="openDetailModal('医院',customer['hospitals'])">
+              <span>{{customer['hospitals'].length}}个</span>
+              <span class=" text-blue"> > </span>
+            </span>
+            <span *ngIf="!customer['hospitals']" class="p-0 m-0 cursor-hand">
+              <span>0个</span>
+            </span>
+          </p>
+          <p class=" float-left"><label for="">商场：</label>
+            <span *ngIf="customer['markets']" class="p-0 m-0 cursor-hand" (click)="openDetailModal('商场',customer['markets'])">
+               <span>{{customer['markets'].length}}个</span>
+               <span class=" text-blue"> > </span>
+            </span>
+            <span *ngIf="!customer.markets" class="p-0 m-0 cursor-hand">
+               <span>0个</span>
+            </span>
+
+          </p>
+          <p class=" float-left"><label for="">交通枢纽：</label>
+            <span *ngIf="customer['traffic_hinge']" class="p-0 m-0 cursor-hand" (click)="openDetailModal('交通枢纽',customer['traffic_hinge'])">
+               <span>{{customer['traffic_hinge'].length}}个</span>
+               <span class=" text-blue"> > </span>
+            </span>
+            <span *ngIf="!customer.traffic_hinge" class="p-0 m-0 cursor-hand">
+               <span>0个</span>
+            </span>
+
+          </p>
+
+          <!--      <p class="w-50 float-left"><label for="">商铺：</label>
+                  <span *ngIf="customer.shops" class="p-0 m-0 cursor-hand" (click)="openDetailModal('商铺',customer.shops)">
+                    <span>{{customer.shops.length}}个</span>
+                    <span class=" text-blue"> > </span>
+                  </span>
+                  <span *ngIf="!customer.shops" class="p-0 m-0 cursor-hand">
+                    <span>0个</span>
+                  </span>
+                </p>
+                <p class="w-50 float-left"><label for="">景区：</label>
+                  <span *ngIf="customer.scenic" class="p-0 m-0 cursor-hand" (click)="openDetailModal('景区',customer.scenic)">
+                    <span>{{customer.scenic.length}}个</span>
+                    <span class=" text-blue"> > </span>
+                  </span>
+                  <span *ngIf="!customer.scenic" class="p-0 m-0 cursor-hand">
+                    <span>0个</span>
+                  </span>
+                </p>
+                <p class="w-50 float-left"><label for="">游乐园：</label>
+                  <span *ngIf="customer.amusement_park" class="p-0 m-0 cursor-hand" (click)="openDetailModal('游乐园',customer.amusement_park)">
+                    <span>{{customer.amusement_park.length}}个</span>
+                    <span class="text-blue"> > </span>
+                  </span>
+                  <span *ngIf="!customer.amusement_park" class="p-0 m-0 cursor-hand">
+                    <span>0个</span>
+                    </span>
+                </p>
+                <p class="w-50 float-left"><label for="">公园：</label>
+                  <span *ngIf="customer.parks" class="p-0 m-0 cursor-hand" (click)="openDetailModal('公园',customer.parks)">
+                    <span>{{customer.parks.length}}个</span>
+                    <span class=" text-blue"> > </span>
+                  </span>
+                  <span *ngIf="!customer.parks" class="p-0 m-0 cursor-hand">
+                    <span>0个</span>
+                  </span>
+                </p>
+                <p class="w-50 float-left"><label for="">美食城：</label>
+                  <span *ngIf="customer.food_plaza" class="p-0 m-0 cursor-hand" (click)="openDetailModal('美食城',customer.food_plaza)">
+                    <span>{{customer.food_plaza.length}}个</span>
+                    <span class=" text-blue"> > </span>
+                  </span>
+                  <span *ngIf="!customer.food_plaza" class="p-0 m-0 cursor-hand">
+                    <span>0个</span>
+                  </span>
+                </p>
+                <p class="w-50 float-left"><label for="">交通枢纽：</label>
+                  <span *ngIf="customer.traffic_hinge" class="p-0 m-0 cursor-hand" (click)="openDetailModal('交通枢纽',customer.traffic_hinge)">
+                    <span>{{customer.traffic_hinge.length}}个</span>
+                    <span class=" text-blue"> > </span>
+                  </span>
+                  <span *ngIf="!customer.traffic_hinge" class="p-0 m-0 cursor-hand">
+                    <span>0个</span>
+                  </span>
+                </p>-->
+
+
+        </div>
+      </div>
+
+      <div class="detailModal position-absolute" [hidden]="detailModelHidden">
+        <p class="detail-modal-title"><span>{{tempDetailInfoContainer['title']}}</span> <span class="text-danger">{{tempDetailInfoContainer.length}}个</span>
+          <i class="iconfont icon-delete float-right text-muted" (click)="closeDetail()"></i></p>
+        <div>
+          <ul>
+            <li *ngFor="let item of tempDetailInfoContainer"><span class="modal-item-name">{{item.name}}</span> <span
+              class="float-right text-muted"><{{item.distance}}m</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="d-block m-top-20" *ngIf="population">
+      <p class="title-line"><i class="icon iconfont icon-tubiao"></i>周边人口<span class="text-muted">(1公里范围)</span></p>
+
+      <div class="chart-container">
+
+        <div echarts [options]="populationOption" class="peripheral-chart w-50 float-left"></div>
+
+        <div class="w-50 echart-info-block float-left peripheral-chart-connect-info-block">
+          <p><label for="">工作：</label><span *ngIf="population['office_building_population'] > 0">{{population['office_building_population']}}</span><span
+            *ngIf="population['office_building_population'] == 0" class="text-muted">暂无</span></p>
+          <p><label for="">居住：</label><span *ngIf="population['community_population'] > 0">{{population['community_population']}}</span><span
+            *ngIf="population['community_population'] == 0" class="text-muted">暂无</span></p>
+          <p><label for="">上学：</label><span
+            *ngIf="population['school_population'] > 0">{{population['school_population']}}</span><span
+            *ngIf="population['school_population'] == 0" class="text-muted">暂无</span></p>
+          <p><label for="">流动：</label><span
+            *ngIf="population['mobile_population'] > 0">{{population['mobile_population']}}</span><span
+            *ngIf="population['mobile_population'] == 0" class="text-muted">暂无</span></p>
+        </div>
+
+      </div>
+
+    </div>
+    <div class="d-block m-top-20" *ngIf="industryInfo">
+      <p class="title-line"><i class="icon iconfont icon-home-active"></i>周边业态<span class="text-muted">(1公里范围)</span>
+      </p>
+
+      <div class="chart-container">
+        <div *ngIf="industryCountArr.length > 0" echarts [options]="barChartOption"
+             class="industry-chart w-50 float-left">
+        </div>
+
+        <div class="w-25 echart-info-block float-left industry-chart-connect-info-block">
+          <p class="text-muted">协同行业</p>
+          <div *ngIf="cooperativeShow" class="industry-list-block">
+            <p *ngFor=" let item of industryInfo['cooperative_shops']" class="d-flex flex-row">
+              <span class="text-muted d-inline-block m-h-5 industry-item-style">{{item.name}} <span *ngIf="item.industry">({{item.industry}})</span> </span>
+              <span class="d-inline-block m-h-5 w-30">{{item.distance}}m</span>
+            </p>
+          </div>
+          <p *ngIf="!cooperativeShow"><span class="text-muted">暂无</span></p>
+        </div>
+        <div class="w-25 echart-info-block float-left industry-chart-connect-info-block">
+          <p class="text-muted">竞争业态</p>
+          <div *ngIf="competitiveShow" class="industry-list-block">
+            <p *ngFor=" let item of industryInfo['competitive_shops']"  class="d-flex flex-row">
+              <span class="text-muted d-inline-block m-h-5 industry-item-style">{{item.name}} <span *ngIf="item.industry">({{item.industry}})</span></span>
+              <span class="d-inline-block m-h-5 w-30">{{item.distance}}m</span>
+            </p>
+          </div>
+          <p *ngIf="!competitiveShow"><span class="text-muted">暂无</span></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+

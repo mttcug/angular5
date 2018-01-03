@@ -5,8 +5,8 @@ export class ConfigService {
 
   constructor() {}
 
-  testEnv='xwkj.local';                                                     //测试环境xwkj.local
-  env = this.testEnv || 'pupuwang.com';
+  testEnv='';                                                     //测试环境xwkj.local
+  env = this.testEnv || '';
 
   keyIndex = this.env=='pupuwang.com' ? 3 : 3;                              //用于获取路由关键字的索引（字符串以‘/’分割后的索引）判断是什么页面
 

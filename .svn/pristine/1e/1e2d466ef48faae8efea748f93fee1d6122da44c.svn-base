@@ -1,0 +1,10 @@
+<div>
+  <ul class="list-group">
+    <li class="list-group-item" *ngFor="let item of sidebarList" (click)="colorChange()" [ngClass]="{'greyBg': item.classCondition}">
+      <a [routerLink]="[item.routerLink]" [queryParams]='item.queryParams' routerLinkActive="active">{{item.name}}</a>
+    </li>
+  </ul>
+  <p class="qq-contact-container">
+    <img class="qq-contact" (click)="qqContact()" border="0" SRC='http://wpa.qq.com/pa?p=1:252218982:3' alt="技术支持">
+  </p>
+</div>

@@ -1,0 +1,244 @@
+<div class="hall-block">
+  <div class="search-block">
+    <div class="d-block search-line-block">
+      <label>行业</label>
+      <select name="" id="big-industry" class="form-control w-20 d-inline-block" [(ngModel)]="bigIndustry"
+              (change)="loadSmallIndustry(bigIndustry)">
+        <option value="">请选择</option>
+        <option value='{{item.code}}' *ngFor="let item of bigIndustryList">{{item.name}}</option>
+      </select>
+      <select name="" id="small-industry" class="form-control w-20 d-inline-block" [(ngModel)]="smallIndustry">
+        <option value="">请选择</option>
+        <option value='{{item.code}}' *ngFor="let item of smallIndustryList">{{item.name}}</option>
+      </select>
+      <p class="d-inline-block"><input type="checkbox" [(ngModel)]="currentIndustry">当前经营</p>
+      <p class="d-inline-block"><input type="checkbox" [(ngModel)]="fitIndustry">适合经营</p>
+      <p class="d-inline-block"><input type="checkbox" [(ngModel)]="unfitIndustry">不宜经营</p>
+    </div>
+    <div class="d-block search-line-block">
+      <label>关键字</label>
+      <input type="text" placeholder="店名/位置" class="form-control d-inline-block w-20" [(ngModel)]="shopName">
+      <input type="text" placeholder="手机号码" class="form-control d-inline-block w-20" [(ngModel)]="shopPhoneNumber">
+    </div>
+    <div class="d-block search-line-block">
+      <label>区域</label>
+      <select name="" id="bigIndustry" *ngIf="cityCanSelect" class="form-control  d-inline-block w-20 "
+              [(ngModel)]="city" [disabled]="!cityCanSelect"
+              (change)="loadDistrict(city)">
+        <option value="">请选择</option>
+        <option value="{{item.id}}" *ngFor="let item of cityList">{{item.name}}</option>
+      </select>
+      <select name="" id="smallIndustry" class="form-control w-20 d-inline-block" [(ngModel)]="district">
+        <option value="">请选择</option>
+        <option value="{{item.id}}" *ngFor="let item of districtList">{{item.name}}</option>
+      </select>
+      <p class="d-inline-block text-blue m-left-10 m-ritght-5 text-underline cursor-hand" (click)="mapModalShow()">
+        地图定位</p>
+      <p class="d-inline-block m-h-5 text-muted">{{latitude}}</p>
+      <p class="d-inline-block m-h-5 text-muted">{{longitude}}</p>
+      <i *ngIf="latitude!=''" class="iconfont icon-delete text-muted" (click)="deletePosition()"></i>
+    </div>
+    <div class="d-block search-line-block">
+      <label>位置描述</label>
+      <select name="" id="position-descript" class="form-control w-20 d-inline-block"
+              [(ngModel)]="positionDescription">
+        <option value="">请选择</option>
+        <option value={{item.value}} *ngFor="let item of positionDescriptionList">{{item.value_description}}</option>
+      </select>
+      <p class="d-inline-block m-left-10"><input type="checkbox" [(ngModel)]="nearStreet">临街</p>
+    </div>
+    <div class="d-block search-line-block">
+      <label>面积</label>
+      <input type="text" placeholder="最小" class="form-control w-20 d-inline-block" [(ngModel)]="minArea">-
+      <input type="text" placeholder="最大" class="form-control w-20 d-inline-block" [(ngModel)]="maxArea">平米
+    </div>
+    <div class="d-block search-line-block">
+      <label>门宽</label>
+      <input type="text" placeholder="最短" class="form-control w-20 d-inline-block" [(ngModel)]="mindoorWidth">-
+      <input type="text" placeholder="最长" class="form-control w-20 d-inline-block" [(ngModel)]="maxdoorWidth">米
+    </div>
+    <button class="btn btn-primary special-btn" (click)="search()">搜索</button>
+
+  </div>
+  <div class="block-divider greyBg"></div>
+  <div class="result-block">
+    <table>
+      <tr class="d-flex flex-row justify-content-around">
+        <th class="p-2 p-lg-2">建筑物业</th>
+        <th class="p-2 p-lg-2">面积</th>
+        <th class="p-2 p-lg-2">当前店铺</th>
+        <th class="p-2 p-lg-2">租金</th>
+        <th class="p-2 p-lg-2">转让情况</th>
+        <th class="p-2 p-lg-2">操作</th>
+      </tr>
+      <tbody *ngIf="infoList['estate_list']">
+      <tr *ngFor="let item of infoList['estate_list']"
+          class="d-flex flex-row justify-content-around border-radius-10 m-top-20">
+        <td class="p-2 p-lg-2">
+          <p>
+            <span>{{item.estate_building.district | district}}</span>
+            <span *ngIf="item.estate_building.estate_type" class="grey-block bg-grey text-white">{{item.estate_building.estate_type | superFacility}}</span>
+          </p>
+          <p *ngIf="item.estate_building.address">
+            <span>{{item.estate_building.address}}</span>
+          </p>
+          <p>
+            <span class="text-muted">{{item.estate_building.near_street | nearStreet}}</span>
+            <span class="text-muted">{{item.estate_building.location_type | locationType }}</span>
+          </p>
+        </td>
+        <td class="p-2 p-lg-2">
+          <p *ngIf="item.estate_area.area">
+            <span class="text-danger">{{item.estate_area.area}}㎡</span>
+          </p>
+          <p>
+            <span class="text-muted">门宽：
+              <span *ngIf="item.estate_area.door_width">{{item.estate_area.door_width}}m</span>
+              <span *ngIf="!item.estate_area.door_width">-</span>
+            </span>
+            <span class="text-muted">层高：
+              <span *ngIf="item.estate_area.floor_height">{{item.estate_area.floor_height}}m</span>
+              <span *ngIf="!item.estate_area.floor_height">-</span>
+            </span>
+          </p>
+          <p>
+            <span class="text-muted">开间：
+              <span *ngIf="item.estate_area.max_width">{{item.estate_area.max_width}}m</span>
+              <span *ngIf="!item.estate_area.max_width">-</span>
+            </span>
+            <span class="text-muted">进深：
+              <span *ngIf="item.estate_area.max_deep">{{item.estate_area.max_deep}}m</span>
+              <span *ngIf="!item.estate_area.max_deep">-</span>
+            </span>
+          </p>
+        </td>
+        <td class="p-2 p-lg-2">
+          <p *ngIf="item.estate_shop.shop_name"><span>{{item.estate_shop.shop_name}}</span></p>
+          <p>
+            <span class="text-muted" *ngIf="item.estate_shop.operate_industry">{{item.estate_shop.operate_industry | industry}}</span>
+            <span class="grey-block bg-grey text-white" *ngIf="item.estate_shop.is_famous">品牌</span>
+            <span class="text-muted" *ngIf="item.estate_shop.distance">{{item.estate_shop.distance}}m</span></p>
+          <p>
+            <span class="text-muted d-inline-block">老板：
+              <span class="d-inline-block">
+                <span *ngIf="item.estate_shop.owner_name">{{item.estate_shop.owner_name}}</span>
+                <span *ngIf="!item.estate_shop.owner_name">-</span>
+              </span>
+             </span>
+          </p>
+        </td>
+        <td class="p-2 p-lg-2">
+          <p *ngIf="item.estate_rent.rent">
+            <span class="text-danger">{{item.estate_rent.rent}}{{item.estate_rent.rent_unit | rentUnit}}</span>
+          </p>
+          <p>
+            <span class="text-muted">支付：
+              <span *ngIf="item.estate_rent.pay_way">{{item.estate_rent.pay_way}}</span>
+              <span *ngIf="!item.estate_rent.pay_way">-</span>
+            </span>
+          </p>
+          <p>
+            <span class="text-muted">租约：
+              <span *ngIf="item.estate_rent.rent_period">{{item.estate_rent.rent_period}}月</span>
+              <span *ngIf="!item.estate_rent.rent_period">-</span>
+              <span
+                *ngIf="item.estate_rent.leaved_contract_period">（剩{{item.estate_rent.leaved_contract_period}}月）</span>
+            </span>
+          </p>
+        </td>
+        <td class="p-2 p-lg-2">
+          <p *ngIf="item.estate_transfer.transfer_status == '2' && item.estate_transfer.transfer_fee">
+            <span>转让费：
+              <span class="text-danger">{{item.estate_transfer.transfer_fee}}万</span>
+            </span>
+          </p>
+          <p *ngIf="item.estate_transfer.transfer_status == '2' && item.estate_transfer.transfer_content">
+            <span class="text-muted">{{item.estate_transfer.transfer_content}}</span>
+          </p>
+          <p *ngIf="item.estate_transfer.transfer_status == '2'">
+            <span class="text-muted" *ngIf="item.estate_transfer.is_empty_transfer">可空转</span>
+            <span class="text-muted" *ngIf="!item.estate_transfer.is_empty_transfer">不可空转</span>
+          </p>
+        </td>
+        <td class="p-2 p-lg-2">
+          <p *ngIf="item.estate_id">
+            <button class="btn btn-primary">
+              <a [routerLink]="['/dataCollection']" [queryParams]="{id:item.estate_id}">编辑</a>
+            </button>
+          </p>
+          <p *ngIf="item.estate_id">
+            <button class="btn btn-primary">
+              <a [routerLink]="['peripheralAnalysis/'+item.estate_id]">周边分析</a>
+            </button>
+          </p>
+        </td>
+      </tr>
+      <tr *ngIf="infoList['estate_list'].length == 0">
+        <p class="no-data text-muted">未搜索到结果</p>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="page-container text-right" *ngIf="infoList['total_page'] > 1">
+    <!--ng-bootstrap分页的用法只需要引入ngbModel模块即可-->
+    <!--  <ngb-pagination class="d-inline-block" (pageChange)="pageChange($event)" [collectionSize]="infoList.total_num"
+                      [(page)]="pageNo" aria-label="Default pagination" [maxSize]="5"
+                      [boundaryLinks]="true">
+          </ngb-pagination>
+    -->
+    <!--ngx-bootstrap 需要单独引入分页模块-->
+    <pagination [boundaryLinks]="true"
+                [totalItems]="infoList['total_num']"
+                [maxSize]="maxSizePerPage"
+                [rotate]="false"
+                [boundaryLinks]="true"
+                (pageChanged)="pageChange($event)"
+                [(ngModel)]="pageNo"
+                class="pagination-sm"
+                previousText="上一页"
+                nextText="下一页"
+                firstText="第一页"
+                lastText="最后一页">
+
+    </pagination>
+  </div>
+</div>
+
+
+<div class="modal fade" bsModal #mapModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title pull-left">地图定位</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="mapModal.hide()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="map-modal-block">
+          <div class="choice-block d-block">
+            <span>筛选范围:</span>
+            <ul class="d-inline-block">
+              <li *ngFor="let item of zoomList;let i=index;">
+                <input name='mapZoomLevel' type="radio"
+                       [checked]="item.code==tempzoomLevel"
+                       (click)="zoomChange(item)">{{item.name}}
+
+              </li>
+            </ul>
+          </div>
+          <div class="map-container">
+            <app-baidu-map [address]="mapAddress" [zoom]="tempzoomLevel"
+                           (getLocation)="geoLocation($event)">
+            </app-baidu-map>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-dark" (click)="mapModalClose()">取消</button>
+        <button type="button" class="btn btn-outline-dark" (click)="mapModalSureBtn()">确定</button>
+      </div>
+    </div>
+  </div>
+</div>
